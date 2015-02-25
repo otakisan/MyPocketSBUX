@@ -68,32 +68,41 @@ def crawlstorebystoreurl(store_url)
   end
 end
 
-def crawlstorebyprefid(prefid)
+def crawlpressreleasebyfiscalyear(fiscalyear)
 
-  doc = Nokogiri::HTML(open("http://www.starbucks.co.jp/store/search/result.php?search_type=1&pref_code=#{prefid}"))
+  doc = Nokogiri::HTML(open("http://www.starbucks.co.jp/press_release/pr#{fiscalyear}.php"))
 
   p doc.title
-  result_stores = doc.xpath('//ul[contains(@class,"resultStores")]')
-  store_links = result_stores.xpath('li[contains(@class, "item")]/a[@href]')
-  p "links:" + store_links.length.to_s
+  release_list = doc.xpath('//article//ul[contains(@class,"linkList")]/li')
+  #store_links = result_stores.xpath('li[contains(@class, "item")]/a[@href]')
+  #p "links:" + store_links.length.to_s
 
-  store_links.each do |node|
-    store_url = node.attribute("href").value
-    p "url:" + store_url
+  release_list.each do |node|
+    release_url = node.xpath('a[@href!=""]')
+    if release_url.length > 0 then
+      p release_url[0].attribute("href").value
+    end
 
-    crawlstorebystoreurl(store_url)
+    #p "url:" + release_url
+    heading = node.xpath('.//p[@class="heading"]').inner_text
+    p heading
+    #crawlstorebystoreurl(store_url)
   end
 
 end
 
-def crawlstore
+def crawlpressrelease
 
-  for prefid in 19..19 do
-
-    crawlstorebyprefid(prefid)
+  #for fiscalyear in 2013..2014 do
+  for fiscalyear in 2014.step(2012, -1) do
+    crawlpressreleasebyfiscalyear(fiscalyear)
   end
+
 end
 
+crawlpressrelease
+
+=begin
 #crawlstore
 crawlstorebystoreurl("http://www.starbucks.co.jp/store/search/detail.php?id=888")
 
@@ -105,3 +114,5 @@ crawlstorebystoreurl("http://www.starbucks.co.jp/store/search/detail.php?id=705"
 # 臨時情報
 crawlstorebystoreurl("http://www.starbucks.co.jp/store/search/detail.php?id=249")
 crawlstorebystoreurl("http://www.starbucks.co.jp/store/search/detail.php?id=197")
+=end
+
