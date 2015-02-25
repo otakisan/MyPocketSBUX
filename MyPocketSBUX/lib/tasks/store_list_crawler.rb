@@ -68,6 +68,32 @@ def crawlstorebystoreurl(store_url)
   p store_address.inner_text.strip
   store_tel = store_info.xpath('.//td[.="電話番号"]/following-sibling::node()[@class="detail"]')
   p store_tel.inner_text.strip
+
+  # 臨時情報
+  extra_info = doc.xpath('//article[contains(@class, "store")]//div[contains(@class, "col1")][3]')
+  if extra_info.length > 0 then
+    p "臨時：" + extra_info.xpath('div/h3').inner_text
+
+    # セミナー等
+    linkboxes = extra_info.xpath('.//ul[contains(@class, "linkBoxContainer")]/li[contains(@class, "linkBox")]')
+    linkboxes.each do |linkbox|
+      linkheader = linkbox.xpath('.//p[contains(@class, "linkHeading")]')
+      if linkheader.length > 0 then
+        p "EventName:" + linkheader.inner_text
+        event_details = linkheader.xpath('./following-sibling::p')
+        event_details.each do |event_detail|
+          p event_detail.inner_text
+        end
+      end
+    end
+
+    # 休業等
+    hours_of_store = extra_info.xpath('.//ul[contains(@class, "hoursOfStore")]/li/span')
+    hours_of_store.each do |hours_detail|
+      p hours_detail.inner_text
+    end
+
+  end
 end
 
 def crawlstorebyprefid(prefid)
@@ -98,7 +124,12 @@ end
 
 #crawlstore
 crawlstorebystoreurl("http://www.starbucks.co.jp/store/search/detail.php?id=888")
+
+# 営業時間
 crawlstorebystoreurl("http://www.starbucks.co.jp/store/search/detail.php?id=420")
 crawlstorebystoreurl("http://www.starbucks.co.jp/store/search/detail.php?id=772")
 crawlstorebystoreurl("http://www.starbucks.co.jp/store/search/detail.php?id=705")
+
+# 臨時情報
 crawlstorebystoreurl("http://www.starbucks.co.jp/store/search/detail.php?id=249")
+crawlstorebystoreurl("http://www.starbucks.co.jp/store/search/detail.php?id=197")
