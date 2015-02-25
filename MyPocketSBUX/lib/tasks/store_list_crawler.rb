@@ -1,0 +1,104 @@
+require 'open-uri'
+require 'nokogiri'
+
+ROOT_URL = "http://www.starbucks.co.jp"
+
+def traceoutproduct(node)
+
+  # tilte
+  p node.css('h3').inner_text
+
+  # 記事のサムネイル画像
+  #p node.css('img').attribute('src').value
+
+  # 記事のサムネイル画像
+  p node.css('a').attribute('href').value
+end
+
+def product(node)
+  
+  product_url = node.css('a').attribute('href').value
+  product_doc = Nokogiri::HTML(open(ROOT_URL + product_url))
+  #p product_doc.title 
+
+  product_detail = product_doc.xpath('//article[contains(@class, "productDetail")]')
+  product_name = product_detail.css('h2').inner_text
+  product_price = product_detail.xpath('//p[@class="productInfoDetail"]//span[@class="price"]').inner_text
+  p product_name
+  p product_price
+
+  product_special = product_detail.xpath('//div[@class="productInfo"]//p[@class="specialItem"]/span').inner_text
+  p product_special
+end
+
+def crawlstorebystoreurl(store_url)
+  doc = Nokogiri::HTML(open(store_url))
+  store_name = doc.xpath('//article[contains(@class,"store")]/header/h2').inner_text
+  p "StoreName:" + store_name
+
+  store_info = doc.xpath('//table[contains(@class, "storeInfo")]')
+
+  store_time = store_info.xpath('.//td[.="営業時間"]/following-sibling::node()[@class="detail"]')
+  p store_time.inner_text.strip
+  store_time.inner_text.strip.each_line do |line|
+    timedetail = line.strip.scan(/(.*?)([\d:]+).+?([\d:]+)/)
+    #p timedetail.length
+    #p timedetail
+    timedetail.each do |detailarray|
+      if detailarray[0].empty? then
+        p "全日" + " Open:" + detailarray[1] + " Close:" + detailarray[2]
+      end
+      if detailarray[0].include?("月") then
+        p "平日" + " Open:" + detailarray[1] + " Close:" + detailarray[2]
+      end
+      if detailarray[0].include?("土") then
+        p "土" + " Open:" + detailarray[1] + " Close:" + detailarray[2]
+      end
+      if detailarray[0].include?("日") then
+        p "日" + " Open:" + detailarray[1] + " Close:" + detailarray[2]
+      end
+    end
+  end
+
+  store_holiday = store_info.xpath('.//td[.="定休日"]/following-sibling::node()[@class="detail"]')
+  p store_holiday.inner_text.strip
+  store_access = store_info.xpath('.//td[.="アクセス"]/following-sibling::node()[@class="detail"]')
+  p store_access.inner_text.strip
+  store_address = store_info.xpath('.//td[.="住所"]/following-sibling::node()[@class="detail"]')
+  p store_address.inner_text.strip
+  store_tel = store_info.xpath('.//td[.="電話番号"]/following-sibling::node()[@class="detail"]')
+  p store_tel.inner_text.strip
+end
+
+def crawlstorebyprefid(prefid)
+
+  doc = Nokogiri::HTML(open("http://www.starbucks.co.jp/store/search/result.php?search_type=1&pref_code=#{prefid}"))
+
+  p doc.title
+  result_stores = doc.xpath('//ul[contains(@class,"resultStores")]')
+  store_links = result_stores.xpath('li[contains(@class, "item")]/a[@href]')
+  p "links:" + store_links.length.to_s
+
+  store_links.each do |node|
+    store_url = node.attribute("href").value
+    p "url:" + store_url
+
+    crawlstorebystoreurl(store_url)
+  end
+
+end
+
+def crawlstore
+
+  for prefid in 19..19 do
+
+    crawlstorebyprefid(prefid)
+  end
+end
+
+#crawlstore
+crawlstorebystoreurl("http://www.starbucks.co.jp/store/search/detail.php?id=888")
+crawlstorebystoreurl("http://www.starbucks.co.jp/store/search/detail.php?id=420")
+crawlstorebystoreurl("http://www.starbucks.co.jp/store/search/detail.php?id=772")
+crawlstorebystoreurl("http://www.starbucks.co.jp/store/search/detail.php?id=705")
+crawlstorebystoreurl("http://www.starbucks.co.jp/store/search/detail.php?id=249")
