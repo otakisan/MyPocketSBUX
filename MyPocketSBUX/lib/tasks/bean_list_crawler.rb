@@ -21,11 +21,15 @@ def beandetail(url)
 
   product_special = bean_detail.xpath('//div[@class="productInfo"]//p[@class="specialItem"]/span').inner_text
 
+  # 通知
+  notification = bean_detail.css('div.productInfo > p.notification').inner_text
+
   if !bean_name.include?("セット") then
     p bean_name
     p bean_price
     p /\/(\d+)\//.match(url).to_a[1]
     p product_special
+    p notification
   end
 
 end
