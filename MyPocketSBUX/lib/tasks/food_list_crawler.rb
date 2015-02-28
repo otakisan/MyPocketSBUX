@@ -29,6 +29,16 @@ def product(node)
 
   product_special = product_detail.xpath('//div[@class="productInfo"]//p[@class="specialItem"]/span').inner_text
   p product_special
+
+  # JANコード
+  p jan_code = /\/(\d+)\//.match(product_url).to_a[1]
+
+  # 通知（存在するものとそうでないものとある）
+  notification =  product_detail.css('div.productInfo > p.notification').inner_text
+  if notification.empty? then
+    notification = product_detail.css('div.productInfo > p.fontS').inner_text
+  end
+  p notification
 end
 
 doc = Nokogiri::HTML(open("http://www.starbucks.co.jp/food/"))
@@ -39,7 +49,7 @@ doc.xpath('//article[contains(@class,"productList")]').each do |node|
   p "オススメ"
   node.xpath('//li[@class="col recommend"]').each do |recommended|
     #traceoutproduct(recommended)
-    #product(recommended)
+    product(recommended)
   end
 
   p "レギュラー"
