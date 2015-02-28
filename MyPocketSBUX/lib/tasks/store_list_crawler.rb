@@ -7,6 +7,9 @@ def crawlstorebystoreurl(store_url)
   doc = Nokogiri::HTML(open(store_url))
   store_name = doc.xpath('//article[contains(@class,"store")]/header/h2').inner_text
   p "StoreName:" + store_name
+  #p store_url
+  store_id = /id=(\d+)/.match(store_url).to_a[1]
+  p "Store ID:" + store_id.to_s
 
   store_info = doc.xpath('//table[contains(@class, "storeInfo")]')
 
