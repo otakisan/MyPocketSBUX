@@ -28,6 +28,12 @@ def product(node)
   product_name = product_detail.css('h2').inner_text
   p product_name
 
+  # JANコード
+  p jan_code = /\/(\d+)\//.match(product_url).to_a[1]
+
+  # 通知（存在するものとそうでないものとある）
+  p "notification:" + product_detail.css('div.productInfo > p.notification').inner_text
+
   # 詳細ノード（リザーブなら豆の種類だけノードが発生する）
   detail_names = []
   detail_prices = []
