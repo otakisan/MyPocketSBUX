@@ -83,6 +83,9 @@ def crawlpressreleasebyfiscalyear(fiscalyear)
       p release_url[0].attribute("href").value
     end
 
+    p fisandid = /\/pr(\d+)-(\d+)/.match(release_url.first.attribute("href").value).to_a
+    p "fis_y:" + fisandid[1]
+    p "pr_id:" + fisandid[2]
     #p "url:" + release_url
     heading = node.xpath('.//p[@class="heading"]').inner_text
     p heading
