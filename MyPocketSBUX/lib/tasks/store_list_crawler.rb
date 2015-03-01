@@ -1,5 +1,6 @@
 require 'open-uri'
 require 'nokogiri'
+require 'json'
 
 ROOT_URL = "http://www.starbucks.co.jp"
 
@@ -43,6 +44,15 @@ def crawlstorebystoreurl(store_url)
   p store_address.inner_text.strip
   store_tel = store_info.xpath('.//td[.="電話番号"]/following-sibling::node()[@class="detail"]')
   p store_tel.inner_text.strip
+  store_address_encode = URI.escape(store_address.inner_text.strip)
+  json_geo_results = open("http://maps.googleapis.com/maps/api/geocode/json?address=#{store_address_encode}") do |io|
+    JSON.load(io)
+  end
+
+  p "geo fetch:" + json_geo_results["status"]
+  store_location = json_geo_results["results"].first["geometry"]["location"]
+  p "lat:" + store_location["lat"].to_s
+  p "lng:" + store_location["lng"].to_s 
 
   # 臨時情報
   extra_info = doc.xpath('//article[contains(@class, "store")]//div[contains(@class, "col1")][3]')
