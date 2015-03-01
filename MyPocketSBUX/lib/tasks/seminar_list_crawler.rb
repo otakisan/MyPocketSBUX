@@ -19,11 +19,13 @@ def seminardetail(url)
     p "-------------------"
     # ID
     p store_id = /id=(\d+)/.match(store.css('div.storeInfo > p.storeName > a').first.attribute("href").value).to_a[1].to_i
+    p store_name = store.css('div.storeInfo > p.storeName > a').xpath('text()').to_s
     # 開催日時
     p seminar_datetime = store.css('div.seminarInfo > table.details tr:nth-child(1) > td.detail').inner_text
     #p seminar_datetime = store.css('div.seminarInfo > table > tbody > tr:nth-child(1) > td.detail').inner_text
     #p datearray = /(\d{2})\/(\d{2})\((.)\)\s*(\d{2}):(\d{2}).(\d{2}):(\d{2})/.match(seminar_datetime).to_a
-    p datearray = /(\d{2})\/(\d{2})\((.)\).*?(\d{1,2}):(\d{2})(?:.(\d{1,2}):(\d{2}))?/.match(seminar_datetime).to_a
+    #p datearray = /(\d{2})\/(\d{2})\((.)\).*?(\d{1,2}):(\d{2})(?:.(\d{1,2}):(\d{2}))?/.match(seminar_datetime).to_a
+    p datearray = /(\d{2})\/(\d{2})\((.)\)[[:blank:]]*?(\d{1,2}):(\d{2})(?:.(\d{1,2}):(\d{2}))?/.match(seminar_datetime).to_a
     p seminar_date = Time.new(Time.now.month > datearray[1].to_i ? Time.now.year + 1 : Time.now.year, datearray[1].to_i, datearray[2].to_i)
     p start_time = Time.new(seminar_date.year, seminar_date.month, seminar_date.day, datearray[4].to_i, datearray[5].to_i)
     p end_time = Time.new(seminar_date.year, seminar_date.month, seminar_date.day, datearray[6].to_i, datearray[7].to_i)
@@ -55,4 +57,10 @@ end
 #crawlseminar
 # http -> httpsを通すgemもあるけど、ひとまず直打
 seminardetail("https://www.starbucks.co.jp/seminar/beginner.html")
+seminardetail("https://www.starbucks.co.jp/seminar/chocolate.html")
+seminardetail("https://www.starbucks.co.jp/seminar/espresso.html")
+seminardetail("https://www.starbucks.co.jp/seminar/hand-drip.html")
+seminardetail("https://www.starbucks.co.jp/seminar/pairing.html")
+seminardetail("https://www.starbucks.co.jp/seminar/custom-blend.html")
+seminardetail("https://www.starbucks.co.jp/seminar/reserve.html")
 
