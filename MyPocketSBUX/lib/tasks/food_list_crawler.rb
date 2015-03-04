@@ -30,6 +30,9 @@ def product(node)
   product_special = product_detail.xpath('//div[@class="productInfo"]//p[@class="specialItem"]/span').inner_text
   p product_special
 
+  # カテゴリ
+  p category = /\/(\w+)(?:(?=\/\d+\/))/.match(product_url).to_a[1]
+
   # JANコード
   p jan_code = /\/(\d+)\//.match(product_url).to_a[1]
 

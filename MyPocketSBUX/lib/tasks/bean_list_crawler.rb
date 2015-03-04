@@ -27,6 +27,8 @@ def beandetail(url)
   if !bean_name.include?("セット") then
     p bean_name
     p bean_price
+    # カテゴリ
+    p category = /\/(\w+)(?:(?=\/\d+\/))/.match(url).to_a[1]
     p /\/(\d+)\//.match(url).to_a[1]
     p product_special
     p notification

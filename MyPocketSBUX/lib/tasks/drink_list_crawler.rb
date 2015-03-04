@@ -28,6 +28,9 @@ def product(node)
   product_name = product_detail.css('h2').inner_text
   p product_name
 
+  # カテゴリ
+  p category = /\/(\w+)(?:(?=\/\d+\/))/.match(product_url).to_a[1]
+
   # JANコード
   p jan_code = /\/(\d+)\//.match(product_url).to_a[1]
 
