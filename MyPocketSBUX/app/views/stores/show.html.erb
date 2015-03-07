@@ -1,0 +1,84 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Store:</strong>
+  <%= @store.store_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @store.name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @store.address %>
+</p>
+
+<p>
+  <strong>Phone number:</strong>
+  <%= @store.phone_number %>
+</p>
+
+<p>
+  <strong>Holiday:</strong>
+  <%= @store.holiday %>
+</p>
+
+<p>
+  <strong>Access:</strong>
+  <%= @store.access %>
+</p>
+
+<p>
+  <strong>Opening time weekday:</strong>
+  <%= @store.opening_time_weekday %>
+</p>
+
+<p>
+  <strong>Closing time weekday:</strong>
+  <%= @store.closing_time_weekday %>
+</p>
+
+<p>
+  <strong>Opening time saturday:</strong>
+  <%= @store.opening_time_saturday %>
+</p>
+
+<p>
+  <strong>Closing time saturday:</strong>
+  <%= @store.closing_time_saturday %>
+</p>
+
+<p>
+  <strong>Opening time holiday:</strong>
+  <%= @store.opening_time_holiday %>
+</p>
+
+<p>
+  <strong>Closing time holiday:</strong>
+  <%= @store.closing_time_holiday %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @store.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @store.longitude %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @store.notes %>
+</p>
+
+<p>
+  <strong>Pref:</strong>
+  <%= @store.pref_id %>
+</p>
+
+<%= link_to 'Edit', edit_store_path(@store) %> |
+<%= link_to 'Back', stores_path %>

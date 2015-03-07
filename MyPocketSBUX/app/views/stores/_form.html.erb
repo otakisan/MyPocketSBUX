@@ -1,0 +1,81 @@
+<%= form_for(@store) do |f| %>
+  <% if @store.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@store.errors.count, "error") %> prohibited this store from being saved:</h2>
+
+      <ul>
+      <% @store.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :store_id %><br>
+    <%= f.number_field :store_id %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :address %><br>
+    <%= f.text_field :address %>
+  </div>
+  <div class="field">
+    <%= f.label :phone_number %><br>
+    <%= f.text_field :phone_number %>
+  </div>
+  <div class="field">
+    <%= f.label :holiday %><br>
+    <%= f.text_field :holiday %>
+  </div>
+  <div class="field">
+    <%= f.label :access %><br>
+    <%= f.text_field :access %>
+  </div>
+  <div class="field">
+    <%= f.label :opening_time_weekday %><br>
+    <%= f.time_select :opening_time_weekday %>
+  </div>
+  <div class="field">
+    <%= f.label :closing_time_weekday %><br>
+    <%= f.time_select :closing_time_weekday %>
+  </div>
+  <div class="field">
+    <%= f.label :opening_time_saturday %><br>
+    <%= f.time_select :opening_time_saturday %>
+  </div>
+  <div class="field">
+    <%= f.label :closing_time_saturday %><br>
+    <%= f.time_select :closing_time_saturday %>
+  </div>
+  <div class="field">
+    <%= f.label :opening_time_holiday %><br>
+    <%= f.time_select :opening_time_holiday %>
+  </div>
+  <div class="field">
+    <%= f.label :closing_time_holiday %><br>
+    <%= f.time_select :closing_time_holiday %>
+  </div>
+  <div class="field">
+    <%= f.label :latitude %><br>
+    <%= f.text_field :latitude %>
+  </div>
+  <div class="field">
+    <%= f.label :longitude %><br>
+    <%= f.text_field :longitude %>
+  </div>
+  <div class="field">
+    <%= f.label :notes %><br>
+    <%= f.text_field :notes %>
+  </div>
+  <div class="field">
+    <%= f.label :pref_id %><br>
+    <%= f.number_field :pref_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

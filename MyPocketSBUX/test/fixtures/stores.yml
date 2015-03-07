@@ -1,0 +1,37 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  store_id: 1
+  name: MyString
+  address: MyString
+  phone_number: MyString
+  holiday: MyString
+  access: MyString
+  opening_time_weekday: 2015-03-01 18:07:37
+  closing_time_weekday: 2015-03-01 18:07:37
+  opening_time_saturday: 2015-03-01 18:07:37
+  closing_time_saturday: 2015-03-01 18:07:37
+  opening_time_holiday: 2015-03-01 18:07:37
+  closing_time_holiday: 2015-03-01 18:07:37
+  latitude: 1.5
+  longitude: 1.5
+  notes: MyString
+  pref_id: 1
+
+two:
+  store_id: 1
+  name: MyString
+  address: MyString
+  phone_number: MyString
+  holiday: MyString
+  access: MyString
+  opening_time_weekday: 2015-03-01 18:07:37
+  closing_time_weekday: 2015-03-01 18:07:37
+  opening_time_saturday: 2015-03-01 18:07:37
+  closing_time_saturday: 2015-03-01 18:07:37
+  opening_time_holiday: 2015-03-01 18:07:37
+  closing_time_holiday: 2015-03-01 18:07:37
+  latitude: 1.5
+  longitude: 1.5
+  notes: MyString
+  pref_id: 1

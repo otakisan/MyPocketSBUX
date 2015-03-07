@@ -1,0 +1,55 @@
+<h1>Listing stores</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Store</th>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Phone number</th>
+      <th>Holiday</th>
+      <th>Access</th>
+      <th>Opening time weekday</th>
+      <th>Closing time weekday</th>
+      <th>Opening time saturday</th>
+      <th>Closing time saturday</th>
+      <th>Opening time holiday</th>
+      <th>Closing time holiday</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Notes</th>
+      <th>Pref</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stores.each do |store| %>
+      <tr>
+        <td><%= store.store_id %></td>
+        <td><%= store.name %></td>
+        <td><%= store.address %></td>
+        <td><%= store.phone_number %></td>
+        <td><%= store.holiday %></td>
+        <td><%= store.access %></td>
+        <td><%= store.opening_time_weekday %></td>
+        <td><%= store.closing_time_weekday %></td>
+        <td><%= store.opening_time_saturday %></td>
+        <td><%= store.closing_time_saturday %></td>
+        <td><%= store.opening_time_holiday %></td>
+        <td><%= store.closing_time_holiday %></td>
+        <td><%= store.latitude %></td>
+        <td><%= store.longitude %></td>
+        <td><%= store.notes %></td>
+        <td><%= store.pref_id %></td>
+        <td><%= link_to 'Show', store %></td>
+        <td><%= link_to 'Edit', edit_store_path(store) %></td>
+        <td><%= link_to 'Destroy', store, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Store', new_store_path %>
