@@ -32,6 +32,18 @@ def beandetail(url)
     p /\/(\d+)\//.match(url).to_a[1]
     p product_special
     p notification
+
+    # 詳細
+    #p bean_detail.css('table.specification.coffeeDetail tr td.item').xpath('.[text()="生産地"]').inner_text
+    p bean_detail.xpath('//table[@class="specification coffeeDetail"]//tr/td[@class="item" and text()="生産地"]/following-sibling::node()[@class="detail"]').inner_text
+    p bean_detail.xpath('//table[@class="specification coffeeDetail"]//tr/td[@class="item" and text()="加工方法"]/following-sibling::node()[@class="detail"]').inner_text
+    p bean_detail.xpath('//table[@class="specification coffeeDetail"]//tr/td[@class="item" and text()="キーワード"]/following-sibling::node()[@class="detail"]').inner_text.gsub("\r\n", "\t")
+    bodyandacidity =  bean_detail.xpath('//table[@class="specification coffeeDetail"]//tr/td[@class="item" and text()="風味"]/following-sibling::node()[@class="detail"]').inner_text.gsub("\r\n", "\t").split("\t")
+    acidity = bodyandacidity[0].split("：")
+    p acidity[0] + ":" + acidity[1]  
+    body = bodyandacidity[1].split("：")
+    p body[0] + ":" + body[1]  
+    p bean_detail.xpath('//table[@class="specification coffeeDetail"]//tr/td[@class="item" and text()="相性のよいフレーバー"]/following-sibling::node()[@class="detail"]').inner_text.gsub("\r\n", "\t")
   end
 
 end
