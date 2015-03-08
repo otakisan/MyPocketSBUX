@@ -86,24 +86,40 @@ class Tasks::StoreCrawlerTask
     p "住所:" + store_address
     store_tel = store_info.xpath('.//td[.="電話番号"]/following-sibling::node()[@class="detail"]').inner_text.strip
     p "Tel:" + store_tel
-    store_address_encode = URI.escape(store_address)
-    json_geo_results = open("http://maps.googleapis.com/maps/api/geocode/json?address=#{store_address_encode}") do |io|
-      JSON.load(io)
-    end
+    store_remarks = store_info.xpath('.//td[.="備考"]/following-sibling::node()[@class="detail"]').inner_text.strip
+    p "備考:" + store_remarks
+
+    # 座標
+    addresspartsforgeo = store_address.split
+    json_geo_results = nil
+    while addresspartsforgeo.length > 0 && (json_geo_results.nil? || json_geo_results["results"].length == 0) do
+      addressforgeo = addresspartsforgeo.join
+      p store_address_encode = URI.escape(addressforgeo)
+      json_geo_results = open("http://maps.googleapis.com/maps/api/geocode/json?address=#{store_address_encode}") do |io|
+        JSON.load(io)
+      end
   
-    p "geo fetch:" + json_geo_results["status"]
-    store_location = json_geo_results["results"].first["geometry"]["location"]
-    lat = store_location["lat"]
-    lng = store_location["lng"]
+      p "geo fetch:" + json_geo_results["status"]
+      if json_geo_results["results"].length > 0 then
+        store_location = json_geo_results["results"].first["geometry"]["location"]
+        lat = store_location["lat"]
+        lng = store_location["lng"]
+      else
+        lat = lng = 0
+        # 末尾から要素を減らし、リトライする
+        p "座標取得対象末尾除去：" + addresspartsforgeo.pop
+      end
+    end
+
     p "lat:" + lat.to_s
     p "lng:" + lng.to_s 
-  
+ 
     # 臨時情報
     store_notes = ""
     extra_info = doc.xpath('//article[contains(@class, "store")]//div[contains(@class, "col1")][3]')
     if extra_info.length > 0 then
       p "臨時：" + extra_info.xpath('div/h3').inner_text
-      store_notes << extra_info.xpath('div/h3').inner_text
+      #store_notes << extra_info.xpath('div/h3').inner_text
   
       # セミナー等
       linkboxes = extra_info.xpath('.//ul[contains(@class, "linkBoxContainer")]/li[contains(@class, "linkBox")]')
@@ -120,22 +136,35 @@ class Tasks::StoreCrawlerTask
   
       # 休業等
       hours_of_store = extra_info.xpath('.//ul[contains(@class, "hoursOfStore")]/li/span')
+      if hours_of_store.length > 0 then
+        store_notes << extra_info.xpath('div/h3').inner_text
+      end
+
       hours_of_store.each do |hours_detail|
         p hours_detail.inner_text
         store_notes << "\r\n" + hours_detail.inner_text
       end
     end
   
+    # 備考（情報の存在する場合のみタグが存在する）
+    store_notes << (store_notes != "" && store_remarks != "" ? "\r\n" : "" ) + store_remarks
+
     p "臨時店舗情報:" + store_notes
  
     # Timeで登録すると勝手にUTCで入るのでそれを利用する
     # Time.zone.parseはruby2.2でのrailsの不具合なのか動作しないので 
-    p time_open_w = Time.parse(opening_time_weekday)
-    p time_close_w = Time.parse(closing_time_weekday)
-    p time_open_s = Time.parse(opening_time_saturday)
-    p time_close_s = Time.parse(closing_time_saturday)
-    p time_open_h = Time.parse(opening_time_holiday)
-    p time_close_h = Time.parse(closing_time_holiday)
+    #p time_open_w = Time.parse(opening_time_weekday)
+    #p time_close_w = Time.parse(closing_time_weekday)
+    #p time_open_s = Time.parse(opening_time_saturday)
+    #p time_close_s = Time.parse(closing_time_saturday)
+    #p time_open_h = Time.parse(opening_time_holiday)
+    #p time_close_h = Time.parse(closing_time_holiday)
+    p time_open_w = hhmmstrtotime0to23hourrange(opening_time_weekday)
+    p time_close_w = hhmmstrtotime0to23hourrange(closing_time_weekday)
+    p time_open_s = hhmmstrtotime0to23hourrange(opening_time_saturday)
+    p time_close_s = hhmmstrtotime0to23hourrange(closing_time_saturday)
+    p time_open_h = hhmmstrtotime0to23hourrange(opening_time_holiday)
+    p time_close_h = hhmmstrtotime0to23hourrange(closing_time_holiday)
     #time_test = Time.zone.parse('2007-02-10 15:30:45')
     #p "タイムゾーン:" + time_test.to_s
     #test_time = Time.parse(opening_time_weekday)
@@ -148,6 +177,16 @@ class Tasks::StoreCrawlerTask
     p reg_result
 
   end
+
+  def self.hhmmstrtotime0to23hourrange(timestring)
+    timeelements = timestring.split(":")
+    if timeelements.length >= 2 then
+      hour = (timeelements[0].to_i % 24).to_s
+      return Time.parse(hour + ":" + timeelements[1])
+    else
+      return Time.parse("00:00")
+    end
+  end
   
   def self.crawlstorebyprefid(prefid)
   
@@ -158,7 +197,11 @@ class Tasks::StoreCrawlerTask
     store_links = result_stores.xpath('li[contains(@class, "item")]/a[@href]')
     p "links:" + store_links.length.to_s
   
-    store_links.each do |node|
+    store_links.each_with_index do |node, i|
+      #if i < 0 then
+      #  next
+      #end
+
       sleep(4)
 
       store_url = node.attribute("href").value
@@ -171,7 +214,7 @@ class Tasks::StoreCrawlerTask
   
   def self.crawlstore
   
-    for prefid in 19..19 do
+    for prefid in 45..45 do
   
       crawlstorebyprefid(prefid)
     end
