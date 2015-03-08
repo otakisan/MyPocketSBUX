@@ -44,7 +44,12 @@ def linestocsv(lines)
 
   #p numerics
   #p strs
-  p csvlines
+  #p csvlines
+  # 個別の配列をつなぎあわせる
+  cal_array = []
+  csvlines.each {|line| cal_array.concat(line) }
+  p cal_array
+
 end
 
 nutrition = Poppler::Document.new(open("http://www.starbucks.co.jp/assets/images/web2/images/allergy/pdf/allergen-food.pdf").read)
