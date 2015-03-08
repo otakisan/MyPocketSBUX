@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @drink.name %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @drink.category %>
+</p>
+
+<p>
+  <strong>Jan code:</strong>
+  <%= @drink.jan_code %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @drink.price %>
+</p>
+
+<p>
+  <strong>Special:</strong>
+  <%= @drink.special %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @drink.notes %>
+</p>
+
+<p>
+  <strong>Notification:</strong>
+  <%= @drink.notification %>
+</p>
+
+<p>
+  <strong>Size:</strong>
+  <%= @drink.size %>
+</p>
+
+<p>
+  <strong>Milk:</strong>
+  <%= @drink.milk %>
+</p>
+
+<%= link_to 'Edit', edit_drink_path(@drink) %> |
+<%= link_to 'Back', drinks_path %>
