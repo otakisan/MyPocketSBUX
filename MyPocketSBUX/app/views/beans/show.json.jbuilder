@@ -1,0 +1,1 @@
+json.extract! @bean, :id, :name, :category, :jan_code, :price, :special, :notes, :notification, :growing_region, :processing_method, :flavor, :body, :acidity, :complementary_flavors, :created_at, :updated_at

@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  category: MyString
+  jan_code: MyString
+  price: 1
+  special: MyString
+  notes: MyString
+  notification: MyString
+  growing_region: MyString
+  processing_method: MyString
+  flavor: MyString
+  body: MyString
+  acidity: MyString
+  complementary_flavors: MyString
+
+two:
+  name: MyString
+  category: MyString
+  jan_code: MyString
+  price: 1
+  special: MyString
+  notes: MyString
+  notification: MyString
+  growing_region: MyString
+  processing_method: MyString
+  flavor: MyString
+  body: MyString
+  acidity: MyString
+  complementary_flavors: MyString

@@ -1,0 +1,69 @@
+<%= form_for(@bean) do |f| %>
+  <% if @bean.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bean.errors.count, "error") %> prohibited this bean from being saved:</h2>
+
+      <ul>
+      <% @bean.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :category %><br>
+    <%= f.text_field :category %>
+  </div>
+  <div class="field">
+    <%= f.label :jan_code %><br>
+    <%= f.text_field :jan_code %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br>
+    <%= f.number_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :special %><br>
+    <%= f.text_field :special %>
+  </div>
+  <div class="field">
+    <%= f.label :notes %><br>
+    <%= f.text_field :notes %>
+  </div>
+  <div class="field">
+    <%= f.label :notification %><br>
+    <%= f.text_field :notification %>
+  </div>
+  <div class="field">
+    <%= f.label :growing_region %><br>
+    <%= f.text_field :growing_region %>
+  </div>
+  <div class="field">
+    <%= f.label :processing_method %><br>
+    <%= f.text_field :processing_method %>
+  </div>
+  <div class="field">
+    <%= f.label :flavor %><br>
+    <%= f.text_field :flavor %>
+  </div>
+  <div class="field">
+    <%= f.label :body %><br>
+    <%= f.text_field :body %>
+  </div>
+  <div class="field">
+    <%= f.label :acidity %><br>
+    <%= f.text_field :acidity %>
+  </div>
+  <div class="field">
+    <%= f.label :complementary_flavors %><br>
+    <%= f.text_field :complementary_flavors %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

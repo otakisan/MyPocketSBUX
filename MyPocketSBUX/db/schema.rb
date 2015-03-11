@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150309224941) do
+ActiveRecord::Schema.define(version: 20150310225504) do
+
+  create_table "beans", force: true do |t|
+    t.string   "name"
+    t.string   "category"
+    t.string   "jan_code"
+    t.integer  "price"
+    t.string   "special"
+    t.string   "notes"
+    t.string   "notification"
+    t.string   "growing_region"
+    t.string   "processing_method"
+    t.string   "flavor"
+    t.string   "body"
+    t.string   "acidity"
+    t.string   "complementary_flavors"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "drinks", force: true do |t|
     t.string   "name"
