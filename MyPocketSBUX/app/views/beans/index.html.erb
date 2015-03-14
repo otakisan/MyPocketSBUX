@@ -1,0 +1,49 @@
+<h1>Listing beans</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Jan code</th>
+      <th>Price</th>
+      <th>Special</th>
+      <th>Notes</th>
+      <th>Notification</th>
+      <th>Growing region</th>
+      <th>Processing method</th>
+      <th>Flavor</th>
+      <th>Body</th>
+      <th>Acidity</th>
+      <th>Complementary flavors</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @beans.each do |bean| %>
+      <tr>
+        <td><%= bean.name %></td>
+        <td><%= bean.category %></td>
+        <td><%= bean.jan_code %></td>
+        <td><%= bean.price %></td>
+        <td><%= bean.special %></td>
+        <td><%= bean.notes %></td>
+        <td><%= bean.notification %></td>
+        <td><%= bean.growing_region %></td>
+        <td><%= bean.processing_method %></td>
+        <td><%= bean.flavor %></td>
+        <td><%= bean.body %></td>
+        <td><%= bean.acidity %></td>
+        <td><%= bean.complementary_flavors %></td>
+        <td><%= link_to 'Show', bean %></td>
+        <td><%= link_to 'Edit', edit_bean_path(bean) %></td>
+        <td><%= link_to 'Destroy', bean, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Bean', new_bean_path %>

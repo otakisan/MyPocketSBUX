@@ -25,24 +25,35 @@ def beandetail(url)
   notification = bean_detail.css('div.productInfo > p.notification').inner_text
 
   if !bean_name.include?("セット") then
+    # 名称
     p bean_name
+    # 価格
     p bean_price
     # カテゴリ
     p category = /\/(\w+)(?:(?=\/\d+\/))/.match(url).to_a[1]
-    p /\/(\d+)\//.match(url).to_a[1]
+    # JANコード
+    p jan_code= /\/(\d+)\//.match(url).to_a[1]
+    # 限定
     p product_special
+    # 告知
     p notification
 
     # 詳細
     #p bean_detail.css('table.specification.coffeeDetail tr td.item').xpath('.[text()="生産地"]').inner_text
+    # 生産地
     p bean_detail.xpath('//table[@class="specification coffeeDetail"]//tr/td[@class="item" and text()="生産地"]/following-sibling::node()[@class="detail"]').inner_text
+    # 加工方法
     p bean_detail.xpath('//table[@class="specification coffeeDetail"]//tr/td[@class="item" and text()="加工方法"]/following-sibling::node()[@class="detail"]').inner_text
+    # 風味のキーワード
     p bean_detail.xpath('//table[@class="specification coffeeDetail"]//tr/td[@class="item" and text()="キーワード"]/following-sibling::node()[@class="detail"]').inner_text.gsub("\r\n", "\t")
     bodyandacidity =  bean_detail.xpath('//table[@class="specification coffeeDetail"]//tr/td[@class="item" and text()="風味"]/following-sibling::node()[@class="detail"]').inner_text.gsub("\r\n", "\t").split("\t")
+    # 酸味
     acidity = bodyandacidity[0].split("：")
     p acidity[0] + ":" + acidity[1]  
+    # コク
     body = bodyandacidity[1].split("：")
     p body[0] + ":" + body[1]  
+    # 相性のよいフレーバー
     p bean_detail.xpath('//table[@class="specification coffeeDetail"]//tr/td[@class="item" and text()="相性のよいフレーバー"]/following-sibling::node()[@class="detail"]').inner_text.gsub("\r\n", "\t")
   end
 

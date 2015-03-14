@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   resources :nutritions
 
+  resources :seminars
+
+  resources :beans
+
+  resources :foods
+
   resources :drinks
 
   resources :stores
