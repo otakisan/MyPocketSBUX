@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Jan code:</strong>
+  <%= @nutrition.jan_code %>
+</p>
+
+<p>
+  <strong>Size:</strong>
+  <%= @nutrition.size %>
+</p>
+
+<p>
+  <strong>Liquid temperature:</strong>
+  <%= @nutrition.liquid_temperature %>
+</p>
+
+<p>
+  <strong>Milk:</strong>
+  <%= @nutrition.milk %>
+</p>
+
+<p>
+  <strong>Calorie:</strong>
+  <%= @nutrition.calorie %>
+</p>
+
+<%= link_to 'Edit', edit_nutrition_path(@nutrition) %> |
+<%= link_to 'Back', nutritions_path %>

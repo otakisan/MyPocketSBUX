@@ -1,0 +1,37 @@
+<%= form_for(@nutrition) do |f| %>
+  <% if @nutrition.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@nutrition.errors.count, "error") %> prohibited this nutrition from being saved:</h2>
+
+      <ul>
+      <% @nutrition.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :jan_code %><br>
+    <%= f.text_field :jan_code %>
+  </div>
+  <div class="field">
+    <%= f.label :size %><br>
+    <%= f.text_field :size %>
+  </div>
+  <div class="field">
+    <%= f.label :liquid_temperature %><br>
+    <%= f.text_field :liquid_temperature %>
+  </div>
+  <div class="field">
+    <%= f.label :milk %><br>
+    <%= f.text_field :milk %>
+  </div>
+  <div class="field">
+    <%= f.label :calorie %><br>
+    <%= f.number_field :calorie %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

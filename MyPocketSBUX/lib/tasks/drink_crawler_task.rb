@@ -112,9 +112,13 @@ class Tasks::DrinkCrawlerTask
     p "size:" + (size_string = size_defs.join("\t"))
     p "milk:" + milk 
 
-    drink_model = Drink.new  
-    drink_model.attributes = { name: product_name, category: category, jan_code: jan_code, price: price_int, special: product_special, notes: detail_string, notification: notification, size: size_string, milk: milk }
-    p drink_model.save
+    # 正規メニューに入っているソイカスタマイズは登録しない（限定メニュー除く）
+    if !product_name.include?("ソイ") || ["ソイ ハニー グラノラ フラペチーノ"].any? {|exceptitem| product_name.include?(exceptitem) } then 
+      drink_model = Drink.new  
+      drink_model.attributes = { name: product_name, category: category, jan_code: jan_code, price: price_int, special: product_special, notes: detail_string, notification: notification, size: size_string, milk: milk }
+      p drink_model.save
+    end
+
   end
   
   def self.crawldrink
@@ -123,15 +127,15 @@ class Tasks::DrinkCrawlerTask
     p doc.title
     doc.xpath('//article[contains(@class,"productList")]').each do |node|
 
-      sleep(4)
-    
       p "オススメ"
       node.xpath('//li[@class="col recommend"]').each do |recommended|
+        sleep(4)
         product(recommended)
       end
     
       p "レギュラー"
       node.xpath('//li[@class="col "]').each do |regular|
+        sleep(4)
         product(regular)
       end
     

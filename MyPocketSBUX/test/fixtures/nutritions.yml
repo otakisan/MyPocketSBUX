@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  jan_code: MyString
+  size: MyString
+  liquid_temperature: MyString
+  milk: MyString
+  calorie: 1
+
+two:
+  jan_code: MyString
+  size: MyString
+  liquid_temperature: MyString
+  milk: MyString
+  calorie: 1
