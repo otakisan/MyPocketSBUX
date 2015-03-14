@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Store:</strong>
+  <%= @seminar.store %>
+</p>
+
+<p>
+  <strong>Edition:</strong>
+  <%= @seminar.edition %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @seminar.start_time %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @seminar.end_time %>
+</p>
+
+<p>
+  <strong>Day of week:</strong>
+  <%= @seminar.day_of_week %>
+</p>
+
+<p>
+  <strong>Capacity:</strong>
+  <%= @seminar.capacity %>
+</p>
+
+<p>
+  <strong>Deadline:</strong>
+  <%= @seminar.deadline %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @seminar.status %>
+</p>
+
+<%= link_to 'Edit', edit_seminar_path(@seminar) %> |
+<%= link_to 'Back', seminars_path %>

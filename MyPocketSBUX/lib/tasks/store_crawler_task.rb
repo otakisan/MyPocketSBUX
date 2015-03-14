@@ -214,7 +214,7 @@ class Tasks::StoreCrawlerTask
   
   def self.crawlstore
   
-    for prefid in 1..8 do
+    for prefid in 1..47 do
   
       crawlstorebyprefid(prefid)
     end

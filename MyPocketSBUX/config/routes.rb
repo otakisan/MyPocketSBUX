@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :seminars
+
   resources :beans
 
   resources :foods

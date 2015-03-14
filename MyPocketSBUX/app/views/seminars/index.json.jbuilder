@@ -1,0 +1,4 @@
+json.array!(@seminars) do |seminar|
+  json.extract! seminar, :id, :store_id, :edition, :start_time, :end_time, :day_of_week, :capacity, :deadline, :status
+  json.url seminar_url(seminar, format: :json)
+end

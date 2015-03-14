@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150310225504) do
+ActiveRecord::Schema.define(version: 20150314052202) do
 
   create_table "beans", force: true do |t|
     t.string   "name"
@@ -56,6 +56,21 @@ ActiveRecord::Schema.define(version: 20150310225504) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "seminars", force: true do |t|
+    t.integer  "store_id"
+    t.string   "edition"
+    t.time     "start_time"
+    t.time     "end_time"
+    t.integer  "day_of_week"
+    t.integer  "capacity"
+    t.date     "deadline"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "seminars", ["store_id"], name: "index_seminars_on_store_id"
 
   create_table "stores", force: true do |t|
     t.integer  "store_id"
