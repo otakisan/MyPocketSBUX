@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150314093113) do
+ActiveRecord::Schema.define(version: 20150315225132) do
 
   create_table "beans", force: true do |t|
     t.string   "name"
@@ -45,16 +45,6 @@ ActiveRecord::Schema.define(version: 20150314093113) do
     t.datetime "updated_at"
   end
 
-  create_table "nutritions", force: true do |t|
-    t.string   "jan_code"
-    t.string   "size"
-    t.string   "liquid_temperature"
-    t.string   "milk"
-    t.integer  "calorie"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "foods", force: true do |t|
     t.string   "name"
     t.string   "category"
@@ -66,6 +56,26 @@ ActiveRecord::Schema.define(version: 20150314093113) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "nutritions", force: true do |t|
+    t.string   "jan_code"
+    t.string   "size"
+    t.string   "liquid_temperature"
+    t.string   "milk"
+    t.integer  "calorie"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pairings", force: true do |t|
+    t.integer  "bean_id"
+    t.integer  "food_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pairings", ["bean_id"], name: "index_pairings_on_bean_id"
+  add_index "pairings", ["food_id"], name: "index_pairings_on_food_id"
 
   create_table "seminars", force: true do |t|
     t.integer  "store_id"

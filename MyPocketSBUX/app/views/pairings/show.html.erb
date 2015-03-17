@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Bean:</strong>
+  <%= @pairing.bean %>
+</p>
+
+<p>
+  <strong>Food:</strong>
+  <%= @pairing.food %>
+</p>
+
+<%= link_to 'Edit', edit_pairing_path(@pairing) %> |
+<%= link_to 'Back', pairings_path %>

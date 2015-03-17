@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :pairings
+
   resources :nutritions
 
   resources :seminars

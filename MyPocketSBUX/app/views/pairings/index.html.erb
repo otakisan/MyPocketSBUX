@@ -1,0 +1,27 @@
+<h1>Listing pairings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Bean</th>
+      <th>Food</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pairings.each do |pairing| %>
+      <tr>
+        <td><%= pairing.bean %></td>
+        <td><%= pairing.food %></td>
+        <td><%= link_to 'Show', pairing %></td>
+        <td><%= link_to 'Edit', edit_pairing_path(pairing) %></td>
+        <td><%= link_to 'Destroy', pairing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Pairing', new_pairing_path %>
