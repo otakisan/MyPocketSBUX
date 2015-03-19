@@ -1,0 +1,31 @@
+<h1>Listing press_releases</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Fiscal year</th>
+      <th>Press release sn</th>
+      <th>Title</th>
+      <th>Url</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @press_releases.each do |press_release| %>
+      <tr>
+        <td><%= press_release.fiscal_year %></td>
+        <td><%= press_release.press_release_sn %></td>
+        <td><%= press_release.title %></td>
+        <td><%= press_release.url %></td>
+        <td><%= link_to 'Show', press_release %></td>
+        <td><%= link_to 'Edit', edit_press_release_path(press_release) %></td>
+        <td><%= link_to 'Destroy', press_release, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Press release', new_press_release_path %>

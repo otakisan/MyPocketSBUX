@@ -1,0 +1,33 @@
+<%= form_for(@press_release) do |f| %>
+  <% if @press_release.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@press_release.errors.count, "error") %> prohibited this press_release from being saved:</h2>
+
+      <ul>
+      <% @press_release.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :fiscal_year %><br>
+    <%= f.number_field :fiscal_year %>
+  </div>
+  <div class="field">
+    <%= f.label :press_release_sn %><br>
+    <%= f.number_field :press_release_sn %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :url %><br>
+    <%= f.text_field :url %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

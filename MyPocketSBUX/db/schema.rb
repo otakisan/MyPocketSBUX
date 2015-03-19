@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150315225132) do
+ActiveRecord::Schema.define(version: 20150317225302) do
 
   create_table "beans", force: true do |t|
     t.string   "name"
@@ -76,6 +76,15 @@ ActiveRecord::Schema.define(version: 20150315225132) do
 
   add_index "pairings", ["bean_id"], name: "index_pairings_on_bean_id"
   add_index "pairings", ["food_id"], name: "index_pairings_on_food_id"
+
+  create_table "press_releases", force: true do |t|
+    t.integer  "fiscal_year"
+    t.integer  "press_release_sn"
+    t.string   "title"
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "seminars", force: true do |t|
     t.integer  "store_id"
