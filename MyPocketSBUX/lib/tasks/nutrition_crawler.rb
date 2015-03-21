@@ -66,15 +66,16 @@ lines = all_page_text.split("\n")
 f = lines.select { |line| line.length >= 3 && line[1] != " " && !(["品目）", "ル 肉 み","特定原材料"].any? {|rmstr| line.include?(rmstr)}) && !(["・", "＜", "●", "―", "ー", "-"].any? {|w| w == line[0]}) }
 #p f
 
-linestocsv(f)
+# Taskでないとモデルが使用できないけど、
+# Taskだとpopplerが動かないから、PDF->Text変換までここで行う
+# Task側でpopplerを動作させるための、環境を構築できたら移管する
+#linestocsv(f)
 
-=begin
-File.open("ft2.txt", 'w+') do | writer |
+File.open("food_nutrition.txt", 'w+') do | writer |
   f.each do | item |
     writer << item + "\n"
   end
 end
-=end
 
 =begin
 File.open("nut2.txt", "w+") do |io|
