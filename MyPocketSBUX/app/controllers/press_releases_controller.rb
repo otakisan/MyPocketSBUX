@@ -4,7 +4,24 @@ class PressReleasesController < ApplicationController
   # GET /press_releases
   # GET /press_releases.json
   def index
-    @press_releases = PressRelease.all
+    type = params["type"]
+
+    if type == "range" then
+      indexbyrange(params["key"], "1", "2147483647")
+    else
+      fiscal_year = params["fiscal_year"]
+      if fiscal_year != nil then
+        @press_releases = PressRelease.where('fiscal_year = ?', fiscal_year)
+      else
+        @press_releases = PressRelease.all
+      end
+    end
+  end
+
+  def indexbyrange(key, frommax, tomax)
+    from = (params["from"] || frommax).to_i
+    to = (params["to"] || tomax).to_i
+    @press_releases = PressRelease.where("#{key} between ? and ?", from, to)
   end
 
   # GET /press_releases/1
