@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		164BFDC61AC67304003BF77B /* PressRelease.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDC51AC67304003BF77B /* PressRelease.swift */; };
+		164BFDC81AC6735E003BF77B /* PressReleases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDC71AC6735E003BF77B /* PressReleases.swift */; };
+		164BFDCB1AC67D9C003BF77B /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDCA1AC67D9C003BF77B /* DateUtility.swift */; };
+		164BFDCD1AC67DF5003BF77B /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDCC1AC67DF5003BF77B /* StringExtension.swift */; };
 		16AE14101ABD6B1A00370062 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AE140F1ABD6B1A00370062 /* AppDelegate.swift */; };
 		16AE14131ABD6B1A00370062 /* MyPocketSBUX.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16AE14111ABD6B1A00370062 /* MyPocketSBUX.xcdatamodeld */; };
 		16AE14181ABD6B1A00370062 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16AE14161ABD6B1A00370062 /* Main.storyboard */; };
@@ -29,6 +33,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		164BFDC51AC67304003BF77B /* PressRelease.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PressRelease.swift; sourceTree = "<group>"; };
+		164BFDC71AC6735E003BF77B /* PressReleases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PressReleases.swift; sourceTree = "<group>"; };
+		164BFDCA1AC67D9C003BF77B /* DateUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtility.swift; sourceTree = "<group>"; };
+		164BFDCC1AC67DF5003BF77B /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		16AE140A1ABD6B1900370062 /* MyPocketSBUX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyPocketSBUX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16AE140E1ABD6B1A00370062 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		16AE140F1ABD6B1A00370062 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +70,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		164BFDC41AC671E8003BF77B /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				164BFDC51AC67304003BF77B /* PressRelease.swift */,
+				164BFDC71AC6735E003BF77B /* PressReleases.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		164BFDC91AC67D42003BF77B /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				164BFDCA1AC67D9C003BF77B /* DateUtility.swift */,
+				164BFDCC1AC67DF5003BF77B /* StringExtension.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		16AE14011ABD6B1900370062 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +109,8 @@
 		16AE140C1ABD6B1900370062 /* MyPocketSBUX */ = {
 			isa = PBXGroup;
 			children = (
+				164BFDC91AC67D42003BF77B /* Utilities */,
+				164BFDC41AC671E8003BF77B /* Entities */,
 				16AE14321ABD795600370062 /* ViewControllers */,
 				16AE140F1ABD6B1A00370062 /* AppDelegate.swift */,
 				16AE14161ABD6B1A00370062 /* Main.storyboard */,
@@ -230,9 +258,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				16AE143A1AC65A3700370062 /* SBUXWKWebViewController.swift in Sources */,
+				164BFDC61AC67304003BF77B /* PressRelease.swift in Sources */,
 				16AE14381AC2BF7A00370062 /* NewsTableViewController.swift in Sources */,
 				16AE14361ABEDDEE00370062 /* SBUXTableViewController.swift in Sources */,
 				16AE14101ABD6B1A00370062 /* AppDelegate.swift in Sources */,
+				164BFDCD1AC67DF5003BF77B /* StringExtension.swift in Sources */,
+				164BFDC81AC6735E003BF77B /* PressReleases.swift in Sources */,
+				164BFDCB1AC67D9C003BF77B /* DateUtility.swift in Sources */,
 				16AE14131ABD6B1A00370062 /* MyPocketSBUX.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -425,6 +457,7 @@
 				16AE142E1ABD6B1A00370062 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		16AE142F1ABD6B1A00370062 /* Build configuration list for PBXNativeTarget "MyPocketSBUXTests" */ = {
 			isa = XCConfigurationList;
@@ -433,6 +466,7 @@
 				16AE14311ABD6B1A00370062 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

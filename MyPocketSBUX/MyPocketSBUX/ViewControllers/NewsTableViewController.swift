@@ -10,7 +10,7 @@ import UIKit
 
 class NewsTableViewController: UITableViewController, UIGestureRecognizerDelegate {
     
-    var newsData : NSArray?
+    var pressReleaseEntities : [PressRelease] = []
     var fontSize : Float = 14.0
     let fontSizeMax : Float = 24.0
     var officialSiteRelativePath = ""
@@ -65,14 +65,53 @@ class NewsTableViewController: UITableViewController, UIGestureRecognizerDelegat
         dispatch_async_main{self.tableView.reloadData()}
     }
     
+    func getAllPressReleaseFromLocal() -> [PressRelease] {
+        return PressReleases.getAllOrderBy([(columnName : "pressReleaseSn", ascending : false)])
+    }
+    
+    func insertNewPressReleaseToLocal(newPressReleaseData : NSArray) -> [PressRelease] {
+        
+        var results : [PressRelease] = []
+        
+        for newPressRelease in newPressReleaseData {
+            var entity = PressReleases.createEntity()
+            entity.fiscalYear = (newPressRelease["fiscal_year"] as? NSNumber) ?? 0
+            entity.pressReleaseSn = (newPressRelease["press_release_sn"] as? NSNumber) ?? 0
+            entity.title = (newPressRelease["title"] as? NSString) ?? ""
+            entity.url = (newPressRelease["url"] as? NSString) ?? ""
+            entity.createdAt = (newPressRelease["created_at"] as? NSDate) ?? NSDate(timeIntervalSince1970: 0)
+            entity.updatedAt = (newPressRelease["updated_at"] as? NSDate) ?? NSDate(timeIntervalSince1970: 0)
+            
+            PressReleases.insertEntity(entity)
+            results.append(entity)
+        }
+        
+        return results
+    }
+    
     func initializeNewsData(){
         
-        if let url  = NSURL(string: "http://172.20.10.3:3000/press_releases.json/?key=id&from=1") {
+        // ローカルDBのキャッシュデータを取得
+        self.pressReleaseEntities = self.getAllPressReleaseFromLocal()
+        
+        // トップ１件のSNを取得（ゼロ件ヒットの場合はゼロにする）
+        let maxSn = self.pressReleaseEntities.count > 0 ? self.pressReleaseEntities.first!.pressReleaseSn : 0
+        
+        // 性能改善するのであれば、ローカルにある分でまず表示
+        // その後ウェブから取得した分を先頭に追加して表示する
+        
+        // 最新版を取得
+        let nextSn = Int(maxSn) + 1
+        if let url  = NSURL(string: "http://localhost:3000/press_releases.json/?type=range&key=press_release_sn&from=\(nextSn)") {
             
             let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
             let task    = session.dataTaskWithURL(url, completionHandler: {
                 (data, resp, err) in
-                self.initializeNewsArrayFromJson(data)
+                if var newsData = self.initializeNewsArrayFromJson(data) {
+                    var newPressReleaseData  : [PressRelease] = self.insertNewPressReleaseToLocal(newsData)
+                    newPressReleaseData.extend(self.pressReleaseEntities)
+                    self.pressReleaseEntities = newPressReleaseData
+                }
                 self.reloadData()
                 //println(NSString(data: data, encoding:NSUTF8StringEncoding))
             })
@@ -81,8 +120,8 @@ class NewsTableViewController: UITableViewController, UIGestureRecognizerDelegat
         }
     }
     
-    func initializeNewsArrayFromJson(newsJson: NSData){
-        newsData = NSJSONSerialization.JSONObjectWithData(newsJson, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray
+    func initializeNewsArrayFromJson(newsJson: NSData) -> NSArray?{
+        return NSJSONSerialization.JSONObjectWithData(newsJson, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray
     }
 
     override func didReceiveMemoryWarning() {
@@ -96,30 +135,34 @@ class NewsTableViewController: UITableViewController, UIGestureRecognizerDelegat
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
         // 年度ごとに分けてデータを保持するようになったら、年度の数だけセクションを分けるようにする
-        return newsData != nil ? 1 : 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return newsData != nil ? self.newsData!.count : 0
+        return self.pressReleaseEntities.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("defaultNewsTableViewCellIdentifier", forIndexPath: indexPath) as UITableViewCell
 
         // Configure the cell...
-        cell.textLabel?.text = self.newsData?[indexPath.row]["title"] as? NSString
-        cell.textLabel?.numberOfLines = 0 // 複数行表示
-        cell.textLabel?.font = UIFont(name: "Arial", size: CGFloat(self.fontSize))
-        cell.textLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
-        cell.sizeToFit()
+        if self.pressReleaseEntities.count > indexPath.row {
+            cell.textLabel?.text = self.pressReleaseEntities[indexPath.row].title
+            cell.textLabel?.numberOfLines = 0 // 複数行表示
+            cell.textLabel?.font = UIFont(name: "Arial", size: CGFloat(self.fontSize))
+            cell.textLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
+            cell.sizeToFit()
+        }
 
         return cell
     }
     
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath)-> NSIndexPath? {
-        self.officialSiteRelativePath = (self.newsData?[indexPath.row]["url"] as? NSString) ?? ""
+        if self.pressReleaseEntities.count > indexPath.row {
+            self.officialSiteRelativePath = (self.pressReleaseEntities[indexPath.row].url) ?? ""
+        }
         return indexPath
     }
 
