@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150328001017) do
+ActiveRecord::Schema.define(version: 20150329140443) do
 
   create_table "beans", force: true do |t|
     t.string   "name"
@@ -91,8 +91,8 @@ ActiveRecord::Schema.define(version: 20150328001017) do
   create_table "seminars", force: true do |t|
     t.integer  "store_id"
     t.string   "edition"
-    t.time     "start_time"
-    t.time     "end_time"
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.integer  "day_of_week"
     t.integer  "capacity"
     t.date     "deadline"
