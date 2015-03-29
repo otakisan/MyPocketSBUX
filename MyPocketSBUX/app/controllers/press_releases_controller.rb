@@ -21,7 +21,8 @@ class PressReleasesController < ApplicationController
   def indexbyrange(key, frommax, tomax)
     from = (params["from"] || frommax).to_i
     to = (params["to"] || tomax).to_i
-    @press_releases = PressRelease.where("#{key} between ? and ?", from, to)
+    sortdirection = (params["sortdirection"] || "DESC")
+    @press_releases = PressRelease.where("#{key} between ? and ?", from, to).order("#{key} #{sortdirection}")
   end
 
   # GET /press_releases/1
