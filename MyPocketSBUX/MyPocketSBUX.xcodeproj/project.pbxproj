@@ -20,6 +20,7 @@
 		16AE14361ABEDDEE00370062 /* SBUXTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AE14351ABEDDEE00370062 /* SBUXTableViewController.swift */; };
 		16AE14381AC2BF7A00370062 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AE14371AC2BF7A00370062 /* NewsTableViewController.swift */; };
 		16AE143A1AC65A3700370062 /* SBUXWKWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AE14391AC65A3700370062 /* SBUXWKWebViewController.swift */; };
+		16C979D51ACA066A00543120 /* SeminarsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C979D41ACA066A00543120 /* SeminarsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		16AE14351ABEDDEE00370062 /* SBUXTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBUXTableViewController.swift; sourceTree = "<group>"; };
 		16AE14371AC2BF7A00370062 /* NewsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		16AE14391AC65A3700370062 /* SBUXWKWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBUXWKWebViewController.swift; sourceTree = "<group>"; };
+		16C979D41ACA066A00543120 /* SeminarsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeminarsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +155,7 @@
 				16AE14351ABEDDEE00370062 /* SBUXTableViewController.swift */,
 				16AE14371AC2BF7A00370062 /* NewsTableViewController.swift */,
 				16AE14391AC65A3700370062 /* SBUXWKWebViewController.swift */,
+				16C979D41ACA066A00543120 /* SeminarsTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				16AE143A1AC65A3700370062 /* SBUXWKWebViewController.swift in Sources */,
+				16C979D51ACA066A00543120 /* SeminarsTableViewController.swift in Sources */,
 				164BFDC61AC67304003BF77B /* PressRelease.swift in Sources */,
 				16AE14381AC2BF7A00370062 /* NewsTableViewController.swift in Sources */,
 				16AE14361ABEDDEE00370062 /* SBUXTableViewController.swift in Sources */,

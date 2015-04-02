@@ -45,5 +45,41 @@ class DateUtility: NSObject {
     class func lastEdgeOfDay(date : NSDate) -> NSDate {
         return edgeOfDay(date, edgeString: "235959999")
     }
+    
+    class func dateFromSqliteDateString(dateString : String) -> NSDate? {
+        // TとZが不要なので消す
+        var dateStringInner = (dateString as NSString).stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "Z"))
+        var index = dateString.rangeOfString("T", options: NSStringCompareOptions.LiteralSearch, range: nil, locale: nil)
+        dateStringInner.replaceRange(index!, with: " ")
+        
+        var formatter = NSDateFormatter()
+        formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
+        var date = formatter.dateFromString(dateStringInner)
+        
+        return date
+    }
+    
+    class func localDateString(date : NSDate) -> String {
+        var formatter = NSDateFormatter()
+        formatter.dateStyle = NSDateFormatterStyle.FullStyle;
+        formatter.timeStyle = NSDateFormatterStyle.NoStyle
+        formatter.calendar = NSCalendar(calendarIdentifier: NSGregorianCalendar)
+        formatter.locale = NSLocale.currentLocale()
+        var dateStringSrc = formatter.stringFromDate(date)
+        
+        return dateStringSrc
+    }
+    
+    class func localTimeString(date : NSDate) -> String {
+        var formatter = NSDateFormatter()
+        formatter.dateStyle = NSDateFormatterStyle.NoStyle;
+        formatter.timeStyle = NSDateFormatterStyle.ShortStyle
+        formatter.calendar = NSCalendar(calendarIdentifier: NSGregorianCalendar)
+        formatter.locale = NSLocale.currentLocale()
+        var dateStringSrc = formatter.stringFromDate(date)
+        
+        return dateStringSrc
+    }
    
 }
