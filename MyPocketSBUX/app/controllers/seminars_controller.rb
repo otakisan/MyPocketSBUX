@@ -4,7 +4,7 @@ class SeminarsController < ApplicationController
   # GET /seminars
   # GET /seminars.json
   def index
-    @seminars = Seminar.all
+    @seminars = Seminar.all.order("edition ASC")
   end
 
   # GET /seminars/1
