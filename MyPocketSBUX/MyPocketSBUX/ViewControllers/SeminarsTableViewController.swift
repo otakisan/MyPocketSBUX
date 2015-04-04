@@ -87,10 +87,11 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
     }
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
-        /*
-        // Update the filtered array based on the search text.
-        let searchResults = products
         
+        // Update the filtered array based on the search text.
+        let searchResults = self.seminarData
+        
+        // サーチバーに入力されたテキストをトリム後に単語単位に分割
         // Strip out all the leading and trailing spaces.
         let whitespaceCharacterSet = NSCharacterSet.whitespaceCharacterSet()
         let strippedString = searchController.searchBar.text.stringByTrimmingCharactersInSet(whitespaceCharacterSet)
@@ -112,35 +113,51 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
             // Below we use NSExpression represent expressions in our predicates.
             // NSPredicate is mmiade up of smaller, atomic parts: two NSExpressions (a left-hand value and a right-hand value).
             
+            // 通常のオブジェクトの場合は下記
             // Name field matching.
-            var lhs = NSExpression(forKeyPath: "title")
+//            var lhs = NSExpression(forKeyPath: "title")
+//            var rhs = NSExpression(forConstantValue: searchString)
+//            
+//            var finalPredicate = NSComparisonPredicate(leftExpression: lhs, rightExpression: rhs, modifier: .DirectPredicateModifier, type: .ContainsPredicateOperatorType, options: .CaseInsensitivePredicateOption)
+            
+            // 今回はNSDictionaryのなかに、さらにNSDictionary
+            //var predicate = NSPredicate(format: "%K == %@", "edition", searchString)
+            
+            // エディション
+            var lhs = NSExpression(forKeyPath: "edition")
             var rhs = NSExpression(forConstantValue: searchString)
             
             var finalPredicate = NSComparisonPredicate(leftExpression: lhs, rightExpression: rhs, modifier: .DirectPredicateModifier, type: .ContainsPredicateOperatorType, options: .CaseInsensitivePredicateOption)
-            
             searchItemsPredicate.append(finalPredicate)
             
-            let numberFormatter = NSNumberFormatter()
-            numberFormatter.numberStyle = .NoStyle
-            numberFormatter.formatterBehavior = .BehaviorDefault
+            // 店舗名
+            lhs = NSExpression(forKeyPath: "store.name")
+            rhs = NSExpression(forConstantValue: searchString)
             
-            let targetNumber = numberFormatter.numberFromString(searchString)
-            // `searchString` may fail to convert to a number.
-            if targetNumber != nil {
-                // `yearIntroduced` field matching.
-                lhs = NSExpression(forKeyPath: "yearIntroduced")
-                rhs = NSExpression(forConstantValue: targetNumber!)
-                finalPredicate = NSComparisonPredicate( leftExpression: lhs, rightExpression: rhs, modifier: .DirectPredicateModifier, type: .EqualToPredicateOperatorType, options: .CaseInsensitivePredicateOption)
-                
-                searchItemsPredicate.append(finalPredicate)
-                
-                // `price` field matching.
-                lhs = NSExpression(forKeyPath: "introPrice")
-                rhs = NSExpression(forConstantValue: targetNumber!)
-                finalPredicate = NSComparisonPredicate( leftExpression: lhs, rightExpression: rhs, modifier: .DirectPredicateModifier, type: .EqualToPredicateOperatorType, options: .CaseInsensitivePredicateOption)
-                
-                searchItemsPredicate.append(finalPredicate)
-            }
+            finalPredicate = NSComparisonPredicate(leftExpression: lhs, rightExpression: rhs, modifier: .DirectPredicateModifier, type: .ContainsPredicateOperatorType, options: .CaseInsensitivePredicateOption)
+            searchItemsPredicate.append(finalPredicate)
+            // 数値項目の場合は下記を参考にする
+//            let numberFormatter = NSNumberFormatter()
+//            numberFormatter.numberStyle = .NoStyle
+//            numberFormatter.formatterBehavior = .BehaviorDefault
+//            
+//            let targetNumber = numberFormatter.numberFromString(searchString)
+//            // `searchString` may fail to convert to a number.
+//            if targetNumber != nil {
+//                // `yearIntroduced` field matching.
+//                lhs = NSExpression(forKeyPath: "yearIntroduced")
+//                rhs = NSExpression(forConstantValue: targetNumber!)
+//                finalPredicate = NSComparisonPredicate( leftExpression: lhs, rightExpression: rhs, modifier: .DirectPredicateModifier, type: .EqualToPredicateOperatorType, options: .CaseInsensitivePredicateOption)
+//                
+//                searchItemsPredicate.append(finalPredicate)
+//                
+//                // `price` field matching.
+//                lhs = NSExpression(forKeyPath: "introPrice")
+//                rhs = NSExpression(forConstantValue: targetNumber!)
+//                finalPredicate = NSComparisonPredicate( leftExpression: lhs, rightExpression: rhs, modifier: .DirectPredicateModifier, type: .EqualToPredicateOperatorType, options: .CaseInsensitivePredicateOption)
+//                
+//                searchItemsPredicate.append(finalPredicate)
+//            }
             
             // Add this OR predicate to our master AND predicate.
             let orMatchPredicates = NSCompoundPredicate.orPredicateWithSubpredicates(searchItemsPredicate)
@@ -150,13 +167,17 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
         // Match up the fields of the Product object.
         let finalCompoundPredicate = NSCompoundPredicate.andPredicateWithSubpredicates(andMatchPredicates)
         
-        let filteredResults = searchResults.filter { finalCompoundPredicate.evaluateWithObject($0) }
+        // 一次元配列
+        //let filteredResults = searchResults?.filter { finalCompoundPredicate.evaluateWithObject($0) }
+        
+        //for searchResult in
+        let filteredResults = searchResults?.map { $0.filter { finalCompoundPredicate.evaluateWithObject($0) }}
         
         // Hand over the filtered results to our search results table.
-        let resultsController = searchController.searchResultsController as ResultsTableController
-        resultsController.filteredProducts = filteredResults
+        let resultsController = searchController.searchResultsController as FilteredSeminarsTableViewController
+        resultsController.filteredSeminarData = filteredResults
         resultsController.tableView.reloadData()
-*/
+
     }
 
     override func viewDidLoad() {
@@ -172,7 +193,8 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
         self.filteredSeminarsTableController = FilteredSeminarsTableViewController()
         
         // We want to be the delegate for our filtered table so didSelectRowAtIndexPath(_:) is called for both tables.
-        self.filteredSeminarsTableController.tableView.delegate = self
+        self.filteredSeminarsTableController.tableView.delegate = self.filteredSeminarsTableController
+        self.filteredSeminarsTableController.tableView.dataSource = self.filteredSeminarsTableController
         
         self.searchController = UISearchController(searchResultsController: self.filteredSeminarsTableController)
         self.searchController.searchResultsUpdater = self
@@ -214,39 +236,26 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) as UITableViewCell
 
-        // Configure the cell...
         if let tableData = self.seminarData {
             self.configureCell(cell, forSeminars: tableData, indexPath: indexPath)
-            
-            // エディションでセクション分けする
-//            let objDic = tableData[indexPath.section][indexPath.row]
-//            let storeName = (objDic["store"] as NSDictionary)["name"] as NSString
-//            let capacity = objDic["capacity"] as Int
-//            let status = objDic["status"] as String
-//            let start_time = objDic["start_time"] as String
-//            
-//            if let startDateTime = DateUtility.dateFromSqliteDateString(start_time) {
-//                let startDate = DateUtility.localDateString(startDateTime)
-//                let startTime = DateUtility.localTimeString(startDateTime)
-//                let capacityLabel = "capacity".localized()
-//                let statusLabel = "status".localized()
-//                let statusValue = (self.statusMappings[status] == nil ? "" : self.statusMappings[status]!).localized()
-//                cell.detailTextLabel?.text = "\(startDate) \(startTime)  \(capacityLabel):\(capacity)  \(statusLabel):\(statusValue)"
-//            }
-//            cell.textLabel?.text = "\(storeName)"
         }
 
         return cell
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        var label = UILabel()
-        label.text = self.seminarData?[section].first?["edition"] as NSString
-        label.sizeToFit()
-        label.backgroundColor = UIColor.grayColor()
-        
-        return label
+    // ひとまず標準のセクションを使用する
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
+        return self.seminarData?[section].first?["edition"] as? String
     }
+
+//    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        var label : UIView? = nil
+//        if let tableData = self.seminarData {
+//            label = self.configureHeaderInSection(tableView, viewForHeaderInSection: section, forSeminars: tableData)
+//        }
+//        
+//        return label
+//    }
 
     /*
     // Override to support conditional editing of the table view.

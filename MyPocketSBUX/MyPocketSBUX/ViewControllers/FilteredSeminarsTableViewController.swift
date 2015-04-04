@@ -32,7 +32,8 @@ class FilteredSeminarsTableViewController: SeminarsBaseTableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return self.filteredSeminarData?.count ?? 0
+        let sectionCount = self.filteredSeminarData?.count ?? 0
+        return sectionCount
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -53,7 +54,25 @@ class FilteredSeminarsTableViewController: SeminarsBaseTableViewController {
         return cell
     }
     
+    // ストーリーボード上にからの遷移でないViewControllerなのかなんなのか、高さが必要なので、ひとまず通常のセクションを使用する
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
+        return self.filteredSeminarData?[section].first?["edition"] as? String
 
+    }
+    
+//    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        var label : UIView? = nil
+//        if let tableData = self.filteredSeminarData {
+//            label = self.configureHeaderInSection(tableView, viewForHeaderInSection: section, forSeminars: tableData)
+//        }
+//        
+//        return label
+//    }
+//
+//    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return CGFloat(20)
+//    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

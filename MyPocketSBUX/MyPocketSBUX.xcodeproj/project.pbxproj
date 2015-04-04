@@ -11,6 +11,8 @@
 		164BFDC81AC6735E003BF77B /* PressReleases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDC71AC6735E003BF77B /* PressReleases.swift */; };
 		164BFDCB1AC67D9C003BF77B /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDCA1AC67D9C003BF77B /* DateUtility.swift */; };
 		164BFDCD1AC67DF5003BF77B /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDCC1AC67DF5003BF77B /* StringExtension.swift */; };
+		164BFDD11ACF89D1003BF77B /* SeminarsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDCF1ACF89D1003BF77B /* SeminarsTableViewCell.swift */; };
+		164BFDD21ACF89D1003BF77B /* SeminarsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 164BFDD01ACF89D1003BF77B /* SeminarsTableViewCell.xib */; };
 		16AE14101ABD6B1A00370062 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AE140F1ABD6B1A00370062 /* AppDelegate.swift */; };
 		16AE14131ABD6B1A00370062 /* MyPocketSBUX.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16AE14111ABD6B1A00370062 /* MyPocketSBUX.xcdatamodeld */; };
 		16AE14181ABD6B1A00370062 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16AE14161ABD6B1A00370062 /* Main.storyboard */; };
@@ -40,6 +42,8 @@
 		164BFDC71AC6735E003BF77B /* PressReleases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PressReleases.swift; sourceTree = "<group>"; };
 		164BFDCA1AC67D9C003BF77B /* DateUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtility.swift; sourceTree = "<group>"; };
 		164BFDCC1AC67DF5003BF77B /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		164BFDCF1ACF89D1003BF77B /* SeminarsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeminarsTableViewCell.swift; sourceTree = "<group>"; };
+		164BFDD01ACF89D1003BF77B /* SeminarsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SeminarsTableViewCell.xib; sourceTree = "<group>"; };
 		16AE140A1ABD6B1900370062 /* MyPocketSBUX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyPocketSBUX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16AE140E1ABD6B1A00370062 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		16AE140F1ABD6B1A00370062 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -94,6 +98,15 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		164BFDCE1ACF88D9003BF77B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				164BFDCF1ACF89D1003BF77B /* SeminarsTableViewCell.swift */,
+				164BFDD01ACF89D1003BF77B /* SeminarsTableViewCell.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		16AE14011ABD6B1900370062 = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +128,7 @@
 		16AE140C1ABD6B1900370062 /* MyPocketSBUX */ = {
 			isa = PBXGroup;
 			children = (
+				164BFDCE1ACF88D9003BF77B /* Views */,
 				164BFDC91AC67D42003BF77B /* Utilities */,
 				164BFDC41AC671E8003BF77B /* Entities */,
 				16AE14321ABD795600370062 /* ViewControllers */,
@@ -249,6 +263,7 @@
 				16AE14181ABD6B1A00370062 /* Main.storyboard in Resources */,
 				16AE141D1ABD6B1A00370062 /* LaunchScreen.xib in Resources */,
 				16AE141A1ABD6B1A00370062 /* Images.xcassets in Resources */,
+				164BFDD21ACF89D1003BF77B /* SeminarsTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +281,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				164BFDD11ACF89D1003BF77B /* SeminarsTableViewCell.swift in Sources */,
 				16C979D71ACD7E2400543120 /* SeminarsBaseTableViewController.swift in Sources */,
 				16AE143A1AC65A3700370062 /* SBUXWKWebViewController.swift in Sources */,
 				16C979D51ACA066A00543120 /* SeminarsTableViewController.swift in Sources */,

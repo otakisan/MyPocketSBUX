@@ -12,11 +12,15 @@ class SeminarsBaseTableViewController: UITableViewController {
 
     struct Constants {
         struct Nib {
-            static let name = "TableCell"
+            static let name = "SeminarsTableViewCell"
         }
         
         struct TableViewCell {
-            static let identifier = "defaultSeminarTableViewCellIdentifier"
+            static let identifier = "seminarsTableViewCellIdentifier"
+        }
+        
+        struct TableViewHeaderFooter {
+            static let identifier = "seminarsTableViewHeaderFooterIdentifier"
         }
     }
 
@@ -30,6 +34,13 @@ class SeminarsBaseTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        let nib = UINib(nibName: Constants.Nib.name, bundle: nil)
+        
+        // Required if our subclasses are to use: dequeueReusableCellWithIdentifier:forIndexPath:
+        tableView.registerNib(nib, forCellReuseIdentifier: Constants.TableViewCell.identifier)
+        
+        tableView.registerClass(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: Constants.TableViewHeaderFooter.identifier)
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,6 +64,15 @@ class SeminarsBaseTableViewController: UITableViewController {
             cell.detailTextLabel?.text = "\(startDate) \(startTime)  \(capacityLabel):\(capacity)  \(statusLabel):\(statusValue)"
         }
         cell.textLabel?.text = "\(storeName)"
+    }
+    
+    func configureHeaderInSection(tableView: UITableView, viewForHeaderInSection section: Int, forSeminars seminars: [[NSDictionary]]) -> UIView? {
+        var label = UILabel()
+        label.text = seminars[section].first?["edition"] as? NSString
+        label.sizeToFit()
+        label.backgroundColor = UIColor.grayColor()
+        
+        return label
     }
 
     // MARK: - Table view data source
