@@ -13,6 +13,16 @@
 		164BFDCD1AC67DF5003BF77B /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDCC1AC67DF5003BF77B /* StringExtension.swift */; };
 		164BFDD11ACF89D1003BF77B /* SeminarsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDCF1ACF89D1003BF77B /* SeminarsTableViewCell.swift */; };
 		164BFDD21ACF89D1003BF77B /* SeminarsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 164BFDD01ACF89D1003BF77B /* SeminarsTableViewCell.xib */; };
+		164BFDD41ACFA8CF003BF77B /* StoresTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDD31ACFA8CF003BF77B /* StoresTableViewController.swift */; };
+		164BFDD61ACFA9FA003BF77B /* StoresBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDD51ACFA9FA003BF77B /* StoresBaseTableViewController.swift */; };
+		164BFDD81ACFADEC003BF77B /* FilteredStoresTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDD71ACFADEC003BF77B /* FilteredStoresTableViewController.swift */; };
+		164BFDDA1ACFBEF3003BF77B /* UITableViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDD91ACFBEF3003BF77B /* UITableViewControllerExtension.swift */; };
+		164BFDE01ACFC8FC003BF77B /* Stores.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDDF1ACFC8FC003BF77B /* Stores.swift */; };
+		164BFDE21ACFC9B9003BF77B /* DbContextBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDE11ACFC9B9003BF77B /* DbContextBase.swift */; };
+		164BFDE41ACFEAC5003BF77B /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDE31ACFEAC5003BF77B /* Store.swift */; };
+		164BFDE71AD021E7003BF77B /* StoresTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDE51AD021E7003BF77B /* StoresTableViewCell.swift */; };
+		164BFDE81AD021E7003BF77B /* StoresTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 164BFDE61AD021E7003BF77B /* StoresTableViewCell.xib */; };
+		164BFDEA1AD02F8F003BF77B /* StoreDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDE91AD02F8F003BF77B /* StoreDetailTableViewController.swift */; };
 		16AE14101ABD6B1A00370062 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AE140F1ABD6B1A00370062 /* AppDelegate.swift */; };
 		16AE14131ABD6B1A00370062 /* MyPocketSBUX.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16AE14111ABD6B1A00370062 /* MyPocketSBUX.xcdatamodeld */; };
 		16AE14181ABD6B1A00370062 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16AE14161ABD6B1A00370062 /* Main.storyboard */; };
@@ -44,6 +54,16 @@
 		164BFDCC1AC67DF5003BF77B /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		164BFDCF1ACF89D1003BF77B /* SeminarsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeminarsTableViewCell.swift; sourceTree = "<group>"; };
 		164BFDD01ACF89D1003BF77B /* SeminarsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SeminarsTableViewCell.xib; sourceTree = "<group>"; };
+		164BFDD31ACFA8CF003BF77B /* StoresTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoresTableViewController.swift; sourceTree = "<group>"; };
+		164BFDD51ACFA9FA003BF77B /* StoresBaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoresBaseTableViewController.swift; sourceTree = "<group>"; };
+		164BFDD71ACFADEC003BF77B /* FilteredStoresTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilteredStoresTableViewController.swift; sourceTree = "<group>"; };
+		164BFDD91ACFBEF3003BF77B /* UITableViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewControllerExtension.swift; sourceTree = "<group>"; };
+		164BFDDF1ACFC8FC003BF77B /* Stores.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stores.swift; sourceTree = "<group>"; };
+		164BFDE11ACFC9B9003BF77B /* DbContextBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DbContextBase.swift; sourceTree = "<group>"; };
+		164BFDE31ACFEAC5003BF77B /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		164BFDE51AD021E7003BF77B /* StoresTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoresTableViewCell.swift; sourceTree = "<group>"; };
+		164BFDE61AD021E7003BF77B /* StoresTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoresTableViewCell.xib; sourceTree = "<group>"; };
+		164BFDE91AD02F8F003BF77B /* StoreDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreDetailTableViewController.swift; sourceTree = "<group>"; };
 		16AE140A1ABD6B1900370062 /* MyPocketSBUX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyPocketSBUX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16AE140E1ABD6B1A00370062 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		16AE140F1ABD6B1A00370062 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +105,9 @@
 			children = (
 				164BFDC51AC67304003BF77B /* PressRelease.swift */,
 				164BFDC71AC6735E003BF77B /* PressReleases.swift */,
+				164BFDE31ACFEAC5003BF77B /* Store.swift */,
+				164BFDDF1ACFC8FC003BF77B /* Stores.swift */,
+				164BFDE11ACFC9B9003BF77B /* DbContextBase.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -94,6 +117,7 @@
 			children = (
 				164BFDCA1AC67D9C003BF77B /* DateUtility.swift */,
 				164BFDCC1AC67DF5003BF77B /* StringExtension.swift */,
+				164BFDD91ACFBEF3003BF77B /* UITableViewControllerExtension.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -103,6 +127,8 @@
 			children = (
 				164BFDCF1ACF89D1003BF77B /* SeminarsTableViewCell.swift */,
 				164BFDD01ACF89D1003BF77B /* SeminarsTableViewCell.xib */,
+				164BFDE51AD021E7003BF77B /* StoresTableViewCell.swift */,
+				164BFDE61AD021E7003BF77B /* StoresTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -176,6 +202,10 @@
 				16C979D41ACA066A00543120 /* SeminarsTableViewController.swift */,
 				16C979D61ACD7E2400543120 /* SeminarsBaseTableViewController.swift */,
 				16C979D81ACD8EC600543120 /* FilteredSeminarsTableViewController.swift */,
+				164BFDD31ACFA8CF003BF77B /* StoresTableViewController.swift */,
+				164BFDD51ACFA9FA003BF77B /* StoresBaseTableViewController.swift */,
+				164BFDD71ACFADEC003BF77B /* FilteredStoresTableViewController.swift */,
+				164BFDE91AD02F8F003BF77B /* StoreDetailTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -261,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				16AE14181ABD6B1A00370062 /* Main.storyboard in Resources */,
+				164BFDE81AD021E7003BF77B /* StoresTableViewCell.xib in Resources */,
 				16AE141D1ABD6B1A00370062 /* LaunchScreen.xib in Resources */,
 				16AE141A1ABD6B1A00370062 /* Images.xcassets in Resources */,
 				164BFDD21ACF89D1003BF77B /* SeminarsTableViewCell.xib in Resources */,
@@ -282,18 +313,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				164BFDD11ACF89D1003BF77B /* SeminarsTableViewCell.swift in Sources */,
+				164BFDDA1ACFBEF3003BF77B /* UITableViewControllerExtension.swift in Sources */,
+				164BFDD41ACFA8CF003BF77B /* StoresTableViewController.swift in Sources */,
 				16C979D71ACD7E2400543120 /* SeminarsBaseTableViewController.swift in Sources */,
 				16AE143A1AC65A3700370062 /* SBUXWKWebViewController.swift in Sources */,
 				16C979D51ACA066A00543120 /* SeminarsTableViewController.swift in Sources */,
 				164BFDC61AC67304003BF77B /* PressRelease.swift in Sources */,
+				164BFDE21ACFC9B9003BF77B /* DbContextBase.swift in Sources */,
 				16C979D91ACD8EC600543120 /* FilteredSeminarsTableViewController.swift in Sources */,
 				16AE14381AC2BF7A00370062 /* NewsTableViewController.swift in Sources */,
+				164BFDD81ACFADEC003BF77B /* FilteredStoresTableViewController.swift in Sources */,
 				16AE14361ABEDDEE00370062 /* SBUXTableViewController.swift in Sources */,
+				164BFDE01ACFC8FC003BF77B /* Stores.swift in Sources */,
 				16AE14101ABD6B1A00370062 /* AppDelegate.swift in Sources */,
 				164BFDCD1AC67DF5003BF77B /* StringExtension.swift in Sources */,
+				164BFDE41ACFEAC5003BF77B /* Store.swift in Sources */,
 				164BFDC81AC6735E003BF77B /* PressReleases.swift in Sources */,
 				164BFDCB1AC67D9C003BF77B /* DateUtility.swift in Sources */,
+				164BFDEA1AD02F8F003BF77B /* StoreDetailTableViewController.swift in Sources */,
 				16AE14131ABD6B1A00370062 /* MyPocketSBUX.xcdatamodeld in Sources */,
+				164BFDE71AD021E7003BF77B /* StoresTableViewCell.swift in Sources */,
+				164BFDD61ACFA9FA003BF77B /* StoresBaseTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

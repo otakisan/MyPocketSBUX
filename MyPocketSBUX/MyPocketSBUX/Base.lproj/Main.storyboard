@@ -601,19 +601,27 @@
             </objects>
             <point key="canvasLocation" x="1540" y="4817"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Store Detail Table View Controller-->
         <scene sceneID="CrW-D5-6qI">
             <objects>
-                <tableViewController id="xMV-QN-25e" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="StoreDetailTableViewController" id="xMV-QN-25e" customClass="StoreDetailTableViewController" customModule="MyPocketSBUX" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Cwt-uh-Ucx">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="WAJ-Rj-GN8">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="defaultStoreDetailTableViewCellIdentifier" textLabel="ubM-Z0-5QU" style="IBUITableViewCellStyleDefault" id="WAJ-Rj-GN8">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WAJ-Rj-GN8" id="FTY-T6-nAa">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ubM-Z0-5QU">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -647,9 +655,9 @@
         <!--Store Table View-->
         <scene sceneID="SDJ-lY-HS5">
             <objects>
-                <tableViewController id="Xxx-0J-XR8" sceneMemberID="viewController">
+                <tableViewController id="Xxx-0J-XR8" customClass="StoresTableViewController" customModule="MyPocketSBUX" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="HKh-3g-foo">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -665,7 +673,6 @@
                             <outlet property="delegate" destination="Xxx-0J-XR8" id="cuI-aC-NTY"/>
                         </connections>
                     </tableView>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Store Table View" id="TdS-y9-X6d">
                         <barButtonItem key="rightBarButtonItem" title="Maps" style="plain" id="eZG-xy-k9w">
                             <connections>

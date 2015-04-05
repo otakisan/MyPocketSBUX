@@ -57,14 +57,6 @@ class NewsTableViewController: UITableViewController, UIGestureRecognizerDelegat
         self.reloadData()
     }
     
-    func dispatch_async_main(block: () -> ()) {
-        dispatch_async(dispatch_get_main_queue(), block)
-    }
-    
-    func reloadData(){
-        dispatch_async_main{self.tableView.reloadData()}
-    }
-    
     func getAllPressReleaseFromLocal() -> [PressRelease] {
         return PressReleases.getAllOrderBy([(columnName : "pressReleaseSn", ascending : false)])
     }

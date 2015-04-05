@@ -74,14 +74,6 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
         return NSJSONSerialization.JSONObjectWithData(dataJson, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray
     }
     
-    func dispatch_async_main(block: () -> ()) {
-        dispatch_async(dispatch_get_main_queue(), block)
-    }
-    
-    func reloadData(){
-        dispatch_async_main{self.tableView.reloadData()}
-    }
-    
     func dataUrl() -> String {
         return "http://localhost:3000/seminars.json"
     }

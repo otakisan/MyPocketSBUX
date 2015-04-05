@@ -23,4 +23,23 @@ extension String {
     func toFloatToInt() -> Int? {
         return String(format: "%.0f", self.toFloat()).toInt()
     }
+    
+    func prefecture() -> String {
+        
+        var address = self
+        var resultPrefecture = ""
+        
+        //パターンから正規表現オブジェクト作成
+        if let regex = NSRegularExpression(pattern: "[^\\d\\s-]+?[都道府県](?=\\s+)", options: NSRegularExpressionOptions.CaseInsensitive, error: nil){
+            //matchesにはマッチした文字列の位置情報が格納されている
+            if var matches = regex.matchesInString(address, options: nil, range:NSMakeRange(0,  countElements(address))) as? Array<NSTextCheckingResult> {
+                //のでそれをforで順番にとってきて利用
+                if matches.count > 0 {
+                    resultPrefecture = (address as NSString).substringWithRange(matches.first!.range)
+                }
+            }
+        }
+        
+        return resultPrefecture
+    }
 }

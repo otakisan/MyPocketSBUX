@@ -99,7 +99,7 @@ class PressReleases: NSObject {
         }
         
         return self.findByFetchRequestTemplate(
-            "allFetchRequest",
+            "allPressReleasesFetchRequest",
             variables: [:],
             sortDescriptors: sortKeys,
             limit: 0)
