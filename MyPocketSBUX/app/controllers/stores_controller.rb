@@ -4,7 +4,20 @@ class StoresController < ApplicationController
   # GET /stores
   # GET /stores.json
   def index
-    @stores = Store.all
+    type = params["type"]
+
+    if type == "range" then
+      @stores = indexbyrange(params["key"], "1", "2147483647")
+    else
+      @stores = Store.all
+    end
+  end
+
+  def indexbyrange(key, frommax, tomax)
+    from = (params["from"] || frommax).to_i
+    to = (params["to"] || tomax).to_i
+    sortdirection = (params["sortdirection"] || "DESC")
+    @stores = Store.where("#{key} between ? and ?", from, to).order("#{key} #{sortdirection}")
   end
 
   # GET /stores/1
