@@ -34,7 +34,28 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
     var filteredStoresTableController: FilteredStoresTableViewController!
     
     var restoredState = SearchControllerRestorableState()
+    var activityIndicatorView : UIActivityIndicatorView?
     
+    func showActivityIndicator() {
+        
+        if self.activityIndicatorView == nil {
+            var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+            activityIndicator.center = self.view.center
+            self.tableView.addSubview(activityIndicator)
+            
+            self.activityIndicatorView = activityIndicator
+        }
+        
+        self.activityIndicatorView?.startAnimating()
+    }
+    
+    func stopActivityIndicator() {
+        self.dispatch_async_main {
+            self.activityIndicatorView?.stopAnimating()
+            return
+        }
+    }
+
     func updateStoreLocalDb(completionHandler: ((NSData!, NSURLResponse!, NSError!) -> Void)?){
         
         // 最新版を取得
@@ -54,8 +75,11 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
 
     func initializeNewsData(){
         
+        self.showActivityIndicator()
+        
         self.updateStoreLocalDb({
             (data, resp, err) in
+            
             if var newsData = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray {
                 
                 self.insertNewStoreToLocal(newsData)
@@ -64,6 +88,8 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
             // ローカルDBのキャッシュデータを取得
             self.storeEntities = self.getAllStoreFromLocal()
             self.storesData = self.convertGroupedArray(self.storeEntities)
+            
+            self.stopActivityIndicator()
             self.reloadData()
             //println(NSString(data: data, encoding:NSUTF8StringEncoding))
         })
