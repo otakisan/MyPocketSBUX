@@ -488,8 +488,8 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         // Pass the selected object to the new view controller.
         if var storeMapViewController = segue.destinationViewController as? StoreMapViewController {
             // 位置情報サービスから現在地を取得
-            storeMapViewController.centerCoordinate = LocationContext.current.coordinate!
-            storeMapViewController.annotations = [((LocationContext.current.coordinate!.latitude, LocationContext.current.coordinate!.longitude), "現在地", "")]
+            storeMapViewController.centerCoordinate = LocationContext.current.coordinate? ?? storeMapViewController.centerCoordinate
+            storeMapViewController.annotations = [((storeMapViewController.centerCoordinate.latitude, storeMapViewController.centerCoordinate.longitude), "現在地", "")]
         }
     }
     

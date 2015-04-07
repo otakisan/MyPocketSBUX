@@ -589,11 +589,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="R5T-Uk-BaB">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="R5T-Uk-BaB">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="R5T-Uk-BaB" secondAttribute="trailing" id="97Z-Nl-W1W"/>
+                            <constraint firstItem="R5T-Uk-BaB" firstAttribute="leading" secondItem="9kV-Gf-9Y1" secondAttribute="leading" id="kdb-Ay-ZkQ"/>
+                            <constraint firstItem="R5T-Uk-BaB" firstAttribute="bottom" secondItem="DOF-Ja-hqJ" secondAttribute="top" id="suN-Id-Hh9"/>
+                            <constraint firstItem="R5T-Uk-BaB" firstAttribute="top" secondItem="yXn-Cz-aNo" secondAttribute="bottom" id="tZX-9e-vkx"/>
+                        </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
