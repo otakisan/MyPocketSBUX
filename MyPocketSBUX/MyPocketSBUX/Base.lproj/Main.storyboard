@@ -580,7 +580,7 @@
         <!--Store Map-->
         <scene sceneID="Ner-Td-T8x">
             <objects>
-                <viewController title="Store Map" id="iXQ-70-624" sceneMemberID="viewController">
+                <viewController title="Store Map" id="iXQ-70-624" customClass="StoreMapViewController" customModule="MyPocketSBUX" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yXn-Cz-aNo"/>
                         <viewControllerLayoutGuide type="bottom" id="DOF-Ja-hqJ"/>
@@ -596,6 +596,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <connections>
+                        <outlet property="storeMap" destination="R5T-Uk-BaB" id="I8I-OU-U9o"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Es7-x3-RCI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -618,7 +621,7 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ubM-Z0-5QU">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>

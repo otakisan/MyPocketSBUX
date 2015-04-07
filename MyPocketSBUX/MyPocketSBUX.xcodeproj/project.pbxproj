@@ -35,6 +35,8 @@
 		16C979D51ACA066A00543120 /* SeminarsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C979D41ACA066A00543120 /* SeminarsTableViewController.swift */; };
 		16C979D71ACD7E2400543120 /* SeminarsBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C979D61ACD7E2400543120 /* SeminarsBaseTableViewController.swift */; };
 		16C979D91ACD8EC600543120 /* FilteredSeminarsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C979D81ACD8EC600543120 /* FilteredSeminarsTableViewController.swift */; };
+		16C979DB1AD1F13800543120 /* StoreMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C979DA1AD1F13800543120 /* StoreMapViewController.swift */; };
+		16C979E01AD2C88F00543120 /* LocationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C979DF1AD2C88F00543120 /* LocationContext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +82,8 @@
 		16C979D41ACA066A00543120 /* SeminarsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeminarsTableViewController.swift; sourceTree = "<group>"; };
 		16C979D61ACD7E2400543120 /* SeminarsBaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeminarsBaseTableViewController.swift; sourceTree = "<group>"; };
 		16C979D81ACD8EC600543120 /* FilteredSeminarsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilteredSeminarsTableViewController.swift; sourceTree = "<group>"; };
+		16C979DA1AD1F13800543120 /* StoreMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreMapViewController.swift; sourceTree = "<group>"; };
+		16C979DF1AD2C88F00543120 /* LocationContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationContext.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +158,7 @@
 		16AE140C1ABD6B1900370062 /* MyPocketSBUX */ = {
 			isa = PBXGroup;
 			children = (
+				16C979DE1AD2AE1400543120 /* Location */,
 				164BFDCE1ACF88D9003BF77B /* Views */,
 				164BFDC91AC67D42003BF77B /* Utilities */,
 				164BFDC41AC671E8003BF77B /* Entities */,
@@ -206,8 +211,17 @@
 				164BFDD51ACFA9FA003BF77B /* StoresBaseTableViewController.swift */,
 				164BFDD71ACFADEC003BF77B /* FilteredStoresTableViewController.swift */,
 				164BFDE91AD02F8F003BF77B /* StoreDetailTableViewController.swift */,
+				16C979DA1AD1F13800543120 /* StoreMapViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		16C979DE1AD2AE1400543120 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				16C979DF1AD2C88F00543120 /* LocationContext.swift */,
+			);
+			path = Location;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -318,12 +332,14 @@
 				16C979D71ACD7E2400543120 /* SeminarsBaseTableViewController.swift in Sources */,
 				16AE143A1AC65A3700370062 /* SBUXWKWebViewController.swift in Sources */,
 				16C979D51ACA066A00543120 /* SeminarsTableViewController.swift in Sources */,
+				16C979E01AD2C88F00543120 /* LocationContext.swift in Sources */,
 				164BFDC61AC67304003BF77B /* PressRelease.swift in Sources */,
 				164BFDE21ACFC9B9003BF77B /* DbContextBase.swift in Sources */,
 				16C979D91ACD8EC600543120 /* FilteredSeminarsTableViewController.swift in Sources */,
 				16AE14381AC2BF7A00370062 /* NewsTableViewController.swift in Sources */,
 				164BFDD81ACFADEC003BF77B /* FilteredStoresTableViewController.swift in Sources */,
 				16AE14361ABEDDEE00370062 /* SBUXTableViewController.swift in Sources */,
+				16C979DB1AD1F13800543120 /* StoreMapViewController.swift in Sources */,
 				164BFDE01ACFC8FC003BF77B /* Stores.swift in Sources */,
 				16AE14101ABD6B1A00370062 /* AppDelegate.swift in Sources */,
 				164BFDCD1AC67DF5003BF77B /* StringExtension.swift in Sources */,

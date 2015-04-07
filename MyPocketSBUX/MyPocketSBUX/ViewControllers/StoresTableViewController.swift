@@ -398,6 +398,9 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         createHeaderTableView()
         
         initializeNewsData()
+        
+        // 初期化
+        var coord = LocationContext.current.coordinate
     }
 
     override func didReceiveMemoryWarning() {
@@ -476,14 +479,19 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        if var storeMapViewController = segue.destinationViewController as? StoreMapViewController {
+            // 位置情報サービスから現在地を取得
+            storeMapViewController.centerCoordinate = LocationContext.current.coordinate!
+            storeMapViewController.annotations = [((LocationContext.current.coordinate!.latitude, LocationContext.current.coordinate!.longitude), "現在地", "")]
+        }
     }
-    */
+    
 
 }
