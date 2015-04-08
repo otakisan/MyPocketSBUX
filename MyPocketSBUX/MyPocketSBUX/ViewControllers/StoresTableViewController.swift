@@ -26,6 +26,7 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
     var storeEntities : [Store] = []
     var storesData : [[String:AnyObject]]?
     var groupKeyToIndex : [Int:Int] = [:]
+    var storeAnnotations : [(coordinate : (latitude : Double, longitude : Double), title : String, subStitle : String)] = []
 
     // Search controller to help us with filtering.
     var searchController: UISearchController!
@@ -73,7 +74,7 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         return Stores.instance().maxId()
     }
 
-    func initializeNewsData(){
+    func initializeStoreData(){
         
         self.showActivityIndicator()
         
@@ -87,6 +88,7 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
             
             // ローカルDBのキャッシュデータを取得
             self.storeEntities = self.getAllStoreFromLocal()
+            self.dispatch_async_serial { self.refreshAnnotations() }
             self.storesData = self.convertGroupedArray(self.storeEntities)
             
             self.stopActivityIndicator()
@@ -397,7 +399,7 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         createHeaderTableView()
         
-        initializeNewsData()
+        initializeStoreData()
         
         // 初期化
         var coord = LocationContext.current.coordinate
@@ -489,9 +491,24 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         if var storeMapViewController = segue.destinationViewController as? StoreMapViewController {
             // 位置情報サービスから現在地を取得
             storeMapViewController.centerCoordinate = LocationContext.current.coordinate? ?? storeMapViewController.centerCoordinate
-            storeMapViewController.annotations = [((storeMapViewController.centerCoordinate.latitude, storeMapViewController.centerCoordinate.longitude), "現在地", "")]
+            storeMapViewController.annotations = self.storeAnnotations + [(coordinate : (latitude : storeMapViewController.centerCoordinate.latitude, longitude : storeMapViewController.centerCoordinate.longitude), title : "現在地", subStitle : "")]
         }
     }
     
+    func allStoreAnnotationsAndCurrent() -> [(coordinate : (latitude : Double, longitude : Double), title : String, subStitle : String)] {
+        var results : [(coordinate : (latitude : Double, longitude : Double), title : String, subStitle : String)] = []
+        for entity in self.storeEntities {
+            var annotationInfo : (coordinate : (latitude : Double, longitude : Double), title : String, subStitle : String) =
+            (coordinate: (Double(entity.latitude), Double(entity.longitude)), title: entity.name, subStitle: "\(DateUtility.localTimeString(entity.openingTimeWeekday)) - \(DateUtility.localTimeString(entity.closingTimeWeekday))")
+            
+            results += [annotationInfo]
+        }
+        
+        return results
+    }
+    
+    func refreshAnnotations() {
+        self.storeAnnotations = self.allStoreAnnotationsAndCurrent()
+    }
 
 }
