@@ -29,7 +29,7 @@ class StoreDetailTableViewController: UITableViewController {
     class func forStore(store: Store) -> StoreDetailTableViewController {
         let storyboard = UIStoryboard(name: StoryboardConstants.storyboardName, bundle: nil)
         
-        let viewController = storyboard.instantiateViewControllerWithIdentifier(StoryboardConstants.viewControllerIdentifier) as StoreDetailTableViewController
+        let viewController = storyboard.instantiateViewControllerWithIdentifier(StoryboardConstants.viewControllerIdentifier) as! StoreDetailTableViewController
         
         viewController.store = store
         
@@ -73,7 +73,7 @@ class StoreDetailTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("defaultStoreDetailTableViewCellIdentifier", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("defaultStoreDetailTableViewCellIdentifier", forIndexPath: indexPath) as! UITableViewCell
 
         // cell.detailTextLabelのほうだと複数行でも自動調整されない
         cell.textLabel?.text = self.displayData[indexPath.row].value

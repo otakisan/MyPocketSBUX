@@ -50,10 +50,10 @@ class SeminarsBaseTableViewController: UITableViewController {
     
     func configureCell(cell: UITableViewCell, forSeminars seminars: [[NSDictionary]], indexPath : NSIndexPath) {
         let objDic = seminars[indexPath.section][indexPath.row]
-        let storeName = (objDic["store"] as NSDictionary)["name"] as NSString
-        let capacity = objDic["capacity"] as Int
-        let status = objDic["status"] as String
-        let start_time = objDic["start_time"] as String
+        let storeName = (objDic["store"] as! NSDictionary)["name"] as! NSString
+        let capacity = objDic["capacity"] as! Int
+        let status = objDic["status"] as! String
+        let start_time = objDic["start_time"] as! String
         
         if let startDateTime = DateUtility.dateFromSqliteDateString(start_time) {
             let startDate = DateUtility.localDateString(startDateTime)
@@ -68,7 +68,7 @@ class SeminarsBaseTableViewController: UITableViewController {
     
     func configureHeaderInSection(tableView: UITableView, viewForHeaderInSection section: Int, forSeminars seminars: [[NSDictionary]]) -> UIView? {
         var label = UILabel()
-        label.text = seminars[section].first?["edition"] as? NSString
+        label.text = seminars[section].first?["edition"] as? String
         label.sizeToFit()
         label.backgroundColor = UIColor.grayColor()
         

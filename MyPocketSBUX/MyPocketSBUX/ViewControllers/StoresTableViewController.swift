@@ -107,11 +107,11 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
             var entity : Store = Stores.instance().createEntity()
             entity.id = (newStore["id"] as? NSNumber) ?? 0
             entity.storeId = (newStore["store_id"] as? NSNumber) ?? 0
-            entity.name = (newStore["name"] as? NSString) ?? ""
-            entity.address = (newStore["address"] as? NSString) ?? ""
-            entity.phoneNumber = (newStore["phone_number"] as? NSString) ?? ""
-            entity.holiday = (newStore["holiday"] as? NSString) ?? ""
-            entity.access = (newStore["access"] as? NSString) ?? ""
+            entity.name = ((newStore["name"] as? NSString) ?? "") as String
+            entity.address = ((newStore["address"] as? NSString) ?? "") as String
+            entity.phoneNumber = ((newStore["phone_number"] as? NSString) ?? "") as String
+            entity.holiday = ((newStore["holiday"] as? NSString) ?? "") as String
+            entity.access = ((newStore["access"] as? NSString) ?? "") as String
             entity.openingTimeWeekday = DateUtility.dateFromSqliteDateString(newStore["opening_time_weekday"] as? String ?? "") ?? NSDate(timeIntervalSince1970: 0)
             entity.closingTimeWeekday = DateUtility.dateFromSqliteDateString(newStore["closing_time_weekday"] as? String ?? "") ?? NSDate(timeIntervalSince1970: 0)
             entity.openingTimeSaturday = DateUtility.dateFromSqliteDateString(newStore["opening_time_saturday"] as? String ?? "") ?? NSDate(timeIntervalSince1970: 0)
@@ -120,7 +120,7 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
             entity.closingTimeHoliday = DateUtility.dateFromSqliteDateString(newStore["closing_time_holiday"] as? String ?? "") ?? NSDate(timeIntervalSince1970: 0)
             entity.latitude = (newStore["latitude"] as? NSNumber) ?? 0
             entity.longitude = (newStore["longitude"] as? NSNumber) ?? 0
-            entity.notes = (newStore["notes"] as? NSString) ?? ""
+            entity.notes = ((newStore["notes"] as? NSString) ?? "") as String
             entity.prefId = (newStore["pref_id"] as? NSNumber) ?? 0
             entity.createdAt = (newStore["created_at"] as? NSDate) ?? NSDate(timeIntervalSince1970: 0)
             entity.updatedAt = (newStore["updated_at"] as? NSDate) ?? NSDate(timeIntervalSince1970: 0)
@@ -318,7 +318,7 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         filteredResults = filteredResults?.filter { ($0["stores"] as? [Store])?.count > 0 }
         
         // Hand over the filtered results to our search results table.
-        let resultsController = searchController.searchResultsController as FilteredStoresTableViewController
+        let resultsController = searchController.searchResultsController as! FilteredStoresTableViewController
         resultsController.filteredStoreData = filteredResults
         resultsController.tableView.reloadData()
     }
@@ -371,7 +371,7 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         restoredState.wasFirstResponder = coder.decodeBoolForKey(RestorationKeys.searchBarIsFirstResponder)
         
         // Restore the text in the search field.
-        searchController.searchBar.text = coder.decodeObjectForKey(RestorationKeys.searchBarText) as String
+        searchController.searchBar.text = coder.decodeObjectForKey(RestorationKeys.searchBarText) as! String
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -421,11 +421,11 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return (self.storesData?[section]["stores"] as [Store]).count ?? 0
+        return (self.storesData?[section]["stores"] as! [Store]).count ?? 0
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) as! UITableViewCell
 
         self.configureCell(cell, forStores: self.storesData, indexPath: indexPath)
         
@@ -490,7 +490,7 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         // Pass the selected object to the new view controller.
         if var storeMapViewController = segue.destinationViewController as? StoreMapViewController {
             // 位置情報サービスから現在地を取得
-            storeMapViewController.centerCoordinate = LocationContext.current.coordinate? ?? storeMapViewController.centerCoordinate
+            storeMapViewController.centerCoordinate = LocationContext.current.coordinate ?? storeMapViewController.centerCoordinate
             storeMapViewController.annotations = self.storeAnnotations + [(coordinate : (latitude : storeMapViewController.centerCoordinate.latitude, longitude : storeMapViewController.centerCoordinate.longitude), title : "現在地", subStitle : "", store : nil)]
         }
     }

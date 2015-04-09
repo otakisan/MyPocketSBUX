@@ -50,11 +50,11 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
         if let dataArraySwift = dataArray as? [NSDictionary] {
             for dataObjNsDic in dataArraySwift {
                 if let edition = dataObjNsDic["edition"] as? NSString {
-                    if self.groupKeyToIndex[edition] == nil {
-                        self.groupKeyToIndex[edition] = self.groupKeyToIndex.count
+                    if self.groupKeyToIndex[edition as String] == nil {
+                        self.groupKeyToIndex[edition as String] = self.groupKeyToIndex.count
                     }
                     
-                    if var appendIndex = self.groupKeyToIndex[edition] {
+                    if var appendIndex = self.groupKeyToIndex[edition as String] {
                         if results.count <= appendIndex {
                             results.append([])
                         }
@@ -166,7 +166,7 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
         let filteredResults = searchResults?.map { $0.filter { finalCompoundPredicate.evaluateWithObject($0) }}
         
         // Hand over the filtered results to our search results table.
-        let resultsController = searchController.searchResultsController as FilteredSeminarsTableViewController
+        let resultsController = searchController.searchResultsController as! FilteredSeminarsTableViewController
         resultsController.filteredSeminarData = filteredResults
         resultsController.tableView.reloadData()
 
@@ -226,7 +226,7 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) as! UITableViewCell
 
         if let tableData = self.seminarData {
             self.configureCell(cell, forSeminars: tableData, indexPath: indexPath)

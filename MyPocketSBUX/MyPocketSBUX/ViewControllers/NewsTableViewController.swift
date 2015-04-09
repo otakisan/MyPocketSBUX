@@ -69,8 +69,8 @@ class NewsTableViewController: UITableViewController, UIGestureRecognizerDelegat
             var entity = PressReleases.createEntity()
             entity.fiscalYear = (newPressRelease["fiscal_year"] as? NSNumber) ?? 0
             entity.pressReleaseSn = (newPressRelease["press_release_sn"] as? NSNumber) ?? 0
-            entity.title = (newPressRelease["title"] as? NSString) ?? ""
-            entity.url = (newPressRelease["url"] as? NSString) ?? ""
+            entity.title = ((newPressRelease["title"] as? NSString) ?? "") as String
+            entity.url = ((newPressRelease["url"] as? NSString) ?? "") as String
             entity.createdAt = (newPressRelease["created_at"] as? NSDate) ?? NSDate(timeIntervalSince1970: 0)
             entity.updatedAt = (newPressRelease["updated_at"] as? NSDate) ?? NSDate(timeIntervalSince1970: 0)
             
@@ -137,7 +137,7 @@ class NewsTableViewController: UITableViewController, UIGestureRecognizerDelegat
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("defaultNewsTableViewCellIdentifier", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("defaultNewsTableViewCellIdentifier", forIndexPath: indexPath) as! UITableViewCell
 
         // Configure the cell...
         if self.pressReleaseEntities.count > indexPath.row {

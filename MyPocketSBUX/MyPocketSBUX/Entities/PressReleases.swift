@@ -22,7 +22,7 @@ class PressReleases: NSObject {
     */
     class func getManagedObjectContext() -> NSManagedObjectContext {
         
-        var appDel : AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        var appDel : AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
         var context : NSManagedObjectContext = appDel.managedObjectContext!
         
         return context
@@ -30,7 +30,7 @@ class PressReleases: NSObject {
     
     class func getManagedObjectModel() -> NSManagedObjectModel {
         
-        var appDel : AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        var appDel : AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
         var context : NSManagedObjectModel = appDel.managedObjectModel
         
         return context
@@ -48,7 +48,7 @@ class PressReleases: NSObject {
         return PressRelease(entity: ent!, insertIntoManagedObjectContext: nil)
     }
     
-    class func copyEntity(id : String) -> PressRelease? {
+    class func copyEntityWithId(id : String) -> PressRelease? {
         
         var copiedEntity : PressRelease?
         if let srcEntity = self.getTask(id) {
@@ -80,7 +80,7 @@ class PressReleases: NSObject {
         PressReleases.getManagedObjectContext().save(nil)
     }
     
-    class func deleteEntity(id : String) {
+    class func deleteEntityWithId(id : String) {
         if var entity = self.getTask(id) {
             self.deleteEntity(entity)
         }
@@ -131,7 +131,7 @@ class PressReleases: NSObject {
     
     class func clearAllEntities() {
         if var results = PressReleases.getManagedObjectContext().executeFetchRequest(NSFetchRequest(entityName: PressReleases.entityName()), error: nil) {
-            for result in results as [PressRelease] {
+            for result in results as! [PressRelease] {
                 PressReleases.getManagedObjectContext().deleteObject(result)
             }
             
@@ -188,7 +188,7 @@ class PressReleases: NSObject {
         if var fetchRequest = self.getFetchRequestTemplate(templateName, variables: variables, sortDescriptors: sortDescriptors, limit: limit){
             
             if let fetchResults = PressReleases.getManagedObjectContext().executeFetchRequest(fetchRequest, error: nil) {
-                results = fetchResults as [PressRelease]
+                results = fetchResults as! [PressRelease]
             }
         }
         
@@ -289,8 +289,8 @@ class PressReleases: NSObject {
                     
                     for result in results {
                         if result[propName] != nil && result["count"] != nil {
-                            let propValueData = result[propName]! as String
-                            let countData = result["count"]! as Int
+                            let propValueData = result[propName]! as! String
+                            let countData = result["count"]! as! Int
                             
                             returnList.append((propValue:propValueData, count : countData))
                         }

@@ -18,7 +18,7 @@ class DbContextBase: NSObject {
     */
     class func getManagedObjectContext() -> NSManagedObjectContext {
         
-        var appDel : AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        var appDel : AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
         var context : NSManagedObjectContext = appDel.managedObjectContext!
         
         return context
@@ -26,7 +26,7 @@ class DbContextBase: NSObject {
     
     class func getManagedObjectModel() -> NSManagedObjectModel {
         
-        var appDel : AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        var appDel : AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
         var context : NSManagedObjectModel = appDel.managedObjectModel
         
         return context
@@ -63,12 +63,12 @@ class DbContextBase: NSObject {
             templateName,
             variables: [:],
             sortDescriptors: sortKeys,
-            limit: 0) as [TResultEntity]
+            limit: 0) as! [TResultEntity]
     }
     
     func clearAllEntities() {
         if var results = DbContextBase.getManagedObjectContext().executeFetchRequest(NSFetchRequest(entityName: self.entityName()), error: nil) {
-            for result in results as [NSManagedObject] {
+            for result in results as! [NSManagedObject] {
                 DbContextBase.getManagedObjectContext().deleteObject(result)
             }
             
@@ -119,7 +119,7 @@ class DbContextBase: NSObject {
         if var fetchRequest = getFetchRequestTemplate(templateName, variables: variables, sortDescriptors: sortDescriptors, limit: limit){
             
             if let fetchResults = getManagedObjectContext().executeFetchRequest(fetchRequest, error: nil) {
-                results = fetchResults as [NSManagedObject]
+                results = fetchResults as! [NSManagedObject]
             }
         }
         
@@ -157,7 +157,7 @@ class DbContextBase: NSObject {
         var error : NSError? = nil
         if let fetchResult = DbContextBase.getManagedObjectContext().executeFetchRequest(req, error: nil){
             if fetchResult.count > 0 {
-                maxId = fetchResult.first!["maxId"] as NSInteger
+                maxId = fetchResult.first!["maxId"] as! NSInteger
             }
         }
         
