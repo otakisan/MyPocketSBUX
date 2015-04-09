@@ -14,7 +14,7 @@ class StoreMapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var storeMap: MKMapView!
     
     var centerCoordinate : CLLocationCoordinate2D = CLLocationCoordinate2DMake(35.634616, 139.714205)
-    var annotations : [(coordinate : (latitude : Double, longitude : Double), title : String, subStitle : String)] = []
+    var annotations : [(coordinate : (latitude : Double, longitude : Double), title : String, subStitle : String, store : Store?)] = []
     
     func initializeMap(){
         self.storeMap.delegate = self
@@ -38,11 +38,13 @@ class StoreMapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func addAnnotations(){
+        // カスタムで店舗アノテーション作成し、店舗詳細情報を保持する
         for annotationInfo in self.annotations {
-            var annotation = MKPointAnnotation()
+            var annotation = StoreAnnotation()
             annotation.coordinate = CLLocationCoordinate2DMake(annotationInfo.coordinate.latitude, annotationInfo.coordinate.longitude)
             annotation.title = annotationInfo.title
             annotation.subtitle = annotationInfo.subStitle
+            annotation.store = annotationInfo.store
             self.storeMap.addAnnotation(annotation)
         }
     }
@@ -69,5 +71,41 @@ class StoreMapViewController: UIViewController, MKMapViewDelegate {
         // Pass the selected object to the new view controller.
     }
     */
+
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView!{
+        
+        var annotationView : MKAnnotationView?
+        if var annoView = mapView.dequeueReusableAnnotationViewWithIdentifier("PinAnnotationView") {
+            annoView.annotation = annotation
+            annotationView = annoView
+        }
+        else if var annotationViewCreated = MKPinAnnotationView(annotation: annotation, reuseIdentifier:"PinAnnotationView") {
+            annotationViewCreated.canShowCallout = true
+            if var button = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as? UIButton {
+                button.frame = CGRectMake(0, 0, 30, 30)
+                annotationViewCreated.rightCalloutAccessoryView = button
+            }
+            annotationViewCreated.pinColor = MKPinAnnotationColor.Red
+            
+            annotationView = annotationViewCreated
+        }
+
+        return annotationView
+    }
+    
+    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!){
+        var title = view.annotation.title
+        if let store = (view.annotation as? StoreAnnotation)?.store {
+            self.pushStoreDetailViewOnCellSelected(store)
+        }
+    }
+    
+    func pushStoreDetailViewOnCellSelected(store : Store) {
+        
+        // Set up the detail view controller to show.
+        let detailViewController = StoreDetailTableViewController.forStore(store)
+
+        self.navigationController?.pushViewController(detailViewController, animated: true)
+    }
 
 }

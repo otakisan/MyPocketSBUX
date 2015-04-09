@@ -37,6 +37,7 @@
 		16C979D91ACD8EC600543120 /* FilteredSeminarsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C979D81ACD8EC600543120 /* FilteredSeminarsTableViewController.swift */; };
 		16C979DB1AD1F13800543120 /* StoreMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C979DA1AD1F13800543120 /* StoreMapViewController.swift */; };
 		16C979E01AD2C88F00543120 /* LocationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C979DF1AD2C88F00543120 /* LocationContext.swift */; };
+		16C979E21AD5E50400543120 /* StoreAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C979E11AD5E50400543120 /* StoreAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,7 @@
 		16C979D81ACD8EC600543120 /* FilteredSeminarsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilteredSeminarsTableViewController.swift; sourceTree = "<group>"; };
 		16C979DA1AD1F13800543120 /* StoreMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreMapViewController.swift; sourceTree = "<group>"; };
 		16C979DF1AD2C88F00543120 /* LocationContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationContext.swift; sourceTree = "<group>"; };
+		16C979E11AD5E50400543120 /* StoreAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				16C979DF1AD2C88F00543120 /* LocationContext.swift */,
+				16C979E11AD5E50400543120 /* StoreAnnotation.swift */,
 			);
 			path = Location;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16C979E21AD5E50400543120 /* StoreAnnotation.swift in Sources */,
 				164BFDD11ACF89D1003BF77B /* SeminarsTableViewCell.swift in Sources */,
 				164BFDDA1ACFBEF3003BF77B /* UITableViewControllerExtension.swift in Sources */,
 				164BFDD41ACFA8CF003BF77B /* StoresTableViewController.swift in Sources */,

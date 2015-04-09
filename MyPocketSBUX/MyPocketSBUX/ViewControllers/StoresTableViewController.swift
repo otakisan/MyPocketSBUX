@@ -26,7 +26,7 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
     var storeEntities : [Store] = []
     var storesData : [[String:AnyObject]]?
     var groupKeyToIndex : [Int:Int] = [:]
-    var storeAnnotations : [(coordinate : (latitude : Double, longitude : Double), title : String, subStitle : String)] = []
+    var storeAnnotations : [(coordinate : (latitude : Double, longitude : Double), title : String, subStitle : String, store : Store?)] = []
 
     // Search controller to help us with filtering.
     var searchController: UISearchController!
@@ -491,15 +491,15 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         if var storeMapViewController = segue.destinationViewController as? StoreMapViewController {
             // 位置情報サービスから現在地を取得
             storeMapViewController.centerCoordinate = LocationContext.current.coordinate? ?? storeMapViewController.centerCoordinate
-            storeMapViewController.annotations = self.storeAnnotations + [(coordinate : (latitude : storeMapViewController.centerCoordinate.latitude, longitude : storeMapViewController.centerCoordinate.longitude), title : "現在地", subStitle : "")]
+            storeMapViewController.annotations = self.storeAnnotations + [(coordinate : (latitude : storeMapViewController.centerCoordinate.latitude, longitude : storeMapViewController.centerCoordinate.longitude), title : "現在地", subStitle : "", store : nil)]
         }
     }
     
-    func allStoreAnnotationsAndCurrent() -> [(coordinate : (latitude : Double, longitude : Double), title : String, subStitle : String)] {
-        var results : [(coordinate : (latitude : Double, longitude : Double), title : String, subStitle : String)] = []
+    func allStoreAnnotationsAndCurrent() -> [(coordinate : (latitude : Double, longitude : Double), title : String, subStitle : String, store : Store?)] {
+        var results : [(coordinate : (latitude : Double, longitude : Double), title : String, subStitle : String, store : Store?)] = []
         for entity in self.storeEntities {
-            var annotationInfo : (coordinate : (latitude : Double, longitude : Double), title : String, subStitle : String) =
-            (coordinate: (Double(entity.latitude), Double(entity.longitude)), title: entity.name, subStitle: "\(DateUtility.localTimeString(entity.openingTimeWeekday)) - \(DateUtility.localTimeString(entity.closingTimeWeekday))")
+            var annotationInfo : (coordinate : (latitude : Double, longitude : Double), title : String, subStitle : String, store : Store?) =
+            (coordinate: (Double(entity.latitude), Double(entity.longitude)), title: entity.name, subStitle: "\(DateUtility.localTimeString(entity.openingTimeWeekday)) - \(DateUtility.localTimeString(entity.closingTimeWeekday))", store : entity)
             
             results += [annotationInfo]
         }
