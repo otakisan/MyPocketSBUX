@@ -80,8 +80,8 @@ class Tasks::SeminarCrawlerTask
       #p node.inner_text.strip
       seminardetail(ROOT_URL + node.css('a').first.attribute("href").value)
 =end
-#seminardetail("https://www.starbucks.co.jp/seminar/beginner.html")
-seminardetail("https://www.starbucks.co.jp/seminar/chocolate.html")
+seminardetail("https://www.starbucks.co.jp/seminar/beginner.html")
+#seminardetail("https://www.starbucks.co.jp/seminar/chocolate.html")
 seminardetail("https://www.starbucks.co.jp/seminar/espresso.html")
 seminardetail("https://www.starbucks.co.jp/seminar/hand-drip.html")
 seminardetail("https://www.starbucks.co.jp/seminar/pairing.html")
