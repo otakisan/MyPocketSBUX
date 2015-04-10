@@ -98,6 +98,25 @@ class StoreDetailTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if self.displayData.count > indexPath.row {
+            let valueSet = self.displayData[indexPath.row]
+            switch valueSet {
+            case ("tel", var telNumber):
+                var adjusted = telNumber.stringByReplacingOccurrencesOfString("-", withString: "", options: .LiteralSearch, range: nil)
+                // テスト
+                adjusted = "0120-800-000"
+                if let url = NSURL(string: "tel:\(adjusted)") {
+                    var result = UIApplication.sharedApplication().openURL(url)
+                }
+            case ("address", _):
+                self.navigationController?.pushViewController(StoreMapViewController.forStoreMap(self.store), animated: true)
+            default:
+                break;
+            }
+        }
+    }
+
     override func encodeRestorableStateWithCoder(coder: NSCoder) {
         super.encodeRestorableStateWithCoder(coder)
         

@@ -11,11 +11,29 @@ import MapKit
 
 class StoreMapViewController: UIViewController, MKMapViewDelegate {
 
+    struct StoryboardConstants {
+        static let storyboardName = "Main"
+        static let viewControllerIdentifier = "StoreMapViewController"
+    }
+
     @IBOutlet weak var storeMap: MKMapView!
     
     var centerCoordinate : CLLocationCoordinate2D = CLLocationCoordinate2DMake(35.634616, 139.714205)
     var annotations : [(coordinate : (latitude : Double, longitude : Double), title : String, subStitle : String, store : Store?)] = []
     
+    class func forStoreMap(store : Store?) -> StoreMapViewController {
+        let storyboard = UIStoryboard(name: StoryboardConstants.storyboardName, bundle: nil)
+        
+        let viewController = storyboard.instantiateViewControllerWithIdentifier(StoryboardConstants.viewControllerIdentifier) as! StoreMapViewController
+        
+        if let storeInfo = store {
+            viewController.centerCoordinate = CLLocationCoordinate2DMake(Double(storeInfo.latitude), Double(storeInfo.longitude))
+            viewController.annotations = [(coordinate : (latitude : Double(storeInfo.latitude), longitude : Double(storeInfo.longitude)), title : storeInfo.name, subStitle : "\(DateUtility.localTimeString(storeInfo.openingTimeWeekday)) - \(DateUtility.localTimeString(storeInfo.closingTimeWeekday))", store : storeInfo)]
+        }
+        
+        return viewController
+    }
+
     func initializeMap(){
         self.storeMap.delegate = self
 
