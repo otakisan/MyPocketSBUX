@@ -11,14 +11,10 @@ import CoreData
 
 class Stores: DbContextBase {
     
-    struct Statics {
-        struct Singleton {
-            static var contextInstance : Stores = Stores()
-        }
-    }
+    static var contextInstance : Stores = Stores()
     
     class func instance() -> Stores{
-        return Statics.Singleton.contextInstance
+        return contextInstance
     }
 
     override func entityName() -> String {

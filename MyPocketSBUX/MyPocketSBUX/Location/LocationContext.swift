@@ -11,17 +11,15 @@ import CoreLocation
 
 class LocationContext: NSObject, CLLocationManagerDelegate {
 
-    struct Singleton {
-        static var currentLocation : LocationContext?
-    }
+    static var currentLocation : LocationContext?
     
     class var current : LocationContext {
-        if Singleton.currentLocation == nil {
-            Singleton.currentLocation = LocationContext()
-            Singleton.currentLocation?.initialize()
+        if currentLocation == nil {
+            currentLocation = LocationContext()
+            currentLocation?.initialize()
         }
         
-        return Singleton.currentLocation!
+        return currentLocation!
     }
     
     var locationManager = CLLocationManager()
