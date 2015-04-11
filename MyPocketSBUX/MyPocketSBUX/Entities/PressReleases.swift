@@ -65,6 +65,7 @@ class PressReleases: NSObject {
         entity.setValue(srcEntity.valueForKey("pressReleaseSn"), forKey: "pressReleaseSn")
         entity.setValue(srcEntity.valueForKey("title"), forKey: "title")
         entity.setValue(srcEntity.valueForKey("url"), forKey: "url")
+        entity.setValue(srcEntity.valueForKey("issueDate"), forKey: "issueDate")
         entity.setValue(srcEntity.valueForKey("createdAt"), forKey: "createdAt")
         entity.setValue(srcEntity.valueForKey("updatedAt"), forKey: "updatedAt")
         

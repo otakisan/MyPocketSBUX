@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		164BFDC61AC67304003BF77B /* PressRelease.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDC51AC67304003BF77B /* PressRelease.swift */; };
 		164BFDC81AC6735E003BF77B /* PressReleases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDC71AC6735E003BF77B /* PressReleases.swift */; };
 		164BFDCB1AC67D9C003BF77B /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDCA1AC67D9C003BF77B /* DateUtility.swift */; };
 		164BFDCD1AC67DF5003BF77B /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDCC1AC67DF5003BF77B /* StringExtension.swift */; };
@@ -38,6 +37,8 @@
 		16C979DB1AD1F13800543120 /* StoreMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C979DA1AD1F13800543120 /* StoreMapViewController.swift */; };
 		16C979E01AD2C88F00543120 /* LocationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C979DF1AD2C88F00543120 /* LocationContext.swift */; };
 		16C979E21AD5E50400543120 /* StoreAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C979E11AD5E50400543120 /* StoreAnnotation.swift */; };
+		16E442CB1AD8EE7A003C3AA2 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E442CA1AD8EE7A003C3AA2 /* NewsTableViewCell.swift */; };
+		16E442CD1AD90314003C3AA2 /* PressRelease.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E442CC1AD90314003C3AA2 /* PressRelease.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +52,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		164BFDC51AC67304003BF77B /* PressRelease.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PressRelease.swift; sourceTree = "<group>"; };
 		164BFDC71AC6735E003BF77B /* PressReleases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PressReleases.swift; sourceTree = "<group>"; };
 		164BFDCA1AC67D9C003BF77B /* DateUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtility.swift; sourceTree = "<group>"; };
 		164BFDCC1AC67DF5003BF77B /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
@@ -86,6 +86,8 @@
 		16C979DA1AD1F13800543120 /* StoreMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreMapViewController.swift; sourceTree = "<group>"; };
 		16C979DF1AD2C88F00543120 /* LocationContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationContext.swift; sourceTree = "<group>"; };
 		16C979E11AD5E50400543120 /* StoreAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreAnnotation.swift; sourceTree = "<group>"; };
+		16E442CA1AD8EE7A003C3AA2 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
+		16E442CC1AD90314003C3AA2 /* PressRelease.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PressRelease.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +111,7 @@
 		164BFDC41AC671E8003BF77B /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				164BFDC51AC67304003BF77B /* PressRelease.swift */,
+				16E442CC1AD90314003C3AA2 /* PressRelease.swift */,
 				164BFDC71AC6735E003BF77B /* PressReleases.swift */,
 				164BFDE31ACFEAC5003BF77B /* Store.swift */,
 				164BFDDF1ACFC8FC003BF77B /* Stores.swift */,
@@ -135,6 +137,7 @@
 				164BFDD01ACF89D1003BF77B /* SeminarsTableViewCell.xib */,
 				164BFDE51AD021E7003BF77B /* StoresTableViewCell.swift */,
 				164BFDE61AD021E7003BF77B /* StoresTableViewCell.xib */,
+				16E442CA1AD8EE7A003C3AA2 /* NewsTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -333,15 +336,16 @@
 				164BFDD11ACF89D1003BF77B /* SeminarsTableViewCell.swift in Sources */,
 				164BFDDA1ACFBEF3003BF77B /* UITableViewControllerExtension.swift in Sources */,
 				164BFDD41ACFA8CF003BF77B /* StoresTableViewController.swift in Sources */,
+				16E442CB1AD8EE7A003C3AA2 /* NewsTableViewCell.swift in Sources */,
 				16C979D71ACD7E2400543120 /* SeminarsBaseTableViewController.swift in Sources */,
 				16AE143A1AC65A3700370062 /* SBUXWKWebViewController.swift in Sources */,
 				16C979D51ACA066A00543120 /* SeminarsTableViewController.swift in Sources */,
 				16C979E01AD2C88F00543120 /* LocationContext.swift in Sources */,
-				164BFDC61AC67304003BF77B /* PressRelease.swift in Sources */,
 				164BFDE21ACFC9B9003BF77B /* DbContextBase.swift in Sources */,
 				16C979D91ACD8EC600543120 /* FilteredSeminarsTableViewController.swift in Sources */,
 				16AE14381AC2BF7A00370062 /* NewsTableViewController.swift in Sources */,
 				164BFDD81ACFADEC003BF77B /* FilteredStoresTableViewController.swift in Sources */,
+				16E442CD1AD90314003C3AA2 /* PressRelease.swift in Sources */,
 				16AE14361ABEDDEE00370062 /* SBUXTableViewController.swift in Sources */,
 				16C979DB1AD1F13800543120 /* StoreMapViewController.swift in Sources */,
 				164BFDE01ACFC8FC003BF77B /* Stores.swift in Sources */,

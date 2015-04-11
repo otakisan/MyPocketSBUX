@@ -55,7 +55,7 @@ class SeminarsBaseTableViewController: UITableViewController {
         let status = objDic["status"] as! String
         let start_time = objDic["start_time"] as! String
         
-        if let startDateTime = DateUtility.dateFromSqliteDateString(start_time) {
+        if let startDateTime = DateUtility.dateFromSqliteDateTimeString(start_time) {
             let startDate = DateUtility.localDateString(startDateTime)
             let startTime = DateUtility.localTimeString(startDateTime)
             let capacityLabel = "capacity".localized()

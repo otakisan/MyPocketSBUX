@@ -46,7 +46,7 @@ class DateUtility: NSObject {
         return edgeOfDay(date, edgeString: "235959999")
     }
     
-    class func dateFromSqliteDateString(dateString : String) -> NSDate? {
+    class func dateFromSqliteDateTimeString(dateString : String) -> NSDate? {
         // TとZが不要なので消す
         var dateStringInner = (dateString as NSString).stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "Z"))
         var index = dateString.rangeOfString("T", options: NSStringCompareOptions.LiteralSearch, range: nil, locale: nil)
@@ -60,11 +60,20 @@ class DateUtility: NSObject {
         return date
     }
     
+    class func dateFromSqliteDateString(dateString : String) -> NSDate? {
+        var formatter = NSDateFormatter()
+        formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+        formatter.dateFormat = "yyyy-MM-dd"
+        var date = formatter.dateFromString(dateString)
+        
+        return date
+    }
+
     class func localDateString(date : NSDate) -> String {
         var formatter = NSDateFormatter()
         formatter.dateStyle = NSDateFormatterStyle.FullStyle;
         formatter.timeStyle = NSDateFormatterStyle.NoStyle
-        formatter.calendar = NSCalendar(calendarIdentifier: NSGregorianCalendar)
+        formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
         formatter.locale = NSLocale.currentLocale()
         var dateStringSrc = formatter.stringFromDate(date)
         
@@ -75,7 +84,7 @@ class DateUtility: NSObject {
         var formatter = NSDateFormatter()
         formatter.dateStyle = NSDateFormatterStyle.NoStyle;
         formatter.timeStyle = NSDateFormatterStyle.ShortStyle
-        formatter.calendar = NSCalendar(calendarIdentifier: NSGregorianCalendar)
+        formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
         formatter.locale = NSLocale.currentLocale()
         var dateStringSrc = formatter.stringFromDate(date)
         

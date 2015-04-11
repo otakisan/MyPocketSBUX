@@ -11,7 +11,7 @@ import UIKit
 class NewsTableViewController: UITableViewController, UIGestureRecognizerDelegate {
     
     var pressReleaseEntities : [PressRelease] = []
-    var fontSize : Float = 14.0
+    var fontSize : Float = 17.0
     let fontSizeMax : Float = 24.0
     var officialSiteRelativePath = ""
 
@@ -28,6 +28,9 @@ class NewsTableViewController: UITableViewController, UIGestureRecognizerDelegat
         self.addPinchGestureRecognizer();
         
         self.initializeNewsData()
+        
+        tableView.estimatedRowHeight = 90
+        self.tableView.rowHeight = UITableViewAutomaticDimension // カスタムセルの場合は明示的な指定が必要
     }
     
     func addPinchGestureRecognizer(){
@@ -38,7 +41,7 @@ class NewsTableViewController: UITableViewController, UIGestureRecognizerDelegat
     }
     
     func pinchGesture(gesture : UIPinchGestureRecognizer) {
-        println(gesture.scale)
+        //println(gesture.scale)
         
         // scaleは加速度にもよるが、0〜4くらいが多い。最大でも14程度
         self.fontSize = Float(gesture.scale) * 14
@@ -58,7 +61,7 @@ class NewsTableViewController: UITableViewController, UIGestureRecognizerDelegat
     }
     
     func getAllPressReleaseFromLocal() -> [PressRelease] {
-        return PressReleases.getAllOrderBy([(columnName : "pressReleaseSn", ascending : false)])
+        return PressReleases.getAllOrderBy([(columnName : "issueDate", ascending : false), (columnName : "pressReleaseSn", ascending : false)])
     }
     
     func insertNewPressReleaseToLocal(newPressReleaseData : NSArray) -> [PressRelease] {
@@ -71,8 +74,9 @@ class NewsTableViewController: UITableViewController, UIGestureRecognizerDelegat
             entity.pressReleaseSn = (newPressRelease["press_release_sn"] as? NSNumber) ?? 0
             entity.title = ((newPressRelease["title"] as? NSString) ?? "") as String
             entity.url = ((newPressRelease["url"] as? NSString) ?? "") as String
-            entity.createdAt = (newPressRelease["created_at"] as? NSDate) ?? NSDate(timeIntervalSince1970: 0)
-            entity.updatedAt = (newPressRelease["updated_at"] as? NSDate) ?? NSDate(timeIntervalSince1970: 0)
+            entity.issueDate = DateUtility.dateFromSqliteDateString(newPressRelease["issue_date"] as? String ?? "") ?? NSDate(timeIntervalSince1970: 0)
+            entity.createdAt = DateUtility.dateFromSqliteDateTimeString(newPressRelease["created_at"] as? String ?? "") ?? NSDate(timeIntervalSince1970: 0)
+            entity.updatedAt = DateUtility.dateFromSqliteDateTimeString(newPressRelease["updated_at"] as? String ?? "") ?? NSDate(timeIntervalSince1970: 0)
             
             PressReleases.insertEntity(entity)
             results.append(entity)
@@ -137,14 +141,15 @@ class NewsTableViewController: UITableViewController, UIGestureRecognizerDelegat
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("defaultNewsTableViewCellIdentifier", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("defaultNewsTableViewCellIdentifier", forIndexPath: indexPath) as! NewsTableViewCell
 
         // Configure the cell...
         if self.pressReleaseEntities.count > indexPath.row {
-            cell.textLabel?.text = self.pressReleaseEntities[indexPath.row].title
-            cell.textLabel?.numberOfLines = 0 // 複数行表示
-            cell.textLabel?.font = UIFont(name: "Arial", size: CGFloat(self.fontSize))
-            cell.textLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
+            cell.titleLabel.text = self.pressReleaseEntities[indexPath.row].title
+            cell.titleLabel.numberOfLines = 0 // 複数行表示
+            cell.titleLabel.font = UIFont(name: "Arial", size: CGFloat(self.fontSize))
+            cell.titleLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
+            cell.issueDateLabel.text = DateUtility.localDateString(self.pressReleaseEntities[indexPath.row].issueDate)
             cell.sizeToFit()
         }
 

@@ -53,7 +53,9 @@ class StoreDetailTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        self.tableView.rowHeight = UITableViewAutomaticDimension;
+        // iOS 8.3 から、明示的に指定する必要がある
+        self.tableView.estimatedRowHeight = 43
+
         self.initializeDisplayData()
     }
 
