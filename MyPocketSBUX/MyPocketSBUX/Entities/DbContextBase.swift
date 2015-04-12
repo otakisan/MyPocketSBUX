@@ -49,11 +49,13 @@ class DbContextBase: NSObject {
 
     class func insertEntity(entity : NSManagedObject) {
         
-        if getManagedObjectContext().objectRegisteredForID(entity.objectID) == nil {
-            getManagedObjectContext().insertObject(entity)
-        }
-        
-        getManagedObjectContext().save(nil)
+        getManagedObjectContext().performBlockAndWait({
+            if DbContextBase.getManagedObjectContext().objectRegisteredForID(entity.objectID) == nil {
+                DbContextBase.getManagedObjectContext().insertObject(entity)
+            }
+            
+            DbContextBase.getManagedObjectContext().save(nil)
+        })
     }
     
     func insertEntityFromJsonObject(jsonObject : NSArray){
