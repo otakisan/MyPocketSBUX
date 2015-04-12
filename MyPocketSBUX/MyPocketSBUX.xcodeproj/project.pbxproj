@@ -39,6 +39,20 @@
 		16C979E21AD5E50400543120 /* StoreAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C979E11AD5E50400543120 /* StoreAnnotation.swift */; };
 		16E442CB1AD8EE7A003C3AA2 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E442CA1AD8EE7A003C3AA2 /* NewsTableViewCell.swift */; };
 		16E442CD1AD90314003C3AA2 /* PressRelease.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E442CC1AD90314003C3AA2 /* PressRelease.swift */; };
+		16F21E3F1AD9F1D20052AD2A /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E3E1AD9F1D20052AD2A /* MenuTableViewController.swift */; };
+		16F21E421AD9F50A0052AD2A /* MenuSectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E411AD9F50A0052AD2A /* MenuSectionItem.swift */; };
+		16F21E441AD9F7DA0052AD2A /* MenuListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E431AD9F7DA0052AD2A /* MenuListItem.swift */; };
+		16F21E461AD9F9FD0052AD2A /* ProductDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E451AD9F9FD0052AD2A /* ProductDetailTableViewController.swift */; };
+		16F21E481ADA08430052AD2A /* Drink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E471ADA08430052AD2A /* Drink.swift */; };
+		16F21E4A1ADA0A6C0052AD2A /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E491ADA0A6C0052AD2A /* Food.swift */; };
+		16F21E4C1ADA0B930052AD2A /* Foods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E4B1ADA0B930052AD2A /* Foods.swift */; };
+		16F21E4E1ADA2B7C0052AD2A /* DrinkMenuListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E4D1ADA2B7C0052AD2A /* DrinkMenuListItem.swift */; };
+		16F21E501ADA2FE20052AD2A /* MenuListItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E4F1ADA2FE20052AD2A /* MenuListItemTableViewCell.swift */; };
+		16F21E521ADA30A30052AD2A /* DrinkMenuListItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E511ADA30A30052AD2A /* DrinkMenuListItemTableViewCell.swift */; };
+		16F21E541ADA34FE0052AD2A /* Drinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E531ADA34FE0052AD2A /* Drinks.swift */; };
+		16F21E561ADA39AE0052AD2A /* FoodMenuListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E551ADA39AE0052AD2A /* FoodMenuListItem.swift */; };
+		16F21E581ADA45360052AD2A /* FoodMenuListItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E571ADA45360052AD2A /* FoodMenuListItemTableViewCell.swift */; };
+		16F21E5A1ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E591ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +102,20 @@
 		16C979E11AD5E50400543120 /* StoreAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreAnnotation.swift; sourceTree = "<group>"; };
 		16E442CA1AD8EE7A003C3AA2 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		16E442CC1AD90314003C3AA2 /* PressRelease.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PressRelease.swift; sourceTree = "<group>"; };
+		16F21E3E1AD9F1D20052AD2A /* MenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
+		16F21E411AD9F50A0052AD2A /* MenuSectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuSectionItem.swift; sourceTree = "<group>"; };
+		16F21E431AD9F7DA0052AD2A /* MenuListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuListItem.swift; sourceTree = "<group>"; };
+		16F21E451AD9F9FD0052AD2A /* ProductDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailTableViewController.swift; sourceTree = "<group>"; };
+		16F21E471ADA08430052AD2A /* Drink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Drink.swift; sourceTree = "<group>"; };
+		16F21E491ADA0A6C0052AD2A /* Food.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
+		16F21E4B1ADA0B930052AD2A /* Foods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Foods.swift; sourceTree = "<group>"; };
+		16F21E4D1ADA2B7C0052AD2A /* DrinkMenuListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrinkMenuListItem.swift; sourceTree = "<group>"; };
+		16F21E4F1ADA2FE20052AD2A /* MenuListItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuListItemTableViewCell.swift; sourceTree = "<group>"; };
+		16F21E511ADA30A30052AD2A /* DrinkMenuListItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrinkMenuListItemTableViewCell.swift; sourceTree = "<group>"; };
+		16F21E531ADA34FE0052AD2A /* Drinks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Drinks.swift; sourceTree = "<group>"; };
+		16F21E551ADA39AE0052AD2A /* FoodMenuListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodMenuListItem.swift; sourceTree = "<group>"; };
+		16F21E571ADA45360052AD2A /* FoodMenuListItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodMenuListItemTableViewCell.swift; sourceTree = "<group>"; };
+		16F21E591ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderMenuListItemTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +139,10 @@
 		164BFDC41AC671E8003BF77B /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				16F21E471ADA08430052AD2A /* Drink.swift */,
+				16F21E531ADA34FE0052AD2A /* Drinks.swift */,
+				16F21E491ADA0A6C0052AD2A /* Food.swift */,
+				16F21E4B1ADA0B930052AD2A /* Foods.swift */,
 				16E442CC1AD90314003C3AA2 /* PressRelease.swift */,
 				164BFDC71AC6735E003BF77B /* PressReleases.swift */,
 				164BFDE31ACFEAC5003BF77B /* Store.swift */,
@@ -138,6 +170,10 @@
 				164BFDE51AD021E7003BF77B /* StoresTableViewCell.swift */,
 				164BFDE61AD021E7003BF77B /* StoresTableViewCell.xib */,
 				16E442CA1AD8EE7A003C3AA2 /* NewsTableViewCell.swift */,
+				16F21E4F1ADA2FE20052AD2A /* MenuListItemTableViewCell.swift */,
+				16F21E511ADA30A30052AD2A /* DrinkMenuListItemTableViewCell.swift */,
+				16F21E571ADA45360052AD2A /* FoodMenuListItemTableViewCell.swift */,
+				16F21E591ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -163,6 +199,7 @@
 		16AE140C1ABD6B1900370062 /* MyPocketSBUX */ = {
 			isa = PBXGroup;
 			children = (
+				16F21E401AD9F2F20052AD2A /* ViewModels */,
 				16C979DE1AD2AE1400543120 /* Location */,
 				164BFDCE1ACF88D9003BF77B /* Views */,
 				164BFDC91AC67D42003BF77B /* Utilities */,
@@ -217,6 +254,8 @@
 				164BFDD71ACFADEC003BF77B /* FilteredStoresTableViewController.swift */,
 				164BFDE91AD02F8F003BF77B /* StoreDetailTableViewController.swift */,
 				16C979DA1AD1F13800543120 /* StoreMapViewController.swift */,
+				16F21E3E1AD9F1D20052AD2A /* MenuTableViewController.swift */,
+				16F21E451AD9F9FD0052AD2A /* ProductDetailTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -228,6 +267,17 @@
 				16C979E11AD5E50400543120 /* StoreAnnotation.swift */,
 			);
 			path = Location;
+			sourceTree = "<group>";
+		};
+		16F21E401AD9F2F20052AD2A /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				16F21E411AD9F50A0052AD2A /* MenuSectionItem.swift */,
+				16F21E431AD9F7DA0052AD2A /* MenuListItem.swift */,
+				16F21E4D1ADA2B7C0052AD2A /* DrinkMenuListItem.swift */,
+				16F21E551ADA39AE0052AD2A /* FoodMenuListItem.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -337,26 +387,40 @@
 				164BFDDA1ACFBEF3003BF77B /* UITableViewControllerExtension.swift in Sources */,
 				164BFDD41ACFA8CF003BF77B /* StoresTableViewController.swift in Sources */,
 				16E442CB1AD8EE7A003C3AA2 /* NewsTableViewCell.swift in Sources */,
+				16F21E421AD9F50A0052AD2A /* MenuSectionItem.swift in Sources */,
+				16F21E3F1AD9F1D20052AD2A /* MenuTableViewController.swift in Sources */,
+				16F21E561ADA39AE0052AD2A /* FoodMenuListItem.swift in Sources */,
 				16C979D71ACD7E2400543120 /* SeminarsBaseTableViewController.swift in Sources */,
 				16AE143A1AC65A3700370062 /* SBUXWKWebViewController.swift in Sources */,
 				16C979D51ACA066A00543120 /* SeminarsTableViewController.swift in Sources */,
+				16F21E441AD9F7DA0052AD2A /* MenuListItem.swift in Sources */,
+				16F21E481ADA08430052AD2A /* Drink.swift in Sources */,
+				16F21E501ADA2FE20052AD2A /* MenuListItemTableViewCell.swift in Sources */,
+				16F21E5A1ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift in Sources */,
+				16F21E4C1ADA0B930052AD2A /* Foods.swift in Sources */,
+				16F21E521ADA30A30052AD2A /* DrinkMenuListItemTableViewCell.swift in Sources */,
 				16C979E01AD2C88F00543120 /* LocationContext.swift in Sources */,
+				16F21E4A1ADA0A6C0052AD2A /* Food.swift in Sources */,
 				164BFDE21ACFC9B9003BF77B /* DbContextBase.swift in Sources */,
+				16F21E4E1ADA2B7C0052AD2A /* DrinkMenuListItem.swift in Sources */,
 				16C979D91ACD8EC600543120 /* FilteredSeminarsTableViewController.swift in Sources */,
 				16AE14381AC2BF7A00370062 /* NewsTableViewController.swift in Sources */,
 				164BFDD81ACFADEC003BF77B /* FilteredStoresTableViewController.swift in Sources */,
 				16E442CD1AD90314003C3AA2 /* PressRelease.swift in Sources */,
 				16AE14361ABEDDEE00370062 /* SBUXTableViewController.swift in Sources */,
 				16C979DB1AD1F13800543120 /* StoreMapViewController.swift in Sources */,
+				16F21E581ADA45360052AD2A /* FoodMenuListItemTableViewCell.swift in Sources */,
 				164BFDE01ACFC8FC003BF77B /* Stores.swift in Sources */,
 				16AE14101ABD6B1A00370062 /* AppDelegate.swift in Sources */,
 				164BFDCD1AC67DF5003BF77B /* StringExtension.swift in Sources */,
+				16F21E541ADA34FE0052AD2A /* Drinks.swift in Sources */,
 				164BFDE41ACFEAC5003BF77B /* Store.swift in Sources */,
 				164BFDC81AC6735E003BF77B /* PressReleases.swift in Sources */,
 				164BFDCB1AC67D9C003BF77B /* DateUtility.swift in Sources */,
 				164BFDEA1AD02F8F003BF77B /* StoreDetailTableViewController.swift in Sources */,
 				16AE14131ABD6B1A00370062 /* MyPocketSBUX.xcdatamodeld in Sources */,
 				164BFDE71AD021E7003BF77B /* StoresTableViewCell.swift in Sources */,
+				16F21E461AD9F9FD0052AD2A /* ProductDetailTableViewController.swift in Sources */,
 				164BFDD61ACFA9FA003BF77B /* StoresBaseTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,22 +1,45 @@
 //
-//  SBUXTableViewController.swift
+//  ProductDetailTableViewController.swift
 //  MyPocketSBUX
 //
-//  Created by takashi on 2015/03/22.
+//  Created by takashi on 2015/04/12.
 //  Copyright (c) 2015年 Takashi Ikeda. All rights reserved.
 //
 
 import UIKit
 
-class SBUXTableViewController: UITableViewController {
+class ProductDetailTableViewController: UITableViewController {
+
+    func initializeStoreData(){
+        
+        // ローカルDBにデータが存在するかどうかチェックしなければ、取得
+        // 存在すれば、DBから取得して、一覧表示へ
+        
+        
+        
+        //self.showActivityIndicator()
+        
+//        self.updateStoreLocalDb({
+//            (data, resp, err) in
+//            
+//            if var newsData = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray {
+//                
+//                self.insertNewStoreToLocal(newsData)
+//            }
+//            
+//            // ローカルDBのキャッシュデータを取得
+//            self.storeEntities = self.getAllStoreFromLocal()
+//            self.dispatch_async_serial { self.refreshAnnotations() }
+//            self.storesData = self.convertGroupedArray(self.storeEntities)
+//            
+//            //self.stopActivityIndicator()
+//            self.reloadData()
+//            //println(NSString(data: data, encoding:NSUTF8StringEncoding))
+//        })
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        var uisearchbar = UISearchController(searchResultsController: self)
-//        uisearchbar.searchBar.sizeToFit()
-//        self.tableView.tableHeaderView = uisearchbar.searchBar
-//        self.definesPresentationContext = true
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -32,21 +55,21 @@ class SBUXTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        // #warning Potentially incomplete method implementation.
-//        // Return the number of sections.
-//        return 0
-//    }
-//
-//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete method implementation.
-//        // Return the number of rows in the section.
-//        return 0
-//    }
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        // #warning Potentially incomplete method implementation.
+        // Return the number of sections.
+        return 0
+    }
+
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete method implementation.
+        // Return the number of rows in the section.
+        return 0
+    }
 
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
 
         // Configure the cell...
 

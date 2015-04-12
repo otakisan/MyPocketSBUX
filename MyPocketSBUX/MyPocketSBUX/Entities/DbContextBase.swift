@@ -36,6 +36,10 @@ class DbContextBase: NSObject {
         return ""
     }
     
+    func templateNameFetchAll() -> String {
+        return "all\(self.entityName())sFetchRequest"
+    }
+    
     func createEntity<T : NSManagedObject>() -> T {
         var context : NSManagedObjectContext = DbContextBase.getManagedObjectContext()
         let ent = NSEntityDescription.entityForName(self.entityName(), inManagedObjectContext: context)
@@ -52,6 +56,10 @@ class DbContextBase: NSObject {
         getManagedObjectContext().save(nil)
     }
     
+    func insertEntityFromJsonObject(jsonObject : NSArray){
+        fatalError("should implement subclass")
+    }
+    
     class func getAllOrderBy<TResultEntity : NSManagedObject>(templateName: String, orderKeys : [(columnName : String, ascending : Bool)]) -> [TResultEntity] {
         
         var sortKeys : [AnyObject] = []
@@ -64,6 +72,11 @@ class DbContextBase: NSObject {
             variables: [:],
             sortDescriptors: sortKeys,
             limit: 0) as! [TResultEntity]
+    }
+    
+    func getAllOrderBy<TResultEntity : NSManagedObject>(orderKeys : [(columnName : String, ascending : Bool)]) -> [TResultEntity] {
+        
+        return DbContextBase.getAllOrderBy(self.templateNameFetchAll(), orderKeys: orderKeys)
     }
     
     func clearAllEntities() {
@@ -109,6 +122,11 @@ class DbContextBase: NSObject {
         }
         
         return count
+    }
+    
+    func countByFetchRequestTemplate(variables : [NSObject:AnyObject]) -> Int {
+        
+        return DbContextBase.countByFetchRequestTemplate(self.templateNameFetchAll(), variables: variables)
     }
     
     

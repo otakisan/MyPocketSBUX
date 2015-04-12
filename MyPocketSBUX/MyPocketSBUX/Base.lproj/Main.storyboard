@@ -538,18 +538,88 @@
             </objects>
             <point key="canvasLocation" x="-1018" y="7538"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Menu-->
         <scene sceneID="9CI-pU-huI">
             <objects>
-                <tableViewController id="IBn-sd-zV5" sceneMemberID="viewController">
+                <tableViewController id="IBn-sd-zV5" customClass="MenuTableViewController" customModule="MyPocketSBUX" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="8F1-A2-VVg">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="v0m-tq-oht">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="orderMenuListItemCell" id="v0m-tq-oht" customClass="OrderMenuListItemTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="v0m-tq-oht" id="ZKp-Gk-OGu">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="bw6-o5-pwR" kind="show" identifier="showProductDetail" id="jnm-ea-9oq"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="drinkMenuListItemCell" rowHeight="70" id="AvI-Xr-x08" customClass="DrinkMenuListItemTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AvI-Xr-x08" id="Ygv-zW-UiD">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7KE-lK-8Bc">
+                                            <rect key="frame" x="8" y="19" width="51" height="31"/>
+                                            <connections>
+                                                <action selector="valueChangedOrderSwitch:" destination="AvI-Xr-x08" eventType="valueChanged" id="Qbb-ZO-3Ff"/>
+                                            </connections>
+                                        </switch>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="(Tall) ¥888" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DPJ-zQ-NU0">
+                                            <rect key="frame" x="516" y="8" width="76" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="76" id="Py4-ee-4Pe"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="888 kcal" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NwP-Da-IrH">
+                                            <rect key="frame" x="516" y="42" width="76" height="19"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="19" id="IxO-2N-3PE"/>
+                                                <constraint firstAttribute="width" constant="76" id="w8l-bw-cc3"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Drink Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KIw-MO-6La">
+                                            <rect key="frame" x="65" y="24" width="443" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="443" id="SID-ss-s20"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="NwP-Da-IrH" firstAttribute="bottom" secondItem="Ygv-zW-UiD" secondAttribute="bottomMargin" id="5GM-rT-m2n"/>
+                                        <constraint firstItem="KIw-MO-6La" firstAttribute="centerY" secondItem="7KE-lK-8Bc" secondAttribute="centerY" id="6Eg-3M-boO"/>
+                                        <constraint firstItem="DPJ-zQ-NU0" firstAttribute="leading" secondItem="NwP-Da-IrH" secondAttribute="leading" id="7JP-52-gfe"/>
+                                        <constraint firstItem="DPJ-zQ-NU0" firstAttribute="trailing" secondItem="NwP-Da-IrH" secondAttribute="trailing" id="Aen-of-c7c"/>
+                                        <constraint firstItem="DPJ-zQ-NU0" firstAttribute="leading" secondItem="KIw-MO-6La" secondAttribute="trailing" constant="8" symbolic="YES" id="Mjx-qp-j1v"/>
+                                        <constraint firstItem="7KE-lK-8Bc" firstAttribute="leading" secondItem="Ygv-zW-UiD" secondAttribute="leadingMargin" constant="-7" id="Oec-W1-rvf"/>
+                                        <constraint firstItem="NwP-Da-IrH" firstAttribute="top" secondItem="DPJ-zQ-NU0" secondAttribute="bottom" constant="13" id="PFZ-FW-Iz4"/>
+                                        <constraint firstItem="KIw-MO-6La" firstAttribute="centerY" secondItem="Ygv-zW-UiD" secondAttribute="centerY" id="gUt-IV-tFT"/>
+                                        <constraint firstItem="DPJ-zQ-NU0" firstAttribute="top" secondItem="Ygv-zW-UiD" secondAttribute="topMargin" id="iAj-Gx-0FK"/>
+                                        <constraint firstItem="KIw-MO-6La" firstAttribute="leading" secondItem="7KE-lK-8Bc" secondAttribute="trailing" constant="8" symbolic="YES" id="lRS-O4-tbN"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="DPJ-zQ-NU0" secondAttribute="trailing" constant="-7" id="rgl-Ni-Trg"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="calorieLabel" destination="NwP-Da-IrH" id="hKv-x7-2R9"/>
+                                    <outlet property="orderSwitch" destination="7KE-lK-8Bc" id="EgX-RJ-yAB"/>
+                                    <outlet property="priceLabel" destination="DPJ-zQ-NU0" id="y1I-nF-u5b"/>
+                                    <outlet property="productNameLabel" destination="KIw-MO-6La" id="hDz-L1-Lx2"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="foodMenuListItemCell" id="ZGd-du-5SD" customClass="FoodMenuListItemTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZGd-du-5SD" id="yOH-Bt-2u4">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -560,14 +630,43 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" id="xoO-oz-LXH"/>
-                    <connections>
-                        <segue destination="w8G-V8-6Ch" kind="show" id="iji-Cu-s2a"/>
-                    </connections>
+                    <navigationItem key="navigationItem" title="Menu" id="xoO-oz-LXH">
+                        <barButtonItem key="rightBarButtonItem" title="Order" id="3Xo-d8-clV">
+                            <connections>
+                                <segue destination="bw6-o5-pwR" kind="show" id="oR7-K2-zNl"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vde-Zx-7lw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="686" y="4118"/>
+        </scene>
+        <!--Product Detail Table View Controller-->
+        <scene sceneID="t2G-Gm-SMB">
+            <objects>
+                <tableViewController id="bw6-o5-pwR" customClass="ProductDetailTableViewController" customModule="MyPocketSBUX" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="BAS-41-8CH">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="fp5-MC-aJw">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fp5-MC-aJw" id="h5l-9b-agh">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="bw6-o5-pwR" id="c8u-Pn-nT9"/>
+                            <outlet property="delegate" destination="bw6-o5-pwR" id="hXM-bQ-pxu"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7fU-W6-zQ5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1540" y="3406"/>
         </scene>
         <!--Order-->
         <scene sceneID="adQ-Og-LMk">
@@ -679,7 +778,7 @@
             </objects>
             <point key="canvasLocation" x="-198" y="4817"/>
         </scene>
-        <!--Store Table View-->
+        <!--Stores-->
         <scene sceneID="SDJ-lY-HS5">
             <objects>
                 <tableViewController id="Xxx-0J-XR8" customClass="StoresTableViewController" customModule="MyPocketSBUX" customModuleProvider="target" sceneMemberID="viewController">
@@ -700,7 +799,7 @@
                             <outlet property="delegate" destination="Xxx-0J-XR8" id="cuI-aC-NTY"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Store Table View" id="TdS-y9-X6d">
+                    <navigationItem key="navigationItem" title="Stores" id="TdS-y9-X6d">
                         <barButtonItem key="rightBarButtonItem" title="Maps" style="plain" id="eZG-xy-k9w">
                             <connections>
                                 <segue destination="iXQ-70-624" kind="show" id="XPX-Sz-Q75"/>
@@ -754,4 +853,7 @@
             <point key="canvasLocation" x="-198" y="4118"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="jnm-ea-9oq"/>
+    </inferredMetricsTieBreakers>
 </document>
