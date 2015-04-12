@@ -82,7 +82,7 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
     func updateProductLocalDb(productCategory : String, completionHandler: ((NSData!, NSURLResponse!, NSError!) -> Void)?){
         
         // 全件を取得
-        if let url  = NSURL(string: "http://localhost:3000/\(productCategory)s.json") {
+        if let url  = NSURL(string: "http://\(ResourceContext.instance.serviceHost()):3000/\(productCategory)s.json") {
             
             let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
             let task    = session.dataTaskWithURL(url, completionHandler: completionHandler)

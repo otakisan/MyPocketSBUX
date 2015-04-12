@@ -31,6 +31,7 @@
 		16AE14361ABEDDEE00370062 /* SBUXTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AE14351ABEDDEE00370062 /* SBUXTableViewController.swift */; };
 		16AE14381AC2BF7A00370062 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AE14371AC2BF7A00370062 /* NewsTableViewController.swift */; };
 		16AE143A1AC65A3700370062 /* SBUXWKWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AE14391AC65A3700370062 /* SBUXWKWebViewController.swift */; };
+		16B1F28F1ADAAF1B0026E377 /* ResourceContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B1F28E1ADAAF1B0026E377 /* ResourceContext.swift */; };
 		16C979D51ACA066A00543120 /* SeminarsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C979D41ACA066A00543120 /* SeminarsTableViewController.swift */; };
 		16C979D71ACD7E2400543120 /* SeminarsBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C979D61ACD7E2400543120 /* SeminarsBaseTableViewController.swift */; };
 		16C979D91ACD8EC600543120 /* FilteredSeminarsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C979D81ACD8EC600543120 /* FilteredSeminarsTableViewController.swift */; };
@@ -94,6 +95,7 @@
 		16AE14351ABEDDEE00370062 /* SBUXTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBUXTableViewController.swift; sourceTree = "<group>"; };
 		16AE14371AC2BF7A00370062 /* NewsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		16AE14391AC65A3700370062 /* SBUXWKWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBUXWKWebViewController.swift; sourceTree = "<group>"; };
+		16B1F28E1ADAAF1B0026E377 /* ResourceContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceContext.swift; sourceTree = "<group>"; };
 		16C979D41ACA066A00543120 /* SeminarsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeminarsTableViewController.swift; sourceTree = "<group>"; };
 		16C979D61ACD7E2400543120 /* SeminarsBaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeminarsBaseTableViewController.swift; sourceTree = "<group>"; };
 		16C979D81ACD8EC600543120 /* FilteredSeminarsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilteredSeminarsTableViewController.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 		16AE140C1ABD6B1900370062 /* MyPocketSBUX */ = {
 			isa = PBXGroup;
 			children = (
+				16B1F28D1ADAAE830026E377 /* Context */,
 				16F21E401AD9F2F20052AD2A /* ViewModels */,
 				16C979DE1AD2AE1400543120 /* Location */,
 				164BFDCE1ACF88D9003BF77B /* Views */,
@@ -258,6 +261,14 @@
 				16F21E451AD9F9FD0052AD2A /* ProductDetailTableViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		16B1F28D1ADAAE830026E377 /* Context */ = {
+			isa = PBXGroup;
+			children = (
+				16B1F28E1ADAAF1B0026E377 /* ResourceContext.swift */,
+			);
+			path = Context;
 			sourceTree = "<group>";
 		};
 		16C979DE1AD2AE1400543120 /* Location */ = {
@@ -401,6 +412,7 @@
 				16F21E521ADA30A30052AD2A /* DrinkMenuListItemTableViewCell.swift in Sources */,
 				16C979E01AD2C88F00543120 /* LocationContext.swift in Sources */,
 				16F21E4A1ADA0A6C0052AD2A /* Food.swift in Sources */,
+				16B1F28F1ADAAF1B0026E377 /* ResourceContext.swift in Sources */,
 				164BFDE21ACFC9B9003BF77B /* DbContextBase.swift in Sources */,
 				16F21E4E1ADA2B7C0052AD2A /* DrinkMenuListItem.swift in Sources */,
 				16C979D91ACD8EC600543120 /* FilteredSeminarsTableViewController.swift in Sources */,

@@ -75,7 +75,7 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
     }
     
     func dataUrl() -> String {
-        return "http://localhost:3000/seminars.json"
+        return "http://\(ResourceContext.instance.serviceHost()):3000/seminars.json"
     }
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {

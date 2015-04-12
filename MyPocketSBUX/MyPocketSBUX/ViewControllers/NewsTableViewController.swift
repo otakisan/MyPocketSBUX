@@ -98,7 +98,7 @@ class NewsTableViewController: UITableViewController, UIGestureRecognizerDelegat
         
         // 最新版を取得
         let nextSn = Int(maxSn) + 1
-        if let url  = NSURL(string: "http://localhost:3000/press_releases.json/?type=range&key=press_release_sn&from=\(nextSn)") {
+        if let url  = NSURL(string: "http://\(ResourceContext.instance.serviceHost()):3000/press_releases.json/?type=range&key=press_release_sn&from=\(nextSn)") {
             
             let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
             let task    = session.dataTaskWithURL(url, completionHandler: {

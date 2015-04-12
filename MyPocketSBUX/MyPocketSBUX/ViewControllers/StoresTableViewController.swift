@@ -61,7 +61,7 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         
         // 最新版を取得
         let nextSn = self.maxStoreSeqId() + 1
-        if let url  = NSURL(string: "http://localhost:3000/stores.json/?type=range&key=id&sortdirection=ASC&from=\(nextSn)") {
+        if let url  = NSURL(string: "http://\(ResourceContext.instance.serviceHost()):3000/stores.json/?type=range&key=id&sortdirection=ASC&from=\(nextSn)") {
             
             let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
             let task    = session.dataTaskWithURL(url, completionHandler: completionHandler)
