@@ -22,6 +22,10 @@
 		164BFDE71AD021E7003BF77B /* StoresTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDE51AD021E7003BF77B /* StoresTableViewCell.swift */; };
 		164BFDE81AD021E7003BF77B /* StoresTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 164BFDE61AD021E7003BF77B /* StoresTableViewCell.xib */; };
 		164BFDEA1AD02F8F003BF77B /* StoreDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDE91AD02F8F003BF77B /* StoreDetailTableViewController.swift */; };
+		1683F0AD1ADBDAD80034C7CB /* OrderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0AC1ADBDAD80034C7CB /* OrderTableViewController.swift */; };
+		1683F0AF1ADBDE4E0034C7CB /* OrderListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0AE1ADBDE4E0034C7CB /* OrderListItem.swift */; };
+		1683F0B11ADC80270034C7CB /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0B01ADC80270034C7CB /* OrderTableViewCell.swift */; };
+		1683F0B31ADD321F0034C7CB /* CustomizingOrderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0B21ADD321F0034C7CB /* CustomizingOrderTableViewController.swift */; };
 		16AE14101ABD6B1A00370062 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AE140F1ABD6B1A00370062 /* AppDelegate.swift */; };
 		16AE14131ABD6B1A00370062 /* MyPocketSBUX.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16AE14111ABD6B1A00370062 /* MyPocketSBUX.xcdatamodeld */; };
 		16AE14181ABD6B1A00370062 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16AE14161ABD6B1A00370062 /* Main.storyboard */; };
@@ -82,6 +86,10 @@
 		164BFDE51AD021E7003BF77B /* StoresTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoresTableViewCell.swift; sourceTree = "<group>"; };
 		164BFDE61AD021E7003BF77B /* StoresTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoresTableViewCell.xib; sourceTree = "<group>"; };
 		164BFDE91AD02F8F003BF77B /* StoreDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreDetailTableViewController.swift; sourceTree = "<group>"; };
+		1683F0AC1ADBDAD80034C7CB /* OrderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewController.swift; sourceTree = "<group>"; };
+		1683F0AE1ADBDE4E0034C7CB /* OrderListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderListItem.swift; sourceTree = "<group>"; };
+		1683F0B01ADC80270034C7CB /* OrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
+		1683F0B21ADD321F0034C7CB /* CustomizingOrderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomizingOrderTableViewController.swift; sourceTree = "<group>"; };
 		16AE140A1ABD6B1900370062 /* MyPocketSBUX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyPocketSBUX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16AE140E1ABD6B1A00370062 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		16AE140F1ABD6B1A00370062 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -176,6 +184,7 @@
 				16F21E511ADA30A30052AD2A /* DrinkMenuListItemTableViewCell.swift */,
 				16F21E571ADA45360052AD2A /* FoodMenuListItemTableViewCell.swift */,
 				16F21E591ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift */,
+				1683F0B01ADC80270034C7CB /* OrderTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -259,6 +268,8 @@
 				16C979DA1AD1F13800543120 /* StoreMapViewController.swift */,
 				16F21E3E1AD9F1D20052AD2A /* MenuTableViewController.swift */,
 				16F21E451AD9F9FD0052AD2A /* ProductDetailTableViewController.swift */,
+				1683F0AC1ADBDAD80034C7CB /* OrderTableViewController.swift */,
+				1683F0B21ADD321F0034C7CB /* CustomizingOrderTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -287,6 +298,7 @@
 				16F21E431AD9F7DA0052AD2A /* MenuListItem.swift */,
 				16F21E4D1ADA2B7C0052AD2A /* DrinkMenuListItem.swift */,
 				16F21E551ADA39AE0052AD2A /* FoodMenuListItem.swift */,
+				1683F0AE1ADBDE4E0034C7CB /* OrderListItem.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -394,6 +406,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				16C979E21AD5E50400543120 /* StoreAnnotation.swift in Sources */,
+				1683F0AF1ADBDE4E0034C7CB /* OrderListItem.swift in Sources */,
 				164BFDD11ACF89D1003BF77B /* SeminarsTableViewCell.swift in Sources */,
 				164BFDDA1ACFBEF3003BF77B /* UITableViewControllerExtension.swift in Sources */,
 				164BFDD41ACFA8CF003BF77B /* StoresTableViewController.swift in Sources */,
@@ -411,10 +424,12 @@
 				16F21E4C1ADA0B930052AD2A /* Foods.swift in Sources */,
 				16F21E521ADA30A30052AD2A /* DrinkMenuListItemTableViewCell.swift in Sources */,
 				16C979E01AD2C88F00543120 /* LocationContext.swift in Sources */,
+				1683F0B31ADD321F0034C7CB /* CustomizingOrderTableViewController.swift in Sources */,
 				16F21E4A1ADA0A6C0052AD2A /* Food.swift in Sources */,
 				16B1F28F1ADAAF1B0026E377 /* ResourceContext.swift in Sources */,
 				164BFDE21ACFC9B9003BF77B /* DbContextBase.swift in Sources */,
 				16F21E4E1ADA2B7C0052AD2A /* DrinkMenuListItem.swift in Sources */,
+				1683F0AD1ADBDAD80034C7CB /* OrderTableViewController.swift in Sources */,
 				16C979D91ACD8EC600543120 /* FilteredSeminarsTableViewController.swift in Sources */,
 				16AE14381AC2BF7A00370062 /* NewsTableViewController.swift in Sources */,
 				164BFDD81ACFADEC003BF77B /* FilteredStoresTableViewController.swift in Sources */,
@@ -429,6 +444,7 @@
 				164BFDE41ACFEAC5003BF77B /* Store.swift in Sources */,
 				164BFDC81AC6735E003BF77B /* PressReleases.swift in Sources */,
 				164BFDCB1AC67D9C003BF77B /* DateUtility.swift in Sources */,
+				1683F0B11ADC80270034C7CB /* OrderTableViewCell.swift in Sources */,
 				164BFDEA1AD02F8F003BF77B /* StoreDetailTableViewController.swift in Sources */,
 				16AE14131ABD6B1A00370062 /* MyPocketSBUX.xcdatamodeld in Sources */,
 				164BFDE71AD021E7003BF77B /* StoresTableViewCell.swift in Sources */,

@@ -117,7 +117,7 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
         var entities : [AnyObject] = self.getProductsAllOrderBy(productCategory, orderKeys: [(columnName : "category", ascending : true), (columnName : "name", ascending : true)])
         for entity in entities {
             var menuItem = self.createMenuListItem(productCategory)
-            menuItem.entity = entity
+            menuItem.productEntity = entity
             
             if !(prevSectionItem?.subCategory == entity.category) {
                 prevSectionItem = createProductSectionItem(productCategory, subCategory: (entity.valueForKey("category") as? String)!)
@@ -199,7 +199,6 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
                         if let index = find(menuDisplayItemList, filtered.first!) {
                             toSectionIndex = index
                         }
-                        //toSectionIndex = Int(String(index!.value)) ?? 0
                     }
                     else if filtered.count > 1 {
                         fatalError("duplicate section item")
@@ -311,14 +310,22 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        if var orderViewController = segue.destinationViewController as? OrderTableViewController {
+            var orders = self.menuDisplayItemList[0].listItems.map { (m : MenuListItem) -> OrderListItem in
+                var orderListItem = OrderListItem()
+                orderListItem.productEntity = m.productEntity
+                orderListItem.on = m.isOnOrderList
+                return orderListItem
+            }
+            
+            orderViewController.orderItems = orders
+        }
     }
-    */
-
 }

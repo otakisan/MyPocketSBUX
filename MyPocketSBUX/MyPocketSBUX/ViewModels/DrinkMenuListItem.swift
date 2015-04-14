@@ -23,6 +23,6 @@ class DrinkMenuListItem: MenuListItem {
     }
     
     func entityDirectly() -> Drink? {
-        return self.entity as? Drink
+        return self.productEntity as? Drink
     }
 }

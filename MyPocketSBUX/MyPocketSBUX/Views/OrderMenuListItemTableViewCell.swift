@@ -10,7 +10,7 @@ import UIKit
 
 class OrderMenuListItemTableViewCell: MenuListItemTableViewCell {
     override func configure(menuListItem : MenuListItem) {
-        if let name = menuListItem.entity?.valueForKey("name") as? String {
+        if let name = menuListItem.productEntity?.valueForKey("name") as? String {
             self.textLabel?.text = "\(menuListItem.productCategory()) \(name)"
         }
     }

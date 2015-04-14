@@ -9,7 +9,8 @@
 import UIKit
 
 class MenuListItem: NSObject {
-    var entity : AnyObject?
+    var productEntity : AnyObject?
+    var nutritionEntities : [AnyObject] = []
     var isOnOrderList : Bool = false
     
     func sectionCategory() -> String {
