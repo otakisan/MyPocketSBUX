@@ -8,14 +8,51 @@
 
 import UIKit
 
-class CustomizingOrderTableViewController: UITableViewController {
+class CustomizingOrderTableViewController: UITableViewController,
+    SizeCustomizingOrderTableViewCellDelegate,
+    ReusableCupCustomizingOrderTableViewCellDelegate,
+    OneMoreCoffeeCustomizingOrderTableViewCellDelegate{
 
     var orderItem : OrderListItem?
     
-    var nameMappings : [( section : String, detailItemPaths : [String])] = [
-        (section : "General", detailItemPaths : ["productEntity.name", "productEntity.price"]),
-        (section : "Customization", detailItemPaths : ["customizationItems"])
+    // keyPathsはデフォルトセルを使用する場合にのみ必要
+    var nameMappings : [( section : String, detailItemInfos : [(cellId : String, keyPaths : String)])] = [
+        (
+            section: "General",
+            detailItemInfos: [
+                (cellId: CustomizingOrderTableViewCell.CellIds.productName, keyPaths: "productEntity.name"),
+                (cellId: CustomizingOrderTableViewCell.CellIds.price, keyPaths: "productEntity.price"),
+                (cellId: CustomizingOrderTableViewCell.CellIds.calorie, keyPaths: ""),
+                (cellId: CustomizingOrderTableViewCell.CellIds.size, keyPaths: ""),
+                (cellId: CustomizingOrderTableViewCell.CellIds.hotOrIced, keyPaths: ""),
+                (cellId: CustomizingOrderTableViewCell.CellIds.reusableCup, keyPaths: ""),
+                (cellId: CustomizingOrderTableViewCell.CellIds.oneMoreCoffee, keyPaths: ""),
+                (cellId: CustomizingOrderTableViewCell.CellIds.ticket, keyPaths: "")
+            ]
+        ),
+        (
+            section: "Customization",
+            detailItemInfos: [
+                (cellId: CustomizingOrderTableViewCell.CellIds.base, keyPaths: "customizationItems")
+            ]
+        )
     ]
+    
+    func cellIdForIndexPath(indexPath : NSIndexPath) -> String {
+        var cellId = ""
+        if self.nameMappings.count > indexPath.section && self.nameMappings[indexPath.section].detailItemInfos.count > indexPath.row {
+            cellId = self.nameMappings[indexPath.section].detailItemInfos[indexPath.row].cellId
+        }
+        else{
+            fatalError("not found cellId")
+        }
+        
+        return cellId
+    }
+    
+    func dequeueReusableCellWithIndexPath(indexPath : NSIndexPath) -> CustomizingOrderTableViewCell? {
+        return self.tableView.dequeueReusableCellWithIdentifier(self.cellIdForIndexPath(indexPath), forIndexPath: indexPath) as? CustomizingOrderTableViewCell
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,21 +80,28 @@ class CustomizingOrderTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return section == 0 ? self.nameMappings[section].detailItemPaths.count : self.orderItem?.customizationItems.count ?? 0
+        return section == 0 ? self.nameMappings[section].detailItemInfos.count : self.orderItem?.customizationItems?.ingredients.count ?? 0
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("defaultCustomizingOrderTableViewCell", forIndexPath: indexPath) as! UITableViewCell
+        // 必ず取得できる前提
+        let cell = self.dequeueReusableCellWithIndexPath(indexPath)!
 
         // カスタマイズは動的、基本情報は固定数のセルにしたい
         if indexPath.section == 0 {
-            if let value : AnyObject = self.orderItem?.valueForKeyPath(self.nameMappings[indexPath.section].detailItemPaths[indexPath.row]){
-                cell.textLabel?.text = value as? String ?? (value as? NSNumber)?.stringValue
+            if cell.reuseIdentifier == CustomizingOrderTableViewCell.CellIds.base {
+                if let value : AnyObject = self.orderItem?.valueForKeyPath(self.nameMappings[indexPath.section].detailItemInfos[indexPath.row].keyPaths){
+                    cell.textLabel?.text = value as? String ?? (value as? NSNumber)?.stringValue
+                }
+            }
+            else{
+                cell.configure(orderItem!, delegate: self)
             }
         }
         else if indexPath.section == 1 {
-            // カスタマイズ項目は現時点で存在しないので表示しない
+            // カスタマイズ項目
+            cell.textLabel?.text = self.orderItem?.customizationItems?.ingredients[indexPath.row].name
         }
 
         return cell
@@ -112,5 +156,53 @@ class CustomizingOrderTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    func addPrice(delta : Int) {
+        if var totalPrice = self.orderItem?.totalPrice {
+            let newPrice = totalPrice + delta
+            self.orderItem?.totalPrice = newPrice
+            
+            // TODO: 価格のリスト上での位置は、動的に取得するようにする
+            if let priceCell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as? CustomizingOrderTableViewCell {
+                priceCell.configure(self.orderItem!, delegate: self)
+            }
+        }
+    }
+    
+    func valueChangedSizeSegment(cell : SizeCustomizingOrderTableViewCell, size : DrinkSize){
+        // サイズ間での価格差分を計算
+        let delta = size.priceForDelta() - (self.orderItem?.size.priceForDelta() ?? 0)
+        
+        self.orderItem?.size = size
+        
+        if !(self.orderItem?.oneMoreCoffee ?? false) {
+            self.addPrice(delta)
+        }
+    }
+    
+    func valueChangedReusableCupSwitch(cell : ReusableCupCustomizingOrderTableViewCell, on : Bool){
+        self.orderItem?.reusableCup = on
+        
+        // TODO: 除外品（プレス等）を考慮した上での20円引き
+        // TODO: onの場合にのみ、基本価格から値引きするようにしないと初期状態によっては正常動作しない
+        let delta = ((on ? -1 : 1) * 20)
+        if !(self.orderItem?.oneMoreCoffee ?? false) {
+            self.addPrice(delta)
+        }
+    }
+    
+    func valueChangedOneMoreCoffeeSwitch(cell : OneMoreCoffeeCustomizingOrderTableViewCell, on : Bool){
+        self.orderItem?.oneMoreCoffee = on
+        
+        if let basePrice = self.orderItem?.productEntity?.valueForKey("price") as? NSNumber {
+            let currentBasePrice = basePrice.integerValue + (self.orderItem?.size.priceForDelta() ?? 0) + ((self.orderItem?.reusableCup ?? false) ? -20 : 0)
+            
+            var delta = currentBasePrice - 100
+            if on {
+                delta = -delta
+            }
+            
+            self.addPrice(delta)
+        }
+    }
 }

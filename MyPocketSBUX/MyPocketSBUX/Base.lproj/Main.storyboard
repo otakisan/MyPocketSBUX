@@ -617,11 +617,66 @@
                                     <outlet property="productNameLabel" destination="KIw-MO-6La" id="hDz-L1-Lx2"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="foodMenuListItemCell" id="ZGd-du-5SD" customClass="FoodMenuListItemTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="foodMenuListItemCell" rowHeight="70" id="ZGd-du-5SD" customClass="FoodMenuListItemTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZGd-du-5SD" id="yOH-Bt-2u4">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Aw3-fn-5k2">
+                                            <rect key="frame" x="8" y="19" width="51" height="31"/>
+                                            <connections>
+                                                <action selector="valueChangedOrderSwitch:" destination="ZGd-du-5SD" eventType="valueChanged" id="Nn8-Lm-Vla"/>
+                                            </connections>
+                                        </switch>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Food Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZj-oD-rzY">
+                                            <rect key="frame" x="65" y="24" width="443" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="443" id="wRF-fZ-i2a"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="¥888" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FZn-j7-gZT">
+                                            <rect key="frame" x="516" y="8" width="76" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="76" id="rCL-xA-qPY"/>
+                                                <constraint firstAttribute="height" constant="21" id="u4h-pZ-zvV"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="888 kcal" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HbG-xl-Iug">
+                                            <rect key="frame" x="516" y="40" width="76" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="76" id="JiF-fF-eCv"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Aw3-fn-5k2" firstAttribute="leading" secondItem="yOH-Bt-2u4" secondAttribute="leadingMargin" constant="-7" id="DNT-W1-k6p"/>
+                                        <constraint firstItem="FZn-j7-gZT" firstAttribute="top" secondItem="yOH-Bt-2u4" secondAttribute="topMargin" id="Hra-8j-1Gr"/>
+                                        <constraint firstItem="SZj-oD-rzY" firstAttribute="leading" secondItem="Aw3-fn-5k2" secondAttribute="trailing" constant="8" symbolic="YES" id="JB3-6v-ZFf"/>
+                                        <constraint firstItem="HbG-xl-Iug" firstAttribute="top" secondItem="FZn-j7-gZT" secondAttribute="bottom" constant="11" id="RA7-Bp-N6b"/>
+                                        <constraint firstItem="HbG-xl-Iug" firstAttribute="bottom" secondItem="yOH-Bt-2u4" secondAttribute="bottomMargin" id="Vmd-UC-hjF"/>
+                                        <constraint firstItem="Aw3-fn-5k2" firstAttribute="centerY" secondItem="yOH-Bt-2u4" secondAttribute="centerY" id="XiA-4E-TFd"/>
+                                        <constraint firstItem="FZn-j7-gZT" firstAttribute="leading" secondItem="SZj-oD-rzY" secondAttribute="trailing" constant="8" symbolic="YES" id="fno-lj-HiW"/>
+                                        <constraint firstItem="FZn-j7-gZT" firstAttribute="leading" secondItem="HbG-xl-Iug" secondAttribute="leading" id="neI-l6-zhP"/>
+                                        <constraint firstItem="Aw3-fn-5k2" firstAttribute="centerY" secondItem="SZj-oD-rzY" secondAttribute="centerY" id="tUL-7S-UFF"/>
+                                        <constraint firstItem="HbG-xl-Iug" firstAttribute="trailing" secondItem="FZn-j7-gZT" secondAttribute="trailing" id="tVl-aS-AsS"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="FZn-j7-gZT" secondAttribute="trailing" constant="-7" id="x5v-9t-gJh"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="calorieLabel" destination="HbG-xl-Iug" id="yTQ-Pq-X3R"/>
+                                    <outlet property="orderSwitch" destination="Aw3-fn-5k2" id="5er-nK-RR7"/>
+                                    <outlet property="priceLabel" destination="FZn-j7-gZT" id="wxm-Aw-PIe"/>
+                                    <outlet property="productNameLabel" destination="SZj-oD-rzY" id="wcO-t7-YeD"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -677,7 +732,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="orderListItemCell" rowHeight="100" id="DmJ-KX-Wze" customClass="OrderTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="drinkOrderListItemCell" rowHeight="100" id="DmJ-KX-Wze" customClass="DrinkOrderTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DmJ-KX-Wze" id="0VS-Fl-YWb">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -688,7 +743,7 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <segue destination="oRG-qi-ENP" kind="show" id="GOV-gj-C8p"/>
+                                                <action selector="touchUpInsideEditButton:" destination="DmJ-KX-Wze" eventType="touchUpInside" id="Y25-x3-FD6"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Product Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lxo-YE-S4L">
@@ -742,7 +797,84 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="productNameLabel" destination="lxo-YE-S4L" id="fKo-Vc-Qai"/>
+                                    <outlet property="calorieLabel" destination="9wx-vu-ceF" id="kbl-aW-CMp"/>
+                                    <outlet property="orderSwitch" destination="7XR-bz-9bZ" id="kjl-Kg-Ppg"/>
+                                    <outlet property="priceLable" destination="6Ah-p7-jKv" id="uek-di-WcE"/>
+                                    <outlet property="productNameLabel" destination="lxo-YE-S4L" id="g8Y-P3-KLa"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="foodOrderListItemCell" rowHeight="100" id="4TV-uz-PSn" customClass="FoodOrderTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4TV-uz-PSn" id="mRq-kq-Q2D">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CNR-KP-8HR">
+                                            <rect key="frame" x="543" y="61" width="46" height="30"/>
+                                            <state key="normal" title="Edit">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <segue destination="d0B-qP-yz9" kind="show" id="VrJ-Uk-hRO"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Product Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJj-TF-Hj0">
+                                            <rect key="frame" x="8" y="11" width="444" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="444" id="FBw-3p-lvo"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="¥888" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kAp-9e-3oS">
+                                            <rect key="frame" x="475" y="11" width="60" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="60" id="Lwl-pf-Pri"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="888 kcal" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qiF-qd-i9d">
+                                            <rect key="frame" x="460" y="65" width="75" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g1o-f1-RRv">
+                                            <rect key="frame" x="543" y="6" width="51" height="31"/>
+                                        </switch>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Customization Items" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xoQ-bv-F4v">
+                                            <rect key="frame" x="8" y="61" width="444" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="CNR-KP-8HR" firstAttribute="bottom" secondItem="mRq-kq-Q2D" secondAttribute="bottomMargin" id="0h4-8H-kZB"/>
+                                        <constraint firstItem="kAp-9e-3oS" firstAttribute="leading" secondItem="UJj-TF-Hj0" secondAttribute="trailing" constant="23" id="1Aj-iZ-9q1"/>
+                                        <constraint firstItem="CNR-KP-8HR" firstAttribute="leading" secondItem="qiF-qd-i9d" secondAttribute="trailing" constant="8" symbolic="YES" id="2xT-vm-GvU"/>
+                                        <constraint firstItem="xoQ-bv-F4v" firstAttribute="leading" secondItem="UJj-TF-Hj0" secondAttribute="leading" id="5IK-HY-Htk"/>
+                                        <constraint firstItem="qiF-qd-i9d" firstAttribute="leading" secondItem="xoQ-bv-F4v" secondAttribute="trailing" constant="8" symbolic="YES" id="7wR-d1-tdf"/>
+                                        <constraint firstItem="g1o-f1-RRv" firstAttribute="leading" secondItem="CNR-KP-8HR" secondAttribute="leading" id="Erg-M5-F9w"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="g1o-f1-RRv" secondAttribute="trailing" id="KDO-o6-idM"/>
+                                        <constraint firstItem="xoQ-bv-F4v" firstAttribute="top" secondItem="CNR-KP-8HR" secondAttribute="top" id="M7M-Cr-3hB"/>
+                                        <constraint firstItem="qiF-qd-i9d" firstAttribute="baseline" secondItem="CNR-KP-8HR" secondAttribute="baseline" id="Nwu-5j-Mbw"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="CNR-KP-8HR" secondAttribute="trailing" id="Och-gV-iDy"/>
+                                        <constraint firstItem="UJj-TF-Hj0" firstAttribute="leading" secondItem="mRq-kq-Q2D" secondAttribute="leadingMargin" constant="-7" id="QeA-fl-ADF"/>
+                                        <constraint firstItem="xoQ-bv-F4v" firstAttribute="trailing" secondItem="UJj-TF-Hj0" secondAttribute="trailing" id="U2C-zg-vIp"/>
+                                        <constraint firstItem="kAp-9e-3oS" firstAttribute="baseline" secondItem="UJj-TF-Hj0" secondAttribute="baseline" id="Xnv-BQ-lZ0"/>
+                                        <constraint firstItem="CNR-KP-8HR" firstAttribute="top" secondItem="g1o-f1-RRv" secondAttribute="bottom" constant="24" id="cTY-2d-mud"/>
+                                        <constraint firstItem="g1o-f1-RRv" firstAttribute="centerY" secondItem="kAp-9e-3oS" secondAttribute="centerY" id="u6h-FK-x9V"/>
+                                        <constraint firstItem="g1o-f1-RRv" firstAttribute="leading" secondItem="kAp-9e-3oS" secondAttribute="trailing" constant="8" symbolic="YES" id="vtj-Gb-Dmd"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="calorieLabel" destination="qiF-qd-i9d" id="Fic-t0-mZ5"/>
+                                    <outlet property="orderSwitch" destination="g1o-f1-RRv" id="W2j-JD-poG"/>
+                                    <outlet property="priceLabel" destination="kAp-9e-3oS" id="q8E-X3-Eid"/>
+                                    <outlet property="productNameLabel" destination="UJj-TF-Hj0" id="Xgk-IB-5HA"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -751,6 +883,9 @@
                             <outlet property="delegate" destination="w8G-V8-6Ch" id="ajt-xj-Ih1"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="oRG-qi-ENP" kind="show" identifier="customizingDrinkOrderSegue" id="beq-Og-eAy"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IeA-qI-Se6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -765,13 +900,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="defaultCustomizingOrderTableViewCell" id="DWb-Zl-aqP">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="defaultCustomizingOrderTableViewCell" id="DWb-Zl-aqP" customClass="CustomizingOrderTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DWb-Zl-aqP" id="LcS-OH-Jfi">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="nameCustomizingOrderTableViewCell" id="5g9-ie-94l">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="nameCustomizingOrderTableViewCell" id="5g9-ie-94l" customClass="NameCustomizingOrderTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5g9-ie-94l" id="mtn-6G-9Pp">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -784,8 +919,11 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="nameLabel" destination="uR7-FN-O7L" id="Jg2-S5-KSD"/>
+                                </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="priceCustomizingOrderTableViewCell" id="eld-On-OvV">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="priceCustomizingOrderTableViewCell" id="eld-On-OvV" customClass="PriceCustomizingOrderTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eld-On-OvV" id="v3c-a8-Zq0">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -798,8 +936,11 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="priceLabel" destination="eN2-tm-mGY" id="Jca-Hf-52S"/>
+                                </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="calorieCustomizingOrderTableViewCell" id="bnU-6l-ge3">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="calorieCustomizingOrderTableViewCell" id="bnU-6l-ge3" customClass="CalorieCustomizingOrderTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bnU-6l-ge3" id="jJI-4L-TSJ">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -812,8 +953,11 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="calorieLabel" destination="3Ir-NB-ohm" id="aSJ-6u-90R"/>
+                                </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="sizeCustomizingOrderTableViewCell" id="nyr-Kc-a3K">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="sizeCustomizingOrderTableViewCell" id="nyr-Kc-a3K" customClass="SizeCustomizingOrderTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nyr-Kc-a3K" id="DVG-5c-b0v">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -826,11 +970,17 @@
                                                 <segment title="Grande"/>
                                                 <segment title="Venti®"/>
                                             </segments>
+                                            <connections>
+                                                <action selector="valueChangedSizeSegment:" destination="nyr-Kc-a3K" eventType="valueChanged" id="ys2-LE-EHI"/>
+                                            </connections>
                                         </segmentedControl>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="sizeSegment" destination="pq9-To-stN" id="6xA-YY-2Pv"/>
+                                </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="hotOrIcedCustomizingOrderTableViewCell" id="cd8-Yz-8UX">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="hotOrIcedCustomizingOrderTableViewCell" id="cd8-Yz-8UX" customClass="HotOrIcedCustomizingOrderTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cd8-Yz-8UX" id="X7a-eK-fUB">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -841,7 +991,70 @@
                                                 <segment title="Hot"/>
                                                 <segment title="Iced"/>
                                             </segments>
+                                            <connections>
+                                                <action selector="valueChangedHotOrIcedSegment:" destination="cd8-Yz-8UX" eventType="valueChanged" id="lHn-Xr-w0v"/>
+                                            </connections>
                                         </segmentedControl>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="hotOrIcedSegment" destination="jNp-Xo-sLv" id="lfG-lw-Os6"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reusableCupCustomizingOrderTableViewCell" id="rPQ-o3-bXL" customClass="ReusableCupCustomizingOrderTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rPQ-o3-bXL" id="sXi-69-c4a">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Reusable Cup" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B1j-Z2-uXS">
+                                            <rect key="frame" x="8" y="11" width="189" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5bG-DE-mTH">
+                                            <rect key="frame" x="205" y="6" width="51" height="31"/>
+                                            <connections>
+                                                <action selector="valueChangedReusableCupSwitch:" destination="rPQ-o3-bXL" eventType="valueChanged" id="vx2-jp-8vY"/>
+                                            </connections>
+                                        </switch>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="reusableCupSwitch" destination="5bG-DE-mTH" id="xyV-1t-knX"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="oneMoreCoffeeCustomizingOrderTableViewCell" id="UzE-KX-QxS" customClass="OneMoreCoffeeCustomizingOrderTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UzE-KX-QxS" id="MPp-9P-bkc">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="One More Coffee" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="btL-2f-0YN">
+                                            <rect key="frame" x="8" y="11" width="189" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="xXl-Re-oah">
+                                            <rect key="frame" x="205" y="6" width="51" height="31"/>
+                                            <connections>
+                                                <action selector="valueChangedOneMoreCoffeeSwitch:" destination="UzE-KX-QxS" eventType="valueChanged" id="g2S-v7-3XA"/>
+                                            </connections>
+                                        </switch>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="oneMoreCoffeeSwitch" destination="xXl-Re-oah" id="7nP-Gb-Fpv"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ticketCustomizingOrderTableViewCell" id="3M8-nK-lQv" customClass="TicketCustomizingOrderTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3M8-nK-lQv" id="NXq-jn-11m">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ticket" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jrH-ta-MeC">
+                                            <rect key="frame" x="8" y="11" width="246" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -903,12 +1116,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UDI-V1-S8z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2348" y="3826"/>
+            <point key="canvasLocation" x="2408" y="3682"/>
         </scene>
         <!--CustomItemList(Static)-->
         <scene sceneID="IoV-gK-zYI">
             <objects>
-                <tableViewController title="CustomItemList(Static)" id="pXb-ln-B0B" sceneMemberID="viewController">
+                <tableViewController title="CustomItemList(Static)" id="pXb-ln-B0B" customClass="CustomItemsStaticTableViewController" customModule="MyPocketSBUX" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="NWO-mR-IXS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1020,7 +1233,49 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ym7-0h-l40" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3214" y="3826"/>
+            <point key="canvasLocation" x="3274" y="3682"/>
+        </scene>
+        <!--Customizing Food Order-->
+        <scene sceneID="s9b-GU-7xZ">
+            <objects>
+                <tableViewController title="Customizing Food Order" id="d0B-qP-yz9" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="2kT-Xt-zDe">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection id="ezD-aI-Vc0">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="4AK-6G-LbH">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4AK-6G-LbH" id="GV3-TR-931">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="elo-N6-3qF">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="elo-N6-3qF" id="sOm-Ot-K6R">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="rxQ-YY-sRB">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rxQ-YY-sRB" id="lZy-cp-efQ">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="d0B-qP-yz9" id="OMR-l7-hGa"/>
+                            <outlet property="delegate" destination="d0B-qP-yz9" id="4ko-P9-VvD"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2bl-9D-u0Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2410" y="4444"/>
         </scene>
         <!--CustomizingOrderViewController-->
         <scene sceneID="PGb-Rw-ma7">
@@ -1038,7 +1293,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GBa-7T-qu5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2348" y="4636"/>
+            <point key="canvasLocation" x="2408" y="5184"/>
         </scene>
         <!--Store Map-->
         <scene sceneID="Ner-Td-T8x">

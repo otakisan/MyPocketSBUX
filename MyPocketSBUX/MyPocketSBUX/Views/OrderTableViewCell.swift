@@ -9,8 +9,9 @@
 import UIKit
 
 class OrderTableViewCell: UITableViewCell {
+    var orderListItem : OrderListItem?
+    var delegate : OrderTableViewCellDelegate?
 
-    @IBOutlet weak var productNameLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,5 +22,23 @@ class OrderTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    func valueChangedOrderSwitch(sender: UISwitch) {
+        self.orderListItem?.on = sender.on
+        self.delegate?.valueChangedOrderSwitch(self, on: sender.on)
+    }
+    
+    func touchUpInsideOrderEdit(cell : OrderTableViewCell){
+        self.delegate?.touchUpInsideOrderEdit(self)
+    }
+    
+    func configure(orderListItem : OrderListItem) {
+        self.orderListItem = orderListItem
+    }
 
+}
+
+protocol OrderTableViewCellDelegate : NSObjectProtocol {
+    func valueChangedOrderSwitch(cell : OrderTableViewCell, on : Bool)
+    func touchUpInsideOrderEdit(cell : OrderTableViewCell)
 }

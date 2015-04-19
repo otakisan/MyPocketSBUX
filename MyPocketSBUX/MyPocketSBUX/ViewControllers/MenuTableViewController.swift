@@ -263,9 +263,6 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
-
-        // Configure the cell...
         let cell = getCell(indexPath)
 
         return cell
@@ -317,11 +314,18 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        // TODO: オーダーからメニューに戻り、商品を追加して、またオーダーに戻る仕組み
+        // カートみたいなものが独立して存在するようにさせるか
+        // 今だと戻るとリセットされてしまう
+        // TODO: 過去のオーダーをもとに参照新規する機能
         if var orderViewController = segue.destinationViewController as? OrderTableViewController {
             var orders = self.menuDisplayItemList[0].listItems.map { (m : MenuListItem) -> OrderListItem in
                 var orderListItem = OrderListItem()
                 orderListItem.productEntity = m.productEntity
+                orderListItem.totalPrice = (orderListItem.productEntity?.valueForKey("price") as? NSNumber ?? NSNumber(integer: 0)).integerValue
                 orderListItem.on = m.isOnOrderList
+                orderListItem.size = .Tall
+                orderListItem.hotOrIce = "Hot"
                 return orderListItem
             }
             

@@ -14,10 +14,8 @@ class DrinkMenuListItemTableViewCell: MenuListItemTableViewCell {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var productNameLabel: UILabel!
     
-    @IBAction func valueChangedOrderSwitch(sender: UISwitch) {
-        //println("valueChanged : \(sender.on)")
-        self.menuListItem?.isOnOrderList = sender.on
-        self.delegate?.valueChangedOrderSwitch(self, on: sender.on)
+    @IBAction override func valueChangedOrderSwitch(sender: UISwitch) {
+        super.valueChangedOrderSwitch(sender)
     }
     
     func tableView() -> UITableView? {
@@ -48,8 +46,6 @@ class DrinkMenuListItemTableViewCell: MenuListItemTableViewCell {
                 self.priceLabel.text = "\(sizeText)¥\(entity.price ?? 0)"
                 self.calorieLabel.text = "0 kcal"
                 self.orderSwitch.on = self.menuListItem?.isOnOrderList ?? false
-                
-                //self.multilineTextLabel()
             }
         }
     }

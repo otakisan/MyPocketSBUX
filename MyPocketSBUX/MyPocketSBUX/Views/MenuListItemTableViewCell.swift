@@ -34,6 +34,10 @@ class MenuListItemTableViewCell: UITableViewCell {
         self.textLabel?.sizeToFit()
     }
 
+    func valueChangedOrderSwitch(sender: UISwitch) {
+        self.menuListItem?.isOnOrderList = sender.on
+        self.delegate?.valueChangedOrderSwitch(self, on: sender.on)
+    }
 }
 
 protocol MenuListItemTableViewCellDelegate : NSObjectProtocol {

@@ -8,11 +8,43 @@
 
 import UIKit
 
-class OrderTableViewController: UITableViewController {
+class OrderTableViewController: UITableViewController, OrderTableViewCellDelegate {
     
 //    var orderItems : [(productCategory : String, orders : [OrderListItem])] = []
     var orderItems : [OrderListItem] = []
 
+    func getReuseCellIdentifier(orderListItem : OrderListItem) -> String {
+        var identifier = ""
+        
+        if orderListItem.productEntity is Drink {
+            identifier = "drinkOrderListItemCell"
+        }
+        else if orderListItem.productEntity is Food {
+            identifier = "foodOrderListItemCell"
+        }
+        else{
+            fatalError("unknown product type")
+        }
+        
+        return identifier
+    }
+    
+    func getSegueIdentifier(orderListItem : OrderListItem) -> String {
+        var identifier = ""
+        
+        if orderListItem.productEntity is Drink {
+            identifier = "customizingDrinkOrderSegue"
+        }
+        else if orderListItem.productEntity is Food {
+            identifier = "customizingFoodOrderSegue"
+        }
+        else{
+            fatalError("unknown product type")
+        }
+        
+        return identifier
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,6 +53,8 @@ class OrderTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+//        self.tableView.estimatedRowHeight = 90
+//        self.tableView.rowHeight = UITableViewAutomaticDimension
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,10 +80,14 @@ class OrderTableViewController: UITableViewController {
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("orderListItemCell", forIndexPath: indexPath) as! OrderTableViewCell
+        
+        // ドリンク or フードで、取り出すセルのタイプを分ける
+        let cell = tableView.dequeueReusableCellWithIdentifier(self.getReuseCellIdentifier(self.orderItems[indexPath.row]), forIndexPath: indexPath) as! OrderTableViewCell
 
         // Configure the cell...
-        cell.productNameLabel?.text = (self.orderItems[indexPath.row].productEntity as? Drink)?.name
+        
+        cell.configure(self.orderItems[indexPath.row])
+        cell.delegate = self
 
         return cell
     }
@@ -98,11 +136,20 @@ class OrderTableViewController: UITableViewController {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         if var customizingOrderViewController = segue.destinationViewController as? CustomizingOrderTableViewController {
-            if let currentIndexPath = self.tableView.indexPathForSelectedRow() {
-                customizingOrderViewController.orderItem = self.orderItems[currentIndexPath.row]
-            }
+            customizingOrderViewController.orderItem = self.editRequestedOrderItem
         }
     }
     
+    func valueChangedOrderSwitch(cell : OrderTableViewCell, on : Bool) {
+        
+    }
+    
+    var editRequestedOrderItem : OrderListItem?
+    func touchUpInsideOrderEdit(cell : OrderTableViewCell) {
+        if let indexPath = self.tableView.indexPathForCell(cell) {
+            editRequestedOrderItem = self.orderItems[indexPath.row]
+            self.performSegueWithIdentifier(self.getSegueIdentifier(self.editRequestedOrderItem!), sender: self)
+        }
+    }
 
 }

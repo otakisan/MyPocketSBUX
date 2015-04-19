@@ -13,9 +13,14 @@ import UIKit
 class OrderListItem: NSObject {
     var on : Bool = false
     var productEntity : AnyObject?
-    var customizationItems : [AnyObject] = []
+    var customizationItems : IngredientCollection?
     var nutritionEntities : [AnyObject] = []
 
-    var size : String = ""
+    var totalPrice : Int = 0
+    var size : DrinkSize = .Tall
     var hotOrIce : String = ""
+    var reusableCup : Bool = false
+    
+    // TODO: One More Coffeeをカスタムにするかメニューにするか
+    var oneMoreCoffee : Bool = false
 }
