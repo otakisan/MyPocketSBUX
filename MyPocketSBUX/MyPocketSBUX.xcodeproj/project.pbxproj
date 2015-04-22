@@ -36,6 +36,9 @@
 		16AE14381AC2BF7A00370062 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AE14371AC2BF7A00370062 /* NewsTableViewController.swift */; };
 		16AE143A1AC65A3700370062 /* SBUXWKWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AE14391AC65A3700370062 /* SBUXWKWebViewController.swift */; };
 		16B1F28F1ADAAF1B0026E377 /* ResourceContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B1F28E1ADAAF1B0026E377 /* ResourceContext.swift */; };
+		16B6005C1AE756E3000ECB7E /* CustomItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B6005B1AE756E3000ECB7E /* CustomItemsTableViewController.swift */; };
+		16B6005F1AE79407000ECB7E /* IngredientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B6005E1AE79407000ECB7E /* IngredientManager.swift */; };
+		16B600611AE7CD8C000ECB7E /* CustomItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B600601AE7CD8C000ECB7E /* CustomItemsTableViewCell.swift */; };
 		16C979D51ACA066A00543120 /* SeminarsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C979D41ACA066A00543120 /* SeminarsTableViewController.swift */; };
 		16C979D71ACD7E2400543120 /* SeminarsBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C979D61ACD7E2400543120 /* SeminarsBaseTableViewController.swift */; };
 		16C979D91ACD8EC600543120 /* FilteredSeminarsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C979D81ACD8EC600543120 /* FilteredSeminarsTableViewController.swift */; };
@@ -108,6 +111,9 @@
 		16AE14371AC2BF7A00370062 /* NewsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		16AE14391AC65A3700370062 /* SBUXWKWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBUXWKWebViewController.swift; sourceTree = "<group>"; };
 		16B1F28E1ADAAF1B0026E377 /* ResourceContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceContext.swift; sourceTree = "<group>"; };
+		16B6005B1AE756E3000ECB7E /* CustomItemsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomItemsTableViewController.swift; sourceTree = "<group>"; };
+		16B6005E1AE79407000ECB7E /* IngredientManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientManager.swift; sourceTree = "<group>"; };
+		16B600601AE7CD8C000ECB7E /* CustomItemsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomItemsTableViewCell.swift; sourceTree = "<group>"; };
 		16C979D41ACA066A00543120 /* SeminarsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeminarsTableViewController.swift; sourceTree = "<group>"; };
 		16C979D61ACD7E2400543120 /* SeminarsBaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeminarsBaseTableViewController.swift; sourceTree = "<group>"; };
 		16C979D81ACD8EC600543120 /* FilteredSeminarsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilteredSeminarsTableViewController.swift; sourceTree = "<group>"; };
@@ -196,6 +202,7 @@
 				16CAF78F1AE28CE000318AE5 /* DrinkOrderTableViewCell.swift */,
 				16CAF7931AE2ABA900318AE5 /* FoodOrderTableViewCell.swift */,
 				16CAF7951AE3757300318AE5 /* CustomizingOrderTableViewCell.swift */,
+				16B600601AE7CD8C000ECB7E /* CustomItemsTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -221,6 +228,7 @@
 		16AE140C1ABD6B1900370062 /* MyPocketSBUX */ = {
 			isa = PBXGroup;
 			children = (
+				16B6005D1AE79316000ECB7E /* Models */,
 				16B1F28D1ADAAE830026E377 /* Context */,
 				16F21E401AD9F2F20052AD2A /* ViewModels */,
 				16C979DE1AD2AE1400543120 /* Location */,
@@ -282,6 +290,7 @@
 				1683F0AC1ADBDAD80034C7CB /* OrderTableViewController.swift */,
 				1683F0B21ADD321F0034C7CB /* CustomizingOrderTableViewController.swift */,
 				16CAF78D1AE1E75B00318AE5 /* CustomItemsStaticTableViewController.swift */,
+				16B6005B1AE756E3000ECB7E /* CustomItemsTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -292,6 +301,14 @@
 				16B1F28E1ADAAF1B0026E377 /* ResourceContext.swift */,
 			);
 			path = Context;
+			sourceTree = "<group>";
+		};
+		16B6005D1AE79316000ECB7E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				16B6005E1AE79407000ECB7E /* IngredientManager.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		16C979DE1AD2AE1400543120 /* Location */ = {
@@ -428,6 +445,7 @@
 				16F21E561ADA39AE0052AD2A /* FoodMenuListItem.swift in Sources */,
 				16C979D71ACD7E2400543120 /* SeminarsBaseTableViewController.swift in Sources */,
 				16AE143A1AC65A3700370062 /* SBUXWKWebViewController.swift in Sources */,
+				16B6005C1AE756E3000ECB7E /* CustomItemsTableViewController.swift in Sources */,
 				16C979D51ACA066A00543120 /* SeminarsTableViewController.swift in Sources */,
 				16F21E441AD9F7DA0052AD2A /* MenuListItem.swift in Sources */,
 				16F21E481ADA08430052AD2A /* Drink.swift in Sources */,
@@ -437,6 +455,7 @@
 				16F21E521ADA30A30052AD2A /* DrinkMenuListItemTableViewCell.swift in Sources */,
 				16C979E01AD2C88F00543120 /* LocationContext.swift in Sources */,
 				1683F0B31ADD321F0034C7CB /* CustomizingOrderTableViewController.swift in Sources */,
+				16B600611AE7CD8C000ECB7E /* CustomItemsTableViewCell.swift in Sources */,
 				16F21E4A1ADA0A6C0052AD2A /* Food.swift in Sources */,
 				16CAF7901AE28CE000318AE5 /* DrinkOrderTableViewCell.swift in Sources */,
 				16B1F28F1ADAAF1B0026E377 /* ResourceContext.swift in Sources */,
@@ -462,6 +481,7 @@
 				1683F0B11ADC80270034C7CB /* OrderTableViewCell.swift in Sources */,
 				164BFDEA1AD02F8F003BF77B /* StoreDetailTableViewController.swift in Sources */,
 				16AE14131ABD6B1A00370062 /* MyPocketSBUX.xcdatamodeld in Sources */,
+				16B6005F1AE79407000ECB7E /* IngredientManager.swift in Sources */,
 				164BFDE71AD021E7003BF77B /* StoresTableViewCell.swift in Sources */,
 				16CAF78E1AE1E75B00318AE5 /* CustomItemsStaticTableViewController.swift in Sources */,
 				16F21E461AD9F9FD0052AD2A /* ProductDetailTableViewController.swift in Sources */,

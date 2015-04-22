@@ -163,14 +163,9 @@ class CustomItemsStaticTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        // 横幅、高さ、ステータスバーの高さを取得する
-//        let width: CGFloat! = self.view.bounds.width
-//        let height: CGFloat! = self.view.bounds.height
-//        let statusBarHeight: CGFloat! = UIApplication.sharedApplication().statusBarFrame.height
-//        
-//        // WebViewを生成する
-//        self.view.frame = CGRectMake(0, statusBarHeight, width, height - statusBarHeight)
-
+        // ステータスバーの高さをの分だけ余白を作る
+        let statusBarHeight: CGFloat! = UIApplication.sharedApplication().statusBarFrame.height
+        self.tableView.contentInset = UIEdgeInsetsMake(statusBarHeight, 0.0, 0.0, 0.0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -181,6 +176,7 @@ class CustomItemsStaticTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didEndDisplayingHeaderView view: UIView, forSection section: Int){
 //        view.backgroundColor = UIColor.redColor()
     }
+    
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int){
         if var header = view as? UITableViewHeaderFooterView {
             header.contentView.opaque = true
@@ -192,6 +188,7 @@ class CustomItemsStaticTableViewController: UITableViewController {
 //    override func prefersStatusBarHidden() -> Bool {
 //        return true
 //    }
+    
     // MARK: - Table view data source
 
     // Static Cellsのため、不要
@@ -295,12 +292,38 @@ class IngredientCollection {
 //    var whippedCream : [Ingredient] = [] // 通常／チョコ／コーヒー
 //}
 
+// TODO: データクラスは、コンストラクタ定義まで含め、自動生成したいところ
+// 範囲選択した情報を使って、コンストラクタのソースを出力するアドインって作成できないだろうか
 class Ingredient {
+    
     var type : CustomizationIngredientype = .None
     var name : String = ""
     var unitCalorie : Int = 0
     var unitPrice : Int = 0
     var quantity : Int = 0
+    
+    init(){
+        
+    }
+    
+    init(type : CustomizationIngredientype, name : String, unitCalorie : Int, unitPrice : Int, quantity : Int){
+        self.type = type
+        self.name = name
+        self.unitCalorie = unitCalorie
+        self.unitPrice = unitPrice
+        self.quantity = quantity
+    }
+    
+    convenience init(srcIngredient : Ingredient) {
+        self.init(type: srcIngredient.type, name: srcIngredient.name, unitCalorie: srcIngredient.unitCalorie, unitPrice: srcIngredient.unitPrice, quantity: srcIngredient.quantity)
+    }
+    
+    func overrideQuantity(newQuantity : Int) -> Ingredient {
+        
+        var newObject = Ingredient(srcIngredient: self)
+        newObject.quantity = newQuantity
+        return newObject
+    }
     
     func calorie() -> Int {
         return self.unitPrice * self.quantity
@@ -315,13 +338,13 @@ enum CustomizationIngredientype {
     case WhippedCreamDrink
     case WhippedCreamFood
     case Chip
-    case Daily
+    case Milk // dairyという呼び名だが、酪農もの以外もあるのでミルクで統一する
     case None
     
     func unitPrice() -> Int {
         var calorie = 0
         switch self {
-        case .Coffee, .Espresso, .Syrup, .WhippedCreamDrink, .Chip, .Daily:
+        case .Coffee, .Espresso, .Syrup, .WhippedCreamDrink, .Chip, .Milk:
             calorie = 50
         default:
             calorie = 0

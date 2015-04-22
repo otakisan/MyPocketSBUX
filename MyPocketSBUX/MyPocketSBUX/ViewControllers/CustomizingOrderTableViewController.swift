@@ -163,8 +163,24 @@ class CustomizingOrderTableViewController: UITableViewController,
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        if var customItemsViewController = segue.destinationViewController as? CustomItemsTableViewController {
+            customItemsViewController.orderListItem = self.orderItem
+        }
     }
     
+    @IBAction func customItemListDidComplete(segue : UIStoryboardSegue) {
+        if let customItemListViewController = segue.sourceViewController as? CustomItemsTableViewController {
+            println("[complete] unwind to dst")
+            
+        }
+    }
+    
+    @IBAction func customItemListDidCancel(segue : UIStoryboardSegue) {
+        if let customItemListViewController = segue.sourceViewController as? CustomItemsTableViewController {
+            println("[cancel] unwind to dst")
+            
+        }
+    }
     
     func addPrice(delta : Int) {
         if var totalPrice = self.orderItem?.totalPrice {
@@ -216,6 +232,6 @@ class CustomizingOrderTableViewController: UITableViewController,
     }
     
     func touchUpInsideAddCustomItemButton(cell : AddCustomItemCustomizingOrderTableViewCell){
-        self.performSegueWithIdentifier("showModallyStaticCustomItemListSegue", sender: nil)
+        self.performSegueWithIdentifier("showModallyCustomItemListSegue", sender: nil)
     }
 }
