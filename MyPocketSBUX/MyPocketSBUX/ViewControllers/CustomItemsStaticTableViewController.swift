@@ -162,6 +162,15 @@ class CustomItemsStaticTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        // 横幅、高さ、ステータスバーの高さを取得する
+//        let width: CGFloat! = self.view.bounds.width
+//        let height: CGFloat! = self.view.bounds.height
+//        let statusBarHeight: CGFloat! = UIApplication.sharedApplication().statusBarFrame.height
+//        
+//        // WebViewを生成する
+//        self.view.frame = CGRectMake(0, statusBarHeight, width, height - statusBarHeight)
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -169,6 +178,20 @@ class CustomItemsStaticTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    override func tableView(tableView: UITableView, didEndDisplayingHeaderView view: UIView, forSection section: Int){
+//        view.backgroundColor = UIColor.redColor()
+    }
+    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int){
+        if var header = view as? UITableViewHeaderFooterView {
+            header.contentView.opaque = true
+            header.contentView.backgroundColor = UIColor.redColor()
+        }
+        //self.tableView.headerViewForSection(0)?.contentView.backgroundColor = UIColor.redColor()
+    }
+    
+//    override func prefersStatusBarHidden() -> Bool {
+//        return true
+//    }
     // MARK: - Table view data source
 
     // Static Cellsのため、不要

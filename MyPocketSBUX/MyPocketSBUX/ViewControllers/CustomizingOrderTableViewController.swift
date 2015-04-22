@@ -11,11 +11,14 @@ import UIKit
 class CustomizingOrderTableViewController: UITableViewController,
     SizeCustomizingOrderTableViewCellDelegate,
     ReusableCupCustomizingOrderTableViewCellDelegate,
-    OneMoreCoffeeCustomizingOrderTableViewCellDelegate{
+    OneMoreCoffeeCustomizingOrderTableViewCellDelegate,
+    AddCustomItemCustomizingOrderTableViewCellDelegate{
 
     var orderItem : OrderListItem?
     
     // keyPathsはデフォルトセルを使用する場合にのみ必要
+    // TODO: ドリンク／フード、ドリンクの構成要素によって、表示・非表示／活性・非活性を切り替えられるよう、下記配列の要素を変化させる
+    // 専用の関数を作って、マッピングを遅延評価するようにする
     var nameMappings : [( section : String, detailItemInfos : [(cellId : String, keyPaths : String)])] = [
         (
             section: "General",
@@ -31,9 +34,14 @@ class CustomizingOrderTableViewController: UITableViewController,
             ]
         ),
         (
+            // TODO: 直接カスタムアイテムを並べるか、それとも、「Add Items ...」から別画面に移動するか
+            // 結局カスタムセル自体は必要になると思うので
+            // 別画面の場合は、モーダル表示する（決定／キャンセルボタンをどこにおくかだけど）
+            // それとも前にやったように、ナビゲーションでの遷移にするか（戻るのイベントを取れなかったような）
             section: "Customization",
             detailItemInfos: [
-                (cellId: CustomizingOrderTableViewCell.CellIds.base, keyPaths: "customizationItems")
+//                (cellId: CustomizingOrderTableViewCell.CellIds.base, keyPaths: "customizationItems")
+                (cellId: CustomizingOrderTableViewCell.CellIds.addCustomItem, keyPaths: "")
             ]
         )
     ]
@@ -80,7 +88,7 @@ class CustomizingOrderTableViewController: UITableViewController,
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return section == 0 ? self.nameMappings[section].detailItemInfos.count : self.orderItem?.customizationItems?.ingredients.count ?? 0
+        return section == 0 ? self.nameMappings[section].detailItemInfos.count : (self.orderItem?.customizationItems?.ingredients.count ?? 0) + 1
     }
 
     
@@ -101,7 +109,8 @@ class CustomizingOrderTableViewController: UITableViewController,
         }
         else if indexPath.section == 1 {
             // カスタマイズ項目
-            cell.textLabel?.text = self.orderItem?.customizationItems?.ingredients[indexPath.row].name
+            cell.configure(self.orderItem!, delegate: self)
+            //cell.textLabel?.text = self.orderItem?.customizationItems?.ingredients[indexPath.row].name
         }
 
         return cell
@@ -147,7 +156,7 @@ class CustomizingOrderTableViewController: UITableViewController,
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -155,7 +164,7 @@ class CustomizingOrderTableViewController: UITableViewController,
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
     }
-    */
+    
     
     func addPrice(delta : Int) {
         if var totalPrice = self.orderItem?.totalPrice {
@@ -204,5 +213,9 @@ class CustomizingOrderTableViewController: UITableViewController,
             
             self.addPrice(delta)
         }
+    }
+    
+    func touchUpInsideAddCustomItemButton(cell : AddCustomItemCustomizingOrderTableViewCell){
+        self.performSegueWithIdentifier("showModallyStaticCustomItemListSegue", sender: nil)
     }
 }

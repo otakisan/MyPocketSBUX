@@ -19,6 +19,8 @@ class CustomizingOrderTableViewCell: UITableViewCell {
         static let reusableCup = "reusableCupCustomizingOrderTableViewCell"
         static let oneMoreCoffee = "oneMoreCoffeeCustomizingOrderTableViewCell"
         static let ticket = "ticketCustomizingOrderTableViewCell"
+        static let customItem = "customItemCustomizingOrderTableViewCell"
+        static let addCustomItem = "addCustomItemCustomizingOrderTableViewCell"
     }
     
     var orderListItem : OrderListItem?
@@ -214,5 +216,30 @@ class TicketCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
     override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?) {
         super.configure(orderListItem, delegate: delegate)
     }
+}
+
+class CustomItemCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
+    
+    override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?) {
+        super.configure(orderListItem, delegate: delegate)
+    }
+}
+
+class AddCustomItemCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
+    
+    var delegate : AddCustomItemCustomizingOrderTableViewCellDelegate?
+
+    @IBAction func touchUpInsideAddCustomItemButton(sender: UIButton) {
+        self.delegate?.touchUpInsideAddCustomItemButton(self)
+    }
+    
+    override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?) {
+        super.configure(orderListItem, delegate: delegate)
+        self.delegate = delegate as? AddCustomItemCustomizingOrderTableViewCellDelegate
+    }
+}
+
+protocol AddCustomItemCustomizingOrderTableViewCellDelegate : CustomizingOrderTableViewCellDelegate {
+    func touchUpInsideAddCustomItemButton(cell : AddCustomItemCustomizingOrderTableViewCell)
 }
 

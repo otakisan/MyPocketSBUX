@@ -1058,7 +1058,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="customItemCustomizingOrderTableViewCell" id="jQq-3V-yac">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="customItemCustomizingOrderTableViewCell" id="jQq-3V-yac" customClass="CustomItemCustomizingOrderTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jQq-3V-yac" id="0OZ-v9-fDm">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -1080,14 +1080,11 @@
                                             <state key="normal" title="Edit">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
-                                            <connections>
-                                                <segue destination="pXb-ln-B0B" kind="show" id="Slc-sv-yxF"/>
-                                            </connections>
                                         </button>
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="addCustomItemCustomizingOrderTableViewCell" id="Nu9-j7-MxW">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="addCustomItemCustomizingOrderTableViewCell" id="Nu9-j7-MxW" customClass="AddCustomItemCustomizingOrderTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Nu9-j7-MxW" id="FJt-NL-iAX">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -1103,6 +1100,9 @@
                                             <state key="normal" title="Add">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="touchUpInsideAddCustomItemButton:" destination="Nu9-j7-MxW" eventType="touchUpInside" id="ynl-2g-nAn"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </tableViewCellContentView>
@@ -1113,6 +1113,9 @@
                             <outlet property="delegate" destination="oRG-qi-ENP" id="EOz-CE-6nL"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="pXb-ln-B0B" kind="presentation" identifier="showModallyStaticCustomItemListSegue" id="44g-bQ-6Fk"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UDI-V1-S8z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1126,6 +1129,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="W7V-NG-1Tc">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <items>
+                                <navigationItem title="Custom Item List (Static)" id="hQX-FM-A1e"/>
+                            </items>
+                        </navigationBar>
                         <sections>
                             <tableViewSection headerTitle="Section-1" id="ugu-uA-2lY">
                                 <cells>
