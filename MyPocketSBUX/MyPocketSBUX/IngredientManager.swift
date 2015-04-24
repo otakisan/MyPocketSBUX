@@ -42,12 +42,12 @@ class AvailableChoiceMapping {
     
     // ミルクだけは商品によって分量が不定に変わるから、計算で算出できない。サイズと合わせ、カロリー表から取得するベース値に含める
     struct ProtoTypeIngredients {
-        static let wholeMilk : Ingredient = Ingredient(type: .Milk, name: IngredientNames.wholeMilk, unitCalorie: 0, unitPrice: 50, quantity: 0)
-        static let vanillaSyrup : Ingredient = Ingredient(type: .Syrup, name: IngredientNames.vanillaSyrup, unitCalorie: 19, unitPrice: 50, quantity: 0)
-        static let mochaSyrup : Ingredient = Ingredient(type: .Syrup, name: IngredientNames.mochaSyrup, unitCalorie: 35, unitPrice: 50, quantity: 0)
-        static let chaiSyrup : Ingredient = Ingredient(type: .Syrup, name: IngredientNames.chaiSyrup, unitCalorie: 35, unitPrice: 50, quantity: 0)
-        static let whippedCreamForFood : Ingredient = Ingredient(type: .WhippedCreamFood, name: IngredientNames.whippedCreamForFood, unitCalorie: 83, unitPrice: 30, quantity: 0)
-        static let whippedCreamForDrink : Ingredient = Ingredient(type: .WhippedCreamDrink, name: IngredientNames.whippedCreamForDrink, unitCalorie: 83, unitPrice: 50, quantity: 0)
+        static let wholeMilk : Ingredient = Ingredient(type: .Milk, name: IngredientNames.wholeMilk, unitCalorie: 0, unitPrice: 50, quantity: 0, enable: false, quantityType: .Normal)
+        static let vanillaSyrup : Ingredient = Ingredient(type: .Syrup, name: IngredientNames.vanillaSyrup, unitCalorie: 19, unitPrice: 50, quantity: 0, enable : false, quantityType : .Normal)
+        static let mochaSyrup : Ingredient = Ingredient(type: .Syrup, name: IngredientNames.mochaSyrup, unitCalorie: 35, unitPrice: 50, quantity: 0, enable : false, quantityType : .Normal)
+        static let chaiSyrup : Ingredient = Ingredient(type: .Syrup, name: IngredientNames.chaiSyrup, unitCalorie: 35, unitPrice: 50, quantity: 0, enable : false, quantityType : .Normal)
+        static let whippedCreamForFood : Ingredient = Ingredient(type: .WhippedCreamFood, name: IngredientNames.whippedCreamForFood, unitCalorie: 83, unitPrice: 30, quantity: 0, enable : false, quantityType : .Normal)
+        static let whippedCreamForDrink : Ingredient = Ingredient(type: .WhippedCreamDrink, name: IngredientNames.whippedCreamForDrink, unitCalorie: 83, unitPrice: 50, quantity: 0, enable : false, quantityType : .Normal)
     }
     
     typealias GetChoice = () -> (originals : [Ingredient], customs : [Ingredient])

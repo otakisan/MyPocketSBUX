@@ -21,6 +21,7 @@ class CustomizingOrderTableViewCell: UITableViewCell {
         static let ticket = "ticketCustomizingOrderTableViewCell"
         static let customItem = "customItemCustomizingOrderTableViewCell"
         static let addCustomItem = "addCustomItemCustomizingOrderTableViewCell"
+        static let customItemAdded = "customItemCustomizingOrderTableViewCell"
     }
     
     var orderListItem : OrderListItem?
@@ -36,7 +37,7 @@ class CustomizingOrderTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(orderListItem : OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?) {
+    func configure(orderListItem : OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?, indexPath : NSIndexPath) {
         self.orderListItem = orderListItem
     }
 
@@ -49,8 +50,8 @@ protocol CustomizingOrderTableViewCellDelegate : NSObjectProtocol {
 class NameCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel!
-    override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?) {
-        super.configure(orderListItem, delegate: delegate)
+    override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?, indexPath : NSIndexPath) {
+        super.configure(orderListItem, delegate: delegate, indexPath: indexPath)
 
         self.nameLabel.text = orderListItem.productEntity?.valueForKey("name") as? String ?? ""
     }
@@ -59,8 +60,8 @@ class NameCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
 class PriceCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
     
     @IBOutlet weak var priceLabel: UILabel!
-    override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?) {
-        super.configure(orderListItem, delegate: delegate)
+    override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?, indexPath : NSIndexPath) {
+        super.configure(orderListItem, delegate: delegate, indexPath: indexPath)
         
         var price = orderListItem.totalPrice
         self.priceLabel.text = "¥\(price)"
@@ -70,8 +71,8 @@ class PriceCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
 class CalorieCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
     
     @IBOutlet weak var calorieLabel: UILabel!
-    override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?) {
-        super.configure(orderListItem, delegate: delegate)
+    override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?, indexPath : NSIndexPath) {
+        super.configure(orderListItem, delegate: delegate, indexPath: indexPath)
 
         var calorie = 0
         for nutrition in orderListItem.nutritionEntities {
@@ -92,8 +93,8 @@ class SizeCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
         self.delegate?.valueChangedSizeSegment(self, size: self.sizes[sender.selectedSegmentIndex])
     }
     
-    override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?) {
-        super.configure(orderListItem, delegate: delegate)
+    override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?, indexPath : NSIndexPath) {
+        super.configure(orderListItem, delegate: delegate, indexPath: indexPath)
         
         self.delegate = delegate as? SizeCustomizingOrderTableViewCellDelegate
 
@@ -153,8 +154,8 @@ class HotOrIcedCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
         self.orderListItem?.hotOrIce = self.hotOrIcedNames[sender.selectedSegmentIndex]
     }
     
-    override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?) {
-        super.configure(orderListItem, delegate: delegate)
+    override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?, indexPath : NSIndexPath) {
+        super.configure(orderListItem, delegate: delegate, indexPath: indexPath)
         
         for segmentIndex in 0..<self.hotOrIcedSegment.numberOfSegments {
             if let title = self.hotOrIcedSegment.titleForSegmentAtIndex(segmentIndex) {
@@ -178,8 +179,8 @@ class ReusableCupCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
         self.delegate?.valueChangedReusableCupSwitch(self, on : sender.on)
     }
     
-    override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?) {
-        super.configure(orderListItem, delegate: delegate)
+    override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?, indexPath : NSIndexPath) {
+        super.configure(orderListItem, delegate: delegate, indexPath: indexPath)
         self.reusableCupSwitch.on = orderListItem.reusableCup
         self.delegate = delegate as? ReusableCupCustomizingOrderTableViewCellDelegate
     }
@@ -199,8 +200,8 @@ class OneMoreCoffeeCustomizingOrderTableViewCell : CustomizingOrderTableViewCell
         self.delegate?.valueChangedOneMoreCoffeeSwitch(self, on: sender.on)
     }
     
-    override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?) {
-        super.configure(orderListItem, delegate: delegate)
+    override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?, indexPath : NSIndexPath) {
+        super.configure(orderListItem, delegate: delegate, indexPath: indexPath)
         self.oneMoreCoffeeSwitch.enabled = self.orderListItem?.productEntity?.valueForKey("janCode") as? String == "4524785000018"
         self.oneMoreCoffeeSwitch.on = self.oneMoreCoffeeSwitch.enabled && orderListItem.oneMoreCoffee
         self.delegate = delegate as? OneMoreCoffeeCustomizingOrderTableViewCellDelegate
@@ -213,15 +214,18 @@ protocol OneMoreCoffeeCustomizingOrderTableViewCellDelegate : CustomizingOrderTa
 
 class TicketCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
     
-    override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?) {
-        super.configure(orderListItem, delegate: delegate)
+    override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?, indexPath : NSIndexPath) {
+        super.configure(orderListItem, delegate: delegate, indexPath: indexPath)
     }
 }
 
 class CustomItemCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
     
-    override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?) {
-        super.configure(orderListItem, delegate: delegate)
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?, indexPath : NSIndexPath) {
+        super.configure(orderListItem, delegate: delegate, indexPath: indexPath)
+        self.nameLabel.text = orderListItem.customizationItems?.ingredients[indexPath.row].name ?? ""
     }
 }
 
@@ -233,8 +237,8 @@ class AddCustomItemCustomizingOrderTableViewCell : CustomizingOrderTableViewCell
         self.delegate?.touchUpInsideAddCustomItemButton(self)
     }
     
-    override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?) {
-        super.configure(orderListItem, delegate: delegate)
+    override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?, indexPath : NSIndexPath) {
+        super.configure(orderListItem, delegate: delegate, indexPath: indexPath)
         self.delegate = delegate as? AddCustomItemCustomizingOrderTableViewCellDelegate
     }
 }

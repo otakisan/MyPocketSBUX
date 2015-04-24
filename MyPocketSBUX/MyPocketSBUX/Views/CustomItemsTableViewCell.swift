@@ -10,6 +10,8 @@ import UIKit
 
 class CustomItemsTableViewCell: UITableViewCell {
 
+    var ingredient : Ingredient!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,17 +23,77 @@ class CustomItemsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(ingredient : Ingredient) {
+    func configure(ingredient : Ingredient, delegate : CustomItemsTableViewCellDelegate) {
+        self.ingredient = ingredient
         self.textLabel?.text = ingredient.name
     }
 
 }
 
+protocol CustomItemsTableViewCellDelegate {
+    
+}
+
+// TODO: スイッチがONなら、量を指定可能とする
 class SyrupCustomItemsTableViewCell: CustomItemsTableViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var quantitySegment: UISegmentedControl!
     
-    override func configure(ingredient: Ingredient) {
+    @IBAction func valueChangedAdditionSwitch(sender: UISwitch) {
+        self.delegate?.valueChangedAdditionSwitch(self, added: sender.on)
+        self.changeStateQuantitySegment(sender.on)
+    }
+    
+    @IBAction func valueChangedQuantitySegment(sender: UISegmentedControl) {
+        self.delegate?.valueChangedQuantitySegment(self, type: QuantityType.fromNumeric(sender.selectedSegmentIndex))
+    }
+    
+    var delegate : SyrupCustomItemsTableViewCellDelegate?
+    
+    override func configure(ingredient: Ingredient, delegate : CustomItemsTableViewCellDelegate) {
+        self.ingredient = ingredient
         self.nameLabel.text = ingredient.name
+        self.changeStateQuantitySegment(self.ingredient.quantity > 0)
+        self.delegate = delegate as? SyrupCustomItemsTableViewCellDelegate
+    }
+    
+    func changeStateQuantitySegment(on : Bool) {
+        self.quantitySegment.enabled = on
+    }
+}
+
+protocol SyrupCustomItemsTableViewCellDelegate : CustomItemsTableViewCellDelegate {
+    func valueChangedAdditionSwitch(cell : SyrupCustomItemsTableViewCell, added : Bool)
+    func valueChangedQuantitySegment(cell : SyrupCustomItemsTableViewCell, type : QuantityType)
+}
+
+enum QuantityType {
+    case Less
+    case Normal
+    case More
+    
+    static func fromNumeric(typeValue : Int) -> QuantityType {
+        var type = Normal
+        switch typeValue {
+        case 0:
+            type = Less
+        case 1:
+            type = Normal
+        case 2:
+            type = More
+        default:
+            type = Normal
+        }
+        
+        return type
+    }
+    
+    func addQuantity(baseValue : Int) -> Int {
+        return (self == Less ? baseValue - 1 : self == More ? baseValue + 1 : baseValue)
+    }
+    
+    func quantityToAdd() -> Int {
+        return (self == Less ? -1 : self == More ? 1 : 0)
     }
 }

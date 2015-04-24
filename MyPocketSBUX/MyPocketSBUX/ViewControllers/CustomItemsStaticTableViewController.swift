@@ -294,28 +294,32 @@ class IngredientCollection {
 
 // TODO: データクラスは、コンストラクタ定義まで含め、自動生成したいところ
 // 範囲選択した情報を使って、コンストラクタのソースを出力するアドインって作成できないだろうか
-class Ingredient {
+class Ingredient : Equatable {
     
     var type : CustomizationIngredientype = .None
     var name : String = ""
     var unitCalorie : Int = 0
     var unitPrice : Int = 0
     var quantity : Int = 0
+    var enable : Bool = false
+    var quantityType : QuantityType = .Normal
     
     init(){
         
     }
     
-    init(type : CustomizationIngredientype, name : String, unitCalorie : Int, unitPrice : Int, quantity : Int){
+    init(type : CustomizationIngredientype, name : String, unitCalorie : Int, unitPrice : Int, quantity : Int, enable : Bool, quantityType : QuantityType){
         self.type = type
         self.name = name
         self.unitCalorie = unitCalorie
         self.unitPrice = unitPrice
         self.quantity = quantity
+        self.enable = enable
+        self.quantityType = quantityType
     }
     
     convenience init(srcIngredient : Ingredient) {
-        self.init(type: srcIngredient.type, name: srcIngredient.name, unitCalorie: srcIngredient.unitCalorie, unitPrice: srcIngredient.unitPrice, quantity: srcIngredient.quantity)
+        self.init(type: srcIngredient.type, name: srcIngredient.name, unitCalorie: srcIngredient.unitCalorie, unitPrice: srcIngredient.unitPrice, quantity: srcIngredient.quantity, enable: srcIngredient.enable, quantityType: srcIngredient.quantityType)
     }
     
     func overrideQuantity(newQuantity : Int) -> Ingredient {
@@ -328,6 +332,10 @@ class Ingredient {
     func calorie() -> Int {
         return self.unitPrice * self.quantity
     }
+}
+
+func == (lhs: Ingredient, rhs: Ingredient) -> Bool {
+    return lhs.name == rhs.name
 }
 
 enum CustomizationIngredientype {

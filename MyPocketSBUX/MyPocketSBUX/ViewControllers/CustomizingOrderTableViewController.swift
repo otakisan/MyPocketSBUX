@@ -41,7 +41,8 @@ class CustomizingOrderTableViewController: UITableViewController,
             section: "Customization",
             detailItemInfos: [
 //                (cellId: CustomizingOrderTableViewCell.CellIds.base, keyPaths: "customizationItems")
-                (cellId: CustomizingOrderTableViewCell.CellIds.addCustomItem, keyPaths: "")
+//                (cellId: CustomizingOrderTableViewCell.CellIds.addCustomItem, keyPaths: ""),
+//                (cellId: CustomizingOrderTableViewCell.CellIds.customItemAdded, keyPaths: "")
             ]
         )
     ]
@@ -50,6 +51,14 @@ class CustomizingOrderTableViewController: UITableViewController,
         var cellId = ""
         if self.nameMappings.count > indexPath.section && self.nameMappings[indexPath.section].detailItemInfos.count > indexPath.row {
             cellId = self.nameMappings[indexPath.section].detailItemInfos[indexPath.row].cellId
+        }
+        else if indexPath.section == 1 {
+            if self.orderItem?.customizationItems?.ingredients.count > indexPath.row {
+                cellId = CustomizingOrderTableViewCell.CellIds.customItemAdded
+            }
+            else{
+                cellId = CustomizingOrderTableViewCell.CellIds.addCustomItem
+            }
         }
         else{
             fatalError("not found cellId")
@@ -104,12 +113,12 @@ class CustomizingOrderTableViewController: UITableViewController,
                 }
             }
             else{
-                cell.configure(orderItem!, delegate: self)
+                cell.configure(orderItem!, delegate: self, indexPath: indexPath)
             }
         }
         else if indexPath.section == 1 {
             // カスタマイズ項目
-            cell.configure(self.orderItem!, delegate: self)
+            cell.configure(self.orderItem!, delegate: self, indexPath: indexPath)
             //cell.textLabel?.text = self.orderItem?.customizationItems?.ingredients[indexPath.row].name
         }
 
@@ -171,7 +180,8 @@ class CustomizingOrderTableViewController: UITableViewController,
     @IBAction func customItemListDidComplete(segue : UIStoryboardSegue) {
         if let customItemListViewController = segue.sourceViewController as? CustomItemsTableViewController {
             println("[complete] unwind to dst")
-            
+            self.addOrUpdateCustomItems(customItemListViewController.editResults.filter {$0.enable})
+            self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
         }
     }
     
@@ -182,14 +192,40 @@ class CustomizingOrderTableViewController: UITableViewController,
         }
     }
     
+    func addOrUpdateCustomItems(ingredients : [Ingredient]) {
+        if self.orderItem?.customizationItems == nil {
+            self.orderItem?.customizationItems = IngredientCollection()
+        }
+        
+        // 単純に置き換えた方が効率がいい？
+        //self.orderItem?.customizationItems?.ingredients = ingredients
+        
+        for ing in ingredients {
+            if let index = find(self.orderItem!.customizationItems!.ingredients, ing) {
+                if ing.enable {
+                    self.orderItem?.customizationItems?.ingredients[index].quantityType = ing.quantityType
+                }
+                else {
+                    self.orderItem?.customizationItems?.ingredients.removeAtIndex(index)
+                }
+            }
+            else{
+                if ing.enable {
+                    self.orderItem?.customizationItems?.ingredients.append(ing)
+                }
+            }
+        }
+    }
+    
     func addPrice(delta : Int) {
         if var totalPrice = self.orderItem?.totalPrice {
             let newPrice = totalPrice + delta
             self.orderItem?.totalPrice = newPrice
             
             // TODO: 価格のリスト上での位置は、動的に取得するようにする
-            if let priceCell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as? CustomizingOrderTableViewCell {
-                priceCell.configure(self.orderItem!, delegate: self)
+            let indexPath = NSIndexPath(forRow: 1, inSection: 0)
+            if let priceCell = self.tableView.cellForRowAtIndexPath(indexPath) as? CustomizingOrderTableViewCell {
+                priceCell.configure(self.orderItem!, delegate: self, indexPath: indexPath)
             }
         }
     }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomItemsTableViewController: UITableViewController {
+class CustomItemsTableViewController: UITableViewController, SyrupCustomItemsTableViewCellDelegate {
     
     let cellIdMappings : [CustomizationIngredientype:String] = [
         CustomizationIngredientype.Syrup : "SyrupTableViewCell"
@@ -22,8 +22,10 @@ class CustomItemsTableViewController: UITableViewController {
     
     lazy var availableCustomizationChoices : IngredientCollection = self.initAvailableCustomizationChoices()
 
+    // TODO: 呼び出し元の情報のため、編集不可にしたい
     var orderListItem : OrderListItem?
     var customItemForEdit : Ingredient?
+    var editResults : [Ingredient] = []
     
     func initAvailableCustomizationChoices() -> IngredientCollection{
         // 商品コード（もしくは名称等の情報）を渡せば、その商品に適用可能なカスタムアイテムを表示する
@@ -113,7 +115,7 @@ class CustomItemsTableViewController: UITableViewController {
         }
         
         let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! CustomItemsTableViewCell
-        cell.configure(self.availableCustomizationChoices.ingredients[indexPath.row])
+        cell.configure(self.availableCustomizationChoices.ingredients[indexPath.row], delegate: self)
         //cell.textLabel?.text = self.availableCustomizationChoices.ingredients[indexPath.row].name
 
         // Configure the cell...
@@ -174,5 +176,41 @@ class CustomItemsTableViewController: UITableViewController {
         
     }
     
-
+    func thisCustomItem(sender : Ingredient) -> Ingredient? {
+//        return self.orderListItem?.customizationItems?.ingredients.filter { $0.name == sender.name }.first
+        return self.editResults.filter { $0.name == sender.name }.first
+    }
+    
+    func addIngredient(ingredient : Ingredient) -> Ingredient {
+        // appendするとコピーになるらしいので不要
+        //let ing = Ingredient(srcIngredient: ingredient)
+//        if self.orderListItem?.customizationItems == nil {
+//            self.orderListItem?.customizationItems = IngredientCollection()
+//        }
+//        self.orderListItem?.customizationItems?.ingredients.append(ingredient)
+        self.editResults.append(ingredient)
+        
+        return ingredient
+    }
+    
+    func valueChangedAdditionSwitch(cell : SyrupCustomItemsTableViewCell, added : Bool){
+        // TODO: レシピ情報とサイズがあれば、具体的な数量をだせるけど…
+        var ingredient = self.thisCustomItem(cell.ingredient) ?? self.addIngredient(cell.ingredient)
+        
+//        if self.orderListItem?.customizationItems == nil {
+//            self.orderListItem?.customizationItems = IngredientCollection()
+//        }
+//        self.orderListItem?.customizationItems?.ingredients.append(ingredient)
+        
+        ingredient.enable = added
+        ingredient.quantity = added ? 1: 0
+//        self.thisCustomItem(cell.ingredient)?.enable = added
+//        self.thisCustomItem(cell.ingredient)?.quantity = added ? 1: 0
+    }
+    
+    func valueChangedQuantitySegment(cell : SyrupCustomItemsTableViewCell, type : QuantityType) {
+        // TODO: 数量管理よりも、少なめ／多めの情報を保持しておいた方がよいか？
+        self.thisCustomItem(cell.ingredient)?.quantityType = type
+        self.thisCustomItem(cell.ingredient)?.quantity += type.quantityToAdd()
+    }
 }
