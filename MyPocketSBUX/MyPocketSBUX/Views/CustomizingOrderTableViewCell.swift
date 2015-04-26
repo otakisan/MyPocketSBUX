@@ -82,6 +82,7 @@ class CalorieCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
     }
 }
 
+// TODO: Solo/Doppioのみの場合の制御が必要 右２つを非活性化
 class SizeCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
     
     var delegate : SizeCustomizingOrderTableViewCellDelegate?
@@ -146,6 +147,7 @@ enum DrinkSize : String {
     }
 }
 
+// TODO: 個別JANコードで活性・非活性を制御する
 class HotOrIcedCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
     
     let hotOrIcedNames : [String] = ["Hot", "Iced"]
@@ -159,6 +161,14 @@ class HotOrIcedCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
     override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?, indexPath : NSIndexPath) {
         super.configure(orderListItem, delegate: delegate, indexPath: indexPath)
         
+        // TODO: 暫定処理
+        if let category = self.orderListItem?.productEntity?.valueForKey("category") as? String {
+            self.hotOrIcedSegment.enabled = (category != "frappuccino")
+            self.orderListItem?.hotOrIce = "frappuccino"
+            self.hotOrIcedSegment.selectedSegmentIndex = -1
+        }
+        
+        // 初期選択
         for segmentIndex in 0..<self.hotOrIcedSegment.numberOfSegments {
             if let title = self.hotOrIcedSegment.titleForSegmentAtIndex(segmentIndex) {
                 
