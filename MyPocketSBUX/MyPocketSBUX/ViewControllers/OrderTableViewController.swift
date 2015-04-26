@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OrderTableViewController: UITableViewController, OrderTableViewCellDelegate {
+class OrderTableViewController: UITableViewController, OrderTableViewCellDelegate, CustomizingOrderTableViewDelegate {
     
 //    var orderItems : [(productCategory : String, orders : [OrderListItem])] = []
     var orderItems : [OrderListItem] = []
@@ -152,4 +152,17 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
         }
     }
 
+    /**
+    個別オーダー商品のカスタマイズ完了時処理
+    */
+    func didCompleteCustomizeOrder(orderListItem : OrderListItem?){
+        // 全体をリフレッシュするか 個別の情報をもらうか
+        // 配列の順に表示が済んでいる前提
+        if let current = orderListItem {
+            if let index = find(self.orderItems, current) {
+                self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: .Automatic)
+            }
+            //self.tableView.reloadData()
+        }
+    }
 }

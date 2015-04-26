@@ -22,6 +22,7 @@ class CustomizingOrderTableViewController: UITableViewController,
     }
 
     var orderItem : OrderListItem?
+    var delegate : CustomizingOrderTableViewDelegate?
     
     // keyPathsはデフォルトセルを使用する場合にのみ必要
     // TODO: ドリンク／フード、ドリンクの構成要素によって、表示・非表示／活性・非活性を切り替えられるよう、下記配列の要素を変化させる
@@ -233,6 +234,22 @@ class CustomizingOrderTableViewController: UITableViewController,
         }
     }
     
+    override func didMoveToParentViewController(parent: UIViewController?) {
+        if let nv = parent as? UINavigationController {
+            println("appended")
+            
+            // 直前のViewControllerを取得し、delegateに設定
+            if var ov = nv.viewControllers[nv.viewControllers.count - 2] as? CustomizingOrderTableViewDelegate {
+                self.delegate = ov
+            }
+        }
+        else {
+            println("unwind")
+            self.delegate?.didCompleteCustomizeOrder(self.orderItem)
+            self.delegate = nil
+        }
+    }
+    
     @IBAction func customItemListDidComplete(segue : UIStoryboardSegue) {
         if let customItemListViewController = segue.sourceViewController as? CustomItemsTableViewController {
             println("[complete] unwind to dst")
@@ -256,12 +273,6 @@ class CustomizingOrderTableViewController: UITableViewController,
                         current.enable = customItemListViewController.editResults.first?.enable ?? false
                         current.quantityType = customItemListViewController.editResults.first?.quantityType ?? .Normal
                         
-                        // 価格を更新（実際にはソイかどうか、シロップ変更適用かどうか）
-                        // TODO: トータル計算が出来上がったら下記は不要
-//                        let delta = (customItemListViewController.editResults.first?.unitPrice ?? 0) - current.unitPrice
-//                        current.unitPrice += delta
-//                        self.addPrice(delta)
-                        
                         // 総額を更新
                         self.updateTotalPrice()
                         
@@ -272,10 +283,6 @@ class CustomizingOrderTableViewController: UITableViewController,
             } else {
                 
                 self.addOrUpdateCustomItems(customItemListViewController.editResults)
-                
-                // TODO: トータル計算が出来上がったら下記は不要
-                //self.updateCustomizationPrice()
-                
                 self.updateTotalPrice()
                 self.tableView.reloadSections(NSIndexSet(index: SectionIndex.Custom), withRowAnimation: UITableViewRowAnimation.Automatic)
             }
@@ -419,4 +426,8 @@ class CustomizingOrderTableViewController: UITableViewController,
     func touchUpInsideEditButton(cell : CustomItemCustomizingOrderTableViewCell){
         self.performSegueWithIdentifier("showModallyCustomItemListSegue", sender: cell)
     }
+}
+
+protocol CustomizingOrderTableViewDelegate {
+    func didCompleteCustomizeOrder(orderListItem : OrderListItem?)
 }

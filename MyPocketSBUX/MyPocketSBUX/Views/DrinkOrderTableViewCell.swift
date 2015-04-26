@@ -40,7 +40,7 @@ class DrinkOrderTableViewCell: OrderTableViewCell {
             self.productNameLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
             self.productNameLabel?.sizeToFit()
 
-            self.priceLable.text = "\(entity.price)"
+            self.priceLable.text = "\(self.orderListItem?.totalPrice ?? 0)"
             self.orderSwitch.on = orderListItem.on
             
             self.calorieLabel.text = "\(self.calorieForOrder())"
