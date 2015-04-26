@@ -48,112 +48,6 @@ class CustomItemsStaticTableViewController: UITableViewController {
         return 0
     }
     
-    // カスタムアイテムの計算仕様
-    // シロップ、チップ、ホイップと種別ごとに小計を算出し、基本価格（Base Price）に合計する
-    // セルの種類は、シロップ・ソース・チップ…という種類ごとでよい？
-    // カスタムの要素と数量から、標準構成との差をとり、カスタムメニューの情報を表示する
-    func priceForTotal() -> Int {
-        // カスタム内容によらず無料のものは除外する
-        // ショット、コーヒー、ホイップ、シロップ、チップ、ソイ、期間限定（ジェリー、プリン）
-        // 期間限定ものは、それが始まってから随時対応する
-        var total = self.priceForEspresso() + self.priceForBrewedCoffee() + self.priceForWhippedCreme() + self.priceForSyrup() + self.priceForChips() + self.priceForMilk()
-        
-        return total
-    }
-    
-    func priceForMilk() -> Int {
-        return self.isSoy() ? 50 : 0
-    }
-    
-    func isSoy() -> Bool {
-        return false
-    }
-    
-    func priceForChips() -> Int {
-        //
-        var baseNumberOfChipTypes = self.baseIngredients.categorized(.Chip).count
-        var totalNumberOfChipTypes = self.totalNumberOfChipTypes()
-        var addedNumberOfChipTypes = totalNumberOfChipTypes - baseNumberOfChipTypes
-        
-        // ベース以下のショット数にしても価格は同じ
-        var price = max(0, addedNumberOfChipTypes * 50)
-        
-        return price
-    }
-    
-    func totalNumberOfChipTypes() -> Int {
-        // 画面上、選択項目から種類数を算出する
-        return 1
-    }
-
-    func priceForWhippedCreme() -> Int {
-        //
-        var baseNumberOfWhippedCreamTypes = self.baseIngredients.categorized(.WhippedCreamDrink).count
-        var totalNumberOfWhippedCreamTypes = self.totalNumberOfWhippedCreamTypes()
-        var addedNumberOfWhippedCreamTypes = totalNumberOfWhippedCreamTypes - baseNumberOfWhippedCreamTypes
-        
-        // ベース以下のショット数にしても価格は同じ
-        var price = max(0, addedNumberOfWhippedCreamTypes * 50)
-        
-        return price
-    }
-    
-    func totalNumberOfWhippedCreamTypes() -> Int {
-        // 画面上、選択項目から種類数を算出する
-        return 1
-    }
-    
-    func priceForBrewedCoffee() -> Int {
-        // 1が標準、2が増量
-        var baseNumberOfCoffee = self.baseIngredients.categorized(.Coffee).count
-        var totalNumberOfCoffee = self.totalNumberOfCoffee()
-        var addedNumberOfCoffee = totalNumberOfCoffee - baseNumberOfCoffee
-        
-        // ベース以下のショット数にしても価格は同じ
-        var price = max(0, addedNumberOfCoffee * 50)
-        
-        return price
-    }
-
-    func totalNumberOfCoffee() -> Int {
-        return 2
-    }
-    
-    func priceForEspresso() -> Int {
-        // ショット数の差分
-        var baseNumberOfEspressoShots = self.baseIngredients.categorized(.Espresso).count
-        var totalNumberOfEspressoShots = self.totalNumberOfEspressoShots()
-        var addedNumberOfEspressoShots = totalNumberOfEspressoShots - baseNumberOfEspressoShots
-        
-        // ベース以下のショット数にしても価格は同じ
-        var price = max(0, addedNumberOfEspressoShots * 50)
-        
-        return price
-    }
-
-    func totalNumberOfEspressoShots() -> Int {
-        // 初期表示時に、標準構成でのショット数を表示し、画面上の値がそのまま合計値となるようにする
-        return 2
-    }
-    
-    func priceForSyrup() -> Int {
-        // シロップの種類から
-        var baseNumberOfSyrupTypes = self.baseIngredients.categorized(.Syrup).count
-        var totalNumberOfSyrupTypes = self.totalNumberOfSyrupTypes()
-        var addedNumberOfSyrupTypes = totalNumberOfSyrupTypes - baseNumberOfSyrupTypes
-        
-        // ベースが１種類、ノンシロップにしてもマイナスにはならない
-        // 変更であれば、差分がゼロになる
-        var price = max(0, addedNumberOfSyrupTypes * 50)
-        
-        return price
-    }
-    
-    func totalNumberOfSyrupTypes() -> Int {
-        // 画面上、選択項目から種類数を算出する
-        return 3
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -273,24 +167,18 @@ class IngredientCollection {
         return calorie
     }
     
+    func price() -> Int {
+        var price = 0
+        for ingredient in self.ingredients {
+            price += ingredient.price()
+        }
+        return price
+    }
+    
     func categorized(type : CustomizationIngredientype) -> [Ingredient] {
         return self.ingredients.filter({$0.type == type})
     }
 }
-
-//class DrinkIngredients : IngredientCollection {
-//    var numberOfEspressoShots : Int = 0
-//    var numberOfCoffee : Int = 0
-//    var syrups : [Ingredient] = []
-//    var sauces : [Ingredient] = []
-//    var chips : [Ingredient] = [] // チョコチップ
-//    var whippedCream : [Ingredient] = [] // 通常／チョコ／コーヒー
-//}
-//
-//class FoodIngredients : IngredientCollection{
-//    var sauces : [Ingredient] = []
-//    var whippedCream : [Ingredient] = [] // 通常／チョコ／コーヒー
-//}
 
 // TODO: データクラスは、コンストラクタ定義まで含め、自動生成したいところ
 // 範囲選択した情報を使って、コンストラクタのソースを出力するアドインって作成できないだろうか
@@ -303,12 +191,13 @@ class Ingredient : Equatable {
     var quantity : Int = 0
     var enable : Bool = false
     var quantityType : QuantityType = .Normal
+    var isPartOfOriginalIngredients : Bool = false
     
     init(){
         
     }
     
-    init(type : CustomizationIngredientype, name : String, unitCalorie : Int, unitPrice : Int, quantity : Int, enable : Bool, quantityType : QuantityType){
+    init(type : CustomizationIngredientype, name : String, unitCalorie : Int, unitPrice : Int, quantity : Int, enable : Bool, quantityType : QuantityType, isPartOfOriginalIngredients : Bool){
         self.type = type
         self.name = name
         self.unitCalorie = unitCalorie
@@ -316,10 +205,11 @@ class Ingredient : Equatable {
         self.quantity = quantity
         self.enable = enable
         self.quantityType = quantityType
+        self.isPartOfOriginalIngredients = isPartOfOriginalIngredients
     }
     
     convenience init(srcIngredient : Ingredient) {
-        self.init(type: srcIngredient.type, name: srcIngredient.name, unitCalorie: srcIngredient.unitCalorie, unitPrice: srcIngredient.unitPrice, quantity: srcIngredient.quantity, enable: srcIngredient.enable, quantityType: srcIngredient.quantityType)
+        self.init(type: srcIngredient.type, name: srcIngredient.name, unitCalorie: srcIngredient.unitCalorie, unitPrice: srcIngredient.unitPrice, quantity: srcIngredient.quantity, enable: srcIngredient.enable, quantityType: srcIngredient.quantityType, isPartOfOriginalIngredients: srcIngredient.isPartOfOriginalIngredients)
     }
     
     func overrideQuantity(newQuantity : Int) -> Ingredient {
@@ -329,8 +219,17 @@ class Ingredient : Equatable {
         return newObject
     }
     
+    func price() -> Int {
+        return self.unitPrice * self.type.quantityForPrice(self.quantity)
+    }
+    
     func calorie() -> Int {
-        return self.unitPrice * self.quantity
+        return self.unitCalorie * self.quantity
+    }
+    
+    func clone() -> Ingredient {
+        var cloned = Ingredient(srcIngredient: self)
+        return cloned
     }
 }
 
@@ -359,6 +258,25 @@ enum CustomizationIngredientype {
         }
         
         return calorie
+    }
+    
+    /**
+    価格計算用の数量
+    */
+    func quantityForPrice(quantity : Int) -> Int {
+        var quantityToCalcPrice = 0
+        
+        switch self {
+        case .Coffee, .Espresso:
+            quantityToCalcPrice = quantity
+        case .Syrup, .WhippedCreamDrink, .Chip, .Milk:
+            quantityToCalcPrice = max(0, min(1, quantity))
+        default:
+            // ソースは無料
+            quantityToCalcPrice = 0
+        }
+        
+        return quantityToCalcPrice
     }
     
 }

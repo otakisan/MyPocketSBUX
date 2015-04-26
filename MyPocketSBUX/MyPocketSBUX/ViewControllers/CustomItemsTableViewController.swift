@@ -8,10 +8,17 @@
 
 import UIKit
 
-class CustomItemsTableViewController: UITableViewController, SyrupCustomItemsTableViewCellDelegate {
+class CustomItemsTableViewController: UITableViewController, SyrupCustomItemsTableViewCellDelegate, WhippedCreamCustomItemsTableViewCellDelegate, SauceCustomItemsTableViewCellDelegate, MilkCustomItemsTableViewCellDelegate {
     
     let cellIdMappings : [CustomizationIngredientype:String] = [
-        CustomizationIngredientype.Syrup : "SyrupTableViewCell"
+        CustomizationIngredientype.Syrup : "SyrupTableViewCell",
+        CustomizationIngredientype.Milk : "MilkTableViewCell",
+        CustomizationIngredientype.WhippedCreamDrink : "WhippedCreamTableViewCell",
+        CustomizationIngredientype.Sauce : "SauceTableViewCell",
+        CustomizationIngredientype.Chip : "ChocolateChipTableViewCell",
+        CustomizationIngredientype.Coffee : "CoffeeTableViewCell",
+        CustomizationIngredientype.Espresso : "EspressoTableViewCell",
+        CustomizationIngredientype.WhippedCreamFood : "WhippedCreamTableViewCell"
     ]
 
     @IBOutlet weak var customItemListNavigationBar: UINavigationBar!
@@ -178,7 +185,12 @@ class CustomItemsTableViewController: UITableViewController, SyrupCustomItemsTab
     
     func thisCustomItem(sender : Ingredient) -> Ingredient? {
 //        return self.orderListItem?.customizationItems?.ingredients.filter { $0.name == sender.name }.first
-        return self.editResults.filter { $0.name == sender.name }.first
+        var ing : Ingredient?
+        if let index = find(self.editResults, sender) {
+            ing = self.editResults[index]
+        }
+        return ing
+        //return self.editResults.filter { $0.name == sender.name }.first
     }
     
     func addIngredient(ingredient : Ingredient) -> Ingredient {
@@ -193,24 +205,78 @@ class CustomItemsTableViewController: UITableViewController, SyrupCustomItemsTab
         return ingredient
     }
     
+    // 共通処理（現状では、すべて個別イベントから受けているため、まとめられるのならまとめる）
+    func valueChangedCommonAdditionSwitch(cell : CustomItemsTableViewCell, added : Bool){
+        var ingredient = self.thisCustomItem(cell.ingredient) ?? self.addIngredient(cell.ingredient)
+        
+        ingredient.enable = added
+        ingredient.quantity = added ? 1: 0
+    }
+    
+    func valueChangedCommonQuantitySegment(cell : CustomItemsTableViewCell, type : QuantityType){
+        self.thisCustomItem(cell.ingredient)?.quantityType = type
+        self.thisCustomItem(cell.ingredient)?.quantity = type.addQuantity(self.thisCustomItem(cell.ingredient)?.quantity ?? 0)
+    }
+    
+    func valueChangedWhippedCreamAdditionSwitch(cell : WhippedCreamCustomItemsTableViewCell, added : Bool){
+        self.valueChangedCommonAdditionSwitch(cell, added: added)
+    }
+    
+    func valueChangedWhippedCreamQuantitySegment(cell : WhippedCreamCustomItemsTableViewCell, type : QuantityType){
+        self.valueChangedCommonQuantitySegment(cell, type: type)
+    }
+
+    func valueChangedSauceAdditionSwitch(cell : SauceCustomItemsTableViewCell, added : Bool){
+        self.valueChangedCommonAdditionSwitch(cell, added: added)
+    }
+    
+    func valueChangedSauceQuantitySegment(cell : SauceCustomItemsTableViewCell, type : QuantityType){
+        self.valueChangedCommonQuantitySegment(cell, type: type)
+    }
+
     func valueChangedAdditionSwitch(cell : SyrupCustomItemsTableViewCell, added : Bool){
         // TODO: レシピ情報とサイズがあれば、具体的な数量をだせるけど…
         var ingredient = self.thisCustomItem(cell.ingredient) ?? self.addIngredient(cell.ingredient)
         
-//        if self.orderListItem?.customizationItems == nil {
-//            self.orderListItem?.customizationItems = IngredientCollection()
-//        }
-//        self.orderListItem?.customizationItems?.ingredients.append(ingredient)
-        
         ingredient.enable = added
         ingredient.quantity = added ? 1: 0
-//        self.thisCustomItem(cell.ingredient)?.enable = added
-//        self.thisCustomItem(cell.ingredient)?.quantity = added ? 1: 0
     }
     
     func valueChangedQuantitySegment(cell : SyrupCustomItemsTableViewCell, type : QuantityType) {
         // TODO: 数量管理よりも、少なめ／多めの情報を保持しておいた方がよいか？
         self.thisCustomItem(cell.ingredient)?.quantityType = type
-        self.thisCustomItem(cell.ingredient)?.quantity += type.quantityToAdd()
+        self.thisCustomItem(cell.ingredient)?.quantity = type.addQuantity(self.thisCustomItem(cell.ingredient)?.quantity ?? 0)
     }
+    
+    func valueChangedMilkAdditionSwitch(cell : MilkCustomItemsTableViewCell, added : Bool){
+        var ingredient = self.thisCustomItem(cell.ingredient) ?? self.addIngredient(cell.ingredient)
+        
+        ingredient.enable = added
+    }
+    
+    func valueChangedMilkSegment(cell : MilkCustomItemsTableViewCell, type : MilkType){
+        // ミルクの場合、要素そのものが変わるので新たに取得
+        // 一部の値を引き継ぐ
+        var milk = IngredientManager.instance.milk(type)
+        milk.isPartOfOriginalIngredients = cell.ingredient.isPartOfOriginalIngredients
+        milk.quantityType = cell.ingredient.quantityType
+        milk.unitPrice = (type == .Soy ? milk.unitPrice : 0)
+        milk.enable = cell.ingredient.enable
+        
+        // セルのミルクを変更
+        cell.ingredient = milk
+        
+        // 結果に反映
+        for (index, value) in enumerate(self.editResults) {
+            if self.editResults[index].type == milk.type {
+                self.editResults[index] = milk
+                break
+            }
+        }
+    }
+    
+    func valueChangedMilkQuantitySegment(cell : MilkCustomItemsTableViewCell, type : QuantityType){
+        self.thisCustomItem(cell.ingredient)?.quantityType = type
+    }
+
 }

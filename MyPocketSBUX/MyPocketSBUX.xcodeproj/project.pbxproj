@@ -65,6 +65,7 @@
 		16F21E561ADA39AE0052AD2A /* FoodMenuListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E551ADA39AE0052AD2A /* FoodMenuListItem.swift */; };
 		16F21E581ADA45360052AD2A /* FoodMenuListItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E571ADA45360052AD2A /* FoodMenuListItemTableViewCell.swift */; };
 		16F21E5A1ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E591ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift */; };
+		16F6B0C51AEB9358007F7E51 /* PriceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6B0C41AEB9358007F7E51 /* PriceCalculator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,6 +141,7 @@
 		16F21E551ADA39AE0052AD2A /* FoodMenuListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodMenuListItem.swift; sourceTree = "<group>"; };
 		16F21E571ADA45360052AD2A /* FoodMenuListItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodMenuListItemTableViewCell.swift; sourceTree = "<group>"; };
 		16F21E591ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderMenuListItemTableViewCell.swift; sourceTree = "<group>"; };
+		16F6B0C41AEB9358007F7E51 /* PriceCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceCalculator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -307,6 +309,7 @@
 			isa = PBXGroup;
 			children = (
 				16B6005E1AE79407000ECB7E /* IngredientManager.swift */,
+				16F6B0C41AEB9358007F7E51 /* PriceCalculator.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 				1683F0AF1ADBDE4E0034C7CB /* OrderListItem.swift in Sources */,
 				164BFDD11ACF89D1003BF77B /* SeminarsTableViewCell.swift in Sources */,
 				164BFDDA1ACFBEF3003BF77B /* UITableViewControllerExtension.swift in Sources */,
+				16F6B0C51AEB9358007F7E51 /* PriceCalculator.swift in Sources */,
 				164BFDD41ACFA8CF003BF77B /* StoresTableViewController.swift in Sources */,
 				16E442CB1AD8EE7A003C3AA2 /* NewsTableViewCell.swift in Sources */,
 				16F21E421AD9F50A0052AD2A /* MenuSectionItem.swift in Sources */,

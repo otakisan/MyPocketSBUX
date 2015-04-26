@@ -12,7 +12,14 @@ class CustomizingOrderTableViewController: UITableViewController,
     SizeCustomizingOrderTableViewCellDelegate,
     ReusableCupCustomizingOrderTableViewCellDelegate,
     OneMoreCoffeeCustomizingOrderTableViewCellDelegate,
-    AddCustomItemCustomizingOrderTableViewCellDelegate{
+    AddCustomItemCustomizingOrderTableViewCellDelegate,
+    CustomItemCustomizingOrderTableViewCellDelegate{
+    
+    struct SectionIndex {
+        static let General = 0
+        static let Original = 1
+        static let Custom = 2
+    }
 
     var orderItem : OrderListItem?
     
@@ -34,11 +41,16 @@ class CustomizingOrderTableViewController: UITableViewController,
             ]
         ),
         (
+            section: "Original",
+            detailItemInfos: [
+            ]
+        ),
+        (
             // TODO: 直接カスタムアイテムを並べるか、それとも、「Add Items ...」から別画面に移動するか
             // 結局カスタムセル自体は必要になると思うので
             // 別画面の場合は、モーダル表示する（決定／キャンセルボタンをどこにおくかだけど）
             // それとも前にやったように、ナビゲーションでの遷移にするか（戻るのイベントを取れなかったような）
-            section: "Customization",
+            section: "Custom",
             detailItemInfos: [
 //                (cellId: CustomizingOrderTableViewCell.CellIds.base, keyPaths: "customizationItems")
 //                (cellId: CustomizingOrderTableViewCell.CellIds.addCustomItem, keyPaths: ""),
@@ -52,7 +64,10 @@ class CustomizingOrderTableViewController: UITableViewController,
         if self.nameMappings.count > indexPath.section && self.nameMappings[indexPath.section].detailItemInfos.count > indexPath.row {
             cellId = self.nameMappings[indexPath.section].detailItemInfos[indexPath.row].cellId
         }
-        else if indexPath.section == 1 {
+        else if indexPath.section == SectionIndex.Original{
+            cellId = CustomizingOrderTableViewCell.CellIds.customItemAdded
+        }
+        else if indexPath.section == SectionIndex.Custom {
             if self.orderItem?.customizationItems?.ingredients.count > indexPath.row {
                 cellId = CustomizingOrderTableViewCell.CellIds.customItemAdded
             }
@@ -91,13 +106,13 @@ class CustomizingOrderTableViewController: UITableViewController,
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 2
+        return self.nameMappings.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return section == 0 ? self.nameMappings[section].detailItemInfos.count : (self.orderItem?.customizationItems?.ingredients.count ?? 0) + 1
+        return section == SectionIndex.General ? self.nameMappings[section].detailItemInfos.count : section == SectionIndex.Original ? self.orderItem?.originalItems?.ingredients.count ?? 0 : (self.orderItem?.customizationItems?.ingredients.count ?? 0) + 1
     }
 
     
@@ -106,7 +121,7 @@ class CustomizingOrderTableViewController: UITableViewController,
         let cell = self.dequeueReusableCellWithIndexPath(indexPath)!
 
         // カスタマイズは動的、基本情報は固定数のセルにしたい
-        if indexPath.section == 0 {
+        if indexPath.section == SectionIndex.General {
             if cell.reuseIdentifier == CustomizingOrderTableViewCell.CellIds.base {
                 if let value : AnyObject = self.orderItem?.valueForKeyPath(self.nameMappings[indexPath.section].detailItemInfos[indexPath.row].keyPaths){
                     cell.textLabel?.text = value as? String ?? (value as? NSNumber)?.stringValue
@@ -116,7 +131,7 @@ class CustomizingOrderTableViewController: UITableViewController,
                 cell.configure(orderItem!, delegate: self, indexPath: indexPath)
             }
         }
-        else if indexPath.section == 1 {
+        else if indexPath.section == SectionIndex.Custom || indexPath.section == SectionIndex.Original {
             // カスタマイズ項目
             cell.configure(self.orderItem!, delegate: self, indexPath: indexPath)
             //cell.textLabel?.text = self.orderItem?.customizationItems?.ingredients[indexPath.row].name
@@ -174,14 +189,58 @@ class CustomizingOrderTableViewController: UITableViewController,
         // Pass the selected object to the new view controller.
         if var customItemsViewController = segue.destinationViewController as? CustomItemsTableViewController {
             customItemsViewController.orderListItem = self.orderItem
+            if let cell = sender as? CustomItemCustomizingOrderTableViewCell {
+                customItemsViewController.customItemForEdit = cell.ingredient
+            }
         }
     }
     
     @IBAction func customItemListDidComplete(segue : UIStoryboardSegue) {
         if let customItemListViewController = segue.sourceViewController as? CustomItemsTableViewController {
             println("[complete] unwind to dst")
-            self.addOrUpdateCustomItems(customItemListViewController.editResults.filter {$0.enable})
-            self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
+            
+            // オリジナルかカスタムかで制御を分ける
+            // オリジナル
+            if customItemListViewController.customItemForEdit != nil && customItemListViewController.customItemForEdit!.isPartOfOriginalIngredients{
+                
+                // ミルクの変更の場合は、nameで検索できないので、種類で検索して差し替える（ミルクは一種類という縛りがあるための特別仕様）
+//                if customItemListViewController.customItemForEdit!.type == .Milk {
+//                    if var current = self.orderItem?.originalItems?.ingredients.filter( { $0.type == customItemListViewController.customItemForEdit!.type }).first {
+//                        current.name = customItemListViewController.customItemForEdit!.name
+//                        current.enable = customItemListViewController.customItemForEdit!.enable
+//                        current.quantityType = customItemListViewController.customItemForEdit!.quantityType
+//                    }
+//                }
+//                else {
+                    if var current = self.orderItem?.originalItems?.ingredients.filter( { $0.name == customItemListViewController.customItemForEdit!.name }).first {
+                        
+                        current.name = customItemListViewController.editResults.first?.name ?? ""
+                        current.enable = customItemListViewController.editResults.first?.enable ?? false
+                        current.quantityType = customItemListViewController.editResults.first?.quantityType ?? .Normal
+                        
+                        // 価格を更新（実際にはソイかどうか、シロップ変更適用かどうか）
+                        // TODO: トータル計算が出来上がったら下記は不要
+//                        let delta = (customItemListViewController.editResults.first?.unitPrice ?? 0) - current.unitPrice
+//                        current.unitPrice += delta
+//                        self.addPrice(delta)
+                        
+                        // 総額を更新
+                        self.updateTotalPrice()
+                        
+                        self.tableView.reloadSections(NSIndexSet(index: SectionIndex.Original), withRowAnimation: UITableViewRowAnimation.Automatic)
+                    }
+//                }
+            // カスタム
+            } else {
+                
+                self.addOrUpdateCustomItems(customItemListViewController.editResults.filter {$0.enable})
+                
+                // TODO: トータル計算が出来上がったら下記は不要
+                //self.updateCustomizationPrice()
+                
+                self.updateTotalPrice()
+                self.tableView.reloadSections(NSIndexSet(index: SectionIndex.Custom), withRowAnimation: UITableViewRowAnimation.Automatic)
+            }
         }
     }
     
@@ -190,6 +249,21 @@ class CustomizingOrderTableViewController: UITableViewController,
             println("[cancel] unwind to dst")
             
         }
+    }
+    
+    func deltaPriceForOriginal(ingredient : Ingredient, currentUnitPrice : Int) -> Int {
+        var delta = 0
+        switch ingredient.type {
+        case .Milk:
+            delta = ingredient.unitPrice - currentUnitPrice
+        case .Syrup:
+            // ノンシロップでかつ、カスタムに１項目以上シロップがあれば、-50
+            delta = 0
+        default:
+            delta = 0
+        }
+        
+        return delta
     }
     
     func addOrUpdateCustomItems(ingredients : [Ingredient]) {
@@ -217,13 +291,46 @@ class CustomizingOrderTableViewController: UITableViewController,
         }
     }
     
+    func discountFactors() -> [String] {
+        
+        var factors : [String] = []
+        
+        // ワンモア
+        if self.orderItem?.oneMoreCoffee ?? false {
+            factors += [DrinkPriceCalculator.Discount.oneMoreCoffee.name]
+        }
+        
+        // カップ値引き
+        if self.orderItem?.reusableCup ?? false {
+            factors += [DrinkPriceCalculator.Discount.reusableCup.name]
+        }
+        
+        // TODO: チケット値引き等は追って実装する
+        
+        return factors
+    }
+    
+    func updateTotalPrice() {
+        if var calculator = PriceCalculator.createPriceCalculatorForEntity(self.orderItem?.productEntity, customizedOriginals: self.orderItem?.originalItems, customs: self.orderItem?.customizationItems, discountFactors: self.discountFactors(), size: self.orderItem?.size ?? DrinkSize.Tall) {
+            self.orderItem?.customPrice = calculator.priceForCustoms()
+            self.orderItem?.totalPrice = calculator.priceForTotal()
+            self.addPrice(0)
+        }
+    }
+
+    func updateCustomizationPrice() {
+        var delta = (self.orderItem?.customizationItems?.price() ?? 0) - (self.orderItem?.customPrice ?? 0)
+        self.orderItem?.customPrice = self.orderItem?.customizationItems?.price() ?? 0
+        self.addPrice(delta)
+    }
+    
     func addPrice(delta : Int) {
         if var totalPrice = self.orderItem?.totalPrice {
             let newPrice = totalPrice + delta
             self.orderItem?.totalPrice = newPrice
             
             // TODO: 価格のリスト上での位置は、動的に取得するようにする
-            let indexPath = NSIndexPath(forRow: 1, inSection: 0)
+            let indexPath = NSIndexPath(forRow: 1, inSection: SectionIndex.General)
             if let priceCell = self.tableView.cellForRowAtIndexPath(indexPath) as? CustomizingOrderTableViewCell {
                 priceCell.configure(self.orderItem!, delegate: self, indexPath: indexPath)
             }
@@ -268,6 +375,10 @@ class CustomizingOrderTableViewController: UITableViewController,
     }
     
     func touchUpInsideAddCustomItemButton(cell : AddCustomItemCustomizingOrderTableViewCell){
-        self.performSegueWithIdentifier("showModallyCustomItemListSegue", sender: nil)
+        self.performSegueWithIdentifier("showModallyCustomItemListSegue", sender: cell)
+    }
+    
+    func touchUpInsideEditButton(cell : CustomItemCustomizingOrderTableViewCell){
+        self.performSegueWithIdentifier("showModallyCustomItemListSegue", sender: cell)
     }
 }

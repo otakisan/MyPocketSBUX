@@ -326,6 +326,8 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
                 orderListItem.on = m.isOnOrderList
                 orderListItem.size = .Tall
                 orderListItem.hotOrIce = "Hot"
+                orderListItem.originalItems = IngredientCollection()
+                orderListItem.originalItems?.ingredients = IngredientManager.instance.getAvailableCustomizationChoices(orderListItem.productEntity?.valueForKey("janCode") as? String ?? "").originals
                 return orderListItem
             }
             

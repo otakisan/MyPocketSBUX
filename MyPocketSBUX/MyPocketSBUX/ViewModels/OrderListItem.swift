@@ -14,9 +14,11 @@ class OrderListItem: NSObject {
     var on : Bool = false
     var productEntity : AnyObject?
     var customizationItems : IngredientCollection?
+    var originalItems : IngredientCollection?
     var nutritionEntities : [AnyObject] = []
 
     var totalPrice : Int = 0
+    var customPrice : Int = 0
     var size : DrinkSize = .Tall
     var hotOrIce : String = ""
     var reusableCup : Bool = false

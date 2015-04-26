@@ -120,13 +120,15 @@ enum DrinkSize : String {
     case Tall = "Tall"
     case Grande = "Grande"
     case Venti = "Venti®"
+    case Solo = "Solo"
+    case Doppio = "Doppio"
     
     func priceForDelta() -> Int {
         var delta = 0
         switch self {
-        case Short:
+        case Short, Solo:
             delta = -40
-        case Tall:
+        case Tall, Doppio:
             delta = 0
         case Grande:
             delta = 40
@@ -222,11 +224,34 @@ class TicketCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
 class CustomItemCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var quantityType: UILabel!
+    
+    @IBAction func touchUpInsideEditButton(sender: UIButton) {
+        self.delegate?.touchUpInsideEditButton(self)
+    }
+    
+    var delegate : CustomItemCustomizingOrderTableViewCellDelegate?
+    var ingredient : Ingredient?
     
     override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?, indexPath : NSIndexPath) {
         super.configure(orderListItem, delegate: delegate, indexPath: indexPath)
-        self.nameLabel.text = orderListItem.customizationItems?.ingredients[indexPath.row].name ?? ""
+        self.delegate = delegate as? CustomItemCustomizingOrderTableViewCellDelegate
+        
+        if let ingredient = indexPath.section == CustomizingOrderTableViewController.SectionIndex.Original ? orderListItem.originalItems?.ingredients[indexPath.row] : orderListItem.customizationItems?.ingredients[indexPath.row] {
+
+            // TODO: 元々入っている要素の場合は値段を表記しないほうがすっきりするけど、ショットみたいに数量で変わる場合は表記する？
+            // それとも、アドショットというくくりでカスタムアイテムのセクションに追加するか。
+            self.ingredient = ingredient
+            self.nameLabel.text = ingredient.name
+            self.priceLabel.text = "¥\(ingredient.price())"
+            self.quantityType.text = (ingredient.enable ? ingredient.quantityType.typeName() : "Non")
+        }
     }
+}
+
+protocol CustomItemCustomizingOrderTableViewCellDelegate : CustomizingOrderTableViewCellDelegate {
+    func touchUpInsideEditButton(cell : CustomItemCustomizingOrderTableViewCell)
 }
 
 class AddCustomItemCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
