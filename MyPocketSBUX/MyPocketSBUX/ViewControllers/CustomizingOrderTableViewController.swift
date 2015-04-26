@@ -179,7 +179,45 @@ class CustomizingOrderTableViewController: UITableViewController,
         return true
     }
     */
+    
+    // スワイプで削除を有効にする
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return indexPath.section == SectionIndex.Custom && indexPath.row < self.tableView.numberOfRowsInSection(indexPath.section) - 1
+    }
+    
+    // スワイプのため、空の実装が必要
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+    }
 
+    // スワイプ時に表示する項目
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+//        let editAction =
+//        UITableViewRowAction(style: .Normal, // 削除等の破壊的な操作を示さないスタイル
+//            title: "edit"){(action, indexPath) in println("\(indexPath) edited")}
+//        editAction.backgroundColor = UIColor.greenColor()
+        
+        let deleteAction =
+        UITableViewRowAction(style: .Default, // 標準のスタイル
+            title: "delete"){(action, indexPath) in
+                println("\(indexPath) deleted")
+                // カスタムアイテムを削除
+                self.deleteCustomItem(indexPath)
+//                self.orderItem?.customizationItems?.ingredients.removeAtIndex(indexPath.row)
+//                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        }
+        deleteAction.backgroundColor = UIColor.redColor()
+        
+//        return [editAction, deleteAction]
+        return [deleteAction]
+    }
+    
+    func deleteCustomItem(indexPath : NSIndexPath) {
+        self.orderItem?.customizationItems?.ingredients.removeAtIndex(indexPath.row)
+        self.updateTotalPrice()
+        self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        //self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+    }
     
     // MARK: - Navigation
 
@@ -233,7 +271,7 @@ class CustomizingOrderTableViewController: UITableViewController,
             // カスタム
             } else {
                 
-                self.addOrUpdateCustomItems(customItemListViewController.editResults.filter {$0.enable})
+                self.addOrUpdateCustomItems(customItemListViewController.editResults)
                 
                 // TODO: トータル計算が出来上がったら下記は不要
                 //self.updateCustomizationPrice()
