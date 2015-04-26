@@ -18,8 +18,10 @@ class OrderConfirmationTableViewController: UITableViewController {
 
     @IBAction func didPressDoneBarButton(sender: UIBarButtonItem) {
         // オーダーを登録
+        self.saveOrder()
         
         // 確認の通知を画面上部に
+        // TODO: 登録成功時に出力する情報 登録日時、件数、金額、…
         self.showNavigationPrompt("order complete", message: "order detail", displayingTime: 2.0)
         
         // ルートへ戻る
@@ -37,6 +39,15 @@ class OrderConfirmationTableViewController: UITableViewController {
         self.navigationItem.prompt = nil
     }
     
+    func saveOrder() {
+        // TODO: 店舗をどうやって入力するか
+        // 店舗一覧・マップの画面を共通化してそこから選択してもらう形にするか
+        // どこで入力を促すかっていうのが問題だな
+        // オーダー画面（編集画面）のどこかで入力するほうがよいか？
+        
+        OrderManager.instance.saveOrder(self.orderListItem)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -45,8 +56,6 @@ class OrderConfirmationTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
-        //self.navigationItem.title = "Order Confirmation"
     }
 
     override func didReceiveMemoryWarning() {
@@ -71,32 +80,13 @@ class OrderConfirmationTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(CellIds.defaultCell, forIndexPath: indexPath) as! UITableViewCell
 
-        // Configure the cell...
+        // 最終セクションは合計
         if indexPath.section < self.tableView.numberOfSections() - 1 {
             let name = self.orderListItem[indexPath.section].orders[indexPath.row].productEntity?.valueForKey("name") as? String ?? ""
             let price = "\(self.orderListItem[indexPath.section].orders[indexPath.row].totalPrice)"
             cell.textLabel?.text = "\(name) ¥\(price)"
         } else {
-//            var price = 0
-//            for (category, orders) in self.orderListItem {
-//                price += orders.reduce(0, combine: {$0 + $1.totalPrice})
-//            }
-            
-//            let price = self.orderListItem.reduce(0, combine: {
-//                (initail : Int, item : (category : ProductCategory, orders : [OrderListItem])) in
-//                initail + item.orders.reduce(0, combine: {
-//                    $0 + $1.totalPrice
-//                })
-//            })
-            
-//            let taxExclude = "ex-tax:\(price)"
-//            let taxIncludeValue = Double(price) * 1.08
-//            let taxInclude = "tax-in:\(taxIncludeValue)"
-//            cell.textLabel?.text = "ex-tax:\(price)"
-//            cell.textLabel?.text = "¥\(price) (tax-excluded)  ¥\(Int(Double(price) * 1.08)) (tax-included)"
-            
-            let orders : [OrderListItem] = self.orderListItem.map({$0.orders}).reduce([], combine: {$0 + $1})
-            let price = PriceCalculator.totalPrice(orders)
+            let price = PriceCalculator.totalPrice(OrderManager.instance.unionOrderListItem(self.orderListItem))
             cell.textLabel?.text = "¥\(price.taxExcluded) (tax-excluded)  ¥\(price.taxIncluded) (tax-included)"
         }
 

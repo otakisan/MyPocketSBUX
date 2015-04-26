@@ -36,7 +36,7 @@ class Drinks: DbContextBase {
             entity.size = ((jsonEntity["size"] as? NSString) ?? "") as String
             entity.milk = ((jsonEntity["milk"] as? NSString) ?? "") as String
             
-            Foods.insertEntity(entity)
+            Drinks.insertEntity(entity)
         }
     }
 }

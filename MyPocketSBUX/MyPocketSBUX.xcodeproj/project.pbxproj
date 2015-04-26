@@ -67,6 +67,7 @@
 		16F21E5A1ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E591ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift */; };
 		16F6B0C51AEB9358007F7E51 /* PriceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6B0C41AEB9358007F7E51 /* PriceCalculator.swift */; };
 		16F6B0C71AECBC06007F7E51 /* OrderConfirmationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6B0C61AECBC06007F7E51 /* OrderConfirmationTableViewController.swift */; };
+		16F6B0C91AECF39C007F7E51 /* OrderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6B0C81AECF39C007F7E51 /* OrderManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,6 +145,7 @@
 		16F21E591ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderMenuListItemTableViewCell.swift; sourceTree = "<group>"; };
 		16F6B0C41AEB9358007F7E51 /* PriceCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceCalculator.swift; sourceTree = "<group>"; };
 		16F6B0C61AECBC06007F7E51 /* OrderConfirmationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderConfirmationTableViewController.swift; sourceTree = "<group>"; };
+		16F6B0C81AECF39C007F7E51 /* OrderManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -313,6 +315,7 @@
 			children = (
 				16B6005E1AE79407000ECB7E /* IngredientManager.swift */,
 				16F6B0C41AEB9358007F7E51 /* PriceCalculator.swift */,
+				16F6B0C81AECF39C007F7E51 /* OrderManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -484,6 +487,7 @@
 				16F21E541ADA34FE0052AD2A /* Drinks.swift in Sources */,
 				164BFDE41ACFEAC5003BF77B /* Store.swift in Sources */,
 				164BFDC81AC6735E003BF77B /* PressReleases.swift in Sources */,
+				16F6B0C91AECF39C007F7E51 /* OrderManager.swift in Sources */,
 				16CAF7961AE3757300318AE5 /* CustomizingOrderTableViewCell.swift in Sources */,
 				164BFDCB1AC67D9C003BF77B /* DateUtility.swift in Sources */,
 				1683F0B11ADC80270034C7CB /* OrderTableViewCell.swift in Sources */,
