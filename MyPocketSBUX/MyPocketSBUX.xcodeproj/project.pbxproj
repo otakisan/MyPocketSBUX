@@ -66,6 +66,7 @@
 		16F21E581ADA45360052AD2A /* FoodMenuListItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E571ADA45360052AD2A /* FoodMenuListItemTableViewCell.swift */; };
 		16F21E5A1ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E591ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift */; };
 		16F6B0C51AEB9358007F7E51 /* PriceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6B0C41AEB9358007F7E51 /* PriceCalculator.swift */; };
+		16F6B0C71AECBC06007F7E51 /* OrderConfirmationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6B0C61AECBC06007F7E51 /* OrderConfirmationTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,6 +143,7 @@
 		16F21E571ADA45360052AD2A /* FoodMenuListItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodMenuListItemTableViewCell.swift; sourceTree = "<group>"; };
 		16F21E591ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderMenuListItemTableViewCell.swift; sourceTree = "<group>"; };
 		16F6B0C41AEB9358007F7E51 /* PriceCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceCalculator.swift; sourceTree = "<group>"; };
+		16F6B0C61AECBC06007F7E51 /* OrderConfirmationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderConfirmationTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,6 +292,7 @@
 				16F21E3E1AD9F1D20052AD2A /* MenuTableViewController.swift */,
 				16F21E451AD9F9FD0052AD2A /* ProductDetailTableViewController.swift */,
 				1683F0AC1ADBDAD80034C7CB /* OrderTableViewController.swift */,
+				16F6B0C61AECBC06007F7E51 /* OrderConfirmationTableViewController.swift */,
 				1683F0B21ADD321F0034C7CB /* CustomizingOrderTableViewController.swift */,
 				16CAF78D1AE1E75B00318AE5 /* CustomItemsStaticTableViewController.swift */,
 				16B6005B1AE756E3000ECB7E /* CustomItemsTableViewController.swift */,
@@ -470,6 +473,7 @@
 				16AE14381AC2BF7A00370062 /* NewsTableViewController.swift in Sources */,
 				164BFDD81ACFADEC003BF77B /* FilteredStoresTableViewController.swift in Sources */,
 				16E442CD1AD90314003C3AA2 /* PressRelease.swift in Sources */,
+				16F6B0C71AECBC06007F7E51 /* OrderConfirmationTableViewController.swift in Sources */,
 				16CAF7941AE2ABA900318AE5 /* FoodOrderTableViewCell.swift in Sources */,
 				16AE14361ABEDDEE00370062 /* SBUXTableViewController.swift in Sources */,
 				16C979DB1AD1F13800543120 /* StoreMapViewController.swift in Sources */,

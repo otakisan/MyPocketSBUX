@@ -30,6 +30,14 @@ class PriceCalculator {
         return calculator
     }
     
+    class func totalPrice(orderItems : [OrderListItem]) -> (taxExcluded:Int, taxIncluded:Int) {
+        let price = orderItems.reduce(0, combine: {
+                $0 + $1.totalPrice
+            })
+        
+        return (taxExcluded:price, taxIncluded:Int(Double(price) * 1.08))
+    }
+    
     func priceForTotal() -> Int {
         return 0
     }

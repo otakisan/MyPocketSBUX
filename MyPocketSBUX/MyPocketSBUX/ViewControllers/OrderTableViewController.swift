@@ -138,10 +138,15 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
         if var customizingOrderViewController = segue.destinationViewController as? CustomizingOrderTableViewController {
             customizingOrderViewController.orderItem = self.editRequestedOrderItem
         }
+        else if var orderConfirmationViewController = segue.destinationViewController as? OrderConfirmationTableViewController {
+            orderConfirmationViewController.orderListItem = [(category: ProductCategory.Drink, orders: self.orderItems.filter({$0.on}))]
+        }
     }
     
     func valueChangedOrderSwitch(cell : OrderTableViewCell, on : Bool) {
-        
+        if var order = cell.orderListItem {
+            order.on = on
+        }
     }
     
     var editRequestedOrderItem : OrderListItem?

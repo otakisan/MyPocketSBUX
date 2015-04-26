@@ -771,6 +771,9 @@
                                         </label>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7XR-bz-9bZ">
                                             <rect key="frame" x="543" y="6" width="51" height="31"/>
+                                            <connections>
+                                                <action selector="valueChangedOrderSwitch:" destination="DmJ-KX-Wze" eventType="valueChanged" id="u0s-WN-cxJ"/>
+                                            </connections>
                                         </switch>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Customization Items" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pwe-8Z-98X">
                                             <rect key="frame" x="8" y="61" width="444" height="21"/>
@@ -902,16 +905,16 @@
             </objects>
             <point key="canvasLocation" x="1540" y="4118"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Order Confirmation-->
         <scene sceneID="FJA-L9-SFP">
             <objects>
-                <tableViewController id="pUx-nH-rY1" sceneMemberID="viewController">
+                <tableViewController id="pUx-nH-rY1" customClass="OrderConfirmationTableViewController" customModule="MyPocketSBUX" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="M6G-Vs-ujp">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="iaY-gL-hDc">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="defaultOrderConfirmationTableViewCell" id="iaY-gL-hDc">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iaY-gL-hDc" id="Zqm-70-FRE">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -923,6 +926,13 @@
                             <outlet property="delegate" destination="pUx-nH-rY1" id="ETp-FX-wUM"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Order Confirmation" id="h7x-jp-6SM">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="MUY-tV-ze5">
+                            <connections>
+                                <action selector="didPressDoneBarButton:" destination="pUx-nH-rY1" id="dcm-cI-JCi"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="45S-d2-NdN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

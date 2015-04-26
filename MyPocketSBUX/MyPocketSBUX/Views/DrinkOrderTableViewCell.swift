@@ -16,6 +16,10 @@ class DrinkOrderTableViewCell: OrderTableViewCell {
     
     @IBOutlet weak var calorieLabel: UILabel!
     
+    @IBAction override func valueChangedOrderSwitch(sender: UISwitch) {
+        super.valueChangedOrderSwitch(sender)
+    }
+    
     @IBAction func touchUpInsideEditButton(sender: UIButton) {
         super.touchUpInsideOrderEdit(self)
     }
