@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		16216E8D1AEEF5A500DB6C0B /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16216E8C1AEEF5A500DB6C0B /* Order.swift */; };
+		16216E8F1AEEF5CB00DB6C0B /* OrderDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16216E8E1AEEF5CB00DB6C0B /* OrderDetail.swift */; };
+		16216E951AEFB94400DB6C0B /* ProductIngredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16216E941AEFB94400DB6C0B /* ProductIngredient.swift */; };
 		164BFDC81AC6735E003BF77B /* PressReleases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDC71AC6735E003BF77B /* PressReleases.swift */; };
 		164BFDCB1AC67D9C003BF77B /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDCA1AC67D9C003BF77B /* DateUtility.swift */; };
 		164BFDCD1AC67DF5003BF77B /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDCC1AC67DF5003BF77B /* StringExtension.swift */; };
@@ -81,6 +84,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		16216E8C1AEEF5A500DB6C0B /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		16216E8E1AEEF5CB00DB6C0B /* OrderDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetail.swift; sourceTree = "<group>"; };
+		16216E941AEFB94400DB6C0B /* ProductIngredient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductIngredient.swift; sourceTree = "<group>"; };
 		164BFDC71AC6735E003BF77B /* PressReleases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PressReleases.swift; sourceTree = "<group>"; };
 		164BFDCA1AC67D9C003BF77B /* DateUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtility.swift; sourceTree = "<group>"; };
 		164BFDCC1AC67DF5003BF77B /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
@@ -169,6 +175,9 @@
 		164BFDC41AC671E8003BF77B /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				16216E941AEFB94400DB6C0B /* ProductIngredient.swift */,
+				16216E8E1AEEF5CB00DB6C0B /* OrderDetail.swift */,
+				16216E8C1AEEF5A500DB6C0B /* Order.swift */,
 				16F21E471ADA08430052AD2A /* Drink.swift */,
 				16F21E531ADA34FE0052AD2A /* Drinks.swift */,
 				16F21E491ADA0A6C0052AD2A /* Food.swift */,
@@ -469,6 +478,7 @@
 				16F21E4A1ADA0A6C0052AD2A /* Food.swift in Sources */,
 				16CAF7901AE28CE000318AE5 /* DrinkOrderTableViewCell.swift in Sources */,
 				16B1F28F1ADAAF1B0026E377 /* ResourceContext.swift in Sources */,
+				16216E951AEFB94400DB6C0B /* ProductIngredient.swift in Sources */,
 				164BFDE21ACFC9B9003BF77B /* DbContextBase.swift in Sources */,
 				16F21E4E1ADA2B7C0052AD2A /* DrinkMenuListItem.swift in Sources */,
 				1683F0AD1ADBDAD80034C7CB /* OrderTableViewController.swift in Sources */,
@@ -477,10 +487,12 @@
 				164BFDD81ACFADEC003BF77B /* FilteredStoresTableViewController.swift in Sources */,
 				16E442CD1AD90314003C3AA2 /* PressRelease.swift in Sources */,
 				16F6B0C71AECBC06007F7E51 /* OrderConfirmationTableViewController.swift in Sources */,
+				16216E8D1AEEF5A500DB6C0B /* Order.swift in Sources */,
 				16CAF7941AE2ABA900318AE5 /* FoodOrderTableViewCell.swift in Sources */,
 				16AE14361ABEDDEE00370062 /* SBUXTableViewController.swift in Sources */,
 				16C979DB1AD1F13800543120 /* StoreMapViewController.swift in Sources */,
 				16F21E581ADA45360052AD2A /* FoodMenuListItemTableViewCell.swift in Sources */,
+				16216E8F1AEEF5CB00DB6C0B /* OrderDetail.swift in Sources */,
 				164BFDE01ACFC8FC003BF77B /* Stores.swift in Sources */,
 				16AE14101ABD6B1A00370062 /* AppDelegate.swift in Sources */,
 				164BFDCD1AC67DF5003BF77B /* StringExtension.swift in Sources */,

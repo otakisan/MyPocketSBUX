@@ -265,19 +265,19 @@ enum MilkType {
 }
 
 enum QuantityType {
-    case Less
+    case Light
     case Normal
-    case More
+    case Extra
     
     static func fromNumeric(typeValue : Int) -> QuantityType {
         var type = Normal
         switch typeValue {
         case 0:
-            type = Less
+            type = Light
         case 1:
             type = Normal
         case 2:
-            type = More
+            type = Extra
         default:
             type = Normal
         }
@@ -288,12 +288,12 @@ enum QuantityType {
     func typeName() -> String {
         var name = ""
         switch self {
-        case Less:
-            name = "Less"
+        case Light:
+            name = "Light"
         case Normal:
             name = ""
-        case More:
-            name = "More"
+        case Extra:
+            name = "Extra"
         default:
             name = ""
         }
@@ -307,10 +307,10 @@ enum QuantityType {
     標準要素であっても、一覧上に表示され、スイッチオフによりノンシロップ等を表現する
     */
     func addQuantity(baseValue : Int) -> Int {
-        return max(1, (self == Less ? baseValue - 1 : self == More ? baseValue + 1 : baseValue))
+        return max(1, (self == Light ? baseValue - 1 : self == Extra ? baseValue + 1 : baseValue))
     }
     
     func quantityToAdd() -> Int {
-        return (self == Less ? -1 : self == More ? 1 : 0)
+        return (self == Light ? -1 : self == Extra ? 1 : 0)
     }
 }

@@ -1424,9 +1424,9 @@
                                                 <constraint firstAttribute="width" constant="150" id="gp7-na-bRZ"/>
                                             </constraints>
                                             <segments>
-                                                <segment title="less"/>
+                                                <segment title="light"/>
                                                 <segment title="normal"/>
-                                                <segment title="more"/>
+                                                <segment title="extra"/>
                                             </segments>
                                             <connections>
                                                 <action selector="valueChangedQuantitySegment:" destination="7j6-aa-Sam" eventType="valueChanged" id="X9T-2H-Bnp"/>
@@ -1568,9 +1568,9 @@
                                                 <constraint firstAttribute="width" constant="150" id="He2-ey-SBm"/>
                                             </constraints>
                                             <segments>
-                                                <segment title="less"/>
+                                                <segment title="light"/>
                                                 <segment title="normal"/>
-                                                <segment title="more"/>
+                                                <segment title="extra"/>
                                             </segments>
                                             <connections>
                                                 <action selector="valueChangedQuantitySegment:" destination="eCr-Uj-kjc" eventType="valueChanged" id="inZ-Lt-f3r"/>
@@ -1600,7 +1600,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="fdT-Rg-3Ww">
-                                            <rect key="frame" x="543" y="6" width="51" height="31"/>
+                                            <rect key="frame" x="543" y="6" width="53" height="31"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="51" id="tat-ZC-961"/>
                                             </constraints>
@@ -1614,9 +1614,9 @@
                                                 <constraint firstAttribute="width" constant="150" id="t0d-ba-kXz"/>
                                             </constraints>
                                             <segments>
-                                                <segment title="less"/>
+                                                <segment title="light"/>
                                                 <segment title="normal"/>
-                                                <segment title="more"/>
+                                                <segment title="extra"/>
                                             </segments>
                                             <connections>
                                                 <action selector="valueChangedQuantitySegment:" destination="Qfb-nl-T21" eventType="valueChanged" id="w6C-La-Wzz"/>
@@ -1670,9 +1670,9 @@
                                                 <constraint firstAttribute="width" constant="150" id="B5J-8E-nnc"/>
                                             </constraints>
                                             <segments>
-                                                <segment title="less"/>
+                                                <segment title="light"/>
                                                 <segment title="normal"/>
-                                                <segment title="more"/>
+                                                <segment title="extra"/>
                                             </segments>
                                         </segmentedControl>
                                     </subviews>
@@ -1711,9 +1711,9 @@
                                                 <constraint firstAttribute="width" constant="150" id="Pcj-JL-hQC"/>
                                             </constraints>
                                             <segments>
-                                                <segment title="less"/>
+                                                <segment title="light"/>
                                                 <segment title="normal"/>
-                                                <segment title="more"/>
+                                                <segment title="extra"/>
                                             </segments>
                                         </segmentedControl>
                                     </subviews>
