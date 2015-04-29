@@ -39,4 +39,19 @@ class Drinks: DbContextBase {
             Drinks.insertEntity(entity)
         }
     }
+    
+    class func findByJanCode(janCode : String) -> Drink? {
+        
+        var sortKeys : [AnyObject] = []
+//        for orderkey in orderKeys {
+//            sortKeys.append(NSSortDescriptor(key: orderkey.columnName, ascending: orderkey.ascending))
+//        }
+        
+        return (findByFetchRequestTemplate(
+            "findDrinkByJanCodeFetchRequest",
+            variables: ["janCode":janCode],
+            sortDescriptors: sortKeys,
+            limit: 0) as! [Drink]).first
+    }
+
 }

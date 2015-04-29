@@ -105,6 +105,8 @@
     <fetchRequest name="allPressReleasesFetchRequest" entity="PressRelease"/>
     <fetchRequest name="allProductIngredientsFetchRequest" entity="ProductIngredient"/>
     <fetchRequest name="allStoresFetchRequest" entity="Store"/>
+    <fetchRequest name="findDrinkByJanCodeFetchRequest" entity="Drink" predicateString="janCode == $janCode"/>
+    <fetchRequest name="findProductIngredientsByOrderIdAndOrderDetailIdFetchRequest" entity="ProductIngredient" predicateString="orderId == $orderId AND orderDetailId == $orderDetailId"/>
     <fetchRequest name="orderDetailsWithOrderIdFetchRequest" entity="OrderDetail" predicateString="orderId == $orderId"/>
     <elements>
         <element name="Drink" positionX="-54" positionY="135" width="128" height="225"/>

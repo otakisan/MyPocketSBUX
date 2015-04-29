@@ -69,7 +69,7 @@ class OrderManager: NSObject {
             orderDetail.size = orderListItem.size.name()
             orderDetail.hotOrIced = orderListItem.hotOrIce
             orderDetail.reusableCup = orderListItem.reusableCup
-            orderDetail.ticket = ""
+            orderDetail.ticket = self.ticketString(orderListItem)
             orderDetail.taxExcludeTotalPrice = orderListItem.totalPrice
             orderDetail.taxExcludeCustomPrice = orderListItem.customPrice
             orderDetail.totalCalorie = 0 // TODO
@@ -89,6 +89,85 @@ class OrderManager: NSObject {
                 self.saveIngredients(customs.ingredients, orderId: orderId, orderDetailId: orderDetailId, isCustom: true, now: now)
             }
         }
+    }
+    
+    func ticketString(orderListItem : OrderListItem) -> String {
+        // TODO: 5000入金チケット等も将来的に埋め込む
+        return orderListItem.oneMoreCoffee ? "oneMoreCoffee" : ""
+    }
+    
+    func oneMoreCoffee(ticketString : String) -> Bool {
+        return ticketString.rangeOfString("oneMoreCoffee", options: NSStringCompareOptions.LiteralSearch, range: nil, locale: nil) != nil
+    }
+    
+    func productEntity(janCode : String) -> AnyObject? {
+        // TODO: ドリンクにヒットしなかったら、フードも検索して、結果を返す
+        return Drinks.findByJanCode(janCode)
+    }
+    
+    func ingredient(productIngredient : ProductIngredient) -> Ingredient {
+        var ingredient = Ingredient()
+        ingredient.type = CustomizationIngredientype.fromString(productIngredient.type)
+        ingredient.name = productIngredient.name
+        ingredient.unitCalorie = Int(productIngredient.unitCalorie)
+        ingredient.unitPrice = Int(productIngredient.unitPrice)
+        ingredient.quantity = Int(productIngredient.quantity)
+        ingredient.enable = Bool(productIngredient.enabled)
+        ingredient.quantityType = QuantityType.fromNumeric(Int(productIngredient.quantityType))
+        ingredient.isPartOfOriginalIngredients = !Bool(productIngredient.isCustom)
+        
+        return ingredient
+    }
+    
+    func ingredientCollection(ingredientEntities : [ProductIngredient]) -> (originals:IngredientCollection, customs:IngredientCollection) {
+        var ingredientCollectionOriginals = IngredientCollection()
+        ingredientCollectionOriginals.ingredients = []
+        var ingredientCollectionCustoms = IngredientCollection()
+        ingredientCollectionCustoms.ingredients = []
+        
+        
+        for entity in ingredientEntities {
+            let ingredient = self.ingredient(entity)
+            if ingredient.isPartOfOriginalIngredients {
+                ingredientCollectionOriginals.ingredients += [self.ingredient(entity)]
+            }
+            else{
+                ingredientCollectionCustoms.ingredients += [self.ingredient(entity)]
+            }
+        }
+        
+        return (ingredientCollectionOriginals, ingredientCollectionCustoms)
+    }
+    
+    func loadOrder(#orderDetails : [OrderDetail]) -> [OrderListItem] {
+        
+        var orderListItems : [OrderListItem] = []
+        for orderDetail in orderDetails {
+            orderListItems += [self.loadOrder(orderDetail: orderDetail)]
+        }
+        
+        return orderListItems
+    }
+    
+    func loadOrder(#orderDetail : OrderDetail) -> OrderListItem {
+        var orderListItem = OrderListItem()
+        
+        let ingredientEntities = ProductIngredients.findProductIngredientsByOrderIdAndOrderDetailIdFetchRequest(Int(orderDetail.orderId), orderDetailId: Int(orderDetail.id), orderKeys: [("id", true)])
+        let ingredientCollection = self.ingredientCollection(ingredientEntities)
+        
+        orderListItem.on = self.oneMoreCoffee(orderDetail.ticket)
+        orderListItem.productEntity = self.productEntity(orderDetail.productJanCode)
+        orderListItem.customizationItems = ingredientCollection.customs
+        orderListItem.originalItems = ingredientCollection.originals
+        orderListItem.nutritionEntities = [] // TODO: 
+        orderListItem.totalPrice = Int(orderDetail.taxExcludeTotalPrice)
+        orderListItem.customPrice = Int(orderDetail.taxExcludeCustomPrice)
+        orderListItem.size = DrinkSize.fromString(orderDetail.size)
+        orderListItem.hotOrIce = orderDetail.hotOrIced
+        orderListItem.reusableCup = Bool(orderDetail.reusableCup)
+        orderListItem.oneMoreCoffee = self.oneMoreCoffee(orderDetail.ticket)
+        
+        return orderListItem
     }
     
     func storeId() -> Int {

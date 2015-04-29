@@ -307,4 +307,33 @@ enum CustomizationIngredientype {
         
         return nameString
     }
+    
+    static func fromString(typeString : String) -> CustomizationIngredientype {
+        var type = CustomizationIngredientype.None
+        switch typeString {
+        case "Coffee":
+            type = .Coffee
+        case "Espresso":
+            type = .Espresso
+        case "Syrup":
+            type = .Syrup
+        case "Sauce":
+            type = .Sauce
+        case "WhippedCreamDrink":
+            type = .WhippedCreamDrink
+        case "WhippedCreamFood":
+            type = .WhippedCreamFood
+        case "Chip":
+            type = .Chip
+        case "Milk": // dairyという呼び名だが、酪農もの以外もあるのでミルクで統一する
+            type = .Milk
+        case "None":
+            type = .None
+        default:
+            type = .None
+
+        }
+        
+        return type
+    }
 }

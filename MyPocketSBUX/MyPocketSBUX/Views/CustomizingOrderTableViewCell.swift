@@ -145,6 +145,29 @@ enum DrinkSize : String {
     func name() -> String {
         return self.rawValue
     }
+    
+    static func fromString(drinkSize : String) -> DrinkSize {
+        
+        var size = DrinkSize.Tall
+        switch drinkSize {
+        case DrinkSize.Short.rawValue:
+            size = .Short
+        case DrinkSize.Tall.rawValue:
+            size = .Tall
+        case DrinkSize.Grande.rawValue:
+            size = .Grande
+        case DrinkSize.Venti.rawValue:
+            size = .Venti
+        case DrinkSize.Solo.rawValue:
+            size = .Solo
+        case DrinkSize.Doppio.rawValue:
+            size = .Doppio
+        default:
+            size = .Tall
+        }
+        
+        return size
+    }
 }
 
 // TODO: 個別JANコードで活性・非活性を制御する

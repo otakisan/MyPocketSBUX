@@ -22,4 +22,19 @@ class ProductIngredients: DbContextBase {
     class func sequenceNumber() -> Int {
         return Int(Double(NSDate().timeIntervalSince1970) * 1.0e6)
     }
+    
+    class func findProductIngredientsByOrderIdAndOrderDetailIdFetchRequest(orderId : Int, orderDetailId : Int, orderKeys : [(columnName : String, ascending : Bool)]) -> [ProductIngredient] {
+        
+        var sortKeys : [AnyObject] = []
+        for orderkey in orderKeys {
+            sortKeys.append(NSSortDescriptor(key: orderkey.columnName, ascending: orderkey.ascending))
+        }
+        
+        return findByFetchRequestTemplate(
+            "findProductIngredientsByOrderIdAndOrderDetailIdFetchRequest",
+            variables: ["orderId":orderId, "orderDetailId":orderDetailId],
+            sortDescriptors: sortKeys,
+            limit: 0) as! [ProductIngredient]
+    }
+
 }
