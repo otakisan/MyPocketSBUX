@@ -279,4 +279,32 @@ enum CustomizationIngredientype {
         return quantityToCalcPrice
     }
     
+    func name() -> String {
+        var nameString = ""
+        
+        switch self {
+        case Coffee:
+            nameString = "Coffee"
+        case Espresso:
+            nameString = "Espresso"
+        case Syrup:
+            nameString = "Syrup"
+        case Sauce:
+            nameString = "Sauce"
+        case WhippedCreamDrink:
+            nameString = "WhippedCreamDrink"
+        case WhippedCreamFood:
+            nameString = "WhippedCreamFood"
+        case Chip:
+            nameString = "Chip"
+        case Milk: // dairyという呼び名だが、酪農もの以外もあるのでミルクで統一する
+            nameString = "Milk"
+        case None:
+            nameString = "None"
+        default:
+            nameString = ""
+        }
+        
+        return nameString
+    }
 }

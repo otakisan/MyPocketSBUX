@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		16060EB71AF0456E0099379F /* Orders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16060EB61AF0456E0099379F /* Orders.swift */; };
+		16060EB91AF046040099379F /* OrderDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16060EB81AF046040099379F /* OrderDetails.swift */; };
+		16060EBB1AF046EC0099379F /* ProductIngredients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16060EBA1AF046EC0099379F /* ProductIngredients.swift */; };
+		16060EBD1AF0D1AF0099379F /* OrdersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16060EBC1AF0D1AF0099379F /* OrdersTableViewController.swift */; };
 		16216E8D1AEEF5A500DB6C0B /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16216E8C1AEEF5A500DB6C0B /* Order.swift */; };
 		16216E8F1AEEF5CB00DB6C0B /* OrderDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16216E8E1AEEF5CB00DB6C0B /* OrderDetail.swift */; };
 		16216E951AEFB94400DB6C0B /* ProductIngredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16216E941AEFB94400DB6C0B /* ProductIngredient.swift */; };
@@ -84,6 +88,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		16060EB61AF0456E0099379F /* Orders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Orders.swift; sourceTree = "<group>"; };
+		16060EB81AF046040099379F /* OrderDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetails.swift; sourceTree = "<group>"; };
+		16060EBA1AF046EC0099379F /* ProductIngredients.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductIngredients.swift; sourceTree = "<group>"; };
+		16060EBC1AF0D1AF0099379F /* OrdersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrdersTableViewController.swift; sourceTree = "<group>"; };
 		16216E8C1AEEF5A500DB6C0B /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		16216E8E1AEEF5CB00DB6C0B /* OrderDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetail.swift; sourceTree = "<group>"; };
 		16216E941AEFB94400DB6C0B /* ProductIngredient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductIngredient.swift; sourceTree = "<group>"; };
@@ -176,8 +184,11 @@
 			isa = PBXGroup;
 			children = (
 				16216E941AEFB94400DB6C0B /* ProductIngredient.swift */,
+				16060EBA1AF046EC0099379F /* ProductIngredients.swift */,
 				16216E8E1AEEF5CB00DB6C0B /* OrderDetail.swift */,
+				16060EB81AF046040099379F /* OrderDetails.swift */,
 				16216E8C1AEEF5A500DB6C0B /* Order.swift */,
+				16060EB61AF0456E0099379F /* Orders.swift */,
 				16F21E471ADA08430052AD2A /* Drink.swift */,
 				16F21E531ADA34FE0052AD2A /* Drinks.swift */,
 				16F21E491ADA0A6C0052AD2A /* Food.swift */,
@@ -303,6 +314,7 @@
 				16F21E3E1AD9F1D20052AD2A /* MenuTableViewController.swift */,
 				16F21E451AD9F9FD0052AD2A /* ProductDetailTableViewController.swift */,
 				1683F0AC1ADBDAD80034C7CB /* OrderTableViewController.swift */,
+				16060EBC1AF0D1AF0099379F /* OrdersTableViewController.swift */,
 				16F6B0C61AECBC06007F7E51 /* OrderConfirmationTableViewController.swift */,
 				1683F0B21ADD321F0034C7CB /* CustomizingOrderTableViewController.swift */,
 				16CAF78D1AE1E75B00318AE5 /* CustomItemsStaticTableViewController.swift */,
@@ -472,6 +484,7 @@
 				16F21E5A1ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift in Sources */,
 				16F21E4C1ADA0B930052AD2A /* Foods.swift in Sources */,
 				16F21E521ADA30A30052AD2A /* DrinkMenuListItemTableViewCell.swift in Sources */,
+				16060EBD1AF0D1AF0099379F /* OrdersTableViewController.swift in Sources */,
 				16C979E01AD2C88F00543120 /* LocationContext.swift in Sources */,
 				1683F0B31ADD321F0034C7CB /* CustomizingOrderTableViewController.swift in Sources */,
 				16B600611AE7CD8C000ECB7E /* CustomItemsTableViewCell.swift in Sources */,
@@ -502,10 +515,13 @@
 				16F6B0C91AECF39C007F7E51 /* OrderManager.swift in Sources */,
 				16CAF7961AE3757300318AE5 /* CustomizingOrderTableViewCell.swift in Sources */,
 				164BFDCB1AC67D9C003BF77B /* DateUtility.swift in Sources */,
+				16060EB71AF0456E0099379F /* Orders.swift in Sources */,
 				1683F0B11ADC80270034C7CB /* OrderTableViewCell.swift in Sources */,
 				164BFDEA1AD02F8F003BF77B /* StoreDetailTableViewController.swift in Sources */,
 				16AE14131ABD6B1A00370062 /* MyPocketSBUX.xcdatamodeld in Sources */,
 				16B6005F1AE79407000ECB7E /* IngredientManager.swift in Sources */,
+				16060EB91AF046040099379F /* OrderDetails.swift in Sources */,
+				16060EBB1AF046EC0099379F /* ProductIngredients.swift in Sources */,
 				164BFDE71AD021E7003BF77B /* StoresTableViewCell.swift in Sources */,
 				16CAF78E1AE1E75B00318AE5 /* CustomItemsStaticTableViewController.swift in Sources */,
 				16F21E461AD9F9FD0052AD2A /* ProductDetailTableViewController.swift in Sources */,
