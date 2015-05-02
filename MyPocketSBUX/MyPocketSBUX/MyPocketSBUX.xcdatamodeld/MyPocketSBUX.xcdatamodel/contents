@@ -106,6 +106,7 @@
     <fetchRequest name="allProductIngredientsFetchRequest" entity="ProductIngredient"/>
     <fetchRequest name="allStoresFetchRequest" entity="Store"/>
     <fetchRequest name="findDrinkByJanCodeFetchRequest" entity="Drink" predicateString="janCode == $janCode"/>
+    <fetchRequest name="findFoodByJanCodeFetchRequest" entity="Food" predicateString="janCode == $janCode"/>
     <fetchRequest name="findProductIngredientsByOrderIdAndOrderDetailIdFetchRequest" entity="ProductIngredient" predicateString="orderId == $orderId AND orderDetailId == $orderDetailId"/>
     <fetchRequest name="orderDetailsWithOrderIdFetchRequest" entity="OrderDetail" predicateString="orderId == $orderId"/>
     <elements>

@@ -26,3 +26,8 @@ class OrderListItem: NSObject {
     // TODO: One More Coffeeをカスタムにするかメニューにするか
     var oneMoreCoffee : Bool = false
 }
+
+class OrderHeader: NSObject {
+    var store : Store?
+    var notes : String = ""
+}

@@ -42,3 +42,20 @@ protocol OrderTableViewCellDelegate : NSObjectProtocol {
     func valueChangedOrderSwitch(cell : OrderTableViewCell, on : Bool)
     func touchUpInsideOrderEdit(cell : OrderTableViewCell)
 }
+
+class NotesOrderTableViewCell : OrderTableViewCell, UITextFieldDelegate {
+    
+    @IBOutlet weak var notesTextField: UITextField!
+    
+    override func configure(orderListItem : OrderListItem) {
+        super.configure(orderListItem)
+        
+        self.notesTextField.delegate = self
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.notesTextField.resignFirstResponder()
+        return true
+    }
+
+}

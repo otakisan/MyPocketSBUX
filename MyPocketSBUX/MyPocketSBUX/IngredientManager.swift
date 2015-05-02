@@ -85,6 +85,8 @@ class AvailableChoiceMapping {
     
     func createMappings() -> [String : GetChoice] {
         var mappings = [String : GetChoice]()
+        
+        // TODO: 商品ごとのカスタマイズ項目列挙も自動生成か何か効率化したいところ
         mappings[IngredientJanCodes.vanillaSyrup] = self.originalsAndCustomsOfVanillaFrappuccino
         
         return mappings
@@ -114,7 +116,37 @@ class AvailableChoiceMapping {
         
         return (originals, customs)
     }
-    
+
+    func originalsAndCustomsOfFood() -> (originals : [Ingredient], customs : [Ingredient]) {
+        
+        // フードはもともとの要素にカスタマイズできるものはない
+        let originals : [Ingredient] = [
+        ]
+        
+        // 有効フラグとオリジナル構成であるフラグを立てる
+        for org in originals {
+            org.enable = true
+            org.unitPrice = 0 // 元々の価格に含まれているため
+            org.isPartOfOriginalIngredients = true
+        }
+        
+        var customs : [Ingredient] = self.foodCommonCustoms()
+        
+        // 重複ものを外す
+        customs = customs.filter { customItem in !contains(originals, {original in original.name == customItem.name }) }
+        
+        return (originals, customs)
+    }
+
+    func foodCommonCustoms() -> [Ingredient] {
+        // カスタム候補は全て数量ゼロでOK
+        return [
+            ProtoTypeIngredients.caramelSauce.clone(),
+            ProtoTypeIngredients.chocolateSauce.clone(),
+            ProtoTypeIngredients.whippedCreamForFood.clone()
+        ]
+    }
+
     func frappuccinoCommonCustoms() -> [Ingredient] {
         // カスタム候補は全て数量ゼロでOK
         return [

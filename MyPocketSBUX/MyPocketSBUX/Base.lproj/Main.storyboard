@@ -732,7 +732,7 @@
         <scene sceneID="adQ-Og-LMk">
             <objects>
                 <tableViewController title="Order" id="w8G-V8-6Ch" customClass="OrderTableViewController" customModule="MyPocketSBUX" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="3bj-OT-qcI">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="3bj-OT-qcI">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -883,6 +883,44 @@
                                     <outlet property="orderSwitch" destination="g1o-f1-RRv" id="W2j-JD-poG"/>
                                     <outlet property="priceLabel" destination="kAp-9e-3oS" id="q8E-X3-Eid"/>
                                     <outlet property="productNameLabel" destination="UJj-TF-Hj0" id="Xgk-IB-5HA"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="storeOrderListItemCell" rowHeight="44" id="DcE-P8-QVa" customClass="OrderTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DcE-P8-QVa" id="weB-MI-uXX">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add Store ..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="brp-mx-L50">
+                                            <rect key="frame" x="8" y="11" width="444" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="Xxx-0J-XR8" kind="show" id="dSr-Vk-QH8"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="notesOrderListItemCell" rowHeight="44" id="g1w-Yn-qxB" customClass="NotesOrderTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g1w-Yn-qxB" id="QU8-sG-r28">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Input your notes" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="p8h-Tb-awr">
+                                            <rect key="frame" x="8" y="7" width="584" height="30"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="p8h-Tb-awr" firstAttribute="centerX" secondItem="QU8-sG-r28" secondAttribute="centerX" id="ZGs-za-5Xs"/>
+                                        <constraint firstItem="p8h-Tb-awr" firstAttribute="top" secondItem="QU8-sG-r28" secondAttribute="topMargin" constant="-1" id="fD3-7k-GVI"/>
+                                        <constraint firstItem="p8h-Tb-awr" firstAttribute="leading" secondItem="QU8-sG-r28" secondAttribute="leadingMargin" constant="-7" id="maF-Q8-3lA"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="notesTextField" destination="p8h-Tb-awr" id="fAV-Z0-ELd"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -2065,5 +2103,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="tYe-qS-M9V"/>
+        <segue reference="dSr-Vk-QH8"/>
     </inferredMetricsTieBreakers>
 </document>

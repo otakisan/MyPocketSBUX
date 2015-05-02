@@ -41,7 +41,7 @@ class OrderManager: NSObject {
     
     // originalIngredients : [Ingredient], customIngredients : [Ingredient]
     func saveOrder(orderListItems : [(category : ProductCategory, orders: [OrderListItem])]) {
-        // Order, OrderDetail, Customization
+        // TODO: オーダー項目なしの場合に登録を行わないように制御する
         
         // Order
         // 連番、登録日時、更新日時、店舗ID、合計金額（税抜）、合計金額（税込）、
@@ -102,7 +102,12 @@ class OrderManager: NSObject {
     
     func productEntity(janCode : String) -> AnyObject? {
         // TODO: ドリンクにヒットしなかったら、フードも検索して、結果を返す
-        return Drinks.findByJanCode(janCode)
+        var product : AnyObject? = Drinks.findByJanCode(janCode)
+        if product == nil {
+            product = Foods.findByJanCode(janCode)
+        }
+        
+        return product
     }
     
     func ingredient(productIngredient : ProductIngredient) -> Ingredient {

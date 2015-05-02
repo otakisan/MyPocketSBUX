@@ -8,9 +8,13 @@
 
 import UIKit
 
-class OrderTableViewController: UITableViewController, OrderTableViewCellDelegate, CustomizingOrderTableViewDelegate {
+class OrderTableViewController: UITableViewController, OrderTableViewCellDelegate, CustomizingOrderTableViewDelegate, StoresTableViewDelegate {
+    
+    let headerSection = 0
+    let productSection = 1
     
 //    var orderItems : [(productCategory : String, orders : [OrderListItem])] = []
+    var orderHeader : OrderHeader = OrderHeader()
     var orderItems : [OrderListItem] = []
 
     func getReuseCellIdentifier(orderListItem : OrderListItem) -> String {
@@ -68,31 +72,45 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
         //return self.orderItems.count
-        return 1
+        return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
 //        return self.orderItems[section].1.count
-        return self.orderItems.count
+        return section == 0 ? 2 : self.orderItems.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        // ドリンク or フードで、取り出すセルのタイプを分ける
-        let cell = tableView.dequeueReusableCellWithIdentifier(self.getReuseCellIdentifier(self.orderItems[indexPath.row]), forIndexPath: indexPath) as! OrderTableViewCell
-
-        // Configure the cell...
-        
-        cell.configure(self.orderItems[indexPath.row])
-        cell.delegate = self
+        let cell : OrderTableViewCell
+        if indexPath.section == 0 {
+            cell = tableView.dequeueReusableCellWithIdentifier(indexPath.row == 0 ? "storeOrderListItemCell" : "notesOrderListItemCell", forIndexPath: indexPath) as! OrderTableViewCell
+            cell.configure(OrderListItem())
+        }
+        else {
+            // ドリンク or フードで、取り出すセルのタイプを分ける
+            cell = tableView.dequeueReusableCellWithIdentifier(self.getReuseCellIdentifier(self.orderItems[indexPath.row]), forIndexPath: indexPath) as! OrderTableViewCell
+            
+            // Configure the cell...
+            
+            cell.configure(self.orderItems[indexPath.row])
+            cell.delegate = self
+        }
 
         return cell
     }
     
-
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return section == 0 ? " " : "Products"
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return indexPath.section == 0 ? CGFloat(44) : CGFloat(100)
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -141,6 +159,10 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
         else if var orderConfirmationViewController = segue.destinationViewController as? OrderConfirmationTableViewController {
             orderConfirmationViewController.orderListItem = [(category: ProductCategory.Drink, orders: self.orderItems.filter({$0.on}))]
         }
+        else if var storesVc = segue.destinationViewController as? StoresTableViewController {
+            storesVc.selectBySwipe = true
+            storesVc.delegate = self
+        }
     }
     
     func valueChangedOrderSwitch(cell : OrderTableViewCell, on : Bool) {
@@ -165,9 +187,18 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
         // 配列の順に表示が済んでいる前提
         if let current = orderListItem {
             if let index = find(self.orderItems, current) {
-                self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: .Automatic)
+                self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: self.productSection)], withRowAnimation: .Automatic)
             }
             //self.tableView.reloadData()
+        }
+    }
+    
+    func selectAndClose(store : Store){
+        self.orderHeader.store = store
+        
+        // TODO: 位置が決めうちになっている
+        if var cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: self.headerSection)) {
+            cell.textLabel?.text = self.orderHeader.store?.name
         }
     }
 }

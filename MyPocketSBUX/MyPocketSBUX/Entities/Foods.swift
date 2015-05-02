@@ -37,5 +37,14 @@ class Foods: DbContextBase {
             Foods.insertEntity(entity)
         }
     }
+    
+    class func findByJanCode(janCode : String) -> Food? {
+        
+        return (findByFetchRequestTemplate(
+            "findFoodByJanCodeFetchRequest",
+            variables: ["janCode":janCode],
+            sortDescriptors: [],
+            limit: 0) as! [Food]).first
+    }
 
 }
