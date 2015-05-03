@@ -123,7 +123,6 @@ class CustomItemsTableViewController: UITableViewController, SyrupCustomItemsTab
         
         let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! CustomItemsTableViewCell
         cell.configure(self.availableCustomizationChoices.ingredients[indexPath.row], delegate: self)
-        //cell.textLabel?.text = self.availableCustomizationChoices.ingredients[indexPath.row].name
 
         // Configure the cell...
 

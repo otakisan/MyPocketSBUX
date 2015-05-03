@@ -177,20 +177,10 @@ class StoresBaseTableViewController: UITableViewController {
     
     func selectAndClose(indexPath : NSIndexPath) {
         self.delegate?.selectAndClose(self.storeAtIndexPath(indexPath)!)
-        //self.navigationController?.popViewControllerAnimated(true)
         self.closeView()
     }
     
     func storeAtIndexPath(indexPath : NSIndexPath) -> Store? {
-//        var store : Store? = nil
-//        if let stores = self.storesData?[indexPath.section]["stores"] as? [Store] {
-//            
-//            if stores.count > indexPath.row {
-//                store = stores[indexPath.row]
-//            }
-//        }
-//        
-//        return store
         return nil
     }
     
