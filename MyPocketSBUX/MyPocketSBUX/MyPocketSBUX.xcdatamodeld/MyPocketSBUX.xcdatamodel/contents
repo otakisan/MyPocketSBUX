@@ -26,6 +26,16 @@
         <attribute name="special" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
     </entity>
+    <entity name="Nutrition" representedClassName="MyPocketSBUX.Nutrition" syncable="YES">
+        <attribute name="calorie" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="janCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="liquidTemperature" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="milk" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="size" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+    </entity>
     <entity name="Order" representedClassName="MyPocketSBUX.Order" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -101,6 +111,7 @@
     </entity>
     <fetchRequest name="allDrinksFetchRequest" entity="Drink"/>
     <fetchRequest name="allFoodsFetchRequest" entity="Food"/>
+    <fetchRequest name="allNutritionsFetchRequest" entity="Nutrition"/>
     <fetchRequest name="allOrderDetailsFetchRequest" entity="OrderDetail"/>
     <fetchRequest name="allOrdersFetchRequest" entity="Order"/>
     <fetchRequest name="allPressReleasesFetchRequest" entity="PressRelease"/>
@@ -108,6 +119,8 @@
     <fetchRequest name="allStoresFetchRequest" entity="Store"/>
     <fetchRequest name="findDrinkByJanCodeFetchRequest" entity="Drink" predicateString="janCode == $janCode"/>
     <fetchRequest name="findFoodByJanCodeFetchRequest" entity="Food" predicateString="janCode == $janCode"/>
+    <fetchRequest name="findNutritionByJanCodeFetchRequest" entity="Nutrition" predicateString="janCode == $janCode"/>
+    <fetchRequest name="findNutritionByJanCodeSizeMilkLiquidTemperatureFetchRequest" entity="Nutrition" predicateString="id == 0 AND liquidTemperature == $liquidTemperature AND janCode == $janCode AND milk == $milk"/>
     <fetchRequest name="findProductIngredientsByOrderIdAndOrderDetailIdFetchRequest" entity="ProductIngredient" predicateString="orderId == $orderId AND orderDetailId == $orderDetailId"/>
     <fetchRequest name="findStoreByStoreIdFetchRequest" entity="Store" predicateString="storeId == $storeId"/>
     <fetchRequest name="orderDetailsWithOrderIdFetchRequest" entity="OrderDetail" predicateString="orderId == $orderId"/>
@@ -119,5 +132,6 @@
         <element name="PressRelease" positionX="-63" positionY="-18" width="128" height="150"/>
         <element name="ProductIngredient" positionX="-36" positionY="153" width="128" height="255"/>
         <element name="Store" positionX="-54" positionY="36" width="128" height="328"/>
+        <element name="Nutrition" positionX="-45" positionY="135" width="128" height="165"/>
     </elements>
 </model>

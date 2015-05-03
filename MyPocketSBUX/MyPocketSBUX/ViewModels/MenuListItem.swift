@@ -10,7 +10,7 @@ import UIKit
 
 class MenuListItem: NSObject {
     var productEntity : AnyObject?
-    var nutritionEntities : [AnyObject] = []
+    var nutritionEntities : [Nutrition] = []
     var isOnOrderList : Bool = false
     
     func sectionCategory() -> String {

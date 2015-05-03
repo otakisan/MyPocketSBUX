@@ -29,7 +29,7 @@ class FoodMenuListItemTableViewCell: MenuListItemTableViewCell {
                 self.productNameLabel.sizeToFit()
                 
                 self.priceLabel.text = "¥\(entity.price ?? 0)"
-                self.calorieLabel.text = "0 kcal"
+                self.calorieLabel.text = "\((self.menuListItem!.nutritionEntities.first?.calorie ?? 0)) kcal"
                 self.orderSwitch.on = self.menuListItem?.isOnOrderList ?? false
             }
         }

@@ -74,10 +74,11 @@ class CalorieCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
     override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?, indexPath : NSIndexPath) {
         super.configure(orderListItem, delegate: delegate, indexPath: indexPath)
 
-        var calorie = 0
-        for nutrition in orderListItem.nutritionEntities {
-            calorie += ((nutrition.valueForKey("calorie") as? NSNumber)?.integerValue ?? 0)
-        }
+        //var calorie = 0
+        let calorie = orderListItem.nutritionEntities.filter({nutEntity in ["na", orderListItem.hotOrIce.lowercaseString].filter({$0 == nutEntity.liquidTemperature.lowercaseString}).count > 0}).filter({nutEntity in ["na", "whole"].filter({$0 == nutEntity.milk.lowercaseString}).count > 0}).filter({nutEntity in ["na", orderListItem.size.name().lowercaseString].filter({$0 == nutEntity.size.lowercaseString}).count > 0}).first?.calorie ?? 0
+//        for nutrition in orderListItem.nutritionEntities {
+//            calorie += ((nutrition.valueForKey("calorie") as? NSNumber)?.integerValue ?? 0)
+//        }
         self.calorieLabel.text = "\(calorie) kcal"
     }
 }
@@ -174,20 +175,23 @@ enum DrinkSize : String {
 class HotOrIcedCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
     
     let hotOrIcedNames : [String] = ["Hot", "Iced"]
+    var delegate : HotOrIcedCustomizingOrderTableViewCellDelegate?
     
     @IBOutlet weak var hotOrIcedSegment: UISegmentedControl!
     
     @IBAction func valueChangedHotOrIcedSegment(sender: UISegmentedControl) {
         self.orderListItem?.hotOrIce = self.hotOrIcedNames[sender.selectedSegmentIndex]
+        self.delegate?.valueChangedHotOrIcedSegment(self, hotOrIced: sender.selectedSegmentIndex == 0 ? "Hot" : "Iced")
     }
     
     override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?, indexPath : NSIndexPath) {
         super.configure(orderListItem, delegate: delegate, indexPath: indexPath)
+        self.delegate = delegate as? HotOrIcedCustomizingOrderTableViewCellDelegate
         
         // TODO: 暫定処理
         if let category = self.orderListItem?.productEntity?.valueForKey("category") as? String {
             self.hotOrIcedSegment.enabled = (category != "frappuccino")
-            self.orderListItem?.hotOrIce = "frappuccino"
+            self.orderListItem?.hotOrIce = orderListItem.hotOrIce
             self.hotOrIcedSegment.selectedSegmentIndex = -1
         }
         
@@ -202,6 +206,10 @@ class HotOrIcedCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
             }
         }
     }
+}
+
+protocol HotOrIcedCustomizingOrderTableViewCellDelegate : CustomizingOrderTableViewCellDelegate {
+    func valueChangedHotOrIcedSegment(cell : HotOrIcedCustomizingOrderTableViewCell, hotOrIced : String)
 }
 
 class ReusableCupCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {

@@ -45,10 +45,10 @@ class DrinkOrderTableViewCell: OrderTableViewCell {
             self.productNameLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
             self.productNameLabel?.sizeToFit()
 
-            self.priceLabel.text = "\(self.orderListItem?.totalPrice ?? 0)"
+            self.priceLabel.text = "¥\(self.orderListItem?.totalPrice ?? 0)"
             self.orderSwitch.on = orderListItem.on
             
-            self.calorieLabel.text = "\(self.calorieForOrder())"
+            self.calorieLabel.text = "\(self.calorieForOrder()) kcal"
             
             // TODO: オリジナル材料のカスタマイズも表示する
             self.customizationLabel.text = self.orderListItem?.customizationItems?.ingredients.reduce("", combine: {$0! + ($0 != "" ? ", " : "") + ($1.name ?? "")})
@@ -59,7 +59,9 @@ class DrinkOrderTableViewCell: OrderTableViewCell {
         var calorie = 0
         
         // カロリーはサイズ・ホット／アイス・ミルクでベースが決まり、そこにカスタマイズ分が乗る
-        var nutInfo = self.orderListItem?.nutritionEntities.filter({$0.valueForKey("size") as? String == self.orderListItem?.size.name()})
+//        var nutInfo = self.orderListItem?.nutritionEntities.filter({$0.valueForKey("size") as? String == self.orderListItem?.size.name()}).filter({$0.valueForKey("milk") as? String == "whole"}).filter({($0.valueForKey("milk") as? String ?? "").lowercaseString == self.orderListItem?.hotOrIce.lowercaseString })
+        var nutInfo = self.orderListItem?.nutritionEntities.filter({$0.valueForKey("size") as? String == self.orderListItem?.size.name()}).filter({nutEntity in ["whole", "na"].filter({nutEntity.milk == $0}).count > 0}).filter({nutEntity in ["na", (self.orderListItem?.hotOrIce.lowercaseString ?? "")].filter({$0 == nutEntity.liquidTemperature.lowercaseString}).count > 0})
+
         if nutInfo?.count > 0 {
             calorie = (nutInfo?.first?.valueForKey("calorie") as? NSNumber)?.integerValue ?? 0
         }

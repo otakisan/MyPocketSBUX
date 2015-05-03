@@ -29,6 +29,8 @@
 		164BFDE81AD021E7003BF77B /* StoresTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 164BFDE61AD021E7003BF77B /* StoresTableViewCell.xib */; };
 		164BFDEA1AD02F8F003BF77B /* StoreDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDE91AD02F8F003BF77B /* StoreDetailTableViewController.swift */; };
 		16757DBE1AF5E29400925C50 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DBD1AF5E29400925C50 /* Order.swift */; };
+		16757DC21AF60DF200925C50 /* Nutritions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DC11AF60DF200925C50 /* Nutritions.swift */; };
+		16757DC41AF60F1200925C50 /* Nutrition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DC31AF60F1200925C50 /* Nutrition.swift */; };
 		1683F0AD1ADBDAD80034C7CB /* OrderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0AC1ADBDAD80034C7CB /* OrderTableViewController.swift */; };
 		1683F0AF1ADBDE4E0034C7CB /* OrderListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0AE1ADBDE4E0034C7CB /* OrderListItem.swift */; };
 		1683F0B11ADC80270034C7CB /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0B01ADC80270034C7CB /* OrderTableViewCell.swift */; };
@@ -110,6 +112,8 @@
 		164BFDE61AD021E7003BF77B /* StoresTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoresTableViewCell.xib; sourceTree = "<group>"; };
 		164BFDE91AD02F8F003BF77B /* StoreDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreDetailTableViewController.swift; sourceTree = "<group>"; };
 		16757DBD1AF5E29400925C50 /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		16757DC11AF60DF200925C50 /* Nutritions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nutritions.swift; sourceTree = "<group>"; };
+		16757DC31AF60F1200925C50 /* Nutrition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nutrition.swift; sourceTree = "<group>"; };
 		1683F0AC1ADBDAD80034C7CB /* OrderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewController.swift; sourceTree = "<group>"; };
 		1683F0AE1ADBDE4E0034C7CB /* OrderListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderListItem.swift; sourceTree = "<group>"; };
 		1683F0B01ADC80270034C7CB /* OrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
@@ -183,6 +187,8 @@
 		164BFDC41AC671E8003BF77B /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				16757DC31AF60F1200925C50 /* Nutrition.swift */,
+				16757DC11AF60DF200925C50 /* Nutritions.swift */,
 				16216E941AEFB94400DB6C0B /* ProductIngredient.swift */,
 				16060EBA1AF046EC0099379F /* ProductIngredients.swift */,
 				16216E8E1AEEF5CB00DB6C0B /* OrderDetail.swift */,
@@ -506,6 +512,7 @@
 				16F21E581ADA45360052AD2A /* FoodMenuListItemTableViewCell.swift in Sources */,
 				16757DBE1AF5E29400925C50 /* Order.swift in Sources */,
 				16216E8F1AEEF5CB00DB6C0B /* OrderDetail.swift in Sources */,
+				16757DC21AF60DF200925C50 /* Nutritions.swift in Sources */,
 				164BFDE01ACFC8FC003BF77B /* Stores.swift in Sources */,
 				16AE14101ABD6B1A00370062 /* AppDelegate.swift in Sources */,
 				164BFDCD1AC67DF5003BF77B /* StringExtension.swift in Sources */,
@@ -517,6 +524,7 @@
 				164BFDCB1AC67D9C003BF77B /* DateUtility.swift in Sources */,
 				16060EB71AF0456E0099379F /* Orders.swift in Sources */,
 				1683F0B11ADC80270034C7CB /* OrderTableViewCell.swift in Sources */,
+				16757DC41AF60F1200925C50 /* Nutrition.swift in Sources */,
 				164BFDEA1AD02F8F003BF77B /* StoreDetailTableViewController.swift in Sources */,
 				16AE14131ABD6B1A00370062 /* MyPocketSBUX.xcdatamodeld in Sources */,
 				16B6005F1AE79407000ECB7E /* IngredientManager.swift in Sources */,

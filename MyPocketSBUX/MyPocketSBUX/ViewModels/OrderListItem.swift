@@ -15,7 +15,7 @@ class OrderListItem: NSObject {
     var productEntity : AnyObject?
     var customizationItems : IngredientCollection?
     var originalItems : IngredientCollection?
-    var nutritionEntities : [AnyObject] = []
+    var nutritionEntities : [Nutrition] = []
 
     var totalPrice : Int = 0
     var customPrice : Int = 0

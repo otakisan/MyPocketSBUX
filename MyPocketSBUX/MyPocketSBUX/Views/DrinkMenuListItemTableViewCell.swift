@@ -44,7 +44,9 @@ class DrinkMenuListItemTableViewCell: MenuListItemTableViewCell {
                 }
                 
                 self.priceLabel.text = "\(sizeText)¥\(entity.price ?? 0)"
-                self.calorieLabel.text = "0 kcal"
+//                self.menuListItem?.nutritionEntities.filter({nutrition in (nutrition.size == "Tall" || nutrition.size == "Doppio") && (nutrition.milk == "whole" || nutrition.milk == "na")}).first?.calorie
+                let calorie = self.menuListItem?.nutritionEntities.filter({$0.size == "Tall" || $0.size == "Doppio"}).filter({$0.milk == "whole" || $0.milk == "na"}).first?.calorie ?? 0
+                self.calorieLabel.text = "\(calorie) kcal"
                 self.orderSwitch.on = self.menuListItem?.isOnOrderList ?? false
             }
         }

@@ -24,8 +24,16 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
         
         // ローカルDBにデータが存在するかどうかチェックしなければ、取得
         // 存在すれば、DBから取得して、一覧表示へ
+        // TODO: ３種類のデータを非同期で取得するため、すべてのデータ取得処理が完了したらUIを更新するという処理が必要
+        // dispatch_group_t = dispatch_group_create() -> 通信部分で非同期になってしまうため不採用
+        // 同期的にセマフォを取得し、UI更新起動用のスレッドで待機に入る。
+        // 通信完了後の非同期部分で解放し、すべて完了されたらUI更新起動用スレッドが開始、reloadDataを起動する
         let productCategories = [MenuSectionItem.ProductCategory.drink, MenuSectionItem.ProductCategory.food]
+        let semaphoreCount = productCategories.count
+        let semaphore = dispatch_semaphore_create(semaphoreCount)
+        let timeout = dispatch_time(DISPATCH_TIME_NOW, Int64(10 * Double(NSEC_PER_SEC)))
         for productCategory in productCategories {
+            dispatch_semaphore_wait(semaphore, timeout/*DISPATCH_TIME_FOREVER*/)
             let dbContext = self.getDbContext(productCategory)
             var count = dbContext.countByFetchRequestTemplate([NSObject:AnyObject]())
             if count == 0 {
@@ -38,12 +46,63 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
                     // ローカルDBのキャッシュデータを取得
                     self.menuDisplayItemList += self.createProductSectionItemsFromLocalDb(productCategory)
                     
-                    //self.stopActivityIndicator()
-                    self.reloadData()
+                    // 解放
+                    dispatch_semaphore_signal(semaphore)
                 })
             }
             else{
                 self.menuDisplayItemList += self.createProductSectionItemsFromLocalDb(productCategory)
+                
+                // 解放
+                dispatch_semaphore_signal(semaphore)
+            }
+        }
+        
+        // カロリー
+        // 商品情報の取得が完了するまで待機して、メニューリストを更新、UIを更新する
+        if 0 == Nutritions.instance().countByFetchRequestTemplate([NSObject:AnyObject]()) {
+            self.updateProductLocalDb("nutrition", completionHandler: { data, res, error in
+                
+                if var productsJson = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray {
+                    Nutritions.instance().insertEntityFromJsonObject(productsJson)
+                }
+                
+                // メニューリストを更新（カロリー情報）
+                self.waitAndUpdateCalorie(semaphore, semaphoreCount: semaphoreCount, timeout: timeout)
+                
+                // UIを更新
+                //self.stopActivityIndicator()
+                self.reloadData()
+            })
+        }
+        else {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                
+                self.waitAndUpdateCalorie(semaphore, semaphoreCount: semaphoreCount, timeout: timeout)
+               
+                self.reloadData()
+            })
+        }
+    }
+    
+    func waitAndUpdateCalorie(semaphore : dispatch_semaphore_t, semaphoreCount : Int, timeout: dispatch_time_t) {
+        // 待機
+        for index in 0..<semaphoreCount {
+            dispatch_semaphore_wait(semaphore, timeout/*DISPATCH_TIME_FOREVER*/)
+        }
+        // 解放しないとアベンドする
+        for index in 0..<semaphoreCount {
+            dispatch_semaphore_signal(semaphore)
+        }
+        
+        // メニューリスト
+        for menu in self.menuDisplayItemList {
+            for menuListItems in menu.listItems {
+                // 商品のJANコードに紐づく栄養情報を取得（複数）
+                menuListItems.nutritionEntities = Nutritions.findByJanCode(
+                    menuListItems.productEntity?.valueForKey("janCode") as? String ?? "",
+                    orderKeys: [(columnName:"liquidTemperature", ascending: true), (columnName:"milk", ascending: true), (columnName:"size", ascending: true)]
+                )
             }
         }
     }
@@ -328,6 +387,7 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
                 orderListItem.hotOrIce = "Hot"
                 orderListItem.originalItems = IngredientCollection()
                 orderListItem.originalItems?.ingredients = IngredientManager.instance.getAvailableCustomizationChoices(orderListItem.productEntity?.valueForKey("janCode") as? String ?? "").originals
+                orderListItem.nutritionEntities = m.nutritionEntities
                 return orderListItem
             }
             

@@ -13,7 +13,8 @@ class CustomizingOrderTableViewController: UITableViewController,
     ReusableCupCustomizingOrderTableViewCellDelegate,
     OneMoreCoffeeCustomizingOrderTableViewCellDelegate,
     AddCustomItemCustomizingOrderTableViewCellDelegate,
-    CustomItemCustomizingOrderTableViewCellDelegate{
+    CustomItemCustomizingOrderTableViewCellDelegate,
+    HotOrIcedCustomizingOrderTableViewCellDelegate{
     
     struct SectionIndex {
         static let General = 0
@@ -29,38 +30,6 @@ class CustomizingOrderTableViewController: UITableViewController,
     // 専用の関数を作って、マッピングを遅延評価するようにする
     // Generalセクションの項目を変えれば共用できるような気がする
     lazy var nameMappings : [( section : String, detailItemInfos : [(cellId : String, keyPaths : String)])] = self.initializeNameMappings()
-//    var nameMappings : [( section : String, detailItemInfos : [(cellId : String, keyPaths : String)])] = [
-//        (
-//            section: "General",
-//            detailItemInfos: [
-//                (cellId: CustomizingOrderTableViewCell.CellIds.productName, keyPaths: "productEntity.name"),
-//                (cellId: CustomizingOrderTableViewCell.CellIds.price, keyPaths: "productEntity.price"),
-//                (cellId: CustomizingOrderTableViewCell.CellIds.calorie, keyPaths: ""),
-//                (cellId: CustomizingOrderTableViewCell.CellIds.size, keyPaths: ""),
-//                (cellId: CustomizingOrderTableViewCell.CellIds.hotOrIced, keyPaths: ""),
-//                (cellId: CustomizingOrderTableViewCell.CellIds.reusableCup, keyPaths: ""),
-//                (cellId: CustomizingOrderTableViewCell.CellIds.oneMoreCoffee, keyPaths: ""),
-//                (cellId: CustomizingOrderTableViewCell.CellIds.ticket, keyPaths: "")
-//            ]
-//        ),
-//        (
-//            section: "Original",
-//            detailItemInfos: [
-//            ]
-//        ),
-//        (
-//            // TODO: 直接カスタムアイテムを並べるか、それとも、「Add Items ...」から別画面に移動するか
-//            // 結局カスタムセル自体は必要になると思うので
-//            // 別画面の場合は、モーダル表示する（決定／キャンセルボタンをどこにおくかだけど）
-//            // それとも前にやったように、ナビゲーションでの遷移にするか（戻るのイベントを取れなかったような）
-//            section: "Custom",
-//            detailItemInfos: [
-////                (cellId: CustomizingOrderTableViewCell.CellIds.base, keyPaths: "customizationItems")
-////                (cellId: CustomizingOrderTableViewCell.CellIds.addCustomItem, keyPaths: ""),
-////                (cellId: CustomizingOrderTableViewCell.CellIds.customItemAdded, keyPaths: "")
-//            ]
-//        )
-//    ]
     
     func initializeNameMappings() -> [( section : String, detailItemInfos : [(cellId : String, keyPaths : String)])] {
         return [
@@ -422,6 +391,14 @@ class CustomizingOrderTableViewController: UITableViewController,
         }
     }
     
+    func updateCalorie(){
+        // TODO: カロリーのリスト上での位置は、動的に取得するようにする
+        let indexPath = NSIndexPath(forRow: 2, inSection: SectionIndex.General)
+        if let calorieCell = self.tableView.cellForRowAtIndexPath(indexPath) as? CustomizingOrderTableViewCell {
+            calorieCell.configure(self.orderItem!, delegate: self, indexPath: indexPath)
+        }
+    }
+    
     func valueChangedSizeSegment(cell : SizeCustomizingOrderTableViewCell, size : DrinkSize){
         // サイズ間での価格差分を計算
         let delta = size.priceForDelta() - (self.orderItem?.size.priceForDelta() ?? 0)
@@ -431,6 +408,13 @@ class CustomizingOrderTableViewController: UITableViewController,
         if !(self.orderItem?.oneMoreCoffee ?? false) {
             self.addPrice(delta)
         }
+        
+        self.updateCalorie()
+    }
+    
+    func valueChangedHotOrIcedSegment(cell : HotOrIcedCustomizingOrderTableViewCell, hotOrIced : String){
+        self.orderItem?.hotOrIce = hotOrIced
+        self.updateCalorie()
     }
     
     func valueChangedReusableCupSwitch(cell : ReusableCupCustomizingOrderTableViewCell, on : Bool){
