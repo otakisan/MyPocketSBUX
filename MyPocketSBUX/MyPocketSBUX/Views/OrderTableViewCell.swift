@@ -43,19 +43,63 @@ protocol OrderTableViewCellDelegate : NSObjectProtocol {
     func touchUpInsideOrderEdit(cell : OrderTableViewCell)
 }
 
-class NotesOrderTableViewCell : OrderTableViewCell, UITextFieldDelegate {
+class OrderHeaderTableViewCell: UITableViewCell {
+    var orderHeader : OrderHeader?
+    var delegate : OrderHeaderTableViewCellDelegate?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+    override func setSelected(selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Configure the view for the selected state
+    }
+    
+    func configure(orderHeader : OrderHeader) {
+        self.orderHeader = orderHeader
+    }
+}
+
+protocol OrderHeaderTableViewCellDelegate : NSObjectProtocol {
+}
+
+class StoreOrderTableViewCell : OrderHeaderTableViewCell {
+    
+    @IBOutlet weak var storeNameLabel: UILabel!
+    override func configure(orderHeader : OrderHeader) {
+        super.configure(orderHeader)
+        
+        self.storeNameLabel.text = self.orderHeader?.store?.name
+    }
+}
+
+class NotesOrderTableViewCell : OrderHeaderTableViewCell, UITextFieldDelegate {
     
     @IBOutlet weak var notesTextField: UITextField!
     
-    override func configure(orderListItem : OrderListItem) {
-        super.configure(orderListItem)
+    @IBAction func editingDidEndNotesTextField(sender: UITextField) {
+        (self.delegate as? NotesOrderTableViewCellDelegate)?.editingDidEndNotesTextField(self, notes: sender.text)
+    }
+    
+    override func configure(orderHeader : OrderHeader) {
+        super.configure(orderHeader)
         
         self.notesTextField.delegate = self
+        self.notesTextField.text = self.orderHeader?.notes
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         self.notesTextField.resignFirstResponder()
+        (self.delegate as? NotesOrderTableViewCellDelegate)?.textFieldShouldReturnNotesTextField(self, notes: textField.text)
         return true
     }
 
+}
+
+protocol NotesOrderTableViewCellDelegate : OrderHeaderTableViewCellDelegate {
+    func textFieldShouldReturnNotesTextField(cell : NotesOrderTableViewCell, notes : String)
+    func editingDidEndNotesTextField(cell : NotesOrderTableViewCell, notes : String)
 }

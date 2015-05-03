@@ -108,5 +108,21 @@ class FilteredStoresTableViewController: StoresBaseTableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    override func storeAtIndexPath(indexPath : NSIndexPath) -> Store? {
+        var store : Store? = nil
+        if let stores = self.filteredStoreData?[indexPath.section]["stores"] as? [Store] {
+            
+            if stores.count > indexPath.row {
+                store = stores[indexPath.row]
+            }
+        }
+        
+        return store
+    }
+    
+    override func closeView(){
+        // 単純にナビゲーションをポップするだけでいいらしい
+        self.navigationControllerOfOriginalViewController.popViewControllerAnimated(true)
+    }
 }

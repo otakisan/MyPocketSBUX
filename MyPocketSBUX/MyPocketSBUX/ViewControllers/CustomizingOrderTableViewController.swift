@@ -27,38 +27,76 @@ class CustomizingOrderTableViewController: UITableViewController,
     // keyPathsはデフォルトセルを使用する場合にのみ必要
     // TODO: ドリンク／フード、ドリンクの構成要素によって、表示・非表示／活性・非活性を切り替えられるよう、下記配列の要素を変化させる
     // 専用の関数を作って、マッピングを遅延評価するようにする
-    var nameMappings : [( section : String, detailItemInfos : [(cellId : String, keyPaths : String)])] = [
-        (
-            section: "General",
-            detailItemInfos: [
-                (cellId: CustomizingOrderTableViewCell.CellIds.productName, keyPaths: "productEntity.name"),
-                (cellId: CustomizingOrderTableViewCell.CellIds.price, keyPaths: "productEntity.price"),
-                (cellId: CustomizingOrderTableViewCell.CellIds.calorie, keyPaths: ""),
-                (cellId: CustomizingOrderTableViewCell.CellIds.size, keyPaths: ""),
-                (cellId: CustomizingOrderTableViewCell.CellIds.hotOrIced, keyPaths: ""),
-                (cellId: CustomizingOrderTableViewCell.CellIds.reusableCup, keyPaths: ""),
-                (cellId: CustomizingOrderTableViewCell.CellIds.oneMoreCoffee, keyPaths: ""),
-                (cellId: CustomizingOrderTableViewCell.CellIds.ticket, keyPaths: "")
-            ]
-        ),
-        (
-            section: "Original",
-            detailItemInfos: [
-            ]
-        ),
-        (
-            // TODO: 直接カスタムアイテムを並べるか、それとも、「Add Items ...」から別画面に移動するか
-            // 結局カスタムセル自体は必要になると思うので
-            // 別画面の場合は、モーダル表示する（決定／キャンセルボタンをどこにおくかだけど）
-            // それとも前にやったように、ナビゲーションでの遷移にするか（戻るのイベントを取れなかったような）
-            section: "Custom",
-            detailItemInfos: [
-//                (cellId: CustomizingOrderTableViewCell.CellIds.base, keyPaths: "customizationItems")
-//                (cellId: CustomizingOrderTableViewCell.CellIds.addCustomItem, keyPaths: ""),
-//                (cellId: CustomizingOrderTableViewCell.CellIds.customItemAdded, keyPaths: "")
-            ]
-        )
-    ]
+    // Generalセクションの項目を変えれば共用できるような気がする
+    lazy var nameMappings : [( section : String, detailItemInfos : [(cellId : String, keyPaths : String)])] = self.initializeNameMappings()
+//    var nameMappings : [( section : String, detailItemInfos : [(cellId : String, keyPaths : String)])] = [
+//        (
+//            section: "General",
+//            detailItemInfos: [
+//                (cellId: CustomizingOrderTableViewCell.CellIds.productName, keyPaths: "productEntity.name"),
+//                (cellId: CustomizingOrderTableViewCell.CellIds.price, keyPaths: "productEntity.price"),
+//                (cellId: CustomizingOrderTableViewCell.CellIds.calorie, keyPaths: ""),
+//                (cellId: CustomizingOrderTableViewCell.CellIds.size, keyPaths: ""),
+//                (cellId: CustomizingOrderTableViewCell.CellIds.hotOrIced, keyPaths: ""),
+//                (cellId: CustomizingOrderTableViewCell.CellIds.reusableCup, keyPaths: ""),
+//                (cellId: CustomizingOrderTableViewCell.CellIds.oneMoreCoffee, keyPaths: ""),
+//                (cellId: CustomizingOrderTableViewCell.CellIds.ticket, keyPaths: "")
+//            ]
+//        ),
+//        (
+//            section: "Original",
+//            detailItemInfos: [
+//            ]
+//        ),
+//        (
+//            // TODO: 直接カスタムアイテムを並べるか、それとも、「Add Items ...」から別画面に移動するか
+//            // 結局カスタムセル自体は必要になると思うので
+//            // 別画面の場合は、モーダル表示する（決定／キャンセルボタンをどこにおくかだけど）
+//            // それとも前にやったように、ナビゲーションでの遷移にするか（戻るのイベントを取れなかったような）
+//            section: "Custom",
+//            detailItemInfos: [
+////                (cellId: CustomizingOrderTableViewCell.CellIds.base, keyPaths: "customizationItems")
+////                (cellId: CustomizingOrderTableViewCell.CellIds.addCustomItem, keyPaths: ""),
+////                (cellId: CustomizingOrderTableViewCell.CellIds.customItemAdded, keyPaths: "")
+//            ]
+//        )
+//    ]
+    
+    func initializeNameMappings() -> [( section : String, detailItemInfos : [(cellId : String, keyPaths : String)])] {
+        return [
+            (
+                section: "General",
+                detailItemInfos: self.orderItem?.productEntity is Drink ? [
+                    (cellId: CustomizingOrderTableViewCell.CellIds.productName, keyPaths: "productEntity.name"),
+                    (cellId: CustomizingOrderTableViewCell.CellIds.price, keyPaths: "productEntity.price"),
+                    (cellId: CustomizingOrderTableViewCell.CellIds.calorie, keyPaths: ""),
+                    (cellId: CustomizingOrderTableViewCell.CellIds.size, keyPaths: ""),
+                    (cellId: CustomizingOrderTableViewCell.CellIds.hotOrIced, keyPaths: ""),
+                    (cellId: CustomizingOrderTableViewCell.CellIds.reusableCup, keyPaths: ""),
+                    (cellId: CustomizingOrderTableViewCell.CellIds.oneMoreCoffee, keyPaths: ""),
+                    (cellId: CustomizingOrderTableViewCell.CellIds.ticket, keyPaths: "")
+                ] : [
+                    (cellId: CustomizingOrderTableViewCell.CellIds.productName, keyPaths: ""),
+                    (cellId: CustomizingOrderTableViewCell.CellIds.price, keyPaths: ""),
+                    (cellId: CustomizingOrderTableViewCell.CellIds.calorie, keyPaths: "")
+                ]
+            ),
+            (
+                section: "Original",
+                detailItemInfos: [
+                ]
+            ),
+            (
+                // TODO: 直接カスタムアイテムを並べるか、それとも、「Add Items ...」から別画面に移動するか
+                // 結局カスタムセル自体は必要になると思うので
+                // 別画面の場合は、モーダル表示する（決定／キャンセルボタンをどこにおくかだけど）
+                // それとも前にやったように、ナビゲーションでの遷移にするか（戻るのイベントを取れなかったような）
+                section: "Custom",
+                detailItemInfos: [
+                ]
+            )
+        ]
+    }
     
     func cellIdForIndexPath(indexPath : NSIndexPath) -> String {
         var cellId = ""

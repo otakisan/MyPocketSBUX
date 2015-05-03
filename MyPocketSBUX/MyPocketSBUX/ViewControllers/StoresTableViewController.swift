@@ -173,6 +173,8 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         
         // サーチ後の結果
         self.filteredStoresTableController = FilteredStoresTableViewController()
+        self.filteredStoresTableController.selectBySwipe = self.selectBySwipe
+        self.filteredStoresTableController.delegate = self.delegate
         
         // We want to be the delegate for our filtered table so didSelectRowAtIndexPath(_:) is called for both tables.
         self.filteredStoresTableController.tableView.delegate = self.filteredStoresTableController
@@ -512,37 +514,37 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
     }
 
     // TODO: 【暫定】スワイプでの項目選択
-    var selectBySwipe = false
-    var delegate : StoresTableViewDelegate?
-    // スワイプを有効にする
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return self.selectBySwipe
-    }
+//    var selectBySwipe = false
+//    var delegate : StoresTableViewDelegate?
+//    // スワイプを有効にする
+//    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+//        return self.selectBySwipe
+//    }
+//    
+//    // スワイプのため、空の実装が必要
+//    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+//    }
+//    
+//    // スワイプ時に表示する項目
+//    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+//        
+//        let editAction =
+//        UITableViewRowAction(style: .Normal, // 削除等の破壊的な操作を示さないスタイル
+//            title: "select"){(action, indexPath) in
+//                println("\(indexPath) selected")
+//                self.selectAndClose(indexPath)
+//        }
+//        editAction.backgroundColor = UIColor.greenColor()
+//        
+//        return [editAction]
+//    }
+//    
+//    func selectAndClose(indexPath : NSIndexPath) {
+//        self.delegate?.selectAndClose(self.storeAtIndexPath(indexPath)!)
+//        self.navigationController?.popViewControllerAnimated(true)
+//    }
     
-    // スワイプのため、空の実装が必要
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    }
-    
-    // スワイプ時に表示する項目
-    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
-        
-        let editAction =
-        UITableViewRowAction(style: .Normal, // 削除等の破壊的な操作を示さないスタイル
-            title: "select"){(action, indexPath) in
-                println("\(indexPath) selected")
-                self.selectAndClose(indexPath)
-        }
-        editAction.backgroundColor = UIColor.greenColor()
-        
-        return [editAction]
-    }
-    
-    func selectAndClose(indexPath : NSIndexPath) {
-        self.delegate?.selectAndClose(self.storeAtIndexPath(indexPath)!)
-        self.navigationController?.popViewControllerAnimated(true)
-    }
-    
-    func storeAtIndexPath(indexPath : NSIndexPath) -> Store? {
+    override func storeAtIndexPath(indexPath : NSIndexPath) -> Store? {
         var store : Store? = nil
         if let stores = self.storesData?[indexPath.section]["stores"] as? [Store] {
             
@@ -553,6 +555,11 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         
         return store
     }
+    
+    override func closeView(){
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+
 
 }
 

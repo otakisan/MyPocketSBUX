@@ -48,8 +48,33 @@ class PriceCalculator {
 }
 
 class FoodPriceCalculator : PriceCalculator {
+    var customs : IngredientCollection?
+
     init(janCode : String, customizedOriginals : IngredientCollection?, customs : IngredientCollection?, discountFactors : [String]){
+        self.customs = customs
+    }
+    
+    override func priceForTotal() -> Int {
+        // JANコードからベース価格と標準構成を取得
+        // 引数で渡されたカスタマイズ状態から価格を決定する
         
+        
+        // カスタム内容によらず無料のものは除外する
+        // ショット、コーヒー、ホイップ、シロップ、チップ、ソイ、期間限定（ジェリー、プリン）
+        // 期間限定ものは、それが始まってから随時対応する
+        var total = max(0, self.basePrice + self.priceForCustoms())
+        
+        return total
+    }
+    
+    override func priceForCustoms() -> Int {
+        var total = self.priceForWhippedCreme()
+        
+        return total
+    }
+    
+    func priceForWhippedCreme() -> Int {
+        return self.customs?.ingredients.reduce(0, combine: {$0! + ($1.unitPrice ?? 0)}) ?? 0
     }
 }
 

@@ -10,8 +10,9 @@ import UIKit
 
 class DrinkOrderTableViewCell: OrderTableViewCell {
 
+    @IBOutlet weak var customizationLabel: UILabel!
     @IBOutlet weak var productNameLabel: UILabel!
-    @IBOutlet weak var priceLable: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var orderSwitch: UISwitch!
     
     @IBOutlet weak var calorieLabel: UILabel!
@@ -44,10 +45,13 @@ class DrinkOrderTableViewCell: OrderTableViewCell {
             self.productNameLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
             self.productNameLabel?.sizeToFit()
 
-            self.priceLable.text = "\(self.orderListItem?.totalPrice ?? 0)"
+            self.priceLabel.text = "\(self.orderListItem?.totalPrice ?? 0)"
             self.orderSwitch.on = orderListItem.on
             
             self.calorieLabel.text = "\(self.calorieForOrder())"
+            
+            // TODO: オリジナル材料のカスタマイズも表示する
+            self.customizationLabel.text = self.orderListItem?.customizationItems?.ingredients.reduce("", combine: {$0! + ($0 != "" ? ", " : "") + ($1.name ?? "")})
         }
     }
     

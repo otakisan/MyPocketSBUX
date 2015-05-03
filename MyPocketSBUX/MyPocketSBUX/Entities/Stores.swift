@@ -20,4 +20,13 @@ class Stores: DbContextBase {
     override func entityName() -> String {
         return "Store"
     }
+    
+    class func findByStoreId(storeId : Int) -> Store? {
+        
+        return (findByFetchRequestTemplate(
+            "findStoreByStoreIdFetchRequest",
+            variables: ["storeId":storeId],
+            sortDescriptors: [],
+            limit: 0) as! [Store]).first
+    }
 }

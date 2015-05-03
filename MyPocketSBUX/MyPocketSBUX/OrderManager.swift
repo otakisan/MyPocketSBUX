@@ -40,7 +40,7 @@ class OrderManager: NSObject {
     }
     
     // originalIngredients : [Ingredient], customIngredients : [Ingredient]
-    func saveOrder(orderListItems : [(category : ProductCategory, orders: [OrderListItem])]) {
+    func saveOrder(orderListItems : [(category : ProductCategory, orders: [OrderListItem])], orderHeader : OrderHeader?) {
         // TODO: オーダー項目なしの場合に登録を行わないように制御する
         
         // Order
@@ -49,10 +49,11 @@ class OrderManager: NSObject {
         var order : Order = Orders.instance().createEntity()
         let orderId = Orders.sequenceNumber()
         order.id = orderId
-        order.storeId = self.storeId()
+        order.storeId = orderHeader?.store?.storeId ?? 0
         let totalPrice = PriceCalculator.totalPrice(OrderManager.instance.unionOrderListItem(orderListItems))
         order.taxExcludedTotalPrice = totalPrice.taxExcluded
         order.taxIncludedTotalPrice = totalPrice.taxIncluded
+        order.notes = orderHeader?.notes ?? ""
         order.remarks = ""
         order.createdAt = now
         order.updatedAt = now
@@ -144,6 +145,15 @@ class OrderManager: NSObject {
         return (ingredientCollectionOriginals, ingredientCollectionCustoms)
     }
     
+    func loadOrder(order : Order, orderDetails : [OrderDetail]) -> (header: OrderHeader, details: [OrderListItem]) {
+        var header = OrderHeader()
+        header.store = Stores.findByStoreId(Int(order.storeId))
+        header.notes = order.notes
+        var details = self.loadOrder(orderDetails: orderDetails)
+        
+        return (header, details)
+    }
+    
     func loadOrder(#orderDetails : [OrderDetail]) -> [OrderListItem] {
         
         var orderListItems : [OrderListItem] = []
@@ -173,10 +183,6 @@ class OrderManager: NSObject {
         orderListItem.oneMoreCoffee = self.oneMoreCoffee(orderDetail.ticket)
         
         return orderListItem
-    }
-    
-    func storeId() -> Int {
-        return 380
     }
     
     func getAllOrderFromLocal() -> [Order] {

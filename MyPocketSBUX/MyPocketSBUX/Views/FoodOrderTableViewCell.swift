@@ -10,11 +10,20 @@ import UIKit
 
 class FoodOrderTableViewCell: OrderTableViewCell {
 
+    @IBOutlet weak var customizationLabel: UILabel!
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var orderSwitch: UISwitch!
     
     @IBOutlet weak var calorieLabel: UILabel!
+    
+    @IBAction func touchUpInsideEditButton(sender: UIButton) {
+        super.touchUpInsideOrderEdit(self)
+    }
+    
+    @IBAction override func valueChangedOrderSwitch(sender: UISwitch) {
+        super.valueChangedOrderSwitch(sender)
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,10 +45,12 @@ class FoodOrderTableViewCell: OrderTableViewCell {
             self.productNameLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
             self.productNameLabel?.sizeToFit()
             
-            self.priceLabel.text = "\(entity.price)"
+            self.priceLabel.text = "\(self.orderListItem?.totalPrice ?? 0)"
             self.orderSwitch.on = orderListItem.on
 
             self.calorieLabel.text = "\(self.calorieForOrder())"
+            
+            self.customizationLabel.text = self.orderListItem?.customizationItems?.ingredients.reduce("", combine: {$0! + ($0 != "" ? ", " : "") + ($1.name ?? "")})
         }
     }
     

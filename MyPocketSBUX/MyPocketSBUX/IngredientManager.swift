@@ -16,8 +16,8 @@ class IngredientManager: NSObject {
     func getAvailableCustomizationChoices(janCode : String) -> (originals : [Ingredient], customs : [Ingredient]) {
         var choices = ([Ingredient](), [Ingredient]())
         
-        if let getMappings = self.availableChoiceMapping.mappings[janCode] {
-            choices = getMappings()
+        if let availableChoice = self.availableChoiceMapping.mappings[janCode] {
+            choices = availableChoice()
         }
         
         return choices
@@ -57,8 +57,10 @@ class IngredientNames {
 }
 
 // TODO: DB値から自動生成する
-class IngredientJanCodes {
-    static let vanillaSyrup = "4524785165939"
+// 本来はDBから適用可能なカスタムアイテムを取ってくるんだろうけど
+class ProductJanCodes {
+    static let vanillaCreamFrappuccino = "4524785165939"
+    static let amricanWaffle = "4524785261297"
 }
 
 // ミルクだけは商品によって分量が不定に変わるから、計算で算出できない。サイズと合わせ、カロリー表から取得するベース値に含める
@@ -87,7 +89,8 @@ class AvailableChoiceMapping {
         var mappings = [String : GetChoice]()
         
         // TODO: 商品ごとのカスタマイズ項目列挙も自動生成か何か効率化したいところ
-        mappings[IngredientJanCodes.vanillaSyrup] = self.originalsAndCustomsOfVanillaFrappuccino
+        mappings[ProductJanCodes.vanillaCreamFrappuccino] = self.originalsAndCustomsOfVanillaFrappuccino
+        mappings[ProductJanCodes.amricanWaffle] = self.originalsAndCustomsOfFood
         
         return mappings
     }

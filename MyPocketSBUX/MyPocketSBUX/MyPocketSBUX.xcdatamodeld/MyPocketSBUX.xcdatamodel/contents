@@ -29,6 +29,7 @@
     <entity name="Order" representedClassName="MyPocketSBUX.Order" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="remarks" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="storeId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="taxExcludedTotalPrice" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -108,11 +109,12 @@
     <fetchRequest name="findDrinkByJanCodeFetchRequest" entity="Drink" predicateString="janCode == $janCode"/>
     <fetchRequest name="findFoodByJanCodeFetchRequest" entity="Food" predicateString="janCode == $janCode"/>
     <fetchRequest name="findProductIngredientsByOrderIdAndOrderDetailIdFetchRequest" entity="ProductIngredient" predicateString="orderId == $orderId AND orderDetailId == $orderDetailId"/>
+    <fetchRequest name="findStoreByStoreIdFetchRequest" entity="Store" predicateString="storeId == $storeId"/>
     <fetchRequest name="orderDetailsWithOrderIdFetchRequest" entity="OrderDetail" predicateString="orderId == $orderId"/>
     <elements>
         <element name="Drink" positionX="-54" positionY="135" width="128" height="225"/>
         <element name="Food" positionX="-45" positionY="144" width="128" height="195"/>
-        <element name="Order" positionX="-54" positionY="135" width="128" height="150"/>
+        <element name="Order" positionX="-54" positionY="135" width="128" height="165"/>
         <element name="OrderDetail" positionX="-45" positionY="144" width="128" height="270"/>
         <element name="PressRelease" positionX="-63" positionY="-18" width="128" height="150"/>
         <element name="ProductIngredient" positionX="-36" positionY="153" width="128" height="255"/>

@@ -8,10 +8,12 @@
 
 import UIKit
 
-class OrderTableViewController: UITableViewController, OrderTableViewCellDelegate, CustomizingOrderTableViewDelegate, StoresTableViewDelegate {
+class OrderTableViewController: UITableViewController, OrderTableViewCellDelegate, CustomizingOrderTableViewDelegate, StoresTableViewDelegate, NotesOrderTableViewCellDelegate {
     
     let headerSection = 0
     let productSection = 1
+    let storeRow = 0
+    let notesRow = 1
     
 //    var orderItems : [(productCategory : String, orders : [OrderListItem])] = []
     var orderHeader : OrderHeader = OrderHeader()
@@ -37,10 +39,10 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
         var identifier = ""
         
         if orderListItem.productEntity is Drink {
-            identifier = "customizingDrinkOrderSegue"
+            identifier = "customizingOrderSegue"
         }
         else if orderListItem.productEntity is Food {
-            identifier = "customizingFoodOrderSegue"
+            identifier = "customizingOrderSegue"
         }
         else{
             fatalError("unknown product type")
@@ -85,10 +87,14 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell : OrderTableViewCell
+        let cell : UITableViewCell
         if indexPath.section == 0 {
-            cell = tableView.dequeueReusableCellWithIdentifier(indexPath.row == 0 ? "storeOrderListItemCell" : "notesOrderListItemCell", forIndexPath: indexPath) as! OrderTableViewCell
-            cell.configure(OrderListItem())
+            // ここでキャストできないということはあってはならない
+            cell = tableView.dequeueReusableCellWithIdentifier(indexPath.row == 0 ? "storeOrderListItemCell" : "notesOrderListItemCell", forIndexPath: indexPath) as! OrderHeaderTableViewCell
+            
+            let headerCell = cell as! OrderHeaderTableViewCell
+            headerCell.configure(self.orderHeader)
+            headerCell.delegate = self
         }
         else {
             // ドリンク or フードで、取り出すセルのタイプを分ける
@@ -96,8 +102,9 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
             
             // Configure the cell...
             
-            cell.configure(self.orderItems[indexPath.row])
-            cell.delegate = self
+            let detailCell = cell as! OrderTableViewCell
+            detailCell.configure(self.orderItems[indexPath.row])
+            detailCell.delegate = self
         }
 
         return cell
@@ -151,6 +158,10 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        // フォーカスを返す
+        self.notesEndEditing()
+        
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         if var customizingOrderViewController = segue.destinationViewController as? CustomizingOrderTableViewController {
@@ -158,6 +169,7 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
         }
         else if var orderConfirmationViewController = segue.destinationViewController as? OrderConfirmationTableViewController {
             orderConfirmationViewController.orderListItem = [(category: ProductCategory.Drink, orders: self.orderItems.filter({$0.on}))]
+            orderConfirmationViewController.orderHeader = self.orderHeader
         }
         else if var storesVc = segue.destinationViewController as? StoresTableViewController {
             storesVc.selectBySwipe = true
@@ -168,6 +180,20 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
     func valueChangedOrderSwitch(cell : OrderTableViewCell, on : Bool) {
         if var order = cell.orderListItem {
             order.on = on
+        }
+    }
+    
+    func editingDidEndNotesTextField(cell : NotesOrderTableViewCell, notes : String){
+        self.orderHeader.notes = notes
+    }
+    
+    func textFieldShouldReturnNotesTextField(cell : NotesOrderTableViewCell, notes : String){
+        //self.orderHeader.notes = notes
+    }
+    
+    func notesEndEditing() {
+        if var notesCell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: self.notesRow, inSection: self.headerSection)) as? NotesOrderTableViewCell {
+            notesCell.notesTextField.endEditing(true)
         }
     }
     
@@ -197,8 +223,8 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
         self.orderHeader.store = store
         
         // TODO: 位置が決めうちになっている
-        if var cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: self.headerSection)) {
-            cell.textLabel?.text = self.orderHeader.store?.name
+        if var cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: self.storeRow, inSection: self.headerSection)) as? StoreOrderTableViewCell {
+            cell.storeNameLabel.text = self.orderHeader.store?.name
         }
     }
 }

@@ -50,7 +50,7 @@ class OrdersTableViewController: UITableViewController {
         // Configure the cell...
         let dateString = DateUtility.localDateString(self.orders[indexPath.row].order.createdAt)
         let timeString = DateUtility.localTimeString(self.orders[indexPath.row].order.createdAt)
-        cell.textLabel?.text = "\(dateString) \(timeString) ¥\(self.orders[indexPath.row].order.taxExcludedTotalPrice) (¥\(self.orders[indexPath.row].order.taxIncludedTotalPrice))"
+        cell.textLabel?.text = "\(dateString) \(timeString) ¥\(self.orders[indexPath.row].order.taxExcludedTotalPrice) (¥\(self.orders[indexPath.row].order.taxIncludedTotalPrice)) (\(self.orders[indexPath.row].order.storeId))"
         cell.detailTextLabel?.text = self.orders[indexPath.row].orderDetails.reduce("", combine: {$0 + ($0 != "" ? ", " : "") + $1.productName})
 
         return cell
@@ -101,7 +101,9 @@ class OrdersTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
         if var vc = segue.destinationViewController as? OrderTableViewController {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
-                vc.orderItems = OrderManager.instance.loadOrder(orderDetails: self.orders[indexPath.row].orderDetails)
+                let orderInfo = OrderManager.instance.loadOrder(self.orders[indexPath.row].order, orderDetails: self.orders[indexPath.row].orderDetails)
+                vc.orderHeader = orderInfo.header
+                vc.orderItems = orderInfo.details
             }
         }
     }

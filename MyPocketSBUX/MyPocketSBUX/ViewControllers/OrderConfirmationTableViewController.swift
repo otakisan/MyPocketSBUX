@@ -10,10 +10,19 @@ import UIKit
 
 class OrderConfirmationTableViewController: UITableViewController {
     
+    let productSectionOffset = 1
+    
+    struct OrderHeaderIndex {
+        static let tableViewSection = 0
+        static let store = 0
+        static let notes = 1
+    }
+    
     struct CellIds {
         static let defaultCell = "defaultOrderConfirmationTableViewCell"
     }
     
+    var orderHeader : OrderHeader?
     var orderListItem : [(category : ProductCategory, orders: [OrderListItem])] = []
 
     @IBAction func didPressDoneBarButton(sender: UIBarButtonItem) {
@@ -45,7 +54,7 @@ class OrderConfirmationTableViewController: UITableViewController {
         // どこで入力を促すかっていうのが問題だな
         // オーダー画面（編集画面）のどこかで入力するほうがよいか？
         
-        OrderManager.instance.saveOrder(self.orderListItem)
+        OrderManager.instance.saveOrder(self.orderListItem, orderHeader: self.orderHeader)
     }
     
     override func viewDidLoad() {
@@ -66,24 +75,33 @@ class OrderConfirmationTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        return self.orderListItem.count + 1
+        // 先頭がヘッダ、末尾が合計、残りはオーダー数による
+        return self.productSectionOffset + self.orderListItem.count + 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return section < self.tableView.numberOfSections() - 1 ? self.orderListItem[section].orders.count : 1
+        // 先頭がヘッダ（2行）、末尾が合計（1行）、残りはオーダー数による
+        return section == OrderHeaderIndex.tableViewSection ? 2 : section < self.tableView.numberOfSections() - 1 ? self.orderListItem[section - self.productSectionOffset].orders.count : 1
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(CellIds.defaultCell, forIndexPath: indexPath) as! UITableViewCell
 
-        // 最終セクションは合計
-        if indexPath.section < self.tableView.numberOfSections() - 1 {
-            let name = self.orderListItem[indexPath.section].orders[indexPath.row].productEntity?.valueForKey("name") as? String ?? ""
-            let price = "\(self.orderListItem[indexPath.section].orders[indexPath.row].totalPrice)"
+        // 先頭がヘッダ、最終セクションは合計
+        if indexPath.section == OrderHeaderIndex.tableViewSection {
+            // TODO: 何か綺麗にまとめる術があれば
+            switch indexPath.row {
+            case OrderHeaderIndex.store:
+                cell.textLabel?.text = self.orderHeader?.store?.name
+            case OrderHeaderIndex.notes:
+                cell.textLabel?.text = self.orderHeader?.notes
+            default:
+                cell.textLabel?.text = "uknown"
+            }
+        }
+        else if indexPath.section < self.tableView.numberOfSections() - 1 {
+            let name = self.orderListItem[indexPath.section - self.productSectionOffset].orders[indexPath.row].productEntity?.valueForKey("name") as? String ?? ""
+            let price = "\(self.orderListItem[indexPath.section - self.productSectionOffset].orders[indexPath.row].totalPrice)"
             cell.textLabel?.text = "\(name) ¥\(price)"
         } else {
             let price = PriceCalculator.totalPrice(OrderManager.instance.unionOrderListItem(self.orderListItem))
@@ -94,7 +112,7 @@ class OrderConfirmationTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section < self.tableView.numberOfSections() - 1 ? self.orderListItem[section].category.name() : "Total"
+        return section == OrderHeaderIndex.tableViewSection ? "General" : section < self.tableView.numberOfSections() - 1 ? self.orderListItem[section - self.productSectionOffset].category.name() : "Total"
     }
 
     /*

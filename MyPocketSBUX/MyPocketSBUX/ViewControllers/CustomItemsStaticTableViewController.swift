@@ -269,7 +269,7 @@ enum CustomizationIngredientype {
         switch self {
         case .Coffee, .Espresso:
             quantityToCalcPrice = quantity
-        case .Syrup, .WhippedCreamDrink, .Chip, .Milk:
+        case .Syrup, .WhippedCreamDrink, .WhippedCreamFood, .Chip, .Milk:
             quantityToCalcPrice = max(0, min(1, quantity))
         default:
             // ソースは無料
