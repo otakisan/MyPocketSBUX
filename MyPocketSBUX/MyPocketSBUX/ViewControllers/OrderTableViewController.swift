@@ -168,6 +168,7 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
             customizingOrderViewController.orderItem = self.editRequestedOrderItem
         }
         else if var orderConfirmationViewController = segue.destinationViewController as? OrderConfirmationTableViewController {
+            // TODO: ドリンク、フード、…とカテゴリ別に分ける
             orderConfirmationViewController.orderListItem = [(category: ProductCategory.Drink, orders: self.orderItems.filter({$0.on}))]
             orderConfirmationViewController.orderHeader = self.orderHeader
         }

@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7549" systemVersion="14D136" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Bean" representedClassName="MyPocketSBUX.Bean" syncable="YES">
+        <attribute name="acidity" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="complementaryFlavors" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="flavor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="growingRegion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="janCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="notification" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="processingMethod" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="special" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+    </entity>
     <entity name="Drink" representedClassName="MyPocketSBUX.Drink" syncable="YES">
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
@@ -109,6 +127,7 @@
         <attribute name="storeId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
     </entity>
+    <fetchRequest name="allBeansFetchRequest" entity="Bean"/>
     <fetchRequest name="allDrinksFetchRequest" entity="Drink"/>
     <fetchRequest name="allFoodsFetchRequest" entity="Food"/>
     <fetchRequest name="allNutritionsFetchRequest" entity="Nutrition"/>
@@ -117,6 +136,7 @@
     <fetchRequest name="allPressReleasesFetchRequest" entity="PressRelease"/>
     <fetchRequest name="allProductIngredientsFetchRequest" entity="ProductIngredient"/>
     <fetchRequest name="allStoresFetchRequest" entity="Store"/>
+    <fetchRequest name="findBeanByJanCodeFetchRequest" entity="Bean" predicateString="janCode == $janCode"/>
     <fetchRequest name="findDrinkByJanCodeFetchRequest" entity="Drink" predicateString="janCode == $janCode"/>
     <fetchRequest name="findFoodByJanCodeFetchRequest" entity="Food" predicateString="janCode == $janCode"/>
     <fetchRequest name="findNutritionByJanCodeFetchRequest" entity="Nutrition" predicateString="janCode == $janCode"/>
@@ -133,5 +153,6 @@
         <element name="ProductIngredient" positionX="-36" positionY="153" width="128" height="255"/>
         <element name="Store" positionX="-54" positionY="36" width="128" height="328"/>
         <element name="Nutrition" positionX="-45" positionY="135" width="128" height="165"/>
+        <element name="Bean" positionX="-36" positionY="144" width="128" height="285"/>
     </elements>
 </model>

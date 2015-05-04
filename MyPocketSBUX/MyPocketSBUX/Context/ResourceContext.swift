@@ -14,4 +14,8 @@ class ResourceContext: NSObject {
     func serviceHost() -> String {
         return "localhost"
     }
+    
+    func servicePort() -> Int {
+        return 3000
+    }
 }

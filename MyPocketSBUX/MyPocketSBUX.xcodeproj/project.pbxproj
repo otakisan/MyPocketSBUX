@@ -36,6 +36,10 @@
 		16757DCA1AF6FAF100925C50 /* MakingCoffeeContentsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DC91AF6FAF100925C50 /* MakingCoffeeContentsManager.swift */; };
 		16757DCC1AF70AAC00925C50 /* MakingCoffeePageContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DCB1AF70AAC00925C50 /* MakingCoffeePageContentViewController.swift */; };
 		16757DCE1AF7166300925C50 /* MakingCoffeeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DCD1AF7166300925C50 /* MakingCoffeeTableViewController.swift */; };
+		16757DD01AF766EA00925C50 /* ProductsForSaleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DCF1AF766EA00925C50 /* ProductsForSaleTableViewController.swift */; };
+		16757DD21AF76AEA00925C50 /* ContentsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DD11AF76AEA00925C50 /* ContentsManager.swift */; };
+		16757DD41AF7891A00925C50 /* Bean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DD31AF7891A00925C50 /* Bean.swift */; };
+		16757DD61AF7893A00925C50 /* Beans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DD51AF7893A00925C50 /* Beans.swift */; };
 		1683F0AD1ADBDAD80034C7CB /* OrderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0AC1ADBDAD80034C7CB /* OrderTableViewController.swift */; };
 		1683F0AF1ADBDE4E0034C7CB /* OrderListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0AE1ADBDE4E0034C7CB /* OrderListItem.swift */; };
 		1683F0B11ADC80270034C7CB /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0B01ADC80270034C7CB /* OrderTableViewCell.swift */; };
@@ -124,6 +128,10 @@
 		16757DC91AF6FAF100925C50 /* MakingCoffeeContentsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakingCoffeeContentsManager.swift; sourceTree = "<group>"; };
 		16757DCB1AF70AAC00925C50 /* MakingCoffeePageContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakingCoffeePageContentViewController.swift; sourceTree = "<group>"; };
 		16757DCD1AF7166300925C50 /* MakingCoffeeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakingCoffeeTableViewController.swift; sourceTree = "<group>"; };
+		16757DCF1AF766EA00925C50 /* ProductsForSaleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsForSaleTableViewController.swift; sourceTree = "<group>"; };
+		16757DD11AF76AEA00925C50 /* ContentsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentsManager.swift; sourceTree = "<group>"; };
+		16757DD31AF7891A00925C50 /* Bean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bean.swift; sourceTree = "<group>"; };
+		16757DD51AF7893A00925C50 /* Beans.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beans.swift; sourceTree = "<group>"; };
 		1683F0AC1ADBDAD80034C7CB /* OrderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewController.swift; sourceTree = "<group>"; };
 		1683F0AE1ADBDE4E0034C7CB /* OrderListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderListItem.swift; sourceTree = "<group>"; };
 		1683F0B01ADC80270034C7CB /* OrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
@@ -197,6 +205,8 @@
 		164BFDC41AC671E8003BF77B /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				16757DD31AF7891A00925C50 /* Bean.swift */,
+				16757DD51AF7893A00925C50 /* Beans.swift */,
 				16757DC31AF60F1200925C50 /* Nutrition.swift */,
 				16757DC11AF60DF200925C50 /* Nutritions.swift */,
 				16216E941AEFB94400DB6C0B /* ProductIngredient.swift */,
@@ -339,6 +349,7 @@
 				16757DC71AF6F2F800925C50 /* MakingCoffeePageViewController.swift */,
 				16757DCB1AF70AAC00925C50 /* MakingCoffeePageContentViewController.swift */,
 				16757DCD1AF7166300925C50 /* MakingCoffeeTableViewController.swift */,
+				16757DCF1AF766EA00925C50 /* ProductsForSaleTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -358,6 +369,7 @@
 				16F6B0C41AEB9358007F7E51 /* PriceCalculator.swift */,
 				16F6B0C81AECF39C007F7E51 /* OrderManager.swift */,
 				16757DC91AF6FAF100925C50 /* MakingCoffeeContentsManager.swift */,
+				16757DD11AF76AEA00925C50 /* ContentsManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -485,6 +497,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16757DD01AF766EA00925C50 /* ProductsForSaleTableViewController.swift in Sources */,
 				16C979E21AD5E50400543120 /* StoreAnnotation.swift in Sources */,
 				1683F0AF1ADBDE4E0034C7CB /* OrderListItem.swift in Sources */,
 				164BFDD11ACF89D1003BF77B /* SeminarsTableViewCell.swift in Sources */,
@@ -519,6 +532,8 @@
 				1683F0AD1ADBDAD80034C7CB /* OrderTableViewController.swift in Sources */,
 				16C979D91ACD8EC600543120 /* FilteredSeminarsTableViewController.swift in Sources */,
 				16AE14381AC2BF7A00370062 /* NewsTableViewController.swift in Sources */,
+				16757DD41AF7891A00925C50 /* Bean.swift in Sources */,
+				16757DD21AF76AEA00925C50 /* ContentsManager.swift in Sources */,
 				164BFDD81ACFADEC003BF77B /* FilteredStoresTableViewController.swift in Sources */,
 				16E442CD1AD90314003C3AA2 /* PressRelease.swift in Sources */,
 				16757DCC1AF70AAC00925C50 /* MakingCoffeePageContentViewController.swift in Sources */,
@@ -540,6 +555,7 @@
 				16F6B0C91AECF39C007F7E51 /* OrderManager.swift in Sources */,
 				16CAF7961AE3757300318AE5 /* CustomizingOrderTableViewCell.swift in Sources */,
 				164BFDCB1AC67D9C003BF77B /* DateUtility.swift in Sources */,
+				16757DD61AF7893A00925C50 /* Beans.swift in Sources */,
 				16060EB71AF0456E0099379F /* Orders.swift in Sources */,
 				1683F0B11ADC80270034C7CB /* OrderTableViewCell.swift in Sources */,
 				16757DC41AF60F1200925C50 /* Nutrition.swift in Sources */,
