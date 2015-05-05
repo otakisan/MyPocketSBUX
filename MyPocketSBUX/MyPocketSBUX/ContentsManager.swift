@@ -36,6 +36,9 @@ class ContentsManager: NSObject {
         else if entityName == "bean" {
             dbContext = Beans.instance()
         }
+        else if entityName == "pairing" {
+            dbContext = Pairings.instance()
+        }
         else {
             fatalError("invalid entityName : \(entityName)")
         }
@@ -45,10 +48,9 @@ class ContentsManager: NSObject {
 //        return (NSClassFromString("\(entityName)s")() as NSObject.Type)() as! DbContextBase
     }
 
-    func fetchEntitiesFromLocalDb(entityName : String) -> [NSManagedObject] {
+    func fetchEntitiesFromLocalDb(entityName : String, orderKeys : [(columnName : String, ascending : Bool)]) -> [NSManagedObject] {
         
-        // TODO: ソート順の指定 下記は暫定
-        var entities : [NSManagedObject] = self.getProductsAllOrderBy(entityName, orderKeys: [(columnName : "category", ascending : true), (columnName : "name", ascending : true)])
+        var entities : [NSManagedObject] = self.getProductsAllOrderBy(entityName, orderKeys: orderKeys)
         
         return entities
     }
@@ -57,7 +59,9 @@ class ContentsManager: NSObject {
         return self.getDbContext(productCategory).getAllOrderBy(orderKeys)
     }
     
-    func fetchContents(entityNames : [String], completionHandler: ([(entityName: String, entities: [NSManagedObject])] -> Void)?) {
+    // TODO: 現状だと、全て同じソート条件で全て同じエンティティを検索する
+    // [(entityName: String, orderKeys: [(columnName : String, ascending : Bool)])]のセットで受け取るようにする
+    func fetchContents(entityNames : [String], orderKeys : [(columnName : String, ascending : Bool)], completionHandler: ([(entityName: String, entities: [NSManagedObject])] -> Void)?) {
         
         var fetchResults : [(entityName: String, entities: [NSManagedObject])] = []
         
@@ -82,14 +86,14 @@ class ContentsManager: NSObject {
                     
                     // TODO: セクションごとのカテゴライズは別で行う
                     // ローカルDBのキャッシュデータを取得
-                    fetchResults += [(entityName: entityName, entities: self.fetchEntitiesFromLocalDb(entityName))]
+                    fetchResults += [(entityName: entityName, entities: self.fetchEntitiesFromLocalDb(entityName, orderKeys: orderKeys))]
                     
                     // 解放
                     dispatch_semaphore_signal(semaphore)
                 })
             }
             else{
-                fetchResults += [(entityName: entityName, entities: self.fetchEntitiesFromLocalDb(entityName))]
+                fetchResults += [(entityName: entityName, entities: self.fetchEntitiesFromLocalDb(entityName, orderKeys: orderKeys))]
                 
                 // 解放
                 dispatch_semaphore_signal(semaphore)

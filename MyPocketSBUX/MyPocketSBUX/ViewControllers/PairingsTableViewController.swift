@@ -1,18 +1,17 @@
 //
-//  ProductsForSaleTableViewController.swift
+//  PairingsTableViewController.swift
 //  MyPocketSBUX
 //
-//  Created by takashi on 2015/05/04.
+//  Created by takashi on 2015/05/05.
 //  Copyright (c) 2015年 Takashi Ikeda. All rights reserved.
 //
 
 import UIKit
 import CoreData
 
-class ProductsForSaleTableViewController: UITableViewController {
-    
-    var productsForSale : [(entityName: String, entities: [NSManagedObject])] = []
+class PairingsTableViewController: UITableViewController {
 
+    var foodPairings : [(bean: Bean, foods: [Food])] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,10 +21,8 @@ class ProductsForSaleTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        ContentsManager.instance.fetchContents(["bean"], orderKeys: [(columnName : "category", ascending : true), (columnName : "name", ascending : true)], completionHandler: { fetchResults in
-            self.productsForSale = fetchResults
-            self.reloadData()
-        })
+        
+        self.refreshDataAndReloadTableView()
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,26 +35,26 @@ class ProductsForSaleTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return self.productsForSale.count
+        return self.foodPairings.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return self.productsForSale[section].entities.count
+        return self.foodPairings[section].foods.count
     }
-    
+
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("defaultProductsForSaleTableViewCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("defaultPairingsTableViewCell", forIndexPath: indexPath) as! UITableViewCell
 
         // Configure the cell...
-        cell.textLabel?.text = self.productsForSale[indexPath.section].entities[indexPath.row].valueForKey("name") as? String ?? ""
+        cell.textLabel?.text = self.foodPairings[indexPath.section].foods[indexPath.row].name
 
         return cell
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.productsForSale[section].entityName
+        return self.foodPairings[section].bean.name
     }
 
     /*
@@ -104,5 +101,15 @@ class ProductsForSaleTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    func refreshDataAndReloadTableView(){
+        // beanとfoodがローカルDBに格納済みである必要あり
+        // 下記だと、使用しないbeanとfoodが返却されてしまうので、Webから取得＆ローカルDBへの登録のみ行うオプション指定も可能とする必要あり
+        ContentsManager.instance.fetchContents(["bean", "food"], orderKeys: [], completionHandler: { fetchResults in
+            ContentsManager.instance.fetchContents(["pairing"], orderKeys: [(columnName : "beanId", ascending : true), (columnName : "foodId", ascending : true)], completionHandler: { fetchResults in
+                self.foodPairings = PairingManager.instance.arrayOfBeanToFoods(fetchResults.first?.entities as? [Pairing] ?? [])
+                self.reloadData()
+            })
+        })
+    }
 }

@@ -40,6 +40,10 @@
 		16757DD21AF76AEA00925C50 /* ContentsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DD11AF76AEA00925C50 /* ContentsManager.swift */; };
 		16757DD41AF7891A00925C50 /* Bean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DD31AF7891A00925C50 /* Bean.swift */; };
 		16757DD61AF7893A00925C50 /* Beans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DD51AF7893A00925C50 /* Beans.swift */; };
+		16757DDA1AF83F0900925C50 /* PairingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DD91AF83F0900925C50 /* PairingsTableViewController.swift */; };
+		16757DDC1AF8417800925C50 /* Pairings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DDB1AF8417800925C50 /* Pairings.swift */; };
+		16757DDE1AF842F800925C50 /* Pairing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DDD1AF842F800925C50 /* Pairing.swift */; };
+		16757DE01AF84D3D00925C50 /* PairingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DDF1AF84D3D00925C50 /* PairingManager.swift */; };
 		1683F0AD1ADBDAD80034C7CB /* OrderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0AC1ADBDAD80034C7CB /* OrderTableViewController.swift */; };
 		1683F0AF1ADBDE4E0034C7CB /* OrderListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0AE1ADBDE4E0034C7CB /* OrderListItem.swift */; };
 		1683F0B11ADC80270034C7CB /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0B01ADC80270034C7CB /* OrderTableViewCell.swift */; };
@@ -132,6 +136,10 @@
 		16757DD11AF76AEA00925C50 /* ContentsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentsManager.swift; sourceTree = "<group>"; };
 		16757DD31AF7891A00925C50 /* Bean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bean.swift; sourceTree = "<group>"; };
 		16757DD51AF7893A00925C50 /* Beans.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beans.swift; sourceTree = "<group>"; };
+		16757DD91AF83F0900925C50 /* PairingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairingsTableViewController.swift; sourceTree = "<group>"; };
+		16757DDB1AF8417800925C50 /* Pairings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pairings.swift; sourceTree = "<group>"; };
+		16757DDD1AF842F800925C50 /* Pairing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pairing.swift; sourceTree = "<group>"; };
+		16757DDF1AF84D3D00925C50 /* PairingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairingManager.swift; sourceTree = "<group>"; };
 		1683F0AC1ADBDAD80034C7CB /* OrderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewController.swift; sourceTree = "<group>"; };
 		1683F0AE1ADBDE4E0034C7CB /* OrderListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderListItem.swift; sourceTree = "<group>"; };
 		1683F0B01ADC80270034C7CB /* OrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
@@ -205,6 +213,8 @@
 		164BFDC41AC671E8003BF77B /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				16757DDD1AF842F800925C50 /* Pairing.swift */,
+				16757DDB1AF8417800925C50 /* Pairings.swift */,
 				16757DD31AF7891A00925C50 /* Bean.swift */,
 				16757DD51AF7893A00925C50 /* Beans.swift */,
 				16757DC31AF60F1200925C50 /* Nutrition.swift */,
@@ -350,6 +360,7 @@
 				16757DCB1AF70AAC00925C50 /* MakingCoffeePageContentViewController.swift */,
 				16757DCD1AF7166300925C50 /* MakingCoffeeTableViewController.swift */,
 				16757DCF1AF766EA00925C50 /* ProductsForSaleTableViewController.swift */,
+				16757DD91AF83F0900925C50 /* PairingsTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -370,6 +381,7 @@
 				16F6B0C81AECF39C007F7E51 /* OrderManager.swift */,
 				16757DC91AF6FAF100925C50 /* MakingCoffeeContentsManager.swift */,
 				16757DD11AF76AEA00925C50 /* ContentsManager.swift */,
+				16757DDF1AF84D3D00925C50 /* PairingManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -507,6 +519,7 @@
 				16E442CB1AD8EE7A003C3AA2 /* NewsTableViewCell.swift in Sources */,
 				16F21E421AD9F50A0052AD2A /* MenuSectionItem.swift in Sources */,
 				16F21E3F1AD9F1D20052AD2A /* MenuTableViewController.swift in Sources */,
+				16757DE01AF84D3D00925C50 /* PairingManager.swift in Sources */,
 				16F21E561ADA39AE0052AD2A /* FoodMenuListItem.swift in Sources */,
 				16C979D71ACD7E2400543120 /* SeminarsBaseTableViewController.swift in Sources */,
 				16AE143A1AC65A3700370062 /* SBUXWKWebViewController.swift in Sources */,
@@ -516,6 +529,7 @@
 				16F21E481ADA08430052AD2A /* Drink.swift in Sources */,
 				16F21E501ADA2FE20052AD2A /* MenuListItemTableViewCell.swift in Sources */,
 				16F21E5A1ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift in Sources */,
+				16757DDA1AF83F0900925C50 /* PairingsTableViewController.swift in Sources */,
 				16F21E4C1ADA0B930052AD2A /* Foods.swift in Sources */,
 				16F21E521ADA30A30052AD2A /* DrinkMenuListItemTableViewCell.swift in Sources */,
 				16060EBD1AF0D1AF0099379F /* OrdersTableViewController.swift in Sources */,
@@ -529,6 +543,7 @@
 				16216E951AEFB94400DB6C0B /* ProductIngredient.swift in Sources */,
 				164BFDE21ACFC9B9003BF77B /* DbContextBase.swift in Sources */,
 				16F21E4E1ADA2B7C0052AD2A /* DrinkMenuListItem.swift in Sources */,
+				16757DDC1AF8417800925C50 /* Pairings.swift in Sources */,
 				1683F0AD1ADBDAD80034C7CB /* OrderTableViewController.swift in Sources */,
 				16C979D91ACD8EC600543120 /* FilteredSeminarsTableViewController.swift in Sources */,
 				16AE14381AC2BF7A00370062 /* NewsTableViewController.swift in Sources */,
@@ -565,6 +580,7 @@
 				16060EB91AF046040099379F /* OrderDetails.swift in Sources */,
 				16757DC61AF6DF1600925C50 /* VisitsTableViewController.swift in Sources */,
 				16757DC81AF6F2F800925C50 /* MakingCoffeePageViewController.swift in Sources */,
+				16757DDE1AF842F800925C50 /* Pairing.swift in Sources */,
 				16060EBB1AF046EC0099379F /* ProductIngredients.swift in Sources */,
 				164BFDE71AD021E7003BF77B /* StoresTableViewCell.swift in Sources */,
 				16CAF78E1AE1E75B00318AE5 /* CustomItemsStaticTableViewController.swift in Sources */,

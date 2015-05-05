@@ -40,6 +40,10 @@ class DbContextBase: NSObject {
         return "all\(self.entityName())sFetchRequest"
     }
     
+    func templateNameFindById() -> String {
+        return "find\(self.entityName())ByIdFetchRequest"
+    }
+    
     func createEntity<T : NSManagedObject>() -> T {
         var context : NSManagedObjectContext = DbContextBase.getManagedObjectContext()
         let ent = NSEntityDescription.entityForName(self.entityName(), inManagedObjectContext: context)
@@ -136,20 +140,24 @@ class DbContextBase: NSObject {
         
         var results : [NSManagedObject] = []
         
-        if var fetchRequest = getFetchRequestTemplate(templateName, variables: variables, sortDescriptors: sortDescriptors, limit: limit){
+        //getManagedObjectContext().performBlockAndWait({
             
-            if let fetchResults = getManagedObjectContext().executeFetchRequest(fetchRequest, error: nil) {
-                results = fetchResults as! [NSManagedObject]
+            if var fetchRequest = DbContextBase.getFetchRequestTemplate(templateName, variables: variables, sortDescriptors: sortDescriptors, limit: limit){
+                
+                if let fetchResults = DbContextBase.getManagedObjectContext().executeFetchRequest(fetchRequest, error: nil) {
+                    results = fetchResults as! [NSManagedObject]
+                }
             }
-        }
+            
+        //})
         
         return results
     }
     
-    class func findById<TResultEntity : NSManagedObject>(id : String) -> TResultEntity? {
+    func findById<TResultEntity : NSManagedObject>(id : Int) -> TResultEntity? {
         
         var entity : TResultEntity? = nil
-        if var results = DbContextBase.findByFetchRequestTemplate("IdFetchRequest", variables: ["id" : id], sortDescriptors: nil, limit: 0) as? [TResultEntity] {
+        if var results = DbContextBase.findByFetchRequestTemplate(self.templateNameFindById(), variables: ["id" : id], sortDescriptors: nil, limit: 0) as? [TResultEntity] {
             if results.count > 0{
                 entity = results[0]
             }
