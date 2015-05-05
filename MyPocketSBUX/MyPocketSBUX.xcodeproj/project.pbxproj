@@ -44,6 +44,8 @@
 		16757DDC1AF8417800925C50 /* Pairings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DDB1AF8417800925C50 /* Pairings.swift */; };
 		16757DDE1AF842F800925C50 /* Pairing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DDD1AF842F800925C50 /* Pairing.swift */; };
 		16757DE01AF84D3D00925C50 /* PairingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DDF1AF84D3D00925C50 /* PairingManager.swift */; };
+		16757DE21AF888AE00925C50 /* OfficialContentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DE11AF888AE00925C50 /* OfficialContentsTableViewController.swift */; };
+		16757DE41AF88C5100925C50 /* BaseWKWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DE31AF88C5100925C50 /* BaseWKWebViewController.swift */; };
 		1683F0AD1ADBDAD80034C7CB /* OrderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0AC1ADBDAD80034C7CB /* OrderTableViewController.swift */; };
 		1683F0AF1ADBDE4E0034C7CB /* OrderListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0AE1ADBDE4E0034C7CB /* OrderListItem.swift */; };
 		1683F0B11ADC80270034C7CB /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0B01ADC80270034C7CB /* OrderTableViewCell.swift */; };
@@ -140,6 +142,8 @@
 		16757DDB1AF8417800925C50 /* Pairings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pairings.swift; sourceTree = "<group>"; };
 		16757DDD1AF842F800925C50 /* Pairing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pairing.swift; sourceTree = "<group>"; };
 		16757DDF1AF84D3D00925C50 /* PairingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairingManager.swift; sourceTree = "<group>"; };
+		16757DE11AF888AE00925C50 /* OfficialContentsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfficialContentsTableViewController.swift; sourceTree = "<group>"; };
+		16757DE31AF88C5100925C50 /* BaseWKWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseWKWebViewController.swift; sourceTree = "<group>"; };
 		1683F0AC1ADBDAD80034C7CB /* OrderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewController.swift; sourceTree = "<group>"; };
 		1683F0AE1ADBDE4E0034C7CB /* OrderListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderListItem.swift; sourceTree = "<group>"; };
 		1683F0B01ADC80270034C7CB /* OrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
@@ -361,6 +365,8 @@
 				16757DCD1AF7166300925C50 /* MakingCoffeeTableViewController.swift */,
 				16757DCF1AF766EA00925C50 /* ProductsForSaleTableViewController.swift */,
 				16757DD91AF83F0900925C50 /* PairingsTableViewController.swift */,
+				16757DE11AF888AE00925C50 /* OfficialContentsTableViewController.swift */,
+				16757DE31AF88C5100925C50 /* BaseWKWebViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -531,6 +537,7 @@
 				16F21E5A1ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift in Sources */,
 				16757DDA1AF83F0900925C50 /* PairingsTableViewController.swift in Sources */,
 				16F21E4C1ADA0B930052AD2A /* Foods.swift in Sources */,
+				16757DE21AF888AE00925C50 /* OfficialContentsTableViewController.swift in Sources */,
 				16F21E521ADA30A30052AD2A /* DrinkMenuListItemTableViewCell.swift in Sources */,
 				16060EBD1AF0D1AF0099379F /* OrdersTableViewController.swift in Sources */,
 				16C979E01AD2C88F00543120 /* LocationContext.swift in Sources */,
@@ -559,6 +566,7 @@
 				16C979DB1AD1F13800543120 /* StoreMapViewController.swift in Sources */,
 				16F21E581ADA45360052AD2A /* FoodMenuListItemTableViewCell.swift in Sources */,
 				16757DBE1AF5E29400925C50 /* Order.swift in Sources */,
+				16757DE41AF88C5100925C50 /* BaseWKWebViewController.swift in Sources */,
 				16216E8F1AEEF5CB00DB6C0B /* OrderDetail.swift in Sources */,
 				16757DC21AF60DF200925C50 /* Nutritions.swift in Sources */,
 				164BFDE01ACFC8FC003BF77B /* Stores.swift in Sources */,
