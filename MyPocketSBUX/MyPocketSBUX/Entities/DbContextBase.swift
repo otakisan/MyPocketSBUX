@@ -50,16 +50,35 @@ class DbContextBase: NSObject {
         
         return T(entity: ent!, insertIntoManagedObjectContext: nil)
     }
+    
+    class func registerEntity(entity : NSManagedObject) -> Bool {
+        var inserted = false
+        if DbContextBase.getManagedObjectContext().objectRegisteredForID(entity.objectID) == nil {
+            DbContextBase.getManagedObjectContext().insertObject(entity)
+            inserted = true
+        }
+        
+        return inserted
+    }
 
     class func insertEntity(entity : NSManagedObject) {
         
         getManagedObjectContext().performBlockAndWait({
-            if DbContextBase.getManagedObjectContext().objectRegisteredForID(entity.objectID) == nil {
-                DbContextBase.getManagedObjectContext().insertObject(entity)
-            }
-            
+            DbContextBase.registerEntity(entity)
             DbContextBase.getManagedObjectContext().save(nil)
         })
+    }
+    
+    func insertEntity<TEntity: NSManagedObject>(attributeValues : [String:AnyObject?]) {
+        
+        var entity = self.createEntity()
+        DbContextBase.registerEntity(entity)
+        
+        for (key, value) in attributeValues {
+            entity.setValue(value, forKey: key)
+        }
+        
+        DbContextBase.insertEntity(entity)
     }
     
     func insertEntityFromJsonObject(jsonObject : NSArray){

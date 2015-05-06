@@ -26,6 +26,8 @@ class ContentsManager: NSObject {
     }
     
     func getDbContext(entityName : String) -> DbContextBase {
+        // TODO: ウェブリソース名(Rails)とCoreDataでのエンティティ名を区別する必要あり
+        // エンティティ名はクラス名、ウェブリソースはその名称にしたほうがいいかもしれない
         var dbContext : DbContextBase?
         if entityName == MenuSectionItem.ProductCategory.drink {
             dbContext = Drinks.instance()
@@ -38,6 +40,9 @@ class ContentsManager: NSObject {
         }
         else if entityName == "pairing" {
             dbContext = Pairings.instance()
+        }
+        else if entityName == "tasting_logs" {
+            dbContext = TastingLogs.instance()
         }
         else {
             fatalError("invalid entityName : \(entityName)")
