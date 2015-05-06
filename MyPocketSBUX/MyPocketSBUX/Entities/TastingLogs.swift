@@ -26,7 +26,6 @@ class TastingLogs: DbContextBase {
             entity.id = (newData["id"] as? NSNumber) ?? 0
             entity.title = ((newData["title"] as? NSString) ?? "") as String
             entity.tastingAt = (newData["tasting_at"] as? NSDate) ?? NSDate(timeIntervalSince1970: 0)
-            entity.storeId = (newData["store_id"] as? NSNumber) ?? 0
             entity.detail = ((newData["detail"] as? NSString) ?? "") as String
             entity.createdAt = (newData["created_at"] as? NSDate) ?? NSDate(timeIntervalSince1970: 0)
             entity.updatedAt = (newData["updated_at"] as? NSDate) ?? NSDate(timeIntervalSince1970: 0)
@@ -34,7 +33,7 @@ class TastingLogs: DbContextBase {
             // 先に登録して、ManagedObjectContext配下に置かないとリレーション設定の際にエラーになる
             // （不正なコンテキスト、というエラー）
             TastingLogs.registerEntity(entity)
-            if let store : Store = Stores.instance().findById(Int(entity.storeId)) {
+            if let store : Store = Stores.instance().findById(Int((newData["store_id"] as? NSNumber) ?? 0)) {
                 entity.store = store
             }
             

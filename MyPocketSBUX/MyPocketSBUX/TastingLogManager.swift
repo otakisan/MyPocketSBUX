@@ -23,7 +23,6 @@ class TastingLogManager: NSObject {
         tastingLog.title = ""
         tastingLog.tag = ""
         tastingLog.tastingAt = DateUtility.minimumDate()
-        tastingLog.storeId = 0
         tastingLog.detail = ""
         tastingLog.createdAt = DateUtility.minimumDate()
         tastingLog.updatedAt = DateUtility.minimumDate()

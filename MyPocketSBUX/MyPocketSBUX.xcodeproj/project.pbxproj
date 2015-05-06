@@ -28,6 +28,7 @@
 		164BFDE71AD021E7003BF77B /* StoresTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDE51AD021E7003BF77B /* StoresTableViewCell.swift */; };
 		164BFDE81AD021E7003BF77B /* StoresTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 164BFDE61AD021E7003BF77B /* StoresTableViewCell.xib */; };
 		164BFDEA1AD02F8F003BF77B /* StoreDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDE91AD02F8F003BF77B /* StoreDetailTableViewController.swift */; };
+		165F3F7E1AFA26AF00BCF1BB /* TastingLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165F3F7D1AFA26AF00BCF1BB /* TastingLog.swift */; };
 		16757DBE1AF5E29400925C50 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DBD1AF5E29400925C50 /* Order.swift */; };
 		16757DC21AF60DF200925C50 /* Nutritions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DC11AF60DF200925C50 /* Nutritions.swift */; };
 		16757DC41AF60F1200925C50 /* Nutrition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DC31AF60F1200925C50 /* Nutrition.swift */; };
@@ -47,7 +48,6 @@
 		16757DE21AF888AE00925C50 /* OfficialContentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DE11AF888AE00925C50 /* OfficialContentsTableViewController.swift */; };
 		16757DE41AF88C5100925C50 /* BaseWKWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DE31AF88C5100925C50 /* BaseWKWebViewController.swift */; };
 		16757DE61AF8D54F00925C50 /* TastingLogsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DE51AF8D54F00925C50 /* TastingLogsTableViewController.swift */; };
-		16757DE81AF8E44A00925C50 /* TastingLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DE71AF8E44A00925C50 /* TastingLog.swift */; };
 		16757DEA1AF8E70100925C50 /* TastingLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DE91AF8E70100925C50 /* TastingLogs.swift */; };
 		16757DEC1AF8F28700925C50 /* TastingLogEditorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DEB1AF8F28700925C50 /* TastingLogEditorTableViewController.swift */; };
 		16757DEE1AF97CCE00925C50 /* TastingLogEditorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DED1AF97CCE00925C50 /* TastingLogEditorTableViewCell.swift */; };
@@ -134,6 +134,7 @@
 		164BFDE51AD021E7003BF77B /* StoresTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoresTableViewCell.swift; sourceTree = "<group>"; };
 		164BFDE61AD021E7003BF77B /* StoresTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoresTableViewCell.xib; sourceTree = "<group>"; };
 		164BFDE91AD02F8F003BF77B /* StoreDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreDetailTableViewController.swift; sourceTree = "<group>"; };
+		165F3F7D1AFA26AF00BCF1BB /* TastingLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TastingLog.swift; sourceTree = "<group>"; };
 		16757DBD1AF5E29400925C50 /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		16757DC11AF60DF200925C50 /* Nutritions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nutritions.swift; sourceTree = "<group>"; };
 		16757DC31AF60F1200925C50 /* Nutrition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nutrition.swift; sourceTree = "<group>"; };
@@ -153,7 +154,6 @@
 		16757DE11AF888AE00925C50 /* OfficialContentsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfficialContentsTableViewController.swift; sourceTree = "<group>"; };
 		16757DE31AF88C5100925C50 /* BaseWKWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseWKWebViewController.swift; sourceTree = "<group>"; };
 		16757DE51AF8D54F00925C50 /* TastingLogsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TastingLogsTableViewController.swift; sourceTree = "<group>"; };
-		16757DE71AF8E44A00925C50 /* TastingLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TastingLog.swift; sourceTree = "<group>"; };
 		16757DE91AF8E70100925C50 /* TastingLogs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TastingLogs.swift; sourceTree = "<group>"; };
 		16757DEB1AF8F28700925C50 /* TastingLogEditorTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TastingLogEditorTableViewController.swift; sourceTree = "<group>"; };
 		16757DED1AF97CCE00925C50 /* TastingLogEditorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TastingLogEditorTableViewCell.swift; sourceTree = "<group>"; };
@@ -233,7 +233,7 @@
 		164BFDC41AC671E8003BF77B /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				16757DE71AF8E44A00925C50 /* TastingLog.swift */,
+				165F3F7D1AFA26AF00BCF1BB /* TastingLog.swift */,
 				16757DE91AF8E70100925C50 /* TastingLogs.swift */,
 				16757DDD1AF842F800925C50 /* Pairing.swift */,
 				16757DDB1AF8417800925C50 /* Pairings.swift */,
@@ -580,10 +580,10 @@
 				16757DDC1AF8417800925C50 /* Pairings.swift in Sources */,
 				1683F0AD1ADBDAD80034C7CB /* OrderTableViewController.swift in Sources */,
 				16757DEC1AF8F28700925C50 /* TastingLogEditorTableViewController.swift in Sources */,
+				165F3F7E1AFA26AF00BCF1BB /* TastingLog.swift in Sources */,
 				16C979D91ACD8EC600543120 /* FilteredSeminarsTableViewController.swift in Sources */,
 				16AE14381AC2BF7A00370062 /* NewsTableViewController.swift in Sources */,
 				16757DD41AF7891A00925C50 /* Bean.swift in Sources */,
-				16757DE81AF8E44A00925C50 /* TastingLog.swift in Sources */,
 				16757DD21AF76AEA00925C50 /* ContentsManager.swift in Sources */,
 				164BFDD81ACFADEC003BF77B /* FilteredStoresTableViewController.swift in Sources */,
 				16D3B36C1AF9F19E00F5E67B /* TextViewController.swift in Sources */,
