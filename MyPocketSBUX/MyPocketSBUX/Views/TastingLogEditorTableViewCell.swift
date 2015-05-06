@@ -181,6 +181,7 @@ class StoreTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, Stores
         if detailView != nil {
             detailView!.delegate = self
             detailView!.selectBySwipe = true
+            detailView!.needToAddCancelButton = true
         }
         
         return detailView

@@ -37,6 +37,8 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
     var restoredState = SearchControllerRestorableState()
     var activityIndicatorView : UIActivityIndicatorView?
     
+    var needToAddCancelButton = false
+    
     func showActivityIndicator() {
         
         if self.activityIndicatorView == nil {
@@ -219,6 +221,8 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         // presentation semantics apply. Namely that presentation will walk up the view controller
         // hierarchy until it finds the root view controller or one that defines a presentation context.
         self.definesPresentationContext = true
+        
+        self.addCancelButtonIfNeeded()
     }
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
@@ -528,6 +532,21 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
     override func closeView(){
         self.navigationController?.popViewControllerAnimated(true)
     }
+    
+    func addCancelButtonIfNeeded(){
+        if let rootVc = self.navigationController?.viewControllers.first as? UIViewController {
+            if self.needToAddCancelButton && rootVc == self {
+                
+                self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "didRuntimeCancelButton:")
+            }
+        }
+    }
+    
+    func didRuntimeCancelButton(sender: UIBarButtonItem){
+        self.searchController.active = false
+        self.dismissViewControllerAnimated(true, completion: {})
+    }
+
 }
 
 protocol StoresTableViewDelegate {
