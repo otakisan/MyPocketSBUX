@@ -29,6 +29,9 @@
 		164BFDE81AD021E7003BF77B /* StoresTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 164BFDE61AD021E7003BF77B /* StoresTableViewCell.xib */; };
 		164BFDEA1AD02F8F003BF77B /* StoreDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDE91AD02F8F003BF77B /* StoreDetailTableViewController.swift */; };
 		165F3F7E1AFA26AF00BCF1BB /* TastingLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165F3F7D1AFA26AF00BCF1BB /* TastingLog.swift */; };
+		165F3F801AFA2D2800BCF1BB /* RecommendationParametersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165F3F7F1AFA2D2800BCF1BB /* RecommendationParametersViewController.swift */; };
+		165F3F821AFA306E00BCF1BB /* RecommendationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165F3F811AFA306E00BCF1BB /* RecommendationsTableViewController.swift */; };
+		165F3F841AFA32E700BCF1BB /* Recommender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165F3F831AFA32E700BCF1BB /* Recommender.swift */; };
 		16757DBE1AF5E29400925C50 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DBD1AF5E29400925C50 /* Order.swift */; };
 		16757DC21AF60DF200925C50 /* Nutritions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DC11AF60DF200925C50 /* Nutritions.swift */; };
 		16757DC41AF60F1200925C50 /* Nutrition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DC31AF60F1200925C50 /* Nutrition.swift */; };
@@ -135,6 +138,9 @@
 		164BFDE61AD021E7003BF77B /* StoresTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoresTableViewCell.xib; sourceTree = "<group>"; };
 		164BFDE91AD02F8F003BF77B /* StoreDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreDetailTableViewController.swift; sourceTree = "<group>"; };
 		165F3F7D1AFA26AF00BCF1BB /* TastingLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TastingLog.swift; sourceTree = "<group>"; };
+		165F3F7F1AFA2D2800BCF1BB /* RecommendationParametersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendationParametersViewController.swift; sourceTree = "<group>"; };
+		165F3F811AFA306E00BCF1BB /* RecommendationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendationsTableViewController.swift; sourceTree = "<group>"; };
+		165F3F831AFA32E700BCF1BB /* Recommender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recommender.swift; sourceTree = "<group>"; };
 		16757DBD1AF5E29400925C50 /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		16757DC11AF60DF200925C50 /* Nutritions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nutritions.swift; sourceTree = "<group>"; };
 		16757DC31AF60F1200925C50 /* Nutrition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nutrition.swift; sourceTree = "<group>"; };
@@ -390,6 +396,8 @@
 				16757DEB1AF8F28700925C50 /* TastingLogEditorTableViewController.swift */,
 				16D3B3671AF996AF00F5E67B /* DatePickerViewController.swift */,
 				16D3B36B1AF9F19E00F5E67B /* TextViewController.swift */,
+				165F3F7F1AFA2D2800BCF1BB /* RecommendationParametersViewController.swift */,
+				165F3F811AFA306E00BCF1BB /* RecommendationsTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -412,6 +420,7 @@
 				16757DD11AF76AEA00925C50 /* ContentsManager.swift */,
 				16757DDF1AF84D3D00925C50 /* PairingManager.swift */,
 				16D3B3691AF9A0F600F5E67B /* TastingLogManager.swift */,
+				165F3F831AFA32E700BCF1BB /* Recommender.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -562,6 +571,7 @@
 				16F21E5A1ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift in Sources */,
 				16757DDA1AF83F0900925C50 /* PairingsTableViewController.swift in Sources */,
 				16F21E4C1ADA0B930052AD2A /* Foods.swift in Sources */,
+				165F3F841AFA32E700BCF1BB /* Recommender.swift in Sources */,
 				16757DE21AF888AE00925C50 /* OfficialContentsTableViewController.swift in Sources */,
 				16757DEE1AF97CCE00925C50 /* TastingLogEditorTableViewCell.swift in Sources */,
 				16D3B36A1AF9A0F600F5E67B /* TastingLogManager.swift in Sources */,
@@ -578,6 +588,7 @@
 				164BFDE21ACFC9B9003BF77B /* DbContextBase.swift in Sources */,
 				16F21E4E1ADA2B7C0052AD2A /* DrinkMenuListItem.swift in Sources */,
 				16757DDC1AF8417800925C50 /* Pairings.swift in Sources */,
+				165F3F801AFA2D2800BCF1BB /* RecommendationParametersViewController.swift in Sources */,
 				1683F0AD1ADBDAD80034C7CB /* OrderTableViewController.swift in Sources */,
 				16757DEC1AF8F28700925C50 /* TastingLogEditorTableViewController.swift in Sources */,
 				165F3F7E1AFA26AF00BCF1BB /* TastingLog.swift in Sources */,
@@ -610,6 +621,7 @@
 				16CAF7961AE3757300318AE5 /* CustomizingOrderTableViewCell.swift in Sources */,
 				164BFDCB1AC67D9C003BF77B /* DateUtility.swift in Sources */,
 				16757DD61AF7893A00925C50 /* Beans.swift in Sources */,
+				165F3F821AFA306E00BCF1BB /* RecommendationsTableViewController.swift in Sources */,
 				16060EB71AF0456E0099379F /* Orders.swift in Sources */,
 				1683F0B11ADC80270034C7CB /* OrderTableViewCell.swift in Sources */,
 				16757DC41AF60F1200925C50 /* Nutrition.swift in Sources */,
