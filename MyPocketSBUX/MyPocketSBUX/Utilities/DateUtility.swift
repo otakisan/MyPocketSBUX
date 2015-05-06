@@ -90,5 +90,8 @@ class DateUtility: NSObject {
         
         return dateStringSrc
     }
-   
+    
+    class func minimumDate() -> NSDate {
+        return NSDate(timeIntervalSince1970: 0)
+    }
 }

@@ -136,6 +136,17 @@
         <attribute name="storeId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
     </entity>
+    <entity name="TastingLog" representedClassName="MyPocketSBUX.TastingLog" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="detail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="storeId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="tag" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tastingAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="store" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Store" syncable="YES"/>
+    </entity>
     <fetchRequest name="allBeansFetchRequest" entity="Bean"/>
     <fetchRequest name="allDrinksFetchRequest" entity="Drink"/>
     <fetchRequest name="allFoodsFetchRequest" entity="Food"/>
@@ -146,6 +157,7 @@
     <fetchRequest name="allPressReleasesFetchRequest" entity="PressRelease"/>
     <fetchRequest name="allProductIngredientsFetchRequest" entity="ProductIngredient"/>
     <fetchRequest name="allStoresFetchRequest" entity="Store"/>
+    <fetchRequest name="allTastingLogsFetchRequest" entity="TastingLog"/>
     <fetchRequest name="findBeanByIdFetchRequest" entity="Bean" predicateString="$id == id"/>
     <fetchRequest name="findBeanByJanCodeFetchRequest" entity="Bean" predicateString="janCode == $janCode"/>
     <fetchRequest name="findDrinkByJanCodeFetchRequest" entity="Drink" predicateString="janCode == $janCode"/>
@@ -157,15 +169,16 @@
     <fetchRequest name="findStoreByStoreIdFetchRequest" entity="Store" predicateString="storeId == $storeId"/>
     <fetchRequest name="orderDetailsWithOrderIdFetchRequest" entity="OrderDetail" predicateString="orderId == $orderId"/>
     <elements>
+        <element name="Bean" positionX="124" positionY="-15" width="128" height="285"/>
         <element name="Drink" positionX="-54" positionY="135" width="128" height="225"/>
         <element name="Food" positionX="-45" positionY="144" width="128" height="195"/>
+        <element name="Nutrition" positionX="-45" positionY="135" width="128" height="165"/>
         <element name="Order" positionX="-54" positionY="135" width="128" height="165"/>
         <element name="OrderDetail" positionX="-45" positionY="144" width="128" height="270"/>
+        <element name="Pairing" positionX="286" positionY="99" width="128" height="148"/>
         <element name="PressRelease" positionX="-63" positionY="-18" width="128" height="150"/>
         <element name="ProductIngredient" positionX="-36" positionY="153" width="128" height="255"/>
         <element name="Store" positionX="-54" positionY="36" width="128" height="328"/>
-        <element name="Nutrition" positionX="-45" positionY="135" width="128" height="165"/>
-        <element name="Bean" positionX="124" positionY="-15" width="128" height="285"/>
-        <element name="Pairing" positionX="286" positionY="99" width="128" height="148"/>
+        <element name="TastingLog" positionX="135" positionY="162" width="128" height="180"/>
     </elements>
 </model>
