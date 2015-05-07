@@ -393,5 +393,11 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
             
             orderViewController.orderItems = orders
         }
+        else if var productDetailViewController = segue.destinationViewController as? ProductDetailTableViewController {
+            
+            if let indexPath = self.tableView.indexPathForSelectedRow() {
+                productDetailViewController.product = self.menuDisplayItemList[indexPath.section].listItems[indexPath.row].productEntity as? NSObject
+            }
+        }
     }
 }

@@ -9,33 +9,19 @@
 import UIKit
 
 class ProductDetailTableViewController: UITableViewController {
+    
+    var product: NSObject?
+    var productPropertyNames: [String] = []
+    var nutritions: [Nutrition] = []
 
-    func initializeStoreData(){
+    func initialize(){
+        // 不要なもの（id等）もあり、結局指定する必要がある
+        // 栄養情報も必要
+        // 季節限定ものは期間も表示する
+        //self.productPropertyNames = (product?.propertyNames()) ?? []
+        self.productPropertyNames = ["name", "price", "notification", "notes", "special"]
         
-        // ローカルDBにデータが存在するかどうかチェックしなければ、取得
-        // 存在すれば、DBから取得して、一覧表示へ
-        
-        
-        
-        //self.showActivityIndicator()
-        
-//        self.updateStoreLocalDb({
-//            (data, resp, err) in
-//            
-//            if var newsData = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray {
-//                
-//                self.insertNewStoreToLocal(newsData)
-//            }
-//            
-//            // ローカルDBのキャッシュデータを取得
-//            self.storeEntities = self.getAllStoreFromLocal()
-//            self.dispatch_async_serial { self.refreshAnnotations() }
-//            self.storesData = self.convertGroupedArray(self.storeEntities)
-//            
-//            //self.stopActivityIndicator()
-//            self.reloadData()
-//            //println(NSString(data: data, encoding:NSUTF8StringEncoding))
-//        })
+        self.nutritions = Nutritions.findByJanCode(self.product?.valueForKey("janCode") as? String ?? "", orderKeys: [])
     }
 
     override func viewDidLoad() {
@@ -46,6 +32,8 @@ class ProductDetailTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        self.initialize()
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,24 +46,39 @@ class ProductDetailTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 0
+        return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 0
+        return section == 0 ? self.productPropertyNames.count : self.nutritions.count
     }
 
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("defaultProductDetailTableViewCell", forIndexPath: indexPath) as! UITableViewCell
 
-        // Configure the cell...
+        // TODO: ひとまず決め打ちで
+        if indexPath.section == 0 {
+            if let propValue : AnyObject = self.product?.valueForKey(self.productPropertyNames[indexPath.row]) {
+//                cell.textLabel?.text = self.productPropertyNames[indexPath.row]
+//                cell.detailTextLabel?.text = "\(propValue)"
+                
+                cell.textLabel?.text = "\(propValue)"
+                cell.detailTextLabel?.text = ""
+            }
+        }else if indexPath.section == 1 {
+            let na = "na"
+            cell.textLabel?.text = "\(self.nutritions[indexPath.row].liquidTemperature.emptyIfNa()) \(self.nutritions[indexPath.row].size.emptyIfNa()) \(self.nutritions[indexPath.row].milk.emptyIfNa())"
+            cell.detailTextLabel?.text = "\(self.nutritions[indexPath.row].calorie)"
+        }
 
         return cell
     }
-    */
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return section == 0 ? "Product" : "Nutrition Facts (Calories)"
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -122,4 +125,41 @@ class ProductDetailTableViewController: UITableViewController {
     }
     */
 
+}
+
+//import Foundation
+
+extension NSObject {
+    
+    //
+    // Retrieves an array of property names found on the current object
+    // using Objective-C runtime functions for introspection:
+    // https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtPropertyIntrospection.html
+    //
+    func propertyNames() -> [String] {
+        var results: [String] = [];
+        
+        // retrieve the properties via the class_copyPropertyList function
+        var count: UInt32 = 0;
+        var myClass: AnyClass = self.classForCoder;
+        var properties = class_copyPropertyList(myClass, &count);
+        
+        // iterate each objc_property_t struct
+        for var i: UInt32 = 0; i < count; i++ {
+            var property = properties[Int(i)];
+            
+            // retrieve the property name by calling property_getName function
+            var cname = property_getName(property);
+            
+            // covert the c string into a Swift string
+            var name = String.fromCString(cname);
+            results.append(name!);
+        }
+        
+        // release objc_property_t structs
+        free(properties);
+        
+        return results;
+    }
+    
 }

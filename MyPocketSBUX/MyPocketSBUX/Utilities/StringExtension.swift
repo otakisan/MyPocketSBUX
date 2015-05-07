@@ -42,4 +42,8 @@ extension String {
         
         return resultPrefecture
     }
+    
+    func emptyIfNa() -> String {
+        return self == "na" ? "" : self
+    }
 }

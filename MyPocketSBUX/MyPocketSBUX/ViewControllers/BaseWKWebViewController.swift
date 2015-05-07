@@ -15,6 +15,7 @@ class BaseWKWebViewController: UIViewController, WKNavigationDelegate {
     
     var baseURL = ""
     var relativePath = ""
+    var absoluteURL = ""
     
     var webkitview : WKWebView = WKWebView()
     var activityIndicatorView : UIActivityIndicatorView?
@@ -41,12 +42,16 @@ class BaseWKWebViewController: UIViewController, WKNavigationDelegate {
     }
     */
     
+    func urlString() -> String {
+        return self.absoluteURL == "" ? "http://\(self.baseURL)/\(self.relativePath)" : self.absoluteURL
+    }
+    
     func initializeWebView(){
         self.webkitview.frame = CGRectMake(0, 0/*60 上に余白が欲しいとき*/, deviceBound.size.width, deviceBound.size.height - 60)
         self.view.addSubview(self.webkitview)
         self.webkitview.navigationDelegate = self
         
-        if var url = NSURL(string:"http://\(self.baseURL)/\(self.relativePath)"){
+        if var url = NSURL(string:self.urlString()){
             self.showActivityIndicator()
             var req = NSURLRequest(URL:url)
             self.webkitview.loadRequest(req)
