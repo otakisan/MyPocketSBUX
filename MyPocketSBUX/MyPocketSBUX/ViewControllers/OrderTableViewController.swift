@@ -28,6 +28,9 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
         else if orderListItem.productEntity is Food {
             identifier = "foodOrderListItemCell"
         }
+        else if orderListItem.productEntity is Bean {
+            identifier = "beanOrderListItemCell"
+        }
         else{
             fatalError("unknown product type")
         }

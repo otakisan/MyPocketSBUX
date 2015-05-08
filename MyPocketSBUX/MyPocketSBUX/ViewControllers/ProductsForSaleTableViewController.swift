@@ -9,9 +9,9 @@
 import UIKit
 import CoreData
 
-class ProductsForSaleTableViewController: UITableViewController {
+class ProductsForSaleTableViewController: UITableViewController, ProductsForSaleTableViewCellDelegate {
     
-    var productsForSale : [(entityName: String, entities: [NSManagedObject])] = []
+    var productsForSaleItems : [(category: String, listItems: [ProductsForSaleListItem])] = []
 
     
     override func viewDidLoad() {
@@ -22,8 +22,21 @@ class ProductsForSaleTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
         ContentsManager.instance.fetchContents(["bean"], orderKeys: [(columnName : "category", ascending : true), (columnName : "name", ascending : true)], completionHandler: { fetchResults in
-            self.productsForSale = fetchResults
+            self.productsForSaleItems = fetchResults.map {
+                var listItems : [ProductsForSaleListItem] = []
+                for entity in $0.entities {
+                    var listItem = ProductsForSaleListItem()
+                    listItem.productEntity = entity
+                    listItem.isOnOrderList = false
+                    
+                    listItems += [listItem]
+                }
+                
+                return ($0.entityName, listItems)
+            }
+            
             self.reloadData()
         })
     }
@@ -36,28 +49,24 @@ class ProductsForSaleTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        return self.productsForSale.count
+        return self.productsForSaleItems.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return self.productsForSale[section].entities.count
+        return self.productsForSaleItems[section].listItems.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("defaultProductsForSaleTableViewCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(self.cellId(indexPath), forIndexPath: indexPath) as! ProductsForSaleTableViewCell
 
-        // Configure the cell...
-        cell.textLabel?.text = self.productsForSale[indexPath.section].entities[indexPath.row].valueForKey("name") as? String ?? ""
+        cell.configure(self.productsForSaleItems[indexPath.section].listItems[indexPath.row])
+        cell.delegate = self
 
         return cell
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.productsForSale[section].entityName
+        return self.productsForSaleItems[section].category
     }
 
     /*
@@ -95,14 +104,55 @@ class ProductsForSaleTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        if var orderViewController = segue.destinationViewController as? OrderTableViewController {
+            
+            var selected : [OrderListItem] = []
+            for category in self.productsForSaleItems {
+                var orders = category.listItems.filter({$0.isOnOrderList}).map { (listItem : ProductsForSaleListItem) -> OrderListItem in
+                    var orderListItem = OrderListItem()
+                    orderListItem.productEntity = listItem.productEntity
+                    orderListItem.totalPrice = (orderListItem.productEntity?.valueForKey("price") as? NSNumber ?? NSNumber(integer: 0)).integerValue
+                    orderListItem.on = listItem.isOnOrderList
+                    return orderListItem
+                }
+                
+                selected += orders
+            }
+            
+            orderViewController.orderItems = selected
+        }
+        else if var productDetailViewController = segue.destinationViewController as? ProductDetailTableViewController {
+            if let indexPath = self.tableView.indexPathForSelectedRow() {
+            
+                productDetailViewController.product = self.productsForSaleItems[indexPath.section].listItems[indexPath.row].productEntity
+            }
+        }
+    
     }
-    */
-
+    
+    func cellId(indexPath: NSIndexPath) -> String {
+        var cellIdString = ""
+        let entity = self.productsForSaleItems[indexPath.section].listItems[indexPath.row].productEntity
+        if entity is Bean {
+            cellIdString = "beanProductsForSaleTableViewCell"
+        }
+        else {
+            cellIdString = "defaultProductsForSaleTableViewCell"
+        }
+        
+        return cellIdString
+    }
+    
+    func valueChangedOrderSwitch(cell : ProductsForSaleTableViewCell, on : Bool){
+        if let indexPath = self.tableView.indexPathForCell(cell) {
+            self.productsForSaleItems[indexPath.section].listItems[indexPath.row].isOnOrderList = on
+        }
+    }
 }

@@ -107,6 +107,9 @@ class OrderManager: NSObject {
         if product == nil {
             product = Foods.findByJanCode(janCode)
         }
+        if product == nil {
+            product = Beans.findByJanCode(janCode, orderKeys: []).first
+        }
         
         return product
     }

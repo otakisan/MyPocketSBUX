@@ -20,6 +20,8 @@ class Orders: DbContextBase {
     }
     
     class func sequenceNumber() -> Int {
-        return Int(Double(NSDate().timeIntervalSince1970) * 1.0e6)
+        // TODO: IDの採番
+        return Orders.instance().maxId() + 1
+        //return Int(Double(NSDate().timeIntervalSince1970) * 1.0e6)
     }
 }

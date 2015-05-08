@@ -20,7 +20,8 @@ class ProductIngredients: DbContextBase {
     }
     
     class func sequenceNumber() -> Int {
-        return Int(Double(NSDate().timeIntervalSince1970) * 1.0e6)
+        return ProductIngredients.instance().maxId() + 1
+        //return Int(Double(NSDate().timeIntervalSince1970) * 1.0e6)
     }
     
     class func findProductIngredientsByOrderIdAndOrderDetailIdFetchRequest(orderId : Int, orderDetailId : Int, orderKeys : [(columnName : String, ascending : Bool)]) -> [ProductIngredient] {

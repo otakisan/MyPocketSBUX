@@ -103,3 +103,24 @@ protocol NotesOrderTableViewCellDelegate : OrderHeaderTableViewCellDelegate {
     func textFieldShouldReturnNotesTextField(cell : NotesOrderTableViewCell, notes : String)
     func editingDidEndNotesTextField(cell : NotesOrderTableViewCell, notes : String)
 }
+
+class BeanOrderTableViewCell : OrderTableViewCell {
+    
+    @IBOutlet weak var orderSwitch: UISwitch!
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var productNameLabel: UILabel!
+    
+    
+    @IBAction override func valueChangedOrderSwitch(sender: UISwitch) {
+        super.valueChangedOrderSwitch(sender)
+    }
+    
+    override func configure(orderListItem : OrderListItem) {
+        super.configure(orderListItem)
+        
+        self.productNameLabel.text = orderListItem.productEntity?.valueForKey("name") as? String ?? ""
+        self.priceLabel.text = "¥\(self.orderListItem?.totalPrice ?? 0)"
+        self.orderSwitch.on = orderListItem.on
+    }
+}
+
