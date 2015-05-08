@@ -56,6 +56,8 @@
 		16757DEE1AF97CCE00925C50 /* TastingLogEditorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16757DED1AF97CCE00925C50 /* TastingLogEditorTableViewCell.swift */; };
 		1682F7CD1AFB449100FD630D /* TunesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1682F7CC1AFB449100FD630D /* TunesTableViewController.swift */; };
 		1682F7CF1AFB48CB00FD630D /* TuneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1682F7CE1AFB48CB00FD630D /* TuneManager.swift */; };
+		1682F7D11AFC386800FD630D /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1682F7D01AFC386800FD630D /* SettingsTableViewController.swift */; };
+		1682F7D31AFC3FBC00FD630D /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1682F7D21AFC3FBC00FD630D /* SettingsManager.swift */; };
 		1683F0AD1ADBDAD80034C7CB /* OrderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0AC1ADBDAD80034C7CB /* OrderTableViewController.swift */; };
 		1683F0AF1ADBDE4E0034C7CB /* OrderListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0AE1ADBDE4E0034C7CB /* OrderListItem.swift */; };
 		1683F0B11ADC80270034C7CB /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0B01ADC80270034C7CB /* OrderTableViewCell.swift */; };
@@ -167,6 +169,8 @@
 		16757DED1AF97CCE00925C50 /* TastingLogEditorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TastingLogEditorTableViewCell.swift; sourceTree = "<group>"; };
 		1682F7CC1AFB449100FD630D /* TunesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TunesTableViewController.swift; sourceTree = "<group>"; };
 		1682F7CE1AFB48CB00FD630D /* TuneManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TuneManager.swift; sourceTree = "<group>"; };
+		1682F7D01AFC386800FD630D /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		1682F7D21AFC3FBC00FD630D /* SettingsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		1683F0AC1ADBDAD80034C7CB /* OrderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewController.swift; sourceTree = "<group>"; };
 		1683F0AE1ADBDE4E0034C7CB /* OrderListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderListItem.swift; sourceTree = "<group>"; };
 		1683F0B01ADC80270034C7CB /* OrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
@@ -403,6 +407,7 @@
 				165F3F7F1AFA2D2800BCF1BB /* RecommendationParametersViewController.swift */,
 				165F3F811AFA306E00BCF1BB /* RecommendationsTableViewController.swift */,
 				1682F7CC1AFB449100FD630D /* TunesTableViewController.swift */,
+				1682F7D01AFC386800FD630D /* SettingsTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -427,6 +432,7 @@
 				16D3B3691AF9A0F600F5E67B /* TastingLogManager.swift */,
 				165F3F831AFA32E700BCF1BB /* Recommender.swift */,
 				1682F7CE1AFB48CB00FD630D /* TuneManager.swift */,
+				1682F7D21AFC3FBC00FD630D /* SettingsManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -571,6 +577,7 @@
 				16C979D71ACD7E2400543120 /* SeminarsBaseTableViewController.swift in Sources */,
 				16AE143A1AC65A3700370062 /* SBUXWKWebViewController.swift in Sources */,
 				16B6005C1AE756E3000ECB7E /* CustomItemsTableViewController.swift in Sources */,
+				1682F7D11AFC386800FD630D /* SettingsTableViewController.swift in Sources */,
 				16C979D51ACA066A00543120 /* SeminarsTableViewController.swift in Sources */,
 				16F21E441AD9F7DA0052AD2A /* MenuListItem.swift in Sources */,
 				16F21E481ADA08430052AD2A /* Drink.swift in Sources */,
@@ -623,6 +630,7 @@
 				16AE14101ABD6B1A00370062 /* AppDelegate.swift in Sources */,
 				164BFDCD1AC67DF5003BF77B /* StringExtension.swift in Sources */,
 				16F21E541ADA34FE0052AD2A /* Drinks.swift in Sources */,
+				1682F7D31AFC3FBC00FD630D /* SettingsManager.swift in Sources */,
 				164BFDE41ACFEAC5003BF77B /* Store.swift in Sources */,
 				164BFDC81AC6735E003BF77B /* PressReleases.swift in Sources */,
 				16F6B0C91AECF39C007F7E51 /* OrderManager.swift in Sources */,

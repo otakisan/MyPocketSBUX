@@ -29,6 +29,16 @@ class TuneManager: NSObject {
         
         return av
     }
+    
+    func searchKeyword(tuneItem: TuneItem) -> String {
+        let separatorChars = ", "
+        let artistName = tuneItem.artistName.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: separatorChars))
+        let trackName = tuneItem.trackName.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: separatorChars))
+        
+        let keywords = (artistName + trackName)
+        
+        return join("+", keywords)
+    }
 }
 
 class TuneItem {

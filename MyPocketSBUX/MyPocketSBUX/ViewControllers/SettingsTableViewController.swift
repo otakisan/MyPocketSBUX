@@ -1,19 +1,23 @@
 //
-//  TunesTableViewController.swift
+//  SettingsTableViewController.swift
 //  MyPocketSBUX
 //
-//  Created by takashi on 2015/05/07.
+//  Created by takashi on 2015/05/08.
 //  Copyright (c) 2015年 Takashi Ikeda. All rights reserved.
 //
 
 import UIKit
-import AVFoundation
-import AVKit
 
-class TunesTableViewController: UITableViewController {
+class SettingsTableViewController: UITableViewController {
+
+    @IBOutlet weak var siteForPlayingTunesSegmentedControl: UISegmentedControl!
     
-    var tunes : [TuneItem] = []
-
+    @IBAction func valueChangedSitePlayingTunesSegment(sender: UISegmentedControl) {
+        if let selected = sender.titleForSegmentAtIndex(sender.selectedSegmentIndex) {
+            SettingsManager.instance.siteForPlayingTunes = selected
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,37 +27,46 @@ class TunesTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        self.intialize()
+        self.configureSettingsItems()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func configureSettingsItems() {
+        // TODO: 完全に動的に作成するのは必要になったら
+        // 外観は元のオブジェクトの情報を使用し、別途インスタンスを生成、addSubViewする必要あり
+        // イベントの取得も必要なため、addTargetも必要になる
+        for index in 0..<SettingsManager.Defs.SiteForPlayingTunes.codes.count {
+            self.siteForPlayingTunesSegmentedControl.setTitle(SettingsManager.Defs.SiteForPlayingTunes.codes[index], forSegmentAtIndex: index)
+        }
+    }
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // TODO:セクションは、月別かプロモ別か
-        return 1
-    }
+//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+//        // #warning Potentially incomplete method implementation.
+//        // Return the number of sections.
+//        return 0
+//    }
+//
+//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        // #warning Incomplete method implementation.
+//        // Return the number of rows in the section.
+//        return 0
+//    }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return self.tunes.count
-    }
-
+    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("defaultTunesTableViewCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
 
         // Configure the cell...
-        cell.textLabel?.text = self.tunes[indexPath.row].trackName
-        cell.detailTextLabel?.text = self.tunes[indexPath.row].artistName
-        
+
         return cell
     }
-    
+    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -89,39 +102,15 @@ class TunesTableViewController: UITableViewController {
         return true
     }
     */
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier(self.segueIdForPlayingTunes(), sender: self)
-    }
 
-    
+    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
-        if let indexPath = self.tableView.indexPathForSelectedRow() {
-            if var webViewVc = segue.destinationViewController as? BaseWKWebViewController {
-                // https://www.youtube.com/results?search_query=belle+and+sebastian+another+sunny+day
-                //webViewVc.absoluteURL = self.tunes[indexPath.row].previewUrl
-                webViewVc.absoluteURL = "https://www.youtube.com/results?search_query=\(TuneManager.instance.searchKeyword(self.tunes[indexPath.row]))"
-            }
-            else if var avPrayerViewVc = segue.destinationViewController as? AVPlayerViewController {
-                if let avPlayer = AVPlayer.playerWithURL(NSURL(string: self.tunes[indexPath.row].previewUrl)) as? AVPlayer {
-                    avPrayerViewVc.player = avPlayer
-                    //avPrayerViewVc.player.play()
-                }
-            }
-        }
     }
-    
-    func segueIdForPlayingTunes() -> String {
-        return SettingsManager.instance.siteForPlayingTunes == SettingsManager.Defs.SiteForPlayingTunes.iTunes ? "AVPlayerViewSegue" : "WebViewSegue"
-    }
+    */
 
-    func intialize() {
-        self.tunes = TuneManager.instance.tunes()
-    }
 }
-
