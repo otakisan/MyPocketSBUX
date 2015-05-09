@@ -62,6 +62,8 @@
 		1682F7D91AFC910300FD630D /* ProductsForSaleListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1682F7D81AFC910300FD630D /* ProductsForSaleListItem.swift */; };
 		1682F7DB1AFC9FD800FD630D /* BeansCardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1682F7DA1AFC9FD800FD630D /* BeansCardTableViewController.swift */; };
 		1682F7DD1AFCA05600FD630D /* BeansCardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1682F7DC1AFCA05600FD630D /* BeansCardManager.swift */; };
+		1682F7E11AFDD58600FD630D /* Tune.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1682F7E01AFDD58600FD630D /* Tune.swift */; };
+		1682F7E31AFDD5A200FD630D /* Tunes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1682F7E21AFDD5A200FD630D /* Tunes.swift */; };
 		1683F0AD1ADBDAD80034C7CB /* OrderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0AC1ADBDAD80034C7CB /* OrderTableViewController.swift */; };
 		1683F0AF1ADBDE4E0034C7CB /* OrderListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0AE1ADBDE4E0034C7CB /* OrderListItem.swift */; };
 		1683F0B11ADC80270034C7CB /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0B01ADC80270034C7CB /* OrderTableViewCell.swift */; };
@@ -179,6 +181,8 @@
 		1682F7D81AFC910300FD630D /* ProductsForSaleListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsForSaleListItem.swift; sourceTree = "<group>"; };
 		1682F7DA1AFC9FD800FD630D /* BeansCardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeansCardTableViewController.swift; sourceTree = "<group>"; };
 		1682F7DC1AFCA05600FD630D /* BeansCardManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeansCardManager.swift; sourceTree = "<group>"; };
+		1682F7E01AFDD58600FD630D /* Tune.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tune.swift; sourceTree = "<group>"; };
+		1682F7E21AFDD5A200FD630D /* Tunes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tunes.swift; sourceTree = "<group>"; };
 		1683F0AC1ADBDAD80034C7CB /* OrderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewController.swift; sourceTree = "<group>"; };
 		1683F0AE1ADBDE4E0034C7CB /* OrderListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderListItem.swift; sourceTree = "<group>"; };
 		1683F0B01ADC80270034C7CB /* OrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
@@ -255,6 +259,8 @@
 		164BFDC41AC671E8003BF77B /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				1682F7E01AFDD58600FD630D /* Tune.swift */,
+				1682F7E21AFDD5A200FD630D /* Tunes.swift */,
 				165F3F7D1AFA26AF00BCF1BB /* TastingLog.swift */,
 				16757DE91AF8E70100925C50 /* TastingLogs.swift */,
 				16757DDD1AF842F800925C50 /* Pairing.swift */,
@@ -621,6 +627,7 @@
 				165F3F801AFA2D2800BCF1BB /* RecommendationParametersViewController.swift in Sources */,
 				1683F0AD1ADBDAD80034C7CB /* OrderTableViewController.swift in Sources */,
 				16757DEC1AF8F28700925C50 /* TastingLogEditorTableViewController.swift in Sources */,
+				1682F7E11AFDD58600FD630D /* Tune.swift in Sources */,
 				165F3F7E1AFA26AF00BCF1BB /* TastingLog.swift in Sources */,
 				16C979D91ACD8EC600543120 /* FilteredSeminarsTableViewController.swift in Sources */,
 				16AE14381AC2BF7A00370062 /* NewsTableViewController.swift in Sources */,
@@ -660,6 +667,7 @@
 				164BFDEA1AD02F8F003BF77B /* StoreDetailTableViewController.swift in Sources */,
 				16AE14131ABD6B1A00370062 /* MyPocketSBUX.xcdatamodeld in Sources */,
 				16B6005F1AE79407000ECB7E /* IngredientManager.swift in Sources */,
+				1682F7E31AFDD5A200FD630D /* Tunes.swift in Sources */,
 				16060EB91AF046040099379F /* OrderDetails.swift in Sources */,
 				16757DC61AF6DF1600925C50 /* VisitsTableViewController.swift in Sources */,
 				16757DC81AF6F2F800925C50 /* MakingCoffeePageViewController.swift in Sources */,

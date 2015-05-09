@@ -43,7 +43,7 @@ class BaseWKWebViewController: UIViewController, WKNavigationDelegate {
     */
     
     func urlString() -> String {
-        return self.absoluteURL == "" ? "http://\(self.baseURL)/\(self.relativePath)" : self.absoluteURL
+        return (self.absoluteURL == "" ? "http://\(self.baseURL)/\(self.relativePath)" : self.absoluteURL).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
     }
     
     func initializeWebView(){

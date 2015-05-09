@@ -146,6 +146,42 @@
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="store" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Store" syncable="YES"/>
     </entity>
+    <entity name="Tune" representedClassName="MyPocketSBUX.Tune" syncable="YES">
+        <attribute name="artistId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="artistName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="artistViewUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="artworkUrl30" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="artworkUrl60" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="artworkUrl100" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="collectionCensoredName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="collectionExplicitness" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="collectionId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="collectionName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="collectionPrice" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="collectionViewUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="currency" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="discCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="discNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="kind" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="previewUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="primaryGenreName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="radioStationUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="releaseDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="trackCensoredName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trackCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="trackExplicitness" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trackId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trackName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trackNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="trackPrice" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="trackTimeMillis" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="trackViewUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="wrapperType" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <fetchRequest name="allBeansFetchRequest" entity="Bean"/>
     <fetchRequest name="allDrinksFetchRequest" entity="Drink"/>
     <fetchRequest name="allFoodsFetchRequest" entity="Food"/>
@@ -157,6 +193,7 @@
     <fetchRequest name="allProductIngredientsFetchRequest" entity="ProductIngredient"/>
     <fetchRequest name="allStoresFetchRequest" entity="Store"/>
     <fetchRequest name="allTastingLogsFetchRequest" entity="TastingLog"/>
+    <fetchRequest name="allTunesFetchRequest" entity="Tune"/>
     <fetchRequest name="findBeanByIdFetchRequest" entity="Bean" predicateString="$id == id"/>
     <fetchRequest name="findBeanByJanCodeFetchRequest" entity="Bean" predicateString="janCode == $janCode"/>
     <fetchRequest name="findDrinkByJanCodeFetchRequest" entity="Drink" predicateString="janCode == $janCode"/>
@@ -179,5 +216,6 @@
         <element name="ProductIngredient" positionX="-36" positionY="153" width="128" height="255"/>
         <element name="Store" positionX="-54" positionY="36" width="128" height="328"/>
         <element name="TastingLog" positionX="135" positionY="162" width="128" height="165"/>
+        <element name="Tune" positionX="108" positionY="135" width="128" height="555"/>
     </elements>
 </model>

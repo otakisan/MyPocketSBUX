@@ -48,8 +48,8 @@ class TunesTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("defaultTunesTableViewCell", forIndexPath: indexPath) as! UITableViewCell
 
         // Configure the cell...
-        cell.textLabel?.text = self.tunes[indexPath.row].trackName
-        cell.detailTextLabel?.text = self.tunes[indexPath.row].artistName
+        cell.textLabel?.text = self.tunes[indexPath.row].entity.trackName
+        cell.detailTextLabel?.text = self.tunes[indexPath.row].entity.artistName
         
         return cell
     }
@@ -106,9 +106,9 @@ class TunesTableViewController: UITableViewController {
                webViewVc.absoluteURL = "https://www.youtube.com/results?search_query=\(TuneManager.instance.searchKeyword(self.tunes[indexPath.row]))"
             }
             else if var avPrayerViewVc = segue.destinationViewController as? AVPlayerViewController {
-                if let avPlayer = AVPlayer.playerWithURL(NSURL(string: self.tunes[indexPath.row].previewUrl)) as? AVPlayer {
+                if let avPlayer = AVPlayer.playerWithURL(NSURL(string: self.tunes[indexPath.row].entity.previewUrl)) as? AVPlayer {
                     avPrayerViewVc.player = avPlayer
-                    //avPrayerViewVc.player.play()
+                    avPrayerViewVc.player.play()
                 }
             }
         }
@@ -119,7 +119,14 @@ class TunesTableViewController: UITableViewController {
     }
 
     func intialize() {
-        self.tunes = TuneManager.instance.tunes()
+        
+        ContentsManager.instance.fetchContents(["tune"], orderKeys: [(columnName : "id", ascending : true)], completionHandler: { fetchResults in
+            self.tunes = fetchResults.reduce([], combine: {
+                $0 + $1.entities.map( { entity in TuneItem(entity: entity as! Tune) } )
+            })
+            
+            self.reloadData()
+        })
     }
 }
 
