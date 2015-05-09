@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :tunes
+
   resources :press_releases
 
   resources :pairings

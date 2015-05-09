@@ -1,0 +1,67 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  wrapper_type: MyString
+  kind: MyString
+  artist_id: MyString
+  collection_id: MyString
+  track_id: MyString
+  artist_name: MyString
+  collection_name: MyString
+  track_name: MyString
+  collection_censored_name: MyString
+  track_censored_name: MyString
+  artist_view_url: MyString
+  collection_view_url: MyString
+  track_view_url: MyString
+  preview_url: MyString
+  artwork_url_30: MyString
+  artwork_url_60: MyString
+  artwork_url_100: MyString
+  collection_price: MyString
+  track_price: MyString
+  release_date: MyString
+  collection_explicitness: MyString
+  track_explicitness: MyString
+  disc_count: MyString
+  disc_number: MyString
+  track_count: MyString
+  track_number: MyString
+  track_time_millis: MyString
+  country: MyString
+  currency: MyString
+  primary_genre_name: MyString
+  radio_station_url: MyString
+
+two:
+  wrapper_type: MyString
+  kind: MyString
+  artist_id: MyString
+  collection_id: MyString
+  track_id: MyString
+  artist_name: MyString
+  collection_name: MyString
+  track_name: MyString
+  collection_censored_name: MyString
+  track_censored_name: MyString
+  artist_view_url: MyString
+  collection_view_url: MyString
+  track_view_url: MyString
+  preview_url: MyString
+  artwork_url_30: MyString
+  artwork_url_60: MyString
+  artwork_url_100: MyString
+  collection_price: MyString
+  track_price: MyString
+  release_date: MyString
+  collection_explicitness: MyString
+  track_explicitness: MyString
+  disc_count: MyString
+  disc_number: MyString
+  track_count: MyString
+  track_number: MyString
+  track_time_millis: MyString
+  country: MyString
+  currency: MyString
+  primary_genre_name: MyString
+  radio_station_url: MyString

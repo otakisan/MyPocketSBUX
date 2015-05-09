@@ -1,0 +1,141 @@
+<%= form_for(@tune) do |f| %>
+  <% if @tune.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tune.errors.count, "error") %> prohibited this tune from being saved:</h2>
+
+      <ul>
+      <% @tune.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :wrapper_type %><br>
+    <%= f.text_field :wrapper_type %>
+  </div>
+  <div class="field">
+    <%= f.label :kind %><br>
+    <%= f.text_field :kind %>
+  </div>
+  <div class="field">
+    <%= f.label :artist_id %><br>
+    <%= f.text_field :artist_id %>
+  </div>
+  <div class="field">
+    <%= f.label :collection_id %><br>
+    <%= f.text_field :collection_id %>
+  </div>
+  <div class="field">
+    <%= f.label :track_id %><br>
+    <%= f.text_field :track_id %>
+  </div>
+  <div class="field">
+    <%= f.label :artist_name %><br>
+    <%= f.text_field :artist_name %>
+  </div>
+  <div class="field">
+    <%= f.label :collection_name %><br>
+    <%= f.text_field :collection_name %>
+  </div>
+  <div class="field">
+    <%= f.label :track_name %><br>
+    <%= f.text_field :track_name %>
+  </div>
+  <div class="field">
+    <%= f.label :collection_censored_name %><br>
+    <%= f.text_field :collection_censored_name %>
+  </div>
+  <div class="field">
+    <%= f.label :track_censored_name %><br>
+    <%= f.text_field :track_censored_name %>
+  </div>
+  <div class="field">
+    <%= f.label :artist_view_url %><br>
+    <%= f.text_field :artist_view_url %>
+  </div>
+  <div class="field">
+    <%= f.label :collection_view_url %><br>
+    <%= f.text_field :collection_view_url %>
+  </div>
+  <div class="field">
+    <%= f.label :track_view_url %><br>
+    <%= f.text_field :track_view_url %>
+  </div>
+  <div class="field">
+    <%= f.label :preview_url %><br>
+    <%= f.text_field :preview_url %>
+  </div>
+  <div class="field">
+    <%= f.label :artwork_url_30 %><br>
+    <%= f.text_field :artwork_url_30 %>
+  </div>
+  <div class="field">
+    <%= f.label :artwork_url_60 %><br>
+    <%= f.text_field :artwork_url_60 %>
+  </div>
+  <div class="field">
+    <%= f.label :artwork_url_100 %><br>
+    <%= f.text_field :artwork_url_100 %>
+  </div>
+  <div class="field">
+    <%= f.label :collection_price %><br>
+    <%= f.text_field :collection_price %>
+  </div>
+  <div class="field">
+    <%= f.label :track_price %><br>
+    <%= f.text_field :track_price %>
+  </div>
+  <div class="field">
+    <%= f.label :release_date %><br>
+    <%= f.text_field :release_date %>
+  </div>
+  <div class="field">
+    <%= f.label :collection_explicitness %><br>
+    <%= f.text_field :collection_explicitness %>
+  </div>
+  <div class="field">
+    <%= f.label :track_explicitness %><br>
+    <%= f.text_field :track_explicitness %>
+  </div>
+  <div class="field">
+    <%= f.label :disc_count %><br>
+    <%= f.text_field :disc_count %>
+  </div>
+  <div class="field">
+    <%= f.label :disc_number %><br>
+    <%= f.text_field :disc_number %>
+  </div>
+  <div class="field">
+    <%= f.label :track_count %><br>
+    <%= f.text_field :track_count %>
+  </div>
+  <div class="field">
+    <%= f.label :track_number %><br>
+    <%= f.text_field :track_number %>
+  </div>
+  <div class="field">
+    <%= f.label :track_time_millis %><br>
+    <%= f.text_field :track_time_millis %>
+  </div>
+  <div class="field">
+    <%= f.label :country %><br>
+    <%= f.text_field :country %>
+  </div>
+  <div class="field">
+    <%= f.label :currency %><br>
+    <%= f.text_field :currency %>
+  </div>
+  <div class="field">
+    <%= f.label :primary_genre_name %><br>
+    <%= f.text_field :primary_genre_name %>
+  </div>
+  <div class="field">
+    <%= f.label :radio_station_url %><br>
+    <%= f.text_field :radio_station_url %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

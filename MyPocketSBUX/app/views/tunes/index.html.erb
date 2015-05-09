@@ -1,0 +1,85 @@
+<h1>Listing tunes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Wrapper type</th>
+      <th>Kind</th>
+      <th>Artist</th>
+      <th>Collection</th>
+      <th>Track</th>
+      <th>Artist name</th>
+      <th>Collection name</th>
+      <th>Track name</th>
+      <th>Collection censored name</th>
+      <th>Track censored name</th>
+      <th>Artist view url</th>
+      <th>Collection view url</th>
+      <th>Track view url</th>
+      <th>Preview url</th>
+      <th>Artwork url 30</th>
+      <th>Artwork url 60</th>
+      <th>Artwork url 100</th>
+      <th>Collection price</th>
+      <th>Track price</th>
+      <th>Release date</th>
+      <th>Collection explicitness</th>
+      <th>Track explicitness</th>
+      <th>Disc count</th>
+      <th>Disc number</th>
+      <th>Track count</th>
+      <th>Track number</th>
+      <th>Track time millis</th>
+      <th>Country</th>
+      <th>Currency</th>
+      <th>Primary genre name</th>
+      <th>Radio station url</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tunes.each do |tune| %>
+      <tr>
+        <td><%= tune.wrapper_type %></td>
+        <td><%= tune.kind %></td>
+        <td><%= tune.artist_id %></td>
+        <td><%= tune.collection_id %></td>
+        <td><%= tune.track_id %></td>
+        <td><%= tune.artist_name %></td>
+        <td><%= tune.collection_name %></td>
+        <td><%= tune.track_name %></td>
+        <td><%= tune.collection_censored_name %></td>
+        <td><%= tune.track_censored_name %></td>
+        <td><%= tune.artist_view_url %></td>
+        <td><%= tune.collection_view_url %></td>
+        <td><%= tune.track_view_url %></td>
+        <td><%= tune.preview_url %></td>
+        <td><%= tune.artwork_url_30 %></td>
+        <td><%= tune.artwork_url_60 %></td>
+        <td><%= tune.artwork_url_100 %></td>
+        <td><%= tune.collection_price %></td>
+        <td><%= tune.track_price %></td>
+        <td><%= tune.release_date %></td>
+        <td><%= tune.collection_explicitness %></td>
+        <td><%= tune.track_explicitness %></td>
+        <td><%= tune.disc_count %></td>
+        <td><%= tune.disc_number %></td>
+        <td><%= tune.track_count %></td>
+        <td><%= tune.track_number %></td>
+        <td><%= tune.track_time_millis %></td>
+        <td><%= tune.country %></td>
+        <td><%= tune.currency %></td>
+        <td><%= tune.primary_genre_name %></td>
+        <td><%= tune.radio_station_url %></td>
+        <td><%= link_to 'Show', tune %></td>
+        <td><%= link_to 'Edit', edit_tune_path(tune) %></td>
+        <td><%= link_to 'Destroy', tune, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tune', new_tune_path %>
