@@ -22,6 +22,13 @@ class ProductDetailTableViewController: UITableViewController {
         self.productPropertyNames = ["name", "price", "notification", "notes", "special"]
         
         self.nutritions = Nutritions.findByJanCode(self.product?.valueForKey("janCode") as? String ?? "", orderKeys: [])
+        
+        // TODO: 背景に商品画像を表示 デザインて面で検討の余地あり
+        if var image = UIImage(named: self.product?.valueForKey("janCode") as! String) {
+            var imageView = UIImageView(image: image)
+            imageView.contentMode = UIViewContentMode.ScaleAspectFill
+            self.tableView.backgroundView = imageView
+        }
     }
 
     override func viewDidLoad() {
@@ -52,20 +59,25 @@ class ProductDetailTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return section == 0 ? self.productPropertyNames.count : self.nutritions.count
+        return section == 0 ? self.productPropertyNames.count + 1: self.nutritions.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("defaultProductDetailTableViewCell", forIndexPath: indexPath) as! UITableViewCell
-
+        let cell = tableView.dequeueReusableCellWithIdentifier(indexPath.section == 0 && indexPath.row == 0 ? "productImagesProductDetailTableViewCell" : "defaultProductDetailTableViewCell", forIndexPath: indexPath) as! UITableViewCell
+        
         // TODO: ひとまず決め打ちで
         if indexPath.section == 0 {
-            if let propValue : AnyObject = self.product?.valueForKey(self.productPropertyNames[indexPath.row]) {
-//                cell.textLabel?.text = self.productPropertyNames[indexPath.row]
-//                cell.detailTextLabel?.text = "\(propValue)"
+            if indexPath.row == 0 {
+            }
+            else{
+                if let propValue : AnyObject = self.product?.valueForKey(self.productPropertyNames[indexPath.row - 1]) {
+                    //                cell.textLabel?.text = self.productPropertyNames[indexPath.row]
+                    //                cell.detailTextLabel?.text = "\(propValue)"
+                    
+                    cell.textLabel?.text = "\(propValue)"
+                    cell.detailTextLabel?.text = ""
+                }
                 
-                cell.textLabel?.text = "\(propValue)"
-                cell.detailTextLabel?.text = ""
             }
         }else if indexPath.section == 1 {
             let na = "na"
@@ -74,6 +86,12 @@ class ProductDetailTableViewController: UITableViewController {
         }
 
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        // TODO: 自動計算による高さ調節をしたいところだけどうまく効いてくれていないようなので直接指定
+        // カスタムセルクラスの設定が必要なんだろうか
+        return indexPath.section == 0 && indexPath.row == 0 ? CGFloat(88.0) : CGFloat(44.0)
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -115,16 +133,46 @@ class ProductDetailTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        
+        if var vc = segue.destinationViewController as? ProductImageViewController {
+            if let indexPath = (sender as? UICollectionView)?.indexPathsForSelectedItems().first as? NSIndexPath {
+                vc.imageName = self.imageNames()[indexPath.row % self.imageNames().count]
+            }
+        }
     }
-    */
+    
 
+}
+
+extension ProductDetailTableViewController : UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    func imageNames() -> [String] {
+        return ["4524785261297", "4524785253186", "4524785243224"]
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
+        // TODO: 商品画像を別途取得し、その数を返却する
+        return 20
+    }
+    
+    // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell{
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("productImagesCollectionViewCell", forIndexPath: indexPath) as! ProductImagesCollectionViewCell
+        cell.productImageView.image = UIImage(named: self.imageNames()[indexPath.row % self.imageNames().count])
+        
+        return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        self.performSegueWithIdentifier("showProductImageViewSegue", sender: collectionView)
+    }
 }
 
 //import Foundation

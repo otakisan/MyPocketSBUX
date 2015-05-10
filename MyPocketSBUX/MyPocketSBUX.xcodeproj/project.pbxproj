@@ -64,6 +64,8 @@
 		1682F7DD1AFCA05600FD630D /* BeansCardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1682F7DC1AFCA05600FD630D /* BeansCardManager.swift */; };
 		1682F7E11AFDD58600FD630D /* Tune.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1682F7E01AFDD58600FD630D /* Tune.swift */; };
 		1682F7E31AFDD5A200FD630D /* Tunes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1682F7E21AFDD5A200FD630D /* Tunes.swift */; };
+		1682F7E91AFE469100FD630D /* ProductImagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1682F7E81AFE469100FD630D /* ProductImagesCollectionViewCell.swift */; };
+		1682F7EB1AFED9D200FD630D /* ProductImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1682F7EA1AFED9D200FD630D /* ProductImageViewController.swift */; };
 		1683F0AD1ADBDAD80034C7CB /* OrderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0AC1ADBDAD80034C7CB /* OrderTableViewController.swift */; };
 		1683F0AF1ADBDE4E0034C7CB /* OrderListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0AE1ADBDE4E0034C7CB /* OrderListItem.swift */; };
 		1683F0B11ADC80270034C7CB /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0B01ADC80270034C7CB /* OrderTableViewCell.swift */; };
@@ -183,6 +185,8 @@
 		1682F7DC1AFCA05600FD630D /* BeansCardManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeansCardManager.swift; sourceTree = "<group>"; };
 		1682F7E01AFDD58600FD630D /* Tune.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tune.swift; sourceTree = "<group>"; };
 		1682F7E21AFDD5A200FD630D /* Tunes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tunes.swift; sourceTree = "<group>"; };
+		1682F7E81AFE469100FD630D /* ProductImagesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductImagesCollectionViewCell.swift; sourceTree = "<group>"; };
+		1682F7EA1AFED9D200FD630D /* ProductImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductImageViewController.swift; sourceTree = "<group>"; };
 		1683F0AC1ADBDAD80034C7CB /* OrderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewController.swift; sourceTree = "<group>"; };
 		1683F0AE1ADBDE4E0034C7CB /* OrderListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderListItem.swift; sourceTree = "<group>"; };
 		1683F0B01ADC80270034C7CB /* OrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
@@ -317,6 +321,7 @@
 				16B600601AE7CD8C000ECB7E /* CustomItemsTableViewCell.swift */,
 				16757DED1AF97CCE00925C50 /* TastingLogEditorTableViewCell.swift */,
 				1682F7D61AFC791B00FD630D /* ProductsForSaleTableViewCell.swift */,
+				1682F7E81AFE469100FD630D /* ProductImagesCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -424,6 +429,7 @@
 				1682F7CC1AFB449100FD630D /* TunesTableViewController.swift */,
 				1682F7D01AFC386800FD630D /* SettingsTableViewController.swift */,
 				1682F7DA1AFC9FD800FD630D /* BeansCardTableViewController.swift */,
+				1682F7EA1AFED9D200FD630D /* ProductImageViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -601,6 +607,7 @@
 				16C979D51ACA066A00543120 /* SeminarsTableViewController.swift in Sources */,
 				16F21E441AD9F7DA0052AD2A /* MenuListItem.swift in Sources */,
 				16F21E481ADA08430052AD2A /* Drink.swift in Sources */,
+				1682F7E91AFE469100FD630D /* ProductImagesCollectionViewCell.swift in Sources */,
 				16F21E501ADA2FE20052AD2A /* MenuListItemTableViewCell.swift in Sources */,
 				16F21E5A1ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift in Sources */,
 				1682F7DD1AFCA05600FD630D /* BeansCardManager.swift in Sources */,
@@ -677,6 +684,7 @@
 				164BFDE71AD021E7003BF77B /* StoresTableViewCell.swift in Sources */,
 				16CAF78E1AE1E75B00318AE5 /* CustomItemsStaticTableViewController.swift in Sources */,
 				16F21E461AD9F9FD0052AD2A /* ProductDetailTableViewController.swift in Sources */,
+				1682F7EB1AFED9D200FD630D /* ProductImageViewController.swift in Sources */,
 				164BFDD61ACFA9FA003BF77B /* StoresBaseTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -63,9 +63,15 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         
         // 最新版を取得
         let nextSn = self.maxStoreSeqId() + 1
+        
+        // TODO: 通信処理で共通化できる部分は専用のクラスにまとめる
         if let url  = NSURL(string: "http://\(ResourceContext.instance.serviceHost()):3000/stores.json/?type=range&key=id&sortdirection=ASC&from=\(nextSn)") {
             
-            let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+            // TODO: defaultSessionConfigurationはデフォルト設定でインスタンスを生成するので、毎回設定する必要あり
+            var config = NSURLSessionConfiguration.defaultSessionConfiguration()
+            config.timeoutIntervalForResource = 10
+            config.timeoutIntervalForRequest = 10
+            let session = NSURLSession(configuration: config)
             let task    = session.dataTaskWithURL(url, completionHandler: completionHandler)
             
             task.resume()

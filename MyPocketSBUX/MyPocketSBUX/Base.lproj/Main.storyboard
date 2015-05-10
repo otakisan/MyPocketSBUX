@@ -1225,11 +1225,43 @@
             </objects>
             <point key="canvasLocation" x="686" y="4118"/>
         </scene>
+        <!--Product Image View Controller-->
+        <scene sceneID="pCA-vx-12M">
+            <objects>
+                <viewController id="xIH-Mq-74H" customClass="ProductImageViewController" customModule="MyPocketSBUX" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EQB-vJ-d1M"/>
+                        <viewControllerLayoutGuide type="bottom" id="dCJ-bh-fMh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="858-hj-YCe">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cll-ZU-6uA">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cll-ZU-6uA" firstAttribute="top" secondItem="858-hj-YCe" secondAttribute="top" id="6hq-0T-wOZ"/>
+                            <constraint firstAttribute="trailing" secondItem="cll-ZU-6uA" secondAttribute="trailing" id="BGS-4Z-tXj"/>
+                            <constraint firstAttribute="bottom" secondItem="cll-ZU-6uA" secondAttribute="bottom" id="Rzi-tR-5Xq"/>
+                            <constraint firstItem="cll-ZU-6uA" firstAttribute="leading" secondItem="858-hj-YCe" secondAttribute="leading" id="Yc6-nU-kgx"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="productImageView" destination="cll-ZU-6uA" id="pkp-uv-7ni"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OHr-GQ-Pat" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2408" y="2710"/>
+        </scene>
         <!--Product Detail Table View Controller-->
         <scene sceneID="t2G-Gm-SMB">
             <objects>
                 <tableViewController id="bw6-o5-pwR" customClass="ProductDetailTableViewController" customModule="MyPocketSBUX" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="BAS-41-8CH">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="BAS-41-8CH">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1254,9 +1286,60 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="prototypeProductDetailTableViewCell" id="5xb-cc-2GO">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="productImagesProductDetailTableViewCell" rowHeight="88" id="5xb-cc-2GO">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5xb-cc-2GO" id="0nV-hI-hmY">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fXN-1U-IH8">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="87"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="CmC-Wd-dBE">
+                                                <size key="itemSize" width="87" height="87"/>
+                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            </collectionViewFlowLayout>
+                                            <cells>
+                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="productImagesCollectionViewCell" id="uOQ-Bc-syM" customClass="ProductImagesCollectionViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                        <rect key="frame" x="0.0" y="0.0" width="87" height="87"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BvO-c8-rCW">
+                                                                <rect key="frame" x="0.0" y="0.0" width="87" height="87"/>
+                                                            </imageView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <constraints>
+                                                        <constraint firstItem="BvO-c8-rCW" firstAttribute="leading" secondItem="uOQ-Bc-syM" secondAttribute="leading" id="LRI-t7-Fwx"/>
+                                                        <constraint firstItem="BvO-c8-rCW" firstAttribute="top" secondItem="uOQ-Bc-syM" secondAttribute="top" id="nYp-Xc-flP"/>
+                                                        <constraint firstAttribute="bottom" secondItem="BvO-c8-rCW" secondAttribute="bottom" id="yUJ-Ez-mwN"/>
+                                                        <constraint firstAttribute="trailing" secondItem="BvO-c8-rCW" secondAttribute="trailing" id="zn1-xx-NSL"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <outlet property="productImageView" destination="BvO-c8-rCW" id="ewX-3n-T4S"/>
+                                                    </connections>
+                                                </collectionViewCell>
+                                            </cells>
+                                            <connections>
+                                                <outlet property="dataSource" destination="bw6-o5-pwR" id="9Z4-CX-3Pg"/>
+                                                <outlet property="delegate" destination="bw6-o5-pwR" id="2I9-Ig-9pB"/>
+                                            </connections>
+                                        </collectionView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="fXN-1U-IH8" secondAttribute="trailing" id="92K-o2-yZB"/>
+                                        <constraint firstItem="fXN-1U-IH8" firstAttribute="top" secondItem="0nV-hI-hmY" secondAttribute="top" id="dnc-QJ-Oc6"/>
+                                        <constraint firstItem="fXN-1U-IH8" firstAttribute="leading" secondItem="0nV-hI-hmY" secondAttribute="leading" id="sc5-AO-J9n"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="prototypeProductDetailTableViewCell" id="plq-ZO-aTw">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="plq-ZO-aTw" id="EvF-mX-Eno">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -1266,10 +1349,13 @@
                             <outlet property="delegate" destination="bw6-o5-pwR" id="hXM-bQ-pxu"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="xIH-Mq-74H" kind="show" identifier="showProductImageViewSegue" id="3p2-ue-NxC"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7fU-W6-zQ5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1540" y="3406"/>
+            <point key="canvasLocation" x="1540" y="3407"/>
         </scene>
         <!--Order-->
         <scene sceneID="adQ-Og-LMk">
