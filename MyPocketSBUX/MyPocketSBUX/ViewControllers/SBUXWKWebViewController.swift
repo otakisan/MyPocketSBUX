@@ -11,6 +11,12 @@ import WebKit
 
 class SBUXWKWebViewController: UIViewController, WKNavigationDelegate {
 
+    // Constants for Storyboard/ViewControllers
+    struct StoryboardConstants {
+        static let storyboardName = "Main"
+        static let viewControllerIdentifier = "SBUXWKWebViewController"
+    }
+
     //  デバイスのCGRectを取得
     var deviceBound : CGRect = UIScreen.mainScreen().bounds
     
@@ -18,6 +24,16 @@ class SBUXWKWebViewController: UIViewController, WKNavigationDelegate {
     var webkitview : WKWebView = WKWebView()
     var activityIndicatorView : UIActivityIndicatorView?
 
+    class func forRelativePath(relativePath: String) -> SBUXWKWebViewController {
+        let storyboard = UIStoryboard(name: StoryboardConstants.storyboardName, bundle: nil)
+        
+        let viewController = storyboard.instantiateViewControllerWithIdentifier(StoryboardConstants.viewControllerIdentifier) as! SBUXWKWebViewController
+        
+        viewController.relativePath = relativePath
+        
+        return viewController
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
