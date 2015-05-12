@@ -29,18 +29,6 @@ class FilteredNewsTableViewController: NewsBaseTableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        return 1
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return self.pressReleaseEntities.count
-    }
-
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
@@ -95,6 +83,7 @@ class FilteredNewsTableViewController: NewsBaseTableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
     override func navigationControllerForDetail() -> UINavigationController? {
         return self.navigationControllerOfOriginalViewController
     }

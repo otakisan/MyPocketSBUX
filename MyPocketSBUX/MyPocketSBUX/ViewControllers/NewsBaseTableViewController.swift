@@ -22,10 +22,6 @@ class NewsBaseTableViewController: UITableViewController, UIGestureRecognizerDel
         struct TableViewCell {
             static let identifier = "newsTableViewCellIndetifier"
         }
-        
-        struct TableViewHeaderFooter {
-            static let identifier = "newsTableViewHeaderFooterIdentifier"
-        }
     }
 
     override func viewDidLoad() {
@@ -41,8 +37,6 @@ class NewsBaseTableViewController: UITableViewController, UIGestureRecognizerDel
         
         // Required if our subclasses are to use: dequeueReusableCellWithIdentifier:forIndexPath:
         tableView.registerNib(nib, forCellReuseIdentifier: Constants.TableViewCell.identifier)
-        
-//        tableView.registerClass(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: Constants.TableViewHeaderFooter.identifier)
         
         self.addPinchGestureRecognizer();
         
@@ -139,9 +133,6 @@ class NewsBaseTableViewController: UITableViewController, UIGestureRecognizerDel
 //    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 //        // Get the new view controller using [segue destinationViewController].
 //        // Pass the selected object to the new view controller.
-//        if var officialWebViewController = segue.destinationViewController as? SBUXWKWebViewController {
-//            officialWebViewController.relativePath = self.officialSiteRelativePath
-//        }
 //    }
     
     func addPinchGestureRecognizer(){
