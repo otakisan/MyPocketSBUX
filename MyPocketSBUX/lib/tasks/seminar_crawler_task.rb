@@ -48,6 +48,15 @@ class Tasks::SeminarCrawlerTask
       p deadline = Time.new(Time.now.month > deadlinearray[1].to_i ? Time.now.year + 1 : Time.now.year, deadlinearray[1].to_i, deadlinearray[2].to_i)
       p status = store.css('input.seminarStatus').first.attribute("value").value
 
+      # 申込URL
+      entry_url_a_tag = store.css('div.seminarEntry > ul.entryButton > li.entry > a').first
+      if entry_url_a_tag.nil? then
+        entry_url = ""
+      else
+        entry_url = entry_url_a_tag.attribute("href").value
+      end
+      p entry_url
+
       # Store
       store_model = nil
       store_table_id = 0
@@ -63,7 +72,7 @@ class Tasks::SeminarCrawlerTask
 
       # 登録
       seminar_model = Seminar.new
-      p seminar_model.attributes = { store: store_model, edition: edition, start_time: start_time, end_time: end_time, day_of_week: day_of_week, capacity: capacity, deadline: deadline, status: status }
+      p seminar_model.attributes = { store: store_model, edition: edition, start_time: start_time, end_time: end_time, day_of_week: day_of_week, capacity: capacity, deadline: deadline, status: status, entry_url: entry_url }
       p seminar_model.save
 
     end
@@ -79,7 +88,8 @@ class Tasks::SeminarCrawlerTask
     doc.css('body > div.mainContents.notExNav > article > div div.col1.panel.type2').each do |node|
       #p node.inner_text.strip
       seminardetail(ROOT_URL + node.css('a').first.attribute("href").value)
-=end
+=endi
+seminardetail("https://www.starbucks.co.jp/seminar/iced-coffee.html")
 seminardetail("https://www.starbucks.co.jp/seminar/beginner.html")
 #seminardetail("https://www.starbucks.co.jp/seminar/chocolate.html")
 seminardetail("https://www.starbucks.co.jp/seminar/espresso.html")
