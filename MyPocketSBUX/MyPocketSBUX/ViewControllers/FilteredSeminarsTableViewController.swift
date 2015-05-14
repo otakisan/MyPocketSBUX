@@ -11,6 +11,7 @@ import UIKit
 class FilteredSeminarsTableViewController: SeminarsBaseTableViewController {
 
     var filteredSeminarData : [[NSDictionary]]?
+    var navigationControllerOfOriginalViewController: UINavigationController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,5 +118,13 @@ class FilteredSeminarsTableViewController: SeminarsBaseTableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    override func navigationControllerForDetail() -> UINavigationController? {
+        return self.navigationControllerOfOriginalViewController
+    }
+    
+    override func detailUrl(indexPath: NSIndexPath) -> String {
+        return self.filteredSeminarData?[indexPath.section][indexPath.row]["entry_url"] as? String ?? ""
+    }
 
 }

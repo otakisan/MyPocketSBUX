@@ -83,7 +83,7 @@ class NewsBaseTableViewController: UITableViewController, UIGestureRecognizerDel
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         if self.pressReleaseEntities.count > indexPath.row {
-            self.pushStoreDetailViewOnCellSelected(self.navigationControllerForDetail()!, relativePath: self.pressReleaseEntities[indexPath.row].url)
+            self.pushNewsDetailViewOnCellSelected(self.navigationControllerForDetail()!, relativePath: self.pressReleaseEntities[indexPath.row].url)
         }
     }
     
@@ -164,7 +164,7 @@ class NewsBaseTableViewController: UITableViewController, UIGestureRecognizerDel
 
     }
     
-    func pushStoreDetailViewOnCellSelected(navigationController: UINavigationController, relativePath : String) {
+    func pushNewsDetailViewOnCellSelected(navigationController: UINavigationController, relativePath : String) {
         
         // Set up the detail view controller to show.
         let detailViewController = SBUXWKWebViewController.forRelativePath(relativePath)

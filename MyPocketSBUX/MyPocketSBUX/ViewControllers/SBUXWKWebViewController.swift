@@ -45,11 +45,17 @@ class SBUXWKWebViewController: UIViewController, WKNavigationDelegate {
         self.view.addSubview(self.webkitview)
         self.webkitview.navigationDelegate = self
         
-        if var url = NSURL(string:"http://www.starbucks.co.jp/\(self.relativePath)"){
+        if var url = NSURL(string: self.fullPath()){
             self.showActivityIndicator()
             var req = NSURLRequest(URL:url)
             self.webkitview.loadRequest(req)
         }
+    }
+    
+    func fullPath() -> String {
+        
+        var rootRelativePath = ((self.relativePath == "" || self.relativePath.substringToIndex(self.relativePath.startIndex.successor()) != "/") ? "/" : "") + self.relativePath
+        return "http://www.starbucks.co.jp\(rootRelativePath)"
     }
 
     override func didReceiveMemoryWarning() {

@@ -75,6 +75,33 @@ class SeminarsBaseTableViewController: UITableViewController {
         return label
     }
 
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+//        if self.pressReleaseEntities.count > indexPath.row {
+            self.pushSeminarDetailViewOnCellSelected(self.navigationControllerForDetail()!, relativePath: self.detailUrl(indexPath))
+//        }
+    }
+    
+    func navigationControllerForDetail() -> UINavigationController? {
+        return self.navigationController
+    }
+    
+    func detailUrl(ndexPath: NSIndexPath) -> String {
+        return ""
+    }
+    
+    func pushSeminarDetailViewOnCellSelected(navigationController: UINavigationController, relativePath : String) {
+        
+        // Set up the detail view controller to show.
+        let detailViewController = SBUXWKWebViewController.forRelativePath(relativePath)
+        
+        // Note: Should not be necessary but current iOS 8.0 bug requires it.
+        self.tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow()!, animated: false)
+        
+        navigationController.pushViewController(detailViewController, animated: true)
+        
+    }
+
     // MARK: - Table view data source
 
 //    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {

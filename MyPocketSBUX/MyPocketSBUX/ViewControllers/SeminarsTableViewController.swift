@@ -187,6 +187,7 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
         // We want to be the delegate for our filtered table so didSelectRowAtIndexPath(_:) is called for both tables.
         self.filteredSeminarsTableController.tableView.delegate = self.filteredSeminarsTableController
         self.filteredSeminarsTableController.tableView.dataSource = self.filteredSeminarsTableController
+        self.filteredSeminarsTableController.navigationControllerOfOriginalViewController = self.navigationController
         
         self.searchController = UISearchController(searchResultsController: self.filteredSeminarsTableController)
         self.searchController.searchResultsUpdater = self
@@ -293,5 +294,9 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
         // Pass the selected object to the new view controller.
     }
     */
+    
+    override func detailUrl(indexPath: NSIndexPath) -> String {
+        return self.seminarData?[indexPath.section][indexPath.row]["entry_url"] as? String ?? ""
+    }
 
 }
