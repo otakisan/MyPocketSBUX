@@ -88,7 +88,7 @@ class Tasks::SeminarCrawlerTask
     doc.css('body > div.mainContents.notExNav > article > div div.col1.panel.type2').each do |node|
       #p node.inner_text.strip
       seminardetail(ROOT_URL + node.css('a').first.attribute("href").value)
-=endi
+=end
 seminardetail("https://www.starbucks.co.jp/seminar/iced-coffee.html")
 seminardetail("https://www.starbucks.co.jp/seminar/beginner.html")
 #seminardetail("https://www.starbucks.co.jp/seminar/chocolate.html")
