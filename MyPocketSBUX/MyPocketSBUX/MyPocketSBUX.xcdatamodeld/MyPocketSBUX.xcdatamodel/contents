@@ -115,6 +115,20 @@
         <attribute name="unitPrice" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
     </entity>
+    <entity name="Seminar" representedClassName="MyPocketSBUX.Seminar" syncable="YES">
+        <attribute name="capacity" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dayOfWeek" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="deadline" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="edition" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="endTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="entryUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="startTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="store" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Store" syncable="YES"/>
+    </entity>
     <entity name="Store" representedClassName="MyPocketSBUX.Store" syncable="YES">
         <attribute name="access" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
@@ -191,6 +205,7 @@
     <fetchRequest name="allPairingsFetchRequest" entity="Pairing"/>
     <fetchRequest name="allPressReleasesFetchRequest" entity="PressRelease"/>
     <fetchRequest name="allProductIngredientsFetchRequest" entity="ProductIngredient"/>
+    <fetchRequest name="allSeminarsFetchRequest" entity="Seminar"/>
     <fetchRequest name="allStoresFetchRequest" entity="Store"/>
     <fetchRequest name="allTastingLogsFetchRequest" entity="TastingLog"/>
     <fetchRequest name="allTunesFetchRequest" entity="Tune"/>
@@ -217,5 +232,6 @@
         <element name="Store" positionX="-54" positionY="36" width="128" height="328"/>
         <element name="TastingLog" positionX="135" positionY="162" width="128" height="165"/>
         <element name="Tune" positionX="108" positionY="135" width="128" height="555"/>
+        <element name="Seminar" positionX="108" positionY="135" width="128" height="225"/>
     </elements>
 </model>

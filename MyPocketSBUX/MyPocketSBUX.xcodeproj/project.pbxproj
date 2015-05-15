@@ -101,6 +101,8 @@
 		16D3B36C1AF9F19E00F5E67B /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D3B36B1AF9F19E00F5E67B /* TextViewController.swift */; };
 		16E442CB1AD8EE7A003C3AA2 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E442CA1AD8EE7A003C3AA2 /* NewsTableViewCell.swift */; };
 		16E442CD1AD90314003C3AA2 /* PressRelease.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E442CC1AD90314003C3AA2 /* PressRelease.swift */; };
+		16E50E421B04C57E00554229 /* Seminars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E50E411B04C57E00554229 /* Seminars.swift */; };
+		16E50E441B04C65800554229 /* Seminar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E50E431B04C65800554229 /* Seminar.swift */; };
 		16F21E3F1AD9F1D20052AD2A /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E3E1AD9F1D20052AD2A /* MenuTableViewController.swift */; };
 		16F21E421AD9F50A0052AD2A /* MenuSectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E411AD9F50A0052AD2A /* MenuSectionItem.swift */; };
 		16F21E441AD9F7DA0052AD2A /* MenuListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E431AD9F7DA0052AD2A /* MenuListItem.swift */; };
@@ -229,6 +231,8 @@
 		16D3B36B1AF9F19E00F5E67B /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		16E442CA1AD8EE7A003C3AA2 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		16E442CC1AD90314003C3AA2 /* PressRelease.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PressRelease.swift; sourceTree = "<group>"; };
+		16E50E411B04C57E00554229 /* Seminars.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Seminars.swift; sourceTree = "<group>"; };
+		16E50E431B04C65800554229 /* Seminar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Seminar.swift; sourceTree = "<group>"; };
 		16F21E3E1AD9F1D20052AD2A /* MenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 		16F21E411AD9F50A0052AD2A /* MenuSectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuSectionItem.swift; sourceTree = "<group>"; };
 		16F21E431AD9F7DA0052AD2A /* MenuListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuListItem.swift; sourceTree = "<group>"; };
@@ -269,6 +273,8 @@
 		164BFDC41AC671E8003BF77B /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				16E50E431B04C65800554229 /* Seminar.swift */,
+				16E50E411B04C57E00554229 /* Seminars.swift */,
 				1682F7E01AFDD58600FD630D /* Tune.swift */,
 				1682F7E21AFDD5A200FD630D /* Tunes.swift */,
 				165F3F7D1AFA26AF00BCF1BB /* TastingLog.swift */,
@@ -637,6 +643,7 @@
 				16CAF7901AE28CE000318AE5 /* DrinkOrderTableViewCell.swift in Sources */,
 				16757DCA1AF6FAF100925C50 /* MakingCoffeeContentsManager.swift in Sources */,
 				16B1F28F1ADAAF1B0026E377 /* ResourceContext.swift in Sources */,
+				16E50E421B04C57E00554229 /* Seminars.swift in Sources */,
 				16216E951AEFB94400DB6C0B /* ProductIngredient.swift in Sources */,
 				164BFDE21ACFC9B9003BF77B /* DbContextBase.swift in Sources */,
 				16F21E4E1ADA2B7C0052AD2A /* DrinkMenuListItem.swift in Sources */,
@@ -690,6 +697,7 @@
 				16060EB91AF046040099379F /* OrderDetails.swift in Sources */,
 				16757DC61AF6DF1600925C50 /* VisitsTableViewController.swift in Sources */,
 				16757DC81AF6F2F800925C50 /* MakingCoffeePageViewController.swift in Sources */,
+				16E50E441B04C65800554229 /* Seminar.swift in Sources */,
 				16757DEA1AF8E70100925C50 /* TastingLogs.swift in Sources */,
 				16757DDE1AF842F800925C50 /* Pairing.swift in Sources */,
 				16060EBB1AF046EC0099379F /* ProductIngredients.swift in Sources */,

@@ -19,6 +19,29 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
     
     // Secondary search results table view.
     var filteredSeminarsTableController: FilteredSeminarsTableViewController!
+    
+    func intialize() {
+        
+        ContentsManager.instance.fetchContents(["seminar"], orderKeys: [(columnName : "edition", ascending : true)], completionHandler: { fetchResults in
+            self.seminars = self.categorized(fetchResults.first?.entities as? [Seminar] ?? [])
+            self.reloadData()
+        })
+    }
+    
+    func categorized(seminars: [Seminar]) -> [[Seminar]] {
+        var prevEdition = ""
+        var categorized:[[Seminar]] = []
+        for seminar in seminars {
+            if prevEdition != seminar.edition {
+                categorized.append([])
+                prevEdition = seminar.edition
+            }
+            
+            categorized[categorized.endIndex - 1] += [seminar]
+        }
+        
+        return categorized
+    }
 
     func initializeData(){
         
@@ -81,7 +104,8 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         
         // Update the filtered array based on the search text.
-        let searchResults = self.seminarData
+//        let searchResults = self.seminarData
+        let searchResults = self.seminars
         
         // サーチバーに入力されたテキストをトリム後に単語単位に分割
         // Strip out all the leading and trailing spaces.
@@ -163,11 +187,13 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
         //let filteredResults = searchResults?.filter { finalCompoundPredicate.evaluateWithObject($0) }
         
         //for searchResult in
-        let filteredResults = searchResults?.map { $0.filter { finalCompoundPredicate.evaluateWithObject($0) }}
+//        let filteredResults = searchResults?.map { $0.filter { finalCompoundPredicate.evaluateWithObject($0) }}
+        let filteredResults = searchResults.map { $0.filter { finalCompoundPredicate.evaluateWithObject($0) }}
         
         // Hand over the filtered results to our search results table.
         let resultsController = searchController.searchResultsController as! FilteredSeminarsTableViewController
-        resultsController.filteredSeminarData = filteredResults
+//        resultsController.filteredSeminarData = filteredResults
+        resultsController.seminars = filteredResults
         resultsController.tableView.reloadData()
 
     }
@@ -204,7 +230,8 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
         self.definesPresentationContext = true
 
         
-        self.initializeData()
+        self.intialize()
+        //self.initializeData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -214,32 +241,32 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        return self.seminarData?.count ?? 0
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return self.seminarData?[section].count ?? 0
-    }
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) as! UITableViewCell
-
-        if let tableData = self.seminarData {
-            self.configureCell(cell, forSeminars: tableData, indexPath: indexPath)
-        }
-
-        return cell
-    }
-    
-    // ひとまず標準のセクションを使用する
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
-        return self.seminarData?[section].first?["edition"] as? String
-    }
+//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+//        // #warning Potentially incomplete method implementation.
+//        // Return the number of sections.
+//        return self.seminarData?.count ?? 0
+//    }
+//
+//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        // #warning Incomplete method implementation.
+//        // Return the number of rows in the section.
+//        return self.seminarData?[section].count ?? 0
+//    }
+//    
+//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) as! UITableViewCell
+//
+//        if let tableData = self.seminarData {
+//            self.configureCell(cell, forSeminars: tableData, indexPath: indexPath)
+//        }
+//
+//        return cell
+//    }
+//    
+//    // ひとまず標準のセクションを使用する
+//    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
+//        return self.seminarData?[section].first?["edition"] as? String
+//    }
 
 //    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 //        var label : UIView? = nil
@@ -295,8 +322,8 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
     }
     */
     
-    override func detailUrl(indexPath: NSIndexPath) -> String {
-        return self.seminarData?[indexPath.section][indexPath.row]["entry_url"] as? String ?? ""
-    }
+//    override func detailUrl(indexPath: NSIndexPath) -> String {
+//        return self.seminarData?[indexPath.section][indexPath.row]["entry_url"] as? String ?? ""
+//    }
 
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DateUtility: NSObject {
+class DateUtility {
     
     class func isEqualDateComponent(date1 : NSDate, date2 : NSDate) -> Bool{
         
@@ -58,6 +58,10 @@ class DateUtility: NSObject {
         var date = formatter.dateFromString(dateStringInner)
         
         return date
+    }
+    
+    class func dateFromSqliteDateTimeString(jsonObject: NSDictionary, key: String) -> NSDate {
+        return DateUtility.dateFromSqliteDateTimeString((jsonObject[key] as? NSString ?? "") as String) ?? NSDate(timeIntervalSince1970: 0)
     }
     
     class func dateFromSqliteDateString(dateString : String) -> NSDate? {
