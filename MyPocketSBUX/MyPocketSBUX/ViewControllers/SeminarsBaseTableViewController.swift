@@ -50,39 +50,19 @@ class SeminarsBaseTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-//    func configureCell(cell: UITableViewCell, forSeminars seminars: [[NSDictionary]], indexPath : NSIndexPath) {
-//        let objDic = seminars[indexPath.section][indexPath.row]
-//        let storeName = (objDic["store"] as! NSDictionary)["name"] as! NSString
-//        let capacity = objDic["capacity"] as! Int
-//        let status = objDic["status"] as! String
-//        let start_time = objDic["start_time"] as! String
-//        
-//        if let startDateTime = DateUtility.dateFromSqliteDateTimeString(start_time) {
-//            let startDate = DateUtility.localDateString(startDateTime)
-//            let startTime = DateUtility.localTimeString(startDateTime)
-//            let capacityLabel = "capacity".localized()
-//            let statusLabel = "status".localized()
-//            let statusValue = (self.statusMappings[status] == nil ? "" : self.statusMappings[status]!).localized()
-//            cell.detailTextLabel?.text = "\(startDate) \(startTime)  \(capacityLabel):\(capacity)  \(statusLabel):\(statusValue)"
-//        }
-//        cell.textLabel?.text = "\(storeName)"
-//    }
-    
     func configureCell(cell: UITableViewCell, forSeminars seminars: [[Seminar]], indexPath : NSIndexPath) {
         let objDic = seminars[indexPath.section][indexPath.row]
+        
         let storeName = objDic.store?.name ?? ""
         let capacity = objDic.capacity
         let status = objDic.status
-        let start_time = DateUtility.localDateString(objDic.startTime) + " " + DateUtility.localTimeString(objDic.startTime)
+        let startDate = DateUtility.localDateString(objDic.startTime)
+        let startTime = DateUtility.localTimeString(objDic.startTime)
+        let capacityLabel = "capacity".localized()
+        let statusLabel = "status".localized()
+        let statusValue = (self.statusMappings[status] == nil ? "" : self.statusMappings[status]!).localized()
         
-//        if let startDateTime = DateUtility.dateFromSqliteDateTimeString(start_time) {
-            let startDate = DateUtility.localDateString(objDic.startTime)
-            let startTime = DateUtility.localTimeString(objDic.startTime)
-            let capacityLabel = "capacity".localized()
-            let statusLabel = "status".localized()
-            let statusValue = (self.statusMappings[status] == nil ? "" : self.statusMappings[status]!).localized()
-            cell.detailTextLabel?.text = "\(startDate) \(startTime)  \(capacityLabel):\(capacity)  \(statusLabel):\(statusValue)"
-//        }
+        cell.detailTextLabel?.text = "\(startDate) \(startTime)  \(capacityLabel):\(capacity)  \(statusLabel):\(statusValue)"
         cell.textLabel?.text = "\(storeName)"
     }
     
@@ -96,11 +76,8 @@ class SeminarsBaseTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-//        if self.pressReleaseEntities.count > indexPath.row {
         let path = self.detailUrl(indexPath)
-            self.pushSeminarDetailViewOnCellSelected(self.navigationControllerForDetail()!, relativePath: path)
-//        }
+        self.pushSeminarDetailViewOnCellSelected(self.navigationControllerForDetail()!, relativePath: path)
     }
     
     func navigationControllerForDetail() -> UINavigationController? {
@@ -124,23 +101,16 @@ class SeminarsBaseTableViewController: UITableViewController {
     }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
         return self.seminars.count ?? 0
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
         return self.seminars[section].count ?? 0
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) as! UITableViewCell
         
-//        if let tableData = self.seminars {
-//            self.configureCell(cell, forSeminars: tableData, indexPath: indexPath)
-//        }
         self.configureCell(cell, forSeminars: self.seminars, indexPath: indexPath)
         
         return cell
@@ -148,33 +118,10 @@ class SeminarsBaseTableViewController: UITableViewController {
     
     // ひとまず標準のセクションを使用する
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
-//        return self.seminars[section].first?.edition as? String
         return self.seminars[section].first?.edition ?? ""
     }
 
     // MARK: - Table view data source
-
-//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        // #warning Potentially incomplete method implementation.
-//        // Return the number of sections.
-//        return 0
-//    }
-//
-//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete method implementation.
-//        // Return the number of rows in the section.
-//        return 0
-//    }
-
-    /*
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as UITableViewCell
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
 
     /*
     // Override to support conditional editing of the table view.

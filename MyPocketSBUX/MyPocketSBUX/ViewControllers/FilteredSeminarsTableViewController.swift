@@ -10,7 +10,6 @@ import UIKit
 
 class FilteredSeminarsTableViewController: SeminarsBaseTableViewController {
 
-//    var filteredSeminarData : [[NSDictionary]]?
     var navigationControllerOfOriginalViewController: UINavigationController?
 
     override func viewDidLoad() {
@@ -29,50 +28,6 @@ class FilteredSeminarsTableViewController: SeminarsBaseTableViewController {
     }
 
     // MARK: - Table view data source
-
-//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        // #warning Potentially incomplete method implementation.
-//        // Return the number of sections.
-//        let sectionCount = self.filteredSeminarData?.count ?? 0
-//        return sectionCount
-//    }
-//
-//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete method implementation.
-//        // Return the number of rows in the section.
-//        return self.filteredSeminarData?[section].count ?? 0
-//    }
-
-    
-//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) as! UITableViewCell
-//
-//        // Configure the cell...
-//        if let tableData = self.filteredSeminarData {
-//            self.configureCell(cell, forSeminars: tableData, indexPath: indexPath)
-//        }
-//
-//        return cell
-//    }
-    
-    // ストーリーボード上にからの遷移でないViewControllerなのかなんなのか、高さが必要なので、ひとまず通常のセクションを使用する
-//    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
-//        return self.filteredSeminarData?[section].first?["edition"] as? String
-//
-//    }
-    
-//    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        var label : UIView? = nil
-//        if let tableData = self.filteredSeminarData {
-//            label = self.configureHeaderInSection(tableView, viewForHeaderInSection: section, forSeminars: tableData)
-//        }
-//        
-//        return label
-//    }
-//
-//    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return CGFloat(20)
-//    }
     
     /*
     // Override to support conditional editing of the table view.
@@ -123,8 +78,4 @@ class FilteredSeminarsTableViewController: SeminarsBaseTableViewController {
         return self.navigationControllerOfOriginalViewController
     }
     
-//    override func detailUrl(indexPath: NSIndexPath) -> String {
-//        return self.filteredSeminarData?[indexPath.section][indexPath.row]["entry_url"] as? String ?? ""
-//    }
-
 }

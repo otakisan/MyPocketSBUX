@@ -10,10 +10,6 @@ import UIKit
 
 class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating {
     
-    var seminarData : [[NSDictionary]]?
-    var groupKeyToIndex : [String:Int] = [:]
-    //var seminarEditions : [String:NSDictionary]?
-    
     // Search controller to help us with filtering.
     var searchController: UISearchController!
     
@@ -42,69 +38,14 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
         
         return categorized
     }
-
-    func initializeData(){
-        
-        // 性能改善するのであれば、ローカルにある分でまず表示
-        // その後ウェブから取得した分を先頭に追加して表示する
-        
-        // 最新版を取得
-        if let url  = NSURL(string: self.dataUrl()) {
-            
-            let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-            let task    = session.dataTaskWithURL(url, completionHandler: {
-                (data, resp, err) in
-                if let dataArray = self.initializeDataArrayFromJson(data) {
-                    self.seminarData = self.convertGroupedArray(dataArray)
-                    self.reloadData()
-                }
-                //println(NSString(data: data, encoding:NSUTF8StringEncoding))
-            })
-            
-            task.resume()
-        }
-    }
-    
-    func convertGroupedArray(dataArray : NSArray) -> [[NSDictionary]] {
-        
-        // グループごとに2次元配列で管理
-        var results : [[NSDictionary]] = []
-        
-        if let dataArraySwift = dataArray as? [NSDictionary] {
-            for dataObjNsDic in dataArraySwift {
-                if let edition = dataObjNsDic["edition"] as? NSString {
-                    if self.groupKeyToIndex[edition as String] == nil {
-                        self.groupKeyToIndex[edition as String] = self.groupKeyToIndex.count
-                    }
-                    
-                    if var appendIndex = self.groupKeyToIndex[edition as String] {
-                        if results.count <= appendIndex {
-                            results.append([])
-                        }
-                        
-                        results[appendIndex].append(dataObjNsDic)
-                    }
-               }
-            }
-            
-        }
-        
-        
-        return results
-    }
     
     func initializeDataArrayFromJson(dataJson: NSData) -> NSArray?{
         return NSJSONSerialization.JSONObjectWithData(dataJson, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray
     }
     
-    func dataUrl() -> String {
-        return "http://\(ResourceContext.instance.serviceHost()):3000/seminars.json"
-    }
-    
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         
         // Update the filtered array based on the search text.
-//        let searchResults = self.seminarData
         let searchResults = self.seminars
         
         // サーチバーに入力されたテキストをトリム後に単語単位に分割
@@ -129,16 +70,6 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
             // Below we use NSExpression represent expressions in our predicates.
             // NSPredicate is mmiade up of smaller, atomic parts: two NSExpressions (a left-hand value and a right-hand value).
             
-            // 通常のオブジェクトの場合は下記
-            // Name field matching.
-//            var lhs = NSExpression(forKeyPath: "title")
-//            var rhs = NSExpression(forConstantValue: searchString)
-//            
-//            var finalPredicate = NSComparisonPredicate(leftExpression: lhs, rightExpression: rhs, modifier: .DirectPredicateModifier, type: .ContainsPredicateOperatorType, options: .CaseInsensitivePredicateOption)
-            
-            // 今回はNSDictionaryのなかに、さらにNSDictionary
-            //var predicate = NSPredicate(format: "%K == %@", "edition", searchString)
-            
             // エディション
             var lhs = NSExpression(forKeyPath: "edition")
             var rhs = NSExpression(forConstantValue: searchString)
@@ -152,28 +83,6 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
             
             finalPredicate = NSComparisonPredicate(leftExpression: lhs, rightExpression: rhs, modifier: .DirectPredicateModifier, type: .ContainsPredicateOperatorType, options: .CaseInsensitivePredicateOption)
             searchItemsPredicate.append(finalPredicate)
-            // 数値項目の場合は下記を参考にする
-//            let numberFormatter = NSNumberFormatter()
-//            numberFormatter.numberStyle = .NoStyle
-//            numberFormatter.formatterBehavior = .BehaviorDefault
-//            
-//            let targetNumber = numberFormatter.numberFromString(searchString)
-//            // `searchString` may fail to convert to a number.
-//            if targetNumber != nil {
-//                // `yearIntroduced` field matching.
-//                lhs = NSExpression(forKeyPath: "yearIntroduced")
-//                rhs = NSExpression(forConstantValue: targetNumber!)
-//                finalPredicate = NSComparisonPredicate( leftExpression: lhs, rightExpression: rhs, modifier: .DirectPredicateModifier, type: .EqualToPredicateOperatorType, options: .CaseInsensitivePredicateOption)
-//                
-//                searchItemsPredicate.append(finalPredicate)
-//                
-//                // `price` field matching.
-//                lhs = NSExpression(forKeyPath: "introPrice")
-//                rhs = NSExpression(forConstantValue: targetNumber!)
-//                finalPredicate = NSComparisonPredicate( leftExpression: lhs, rightExpression: rhs, modifier: .DirectPredicateModifier, type: .EqualToPredicateOperatorType, options: .CaseInsensitivePredicateOption)
-//                
-//                searchItemsPredicate.append(finalPredicate)
-//            }
             
             // Add this OR predicate to our master AND predicate.
             let orMatchPredicates = NSCompoundPredicate.orPredicateWithSubpredicates(searchItemsPredicate)
@@ -183,16 +92,10 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
         // Match up the fields of the Product object.
         let finalCompoundPredicate = NSCompoundPredicate.andPredicateWithSubpredicates(andMatchPredicates)
         
-        // 一次元配列
-        //let filteredResults = searchResults?.filter { finalCompoundPredicate.evaluateWithObject($0) }
-        
-        //for searchResult in
-//        let filteredResults = searchResults?.map { $0.filter { finalCompoundPredicate.evaluateWithObject($0) }}
         let filteredResults = searchResults.map { $0.filter { finalCompoundPredicate.evaluateWithObject($0) }}
         
         // Hand over the filtered results to our search results table.
         let resultsController = searchController.searchResultsController as! FilteredSeminarsTableViewController
-//        resultsController.filteredSeminarData = filteredResults
         resultsController.seminars = filteredResults
         resultsController.tableView.reloadData()
 
@@ -228,10 +131,8 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
         // presentation semantics apply. Namely that presentation will walk up the view controller
         // hierarchy until it finds the root view controller or one that defines a presentation context.
         self.definesPresentationContext = true
-
         
         self.intialize()
-        //self.initializeData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -240,42 +141,6 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
     }
 
     // MARK: - Table view data source
-
-//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        // #warning Potentially incomplete method implementation.
-//        // Return the number of sections.
-//        return self.seminarData?.count ?? 0
-//    }
-//
-//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete method implementation.
-//        // Return the number of rows in the section.
-//        return self.seminarData?[section].count ?? 0
-//    }
-//    
-//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) as! UITableViewCell
-//
-//        if let tableData = self.seminarData {
-//            self.configureCell(cell, forSeminars: tableData, indexPath: indexPath)
-//        }
-//
-//        return cell
-//    }
-//    
-//    // ひとまず標準のセクションを使用する
-//    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
-//        return self.seminarData?[section].first?["edition"] as? String
-//    }
-
-//    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        var label : UIView? = nil
-//        if let tableData = self.seminarData {
-//            label = self.configureHeaderInSection(tableView, viewForHeaderInSection: section, forSeminars: tableData)
-//        }
-//        
-//        return label
-//    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -321,9 +186,5 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
         // Pass the selected object to the new view controller.
     }
     */
-    
-//    override func detailUrl(indexPath: NSIndexPath) -> String {
-//        return self.seminarData?[indexPath.section][indexPath.row]["entry_url"] as? String ?? ""
-//    }
 
 }
