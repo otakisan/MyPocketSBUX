@@ -50,6 +50,9 @@ class ContentsManager: NSObject {
         else if entityName == "seminar" {
             dbContext = Seminars.instance()
         }
+        else if entityName == "store" {
+            dbContext = Stores.instance()
+        }
         else {
             fatalError("invalid entityName : \(entityName)")
         }
