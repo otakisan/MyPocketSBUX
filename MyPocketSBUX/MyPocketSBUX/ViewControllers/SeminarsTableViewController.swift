@@ -24,6 +24,21 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
         })
     }
     
+    func intializeRefreshControl() {
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
+    }
+    
+    func refresh() {
+        ContentsManager.instance.refreshContents(["seminar"], orderKeys: [(columnName : "edition", ascending : true)], completionHandler: { fetchResults in
+            self.seminars = self.categorized(fetchResults.first?.entities as? [Seminar] ?? [])
+            self.reloadData()
+            
+            // ここで戻すようにしないと、セルの再表示時に不正なデータにアクセスしてしまう
+            self.refreshControl?.endRefreshing()
+        })
+    }
+    
     func categorized(seminars: [Seminar]) -> [[Seminar]] {
         var prevEdition = ""
         var categorized:[[Seminar]] = []
@@ -131,6 +146,8 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
         // presentation semantics apply. Namely that presentation will walk up the view controller
         // hierarchy until it finds the root view controller or one that defines a presentation context.
         self.definesPresentationContext = true
+        
+        self.intializeRefreshControl()
         
         self.intialize()
     }

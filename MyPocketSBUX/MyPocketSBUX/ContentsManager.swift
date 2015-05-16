@@ -126,4 +126,51 @@ class ContentsManager: NSObject {
         })
     }
 
+    func refreshContents(entityNames : [String], orderKeys : [(columnName : String, ascending : Bool)], completionHandler: ([(entityName: String, entities: [NSManagedObject])] -> Void)?) {
+        
+        var fetchResults : [(entityName: String, entities: [NSManagedObject])] = []
+        
+        // TODO: 外枠の同期の仕組みは共通化できそうだけど…。
+        // 同期的にセマフォを取得し、取得処理完了後にハンドラを起動する
+        let semaphoreCount = entityNames.count
+        let semaphore = dispatch_semaphore_create(semaphoreCount)
+        let timeout = dispatch_time(DISPATCH_TIME_NOW, Int64(10 * Double(NSEC_PER_SEC)))
+        
+        // ウェブに最新版を取得しに行き、通信に成功した場合には該当テーブルをクリアして、挿入、データをフェッチして返す
+        // 失敗した場合には、テーブルには触れず、既存のデータをフェッチして返す。いずれもステータス（成功・失敗）を返却する。
+        for entityName in entityNames {
+            dispatch_semaphore_wait(semaphore, timeout/*DISPATCH_TIME_FOREVER*/)
+            self.fetchContentsFromWeb(entityName, completionHandler: { data, res, error in
+                
+                if error == nil {
+                    if var productsJson = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray {
+                        let dbContext = self.getDbContext(entityName)
+                        dbContext.clearAllEntities()
+                        dbContext.insertEntityFromJsonObject(productsJson)
+                    }
+                }
+                
+                // ローカルDBのキャッシュデータを取得
+                fetchResults += [(entityName: entityName, entities: self.fetchEntitiesFromLocalDb(entityName, orderKeys: orderKeys))]
+                
+                // 解放
+                dispatch_semaphore_signal(semaphore)
+            })
+        }
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            
+            // 待機
+            for index in 0..<semaphoreCount {
+                dispatch_semaphore_wait(semaphore, timeout/*DISPATCH_TIME_FOREVER*/)
+            }
+            // 解放しないとアベンドする
+            for index in 0..<semaphoreCount {
+                dispatch_semaphore_signal(semaphore)
+            }
+            
+            completionHandler?(fetchResults)
+        })
+    }
+
 }
