@@ -787,6 +787,9 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EeB-HJ-PhX" id="gK3-ry-Fqk">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="bw6-o5-pwR" kind="show" id="EAb-ry-lJG"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="prototypePairingsTableViewCell" id="oB9-Ta-4El">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -3263,10 +3266,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Kq9-1X-68d"/>
-        <segue reference="trP-t4-TT0"/>
+        <segue reference="sjz-A2-gN9"/>
+        <segue reference="EAb-ry-lJG"/>
         <segue reference="4hM-m2-hyY"/>
         <segue reference="dSr-Vk-QH8"/>
-        <segue reference="sjz-A2-gN9"/>
+        <segue reference="trP-t4-TT0"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -92,15 +92,20 @@ class PairingsTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        if var productDetailViewController = segue.destinationViewController as? ProductDetailTableViewController {
+            if let indexPath = self.tableView.indexPathForSelectedRow() {
+                
+                productDetailViewController.product = self.foodPairings[indexPath.section].foods[indexPath.row]
+            }
+        }
     }
-    */
     
     func refreshDataAndReloadTableView(){
         // beanとfoodがローカルDBに格納済みである必要あり
