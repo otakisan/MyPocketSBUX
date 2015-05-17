@@ -60,6 +60,11 @@ class DbContextBase: NSObject {
         
         return inserted
     }
+    
+    class func deleteEntity(entity : NSManagedObject) {
+        DbContextBase.getManagedObjectContext().deleteObject(entity)
+        DbContextBase.getManagedObjectContext().save(nil)
+    }
 
     class func insertEntity(entity : NSManagedObject) {
         

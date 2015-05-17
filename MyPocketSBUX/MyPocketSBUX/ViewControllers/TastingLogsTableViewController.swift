@@ -10,8 +10,6 @@ import UIKit
 
 class TastingLogsTableViewController: TastingLogsBaseTableViewController, UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, FilteredTastingLogsTableViewControllerDelegate {
     
-    //var tastingLogs : [TastingLog] = []
-    
     // Search controller to help us with filtering.
     var searchController: UISearchController!
     
@@ -118,30 +116,6 @@ class TastingLogsTableViewController: TastingLogsBaseTableViewController, UISear
 
     // MARK: - Table view data source
 
-//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        // #warning Potentially incomplete method implementation.
-//        // Return the number of sections.
-//        return 1
-//    }
-//
-//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete method implementation.
-//        // Return the number of rows in the section.
-//        return self.tastingLogs.count
-//    }
-//
-//    
-//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCellWithIdentifier("defaultTastingLogEditorTableViewCell", forIndexPath: indexPath) as! UITableViewCell
-//
-//        // Configure the cell...
-//        cell.textLabel?.text = self.tastingLogs[indexPath.row].title
-//        cell.detailTextLabel?.text = "\(DateUtility.localDateString(self.tastingLogs[indexPath.row].tastingAt))@\(self.tastingLogs[indexPath.row].store?.name ?? String())"
-//
-//        return cell
-//    }
-    
-
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -185,6 +159,7 @@ class TastingLogsTableViewController: TastingLogsBaseTableViewController, UISear
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         if let vc = segue.destinationViewController as? TastingLogEditorTableViewController {
+            vc.delegate = self
             switch segue.identifier ?? "" {
                 case "addTastingLogSegue":
                 vc.tastingLog = TastingLogManager.instance.newTastingLog()
@@ -249,6 +224,18 @@ class TastingLogsTableViewController: TastingLogsBaseTableViewController, UISear
     
     func didCancelTastingLogViaFilteredList(tastingLog: TastingLog){
         
+    }
+    
+    func deleteActionViaFilteredList(tastingLog: TastingLog){
+        TastingLogs.deleteEntity(tastingLog)
+        self.refreshDataAndReloadTableView()
+        self.updateSearchResultsForSearchController(self.searchController)
+    }
+    
+    override func deleteAction(indexPath : NSIndexPath) {
+        var removed = self.tastingLogs.removeAtIndex(indexPath.row)
+        self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        TastingLogs.deleteEntity(removed)
     }
 
 }

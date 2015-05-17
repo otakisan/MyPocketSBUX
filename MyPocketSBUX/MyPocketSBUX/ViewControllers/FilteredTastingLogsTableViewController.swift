@@ -34,6 +34,13 @@ class FilteredTastingLogsTableViewController: TastingLogsBaseTableViewController
     override func didCancelTastingLog(tastingLog: TastingLog) {
         self.delegate?.didCancelTastingLogViaFilteredList(tastingLog)
     }
+    
+    override func deleteAction(indexPath: NSIndexPath) {
+        var removed = self.tastingLogs.removeAtIndex(indexPath.row)
+        self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+
+        self.delegate?.deleteActionViaFilteredList(removed)
+    }
 
     // MARK: - Table view data source
     
@@ -87,4 +94,5 @@ class FilteredTastingLogsTableViewController: TastingLogsBaseTableViewController
 protocol FilteredTastingLogsTableViewControllerDelegate {
     func didSaveTastingLogViaFilteredList(tastingLog: TastingLog)
     func didCancelTastingLogViaFilteredList(tastingLog: TastingLog)
+    func deleteActionViaFilteredList(tastingLog: TastingLog)
 }
