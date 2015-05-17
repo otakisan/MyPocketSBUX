@@ -11,6 +11,8 @@ import UIKit
 class OrdersTableViewController: UITableViewController {
     
     var orders : [(order : Order, orderDetails : [OrderDetail])] = []
+    var delegate: OrdersTableViewControllerDelegate?
+    var handler: OrdersTableViewControllerHandler = MasterDetailOrdersTableViewControllerHandler()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +24,8 @@ class OrdersTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         self.fetchRecentOrders()
+        
+        self.handler.ordersTableViewDidLoad(self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -56,6 +60,10 @@ class OrdersTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.handler.didSelectRow(self, indexPath: indexPath)
+        //self.performSegueWithIdentifier("showOrderSegue", sender: self)
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -118,4 +126,44 @@ class OrdersTableViewController: UITableViewController {
         
     }
 
+}
+
+protocol OrdersTableViewControllerDelegate {
+    func didSelectOrder(order: Order)
+}
+
+class OrdersTableViewControllerHandler: NSObject {
+    func ordersTableViewDidLoad(viewController: OrdersTableViewController) {
+        
+    }
+    
+    func didSelectRow(viewController: OrdersTableViewController, indexPath: NSIndexPath) {
+    }
+}
+
+class SelectItemOrdersTableViewControllerHandler: OrdersTableViewControllerHandler {
+    override func didSelectRow(viewController: OrdersTableViewController, indexPath: NSIndexPath) {
+        viewController.delegate?.didSelectOrder(viewController.orders[indexPath.row].order)
+        viewController.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    override func ordersTableViewDidLoad(viewController: OrdersTableViewController) {
+        self.addCancelButton(viewController)
+    }
+    
+    func addCancelButton(viewController: OrdersTableViewController){
+        viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "didRuntimeCancelButton:")
+        cancelTarget = viewController
+    }
+    
+    var cancelTarget: UIViewController?
+    func didRuntimeCancelButton(sender: UIBarButtonItem){
+        cancelTarget?.dismissViewControllerAnimated(true, completion: {})
+    }
+}
+
+class MasterDetailOrdersTableViewControllerHandler: OrdersTableViewControllerHandler {
+    override func didSelectRow(viewController: OrdersTableViewController, indexPath: NSIndexPath) {
+        viewController.performSegueWithIdentifier("showOrderSegue", sender: nil)
+    }
 }

@@ -2678,7 +2678,7 @@
         <!--Orders Table View Controller-->
         <scene sceneID="0Cd-ny-tqm">
             <objects>
-                <tableViewController id="dOA-pd-Rfw" customClass="OrdersTableViewController" customModule="MyPocketSBUX" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="OrdersTableViewController" id="dOA-pd-Rfw" customClass="OrdersTableViewController" customModule="MyPocketSBUX" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="NG5-QD-kQW">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2703,9 +2703,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="w8G-V8-6Ch" kind="show" id="tYe-qS-M9V"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -2713,6 +2710,9 @@
                             <outlet property="delegate" destination="dOA-pd-Rfw" id="SAo-PH-eV7"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="w8G-V8-6Ch" kind="show" identifier="showOrderSegue" id="F7V-xI-ljY"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Baz-t0-9t4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -3026,9 +3026,32 @@
                                             <outlet property="detailLabel" destination="DQe-ku-nWa" id="58w-Vt-65C"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="bEO-Ci-kC8" customClass="TastingLogEditorTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="bEO-Ci-kC8" customClass="OrderTastingLogEditorTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bEO-Ci-kC8" id="A1c-TG-Rb6">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="order ..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jBJ-wO-4Xa">
+                                                    <rect key="frame" x="8" y="11" width="551" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="jBJ-wO-4Xa" firstAttribute="centerY" secondItem="A1c-TG-Rb6" secondAttribute="centerY" id="g4y-OP-NwB"/>
+                                                <constraint firstItem="jBJ-wO-4Xa" firstAttribute="trailing" secondItem="A1c-TG-Rb6" secondAttribute="trailingMargin" id="iLs-TX-NrB"/>
+                                                <constraint firstItem="jBJ-wO-4Xa" firstAttribute="top" secondItem="A1c-TG-Rb6" secondAttribute="topMargin" constant="3" id="sAh-VH-8y4"/>
+                                                <constraint firstItem="jBJ-wO-4Xa" firstAttribute="centerX" secondItem="A1c-TG-Rb6" secondAttribute="centerX" id="un6-iN-PIv"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="orderLabel" destination="jBJ-wO-4Xa" id="9Kj-5J-Aff"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="6Yt-Q1-GMN" customClass="TastingLogEditorTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Yt-Q1-GMN" id="qCi-QH-ada">
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -3265,10 +3288,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="EAb-ry-lJG"/>
-        <segue reference="4hM-m2-hyY"/>
         <segue reference="dSr-Vk-QH8"/>
+        <segue reference="F7V-xI-ljY"/>
         <segue reference="trP-t4-TT0"/>
+        <segue reference="EAb-ry-lJG"/>
         <segue reference="5C0-zU-5jG"/>
     </inferredMetricsTieBreakers>
 </document>

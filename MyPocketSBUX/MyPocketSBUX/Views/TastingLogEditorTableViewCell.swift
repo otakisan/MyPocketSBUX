@@ -265,3 +265,49 @@ class DetailTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, TextV
 protocol DetailTastingLogEditorTableViewCellDelegate : TastingLogEditorTableViewCellDelegate {
     func valueChangedDetail(detail: String)
 }
+
+class OrderTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, OrdersTableViewControllerDelegate {
+
+    @IBOutlet weak var orderLabel: UILabel!
+
+    override func configure(tastingLog: TastingLog) {
+        super.configure(tastingLog)
+        self.detailViewModally = false
+        self.reloadOrderLabel(tastingLog.order)
+    }
+    
+    override func detailView() -> UIViewController? {
+        var detailView : OrdersTableViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("OrdersTableViewController") as!OrdersTableViewController
+        detailView.delegate = self
+        detailView.handler = SelectItemOrdersTableViewControllerHandler()
+        
+        return detailView
+    }
+    
+    func didSelectOrder(order: Order) {
+        self.reloadOrderLabel(order)
+        (self.delegate as? OrderTastingLogEditorTableViewCellDelegate)?.valueChangedOrder(order)
+    }
+    
+    func reloadOrderLabel(order: Order?) {
+        if let id = order?.id as? Int {
+            let details = OrderDetails.getOrderDetailsWithOrderId(id, orderKeys: [(columnName: "id", ascending: true)])
+            self.reloadLabel(details.first?.productName ?? "")
+        }
+    }
+    
+    func reloadLabel(text: String){
+        if text == "" {
+            self.orderLabel.text = "order ..."
+            self.orderLabel.textColor = UIColor.lightGrayColor()
+        }
+        else{
+            self.orderLabel.text = text
+            self.orderLabel.textColor = UIColor.blackColor()
+        }
+    }
+}
+
+protocol OrderTastingLogEditorTableViewCellDelegate : TastingLogEditorTableViewCellDelegate {
+    func valueChangedOrder(order : Order)
+}

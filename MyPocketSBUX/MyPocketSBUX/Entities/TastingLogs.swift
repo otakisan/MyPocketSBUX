@@ -36,6 +36,9 @@ class TastingLogs: DbContextBase {
             if let store : Store = Stores.instance().findById(Int((newData["store_id"] as? NSNumber) ?? 0)) {
                 entity.store = store
             }
+            if let order : Order = Orders.instance().findById(Int((newData["order_id"] as? NSNumber) ?? 0)) {
+                entity.order = order
+            }
             
             TastingLogs.insertEntity(entity)
         }

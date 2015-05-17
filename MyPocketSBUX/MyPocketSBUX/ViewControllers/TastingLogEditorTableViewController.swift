@@ -12,7 +12,8 @@ class TastingLogEditorTableViewController: UITableViewController, TitleTastingLo
     TagTastingLogEditorTableViewCellDelegate,
     TastingTastingLogEditorTableViewCellDelegate,
     StoreTastingLogEditorTableViewCellDelegate,
-    DetailTastingLogEditorTableViewCellDelegate {
+    DetailTastingLogEditorTableViewCellDelegate,
+    OrderTastingLogEditorTableViewCellDelegate{
 
     struct StoryboardConstants {
         static let storyboardName = "Main"
@@ -189,6 +190,10 @@ class TastingLogEditorTableViewController: UITableViewController, TitleTastingLo
     
     func valueChangedDetail(detail: String){
         self.tastingLog.detail = detail
+    }
+    
+    func valueChangedOrder(order : Order){
+        self.tastingLog.order = order
     }
 }
 

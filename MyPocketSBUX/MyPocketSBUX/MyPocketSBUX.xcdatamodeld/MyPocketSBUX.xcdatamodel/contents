@@ -158,6 +158,7 @@
         <attribute name="tastingAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="order" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Order" syncable="YES"/>
         <relationship name="store" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Store" syncable="YES"/>
     </entity>
     <entity name="Tune" representedClassName="MyPocketSBUX.Tune" syncable="YES">
@@ -229,9 +230,9 @@
         <element name="Pairing" positionX="286" positionY="99" width="128" height="148"/>
         <element name="PressRelease" positionX="-63" positionY="-18" width="128" height="150"/>
         <element name="ProductIngredient" positionX="-36" positionY="153" width="128" height="255"/>
-        <element name="Store" positionX="-54" positionY="36" width="128" height="328"/>
-        <element name="TastingLog" positionX="135" positionY="162" width="128" height="165"/>
-        <element name="Tune" positionX="108" positionY="135" width="128" height="555"/>
         <element name="Seminar" positionX="108" positionY="135" width="128" height="225"/>
+        <element name="Store" positionX="-54" positionY="36" width="128" height="328"/>
+        <element name="TastingLog" positionX="135" positionY="162" width="128" height="180"/>
+        <element name="Tune" positionX="108" positionY="135" width="128" height="555"/>
     </elements>
 </model>
