@@ -73,6 +73,10 @@
 		1683F0AF1ADBDE4E0034C7CB /* OrderListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0AE1ADBDE4E0034C7CB /* OrderListItem.swift */; };
 		1683F0B11ADC80270034C7CB /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0B01ADC80270034C7CB /* OrderTableViewCell.swift */; };
 		1683F0B31ADD321F0034C7CB /* CustomizingOrderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0B21ADD321F0034C7CB /* CustomizingOrderTableViewController.swift */; };
+		16A74F301B081BB80078BCC9 /* TastingLogsBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A74F2F1B081BB80078BCC9 /* TastingLogsBaseTableViewController.swift */; };
+		16A74F331B08221D0078BCC9 /* TastingLogsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A74F311B08221D0078BCC9 /* TastingLogsTableViewCell.swift */; };
+		16A74F341B08221D0078BCC9 /* TastingLogsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16A74F321B08221D0078BCC9 /* TastingLogsTableViewCell.xib */; };
+		16A74F361B08309E0078BCC9 /* FilteredTastingLogsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A74F351B08309E0078BCC9 /* FilteredTastingLogsTableViewController.swift */; };
 		16AE14101ABD6B1A00370062 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AE140F1ABD6B1A00370062 /* AppDelegate.swift */; };
 		16AE14131ABD6B1A00370062 /* MyPocketSBUX.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16AE14111ABD6B1A00370062 /* MyPocketSBUX.xcdatamodeld */; };
 		16AE14181ABD6B1A00370062 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16AE14161ABD6B1A00370062 /* Main.storyboard */; };
@@ -199,6 +203,10 @@
 		1683F0AE1ADBDE4E0034C7CB /* OrderListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderListItem.swift; sourceTree = "<group>"; };
 		1683F0B01ADC80270034C7CB /* OrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
 		1683F0B21ADD321F0034C7CB /* CustomizingOrderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomizingOrderTableViewController.swift; sourceTree = "<group>"; };
+		16A74F2F1B081BB80078BCC9 /* TastingLogsBaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TastingLogsBaseTableViewController.swift; sourceTree = "<group>"; };
+		16A74F311B08221D0078BCC9 /* TastingLogsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TastingLogsTableViewCell.swift; sourceTree = "<group>"; };
+		16A74F321B08221D0078BCC9 /* TastingLogsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TastingLogsTableViewCell.xib; sourceTree = "<group>"; };
+		16A74F351B08309E0078BCC9 /* FilteredTastingLogsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilteredTastingLogsTableViewController.swift; sourceTree = "<group>"; };
 		16AE140A1ABD6B1900370062 /* MyPocketSBUX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyPocketSBUX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16AE140E1ABD6B1A00370062 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		16AE140F1ABD6B1A00370062 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -335,6 +343,8 @@
 				16757DED1AF97CCE00925C50 /* TastingLogEditorTableViewCell.swift */,
 				1682F7D61AFC791B00FD630D /* ProductsForSaleTableViewCell.swift */,
 				1682F7E81AFE469100FD630D /* ProductImagesCollectionViewCell.swift */,
+				16A74F311B08221D0078BCC9 /* TastingLogsTableViewCell.swift */,
+				16A74F321B08221D0078BCC9 /* TastingLogsTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -436,6 +446,8 @@
 				16757DE11AF888AE00925C50 /* OfficialContentsTableViewController.swift */,
 				16757DE31AF88C5100925C50 /* BaseWKWebViewController.swift */,
 				16757DE51AF8D54F00925C50 /* TastingLogsTableViewController.swift */,
+				16A74F2F1B081BB80078BCC9 /* TastingLogsBaseTableViewController.swift */,
+				16A74F351B08309E0078BCC9 /* FilteredTastingLogsTableViewController.swift */,
 				16757DEB1AF8F28700925C50 /* TastingLogEditorTableViewController.swift */,
 				16D3B3671AF996AF00F5E67B /* DatePickerViewController.swift */,
 				16D3B36B1AF9F19E00F5E67B /* TextViewController.swift */,
@@ -578,6 +590,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				16AE14181ABD6B1A00370062 /* Main.storyboard in Resources */,
+				16A74F341B08221D0078BCC9 /* TastingLogsTableViewCell.xib in Resources */,
 				164BFDE81AD021E7003BF77B /* StoresTableViewCell.xib in Resources */,
 				16AE141D1ABD6B1A00370062 /* LaunchScreen.xib in Resources */,
 				16AE141A1ABD6B1A00370062 /* Images.xcassets in Resources */,
@@ -653,6 +666,7 @@
 				16757DEC1AF8F28700925C50 /* TastingLogEditorTableViewController.swift in Sources */,
 				1682F7E11AFDD58600FD630D /* Tune.swift in Sources */,
 				162CE3EA1B0163A0009D3C6C /* FilteredNewsTableViewController.swift in Sources */,
+				16A74F361B08309E0078BCC9 /* FilteredTastingLogsTableViewController.swift in Sources */,
 				165F3F7E1AFA26AF00BCF1BB /* TastingLog.swift in Sources */,
 				16C979D91ACD8EC600543120 /* FilteredSeminarsTableViewController.swift in Sources */,
 				16AE14381AC2BF7A00370062 /* NewsTableViewController.swift in Sources */,
@@ -673,6 +687,7 @@
 				16757DBE1AF5E29400925C50 /* Order.swift in Sources */,
 				16757DE41AF88C5100925C50 /* BaseWKWebViewController.swift in Sources */,
 				16216E8F1AEEF5CB00DB6C0B /* OrderDetail.swift in Sources */,
+				16A74F301B081BB80078BCC9 /* TastingLogsBaseTableViewController.swift in Sources */,
 				16757DC21AF60DF200925C50 /* Nutritions.swift in Sources */,
 				164BFDE01ACFC8FC003BF77B /* Stores.swift in Sources */,
 				16AE14101ABD6B1A00370062 /* AppDelegate.swift in Sources */,
@@ -702,6 +717,7 @@
 				16757DDE1AF842F800925C50 /* Pairing.swift in Sources */,
 				16060EBB1AF046EC0099379F /* ProductIngredients.swift in Sources */,
 				164BFDE71AD021E7003BF77B /* StoresTableViewCell.swift in Sources */,
+				16A74F331B08221D0078BCC9 /* TastingLogsTableViewCell.swift in Sources */,
 				16CAF78E1AE1E75B00318AE5 /* CustomItemsStaticTableViewController.swift in Sources */,
 				16F21E461AD9F9FD0052AD2A /* ProductDetailTableViewController.swift in Sources */,
 				1682F7EB1AFED9D200FD630D /* ProductImageViewController.swift in Sources */,

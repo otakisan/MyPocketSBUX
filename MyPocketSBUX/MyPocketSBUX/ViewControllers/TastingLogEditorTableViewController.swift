@@ -13,12 +13,40 @@ class TastingLogEditorTableViewController: UITableViewController, TitleTastingLo
     TastingTastingLogEditorTableViewCellDelegate,
     StoreTastingLogEditorTableViewCellDelegate,
     DetailTastingLogEditorTableViewCellDelegate {
-    
+
+    struct StoryboardConstants {
+        static let storyboardName = "Main"
+        static let viewControllerIdentifier = "TastingLogEditorTableViewController"
+    }
+
     @IBOutlet weak var tastingLogEditorNavigationBar: UINavigationBar!
     
     var tastingLog: TastingLog!
     var newTastingLog = false
+    var delegate: TastingLogEditorTableViewControllerDelegate?
 
+    class func forTastingLog(tastingLog: TastingLog) -> TastingLogEditorTableViewController {
+        let storyboard = UIStoryboard(name: StoryboardConstants.storyboardName, bundle: nil)
+        
+        let viewController = storyboard.instantiateViewControllerWithIdentifier(StoryboardConstants.viewControllerIdentifier) as! TastingLogEditorTableViewController
+        
+        viewController.tastingLog = tastingLog
+        
+        return viewController
+    }
+
+    @IBAction func actionSaveButtonItem(sender: UIBarButtonItem) {
+        self.saveTastingLog()
+        self.delegate?.didSaveTastingLog(self.tastingLog)
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func actionCancelBarButtonItem(sender: UIBarButtonItem) {
+        self.cancelTastingLog()
+        self.delegate?.didCancelTastingLog(self.tastingLog)
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -162,4 +190,9 @@ class TastingLogEditorTableViewController: UITableViewController, TitleTastingLo
     func valueChangedDetail(detail: String){
         self.tastingLog.detail = detail
     }
+}
+
+protocol TastingLogEditorTableViewControllerDelegate {
+    func didSaveTastingLog(tastingLog: TastingLog)
+    func didCancelTastingLog(tastingLog: TastingLog)
 }

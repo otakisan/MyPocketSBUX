@@ -99,7 +99,7 @@ class BaseWKWebViewController: UIViewController, WKNavigationDelegate {
             webkitview.loadRequest(NSURLRequest(URL: url))
         }
         
-        _baseMenuView.backgroundColor = UIColor(red:0.9,green:0.9,blue:1.0,alpha:1.0)
+        _baseMenuView.backgroundColor = UIColor(red:0.95, green:0.95, blue:0.95, alpha:1.0)
         self.view.addSubview(_baseMenuView)
         
         // closeBtn

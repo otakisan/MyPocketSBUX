@@ -2795,9 +2795,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="4LT-0c-bNK" kind="presentation" identifier="editTastingLogSegue" id="0aC-r0-Ja3"/>
-                                </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="prototypeTastingLogEditorTableViewCell" id="shc-DB-U4B">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -2818,6 +2815,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="4LT-0c-bNK" kind="presentation" identifier="editTastingLogSegue" id="5C0-zU-5jG"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Tr-1z-B90" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2891,7 +2891,7 @@
         <!--Tasting Log Editor Table View Controller-->
         <scene sceneID="u2s-Ck-RcT">
             <objects>
-                <tableViewController id="4LT-0c-bNK" customClass="TastingLogEditorTableViewController" customModule="MyPocketSBUX" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="TastingLogEditorTableViewController" id="4LT-0c-bNK" customClass="TastingLogEditorTableViewController" customModule="MyPocketSBUX" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="6pz-c0-Ed9">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2903,12 +2903,12 @@
                                 <navigationItem title="Tasting Log" id="Oez-al-s53">
                                     <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="t7a-CE-Nwl">
                                         <connections>
-                                            <segue destination="Ebs-5q-7KZ" kind="unwind" identifier="tastingLogEditorDidCancelSegue" unwindAction="tastingLogEditorDidCancel:" id="BYB-i2-Xfo"/>
+                                            <action selector="actionCancelBarButtonItem:" destination="4LT-0c-bNK" id="9A0-7T-r1c"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem key="rightBarButtonItem" systemItem="save" id="B9h-v9-TYc">
                                         <connections>
-                                            <segue destination="Ebs-5q-7KZ" kind="unwind" identifier="tastingLogEditorDidSaveSegue" unwindAction="tastingLogEditorDidSave:" id="LDt-GX-pPO"/>
+                                            <action selector="actionSaveButtonItem:" destination="4LT-0c-bNK" id="9fX-L5-Rzc"/>
                                         </connections>
                                     </barButtonItem>
                                 </navigationItem>
@@ -3045,7 +3045,6 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VJQ-oK-f0F" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="Ebs-5q-7KZ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2298" y="7960"/>
         </scene>
@@ -3266,10 +3265,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="sjz-A2-gN9"/>
         <segue reference="EAb-ry-lJG"/>
         <segue reference="4hM-m2-hyY"/>
         <segue reference="dSr-Vk-QH8"/>
         <segue reference="trP-t4-TT0"/>
+        <segue reference="5C0-zU-5jG"/>
     </inferredMetricsTieBreakers>
 </document>
