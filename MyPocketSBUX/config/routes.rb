@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :tasting_logs
+
+  resources :orders
+
   resources :tunes
 
   resources :press_releases

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Store:</strong>
+  <%= @order.store %>
+</p>
+
+<p>
+  <strong>Tax excluded total price:</strong>
+  <%= @order.tax_excluded_total_price %>
+</p>
+
+<p>
+  <strong>Tax included total price:</strong>
+  <%= @order.tax_included_total_price %>
+</p>
+
+<p>
+  <strong>Remarks:</strong>
+  <%= @order.remarks %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @order.notes %>
+</p>
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>

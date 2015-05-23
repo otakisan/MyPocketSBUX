@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  tag: MyString
+  tasting_at: 2015-05-20 07:21:29
+  detail: MyString
+  store_id: 
+  order_id: 
+
+two:
+  title: MyString
+  tag: MyString
+  tasting_at: 2015-05-20 07:21:29
+  detail: MyString
+  store_id: 
+  order_id: 

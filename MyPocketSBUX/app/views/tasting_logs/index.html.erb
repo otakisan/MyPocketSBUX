@@ -1,0 +1,35 @@
+<h1>Listing tasting_logs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Tag</th>
+      <th>Tasting at</th>
+      <th>Detail</th>
+      <th>Store</th>
+      <th>Order</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tasting_logs.each do |tasting_log| %>
+      <tr>
+        <td><%= tasting_log.title %></td>
+        <td><%= tasting_log.tag %></td>
+        <td><%= tasting_log.tasting_at %></td>
+        <td><%= tasting_log.detail %></td>
+        <td><%= tasting_log.store %></td>
+        <td><%= tasting_log.order %></td>
+        <td><%= link_to 'Show', tasting_log %></td>
+        <td><%= link_to 'Edit', edit_tasting_log_path(tasting_log) %></td>
+        <td><%= link_to 'Destroy', tasting_log, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tasting log', new_tasting_log_path %>

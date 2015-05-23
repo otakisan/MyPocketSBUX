@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @tasting_log.title %>
+</p>
+
+<p>
+  <strong>Tag:</strong>
+  <%= @tasting_log.tag %>
+</p>
+
+<p>
+  <strong>Tasting at:</strong>
+  <%= @tasting_log.tasting_at %>
+</p>
+
+<p>
+  <strong>Detail:</strong>
+  <%= @tasting_log.detail %>
+</p>
+
+<p>
+  <strong>Store:</strong>
+  <%= @tasting_log.store %>
+</p>
+
+<p>
+  <strong>Order:</strong>
+  <%= @tasting_log.order %>
+</p>
+
+<%= link_to 'Edit', edit_tasting_log_path(@tasting_log) %> |
+<%= link_to 'Back', tasting_logs_path %>

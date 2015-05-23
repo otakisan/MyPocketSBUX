@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  store_id: 
+  tax_excluded_total_price: 1
+  tax_included_total_price: 1
+  remarks: MyString
+  notes: MyString
+
+two:
+  store_id: 
+  tax_excluded_total_price: 1
+  tax_included_total_price: 1
+  remarks: MyString
+  notes: MyString

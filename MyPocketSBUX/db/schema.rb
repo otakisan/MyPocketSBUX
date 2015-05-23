@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150513143439) do
+ActiveRecord::Schema.define(version: 20150519222129) do
 
   create_table "beans", force: true do |t|
     t.string   "name"
@@ -66,6 +66,18 @@ ActiveRecord::Schema.define(version: 20150513143439) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "orders", force: true do |t|
+    t.integer  "store_id"
+    t.integer  "tax_excluded_total_price"
+    t.integer  "tax_included_total_price"
+    t.string   "remarks"
+    t.string   "notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "orders", ["store_id"], name: "index_orders_on_store_id"
 
   create_table "pairings", force: true do |t|
     t.integer  "bean_id"
@@ -125,6 +137,20 @@ ActiveRecord::Schema.define(version: 20150513143439) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "tasting_logs", force: true do |t|
+    t.string   "title"
+    t.string   "tag"
+    t.datetime "tasting_at"
+    t.string   "detail"
+    t.integer  "store_id"
+    t.integer  "order_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tasting_logs", ["order_id"], name: "index_tasting_logs_on_order_id"
+  add_index "tasting_logs", ["store_id"], name: "index_tasting_logs_on_store_id"
 
   create_table "tunes", force: true do |t|
     t.string   "wrapper_type"
