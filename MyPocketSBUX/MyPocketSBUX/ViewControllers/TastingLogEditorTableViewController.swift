@@ -37,6 +37,10 @@ class TastingLogEditorTableViewController: UITableViewController, TitleTastingLo
     }
 
     @IBAction func actionSaveButtonItem(sender: UIBarButtonItem) {
+        // TODO: サーバーにアップしたデータと、登録日時・更新日時を揃える必要があるか
+        // TODO: アップに失敗した場合は、手動にて再度のアップが必要になる。失敗したことがわかるマーキング
+        ContentsManager.instance.postJsonContentsToWeb(self.tastingLog)
+        
         self.saveTastingLog()
         self.delegate?.didSaveTastingLog(self.tastingLog)
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -66,7 +70,7 @@ class TastingLogEditorTableViewController: UITableViewController, TitleTastingLo
         
         // 登録されていなければ登録する
         self.newTastingLog = TastingLogs.registerEntity(self.tastingLog)
-
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -194,7 +198,7 @@ class TastingLogEditorTableViewController: UITableViewController, TitleTastingLo
     
     func valueChangedOrder(order : Order){
         self.tastingLog.order = order
-    }
+    }    
 }
 
 protocol TastingLogEditorTableViewControllerDelegate {

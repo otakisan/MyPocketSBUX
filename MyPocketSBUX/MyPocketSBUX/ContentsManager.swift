@@ -176,4 +176,83 @@ class ContentsManager: NSObject {
         })
     }
 
+    //func postContentsToWeb(entityName : String, completionHandler: ((NSData!, NSURLResponse!, NSError!) -> Void)?){
+        func postContentsToWeb(){
+        
+        // まずPOSTで送信したい情報をセット。
+            let str = "tasting_log[title]=test log from ios&tasting_log[tag]=test tag&tasting_log[tasting_at(1i)]=2015&tasting_log[tasting_at(2i)]=5&tasting_log[tasting_at(3i)]=19&tasting_log[tasting_at(4i)]=22&tasting_log[tasting_at(5i)]=23&tasting_log[detail]=test detail&tasting_log[store_id]=2153&tasting_log[order_id]="
+        let strData = str.dataUsingEncoding(NSUTF8StringEncoding)
+
+        var url = NSURL(string: "http://localhost:3000/tasting_logs")
+        var request = NSMutableURLRequest(URL: url!)
+        
+        // この下二行を見つけるのに、少々てこずりました。
+        request.HTTPMethod = "POST"
+        request.HTTPBody = strData
+        
+        if var data = NSURLConnection.sendSynchronousRequest(request, returningResponse: nil, error: nil) {
+            if var dic = NSJSONSerialization.JSONObjectWithData(data, options:nil, error: nil) as? NSDictionary {
+                print(dic.count)
+            }
+        }
+    }
+    
+    func postJsonContentsToWeb(dataObject: NSObject) -> Bool {
+        
+        var isSuccess = false
+            
+        // まずPOSTで送信したい情報をセット。
+        var topObject : [String:AnyObject] = [:]
+        let propNames = dataObject.propertyNames()
+        for propName in propNames {
+            // TODO: 一般的には、\Lで小文字に変換できる？
+            let snakeCasePropName = propName.stringByReplacingOccurrencesOfString("([A-Z])", withString:"_$1", options:NSStringCompareOptions.RegularExpressionSearch, range: nil).lowercaseString
+            if let valueData: AnyObject = dataObject.valueForKey(propName) {
+                if ["id", "created_at", "updated_at"].filter({$0 == snakeCasePropName}).count == 0 {
+                    // プロパティがオブジェクトの場合はリレーションとみなし、idを設定する
+                    if valueData is NSManagedObject {
+                        topObject.updateValue(valueData.valueForKey("id") as! NSNumber, forKey: "\(snakeCasePropName)_id")
+                    }else if valueData is NSDate {
+                        // TODO: ひとまず、日本での時差で固定 サマータイムだと+0800になる？？
+                        topObject.updateValue(DateUtility.railsLocalDateString(valueData as! NSDate) + "+0900", forKey: snakeCasePropName)
+                    }else{
+                        topObject.updateValue(dataObject.valueForKey(propName)!, forKey: snakeCasePropName)
+                    }
+                }
+            }
+        }
+        
+//        var topObject3 : [String:AnyObject] =
+//            [
+//                "title":"test json log from ios",
+//                "tag":"test json tag",
+//                "tasting_at":"2005/02/01 05:15:10 -1000",
+//                "detail":"test json detail",
+//                "store_id":2154,
+//                "order_id":0
+//            ]
+    
+        var strData = NSJSONSerialization.dataWithJSONObject(topObject as NSDictionary, options: nil, error: nil)
+        var logString = NSString(data: strData!, encoding: NSUTF8StringEncoding)
+        print(logString!)
+        
+        var url = NSURL(string: "http://localhost:3000/tasting_logs.json")
+        var request = NSMutableURLRequest(URL: url!)
+        
+        // この下二行を見つけるのに、少々てこずりました。
+        // .jsonに要求を出すときは、content-typeの指定が必要。指定しないと適切に処理されない
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPMethod = "POST"
+        request.HTTPBody = strData
+        
+        var error: NSError?
+        if var data = NSURLConnection.sendSynchronousRequest(request, returningResponse: nil, error: &error) {
+            if var dic = NSJSONSerialization.JSONObjectWithData(data, options:nil, error: &error) as? NSDictionary {
+                isSuccess = true
+                print(dic.count)
+            }
+        }
+        
+        return isSuccess
+    }
 }

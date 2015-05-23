@@ -98,4 +98,14 @@ class DateUtility {
     class func minimumDate() -> NSDate {
         return NSDate(timeIntervalSince1970: 0)
     }
+    
+    class func railsLocalDateString(date : NSDate) -> String {
+        var formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+        formatter.locale = NSLocale.currentLocale()
+        var dateStringSrc = formatter.stringFromDate(date)
+        
+        return dateStringSrc
+    }
 }

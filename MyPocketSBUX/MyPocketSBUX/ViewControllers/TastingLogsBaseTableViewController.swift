@@ -36,6 +36,8 @@ class TastingLogsBaseTableViewController: UITableViewController, TastingLogEdito
         
         // Required if our subclasses are to use: dequeueReusableCellWithIdentifier:forIndexPath:
         tableView.registerNib(nib, forCellReuseIdentifier: Constants.TableViewCell.identifier)
+
+        self.intializeRefreshControl()
     }
 
     override func didReceiveMemoryWarning() {
@@ -114,6 +116,15 @@ class TastingLogsBaseTableViewController: UITableViewController, TastingLogEdito
     func deleteAction(indexPath : NSIndexPath) {
     }
 
+    func intializeRefreshControl() {
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
+    }
+    
+    func refresh() {
+        
+        self.refreshControl?.endRefreshing()
+    }
     /*
     // Override to support rearranging the table view.
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
