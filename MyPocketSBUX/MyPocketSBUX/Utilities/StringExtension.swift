@@ -46,4 +46,24 @@ extension String {
     func emptyIfNa() -> String {
         return self == "na" ? "" : self
     }
+    
+    func camelCaseFromSnakeCase() -> String {
+        let pattern = "(\\w{0,1})_"
+        var camel = self.capitalizedString.stringByReplacingOccurrencesOfString(pattern, withString: "$1",
+            options: NSStringCompareOptions.RegularExpressionSearch, range: nil)
+        
+        // make the first letter lower case
+        let head = self.substringToIndex(advance(self.startIndex, 1))
+        camel.replaceRange(camel.startIndex...camel.startIndex, with: head.lowercaseString)
+        
+        return camel
+    }
+    
+    func snakeCase() -> String {
+        return self.stringByReplacingOccurrencesOfString("([A-Z])", withString:"_$1", options:NSStringCompareOptions.RegularExpressionSearch, range: nil).lowercaseString
+    }
+    
+    func contains(compare: String) -> Bool {
+        return self.rangeOfString(compare, options: NSStringCompareOptions.allZeros, range: nil, locale: nil) != nil
+    }
 }

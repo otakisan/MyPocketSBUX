@@ -37,11 +37,15 @@ class TastingLogEditorTableViewController: UITableViewController, TitleTastingLo
     }
 
     @IBAction func actionSaveButtonItem(sender: UIBarButtonItem) {
+        // 最初にローカルへ保存
+        self.saveTastingLog()
+        
         // TODO: サーバーにアップしたデータと、登録日時・更新日時を揃える必要があるか
         // TODO: アップに失敗した場合は、手動にて再度のアップが必要になる。失敗したことがわかるマーキング
-        ContentsManager.instance.postJsonContentsToWeb(self.tastingLog)
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            TastingLogManager.instance.postJsonContentsToWebWithRegiserSyncRequestIfFailed(self.tastingLog)
+        })
         
-        self.saveTastingLog()
         self.delegate?.didSaveTastingLog(self.tastingLog)
         self.dismissViewControllerAnimated(true, completion: nil)
     }

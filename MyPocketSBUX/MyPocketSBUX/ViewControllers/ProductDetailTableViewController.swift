@@ -210,4 +210,35 @@ extension NSObject {
         return results;
     }
     
+    func propertyTypeName(propName: String) -> String {
+        var propertyType = ""
+        
+        // retrieve the properties via the class_copyPropertyList function
+        var count: UInt32 = 0;
+        var myClass: AnyClass = self.classForCoder;
+        var properties = class_copyPropertyList(myClass, &count);
+        
+        // iterate each objc_property_t struct
+        for var i: UInt32 = 0; i < count; i++ {
+            var property = properties[Int(i)];
+            
+            // retrieve the property name by calling property_getName function
+            var cname = property_getName(property);
+            
+            // covert the c string into a Swift string
+            var name = String.fromCString(cname);
+            if name == propName {
+                var cpropName = property_getAttributes(property)
+                propertyType = String.fromCString(cpropName)!
+                break
+            }
+        }
+        
+        // release objc_property_t structs
+        free(properties);
+        
+        return propertyType
+        
+    }
+    
 }

@@ -44,6 +44,10 @@ class DbContextBase: NSObject {
         return "find\(self.entityName())ByIdFetchRequest"
     }
     
+    func templateNameFindByPk() -> String {
+        return "find\(self.entityName())ByPkFetchRequest"
+    }
+    
     func createEntity<T : NSManagedObject>() -> T {
         var context : NSManagedObjectContext = DbContextBase.getManagedObjectContext()
         let ent = NSEntityDescription.entityForName(self.entityName(), inManagedObjectContext: context)
@@ -65,11 +69,20 @@ class DbContextBase: NSObject {
         DbContextBase.getManagedObjectContext().deleteObject(entity)
         DbContextBase.getManagedObjectContext().save(nil)
     }
+    
+    class func deleteEntities(entities : [NSManagedObject]) {
+        for entity in entities {
+            DbContextBase.getManagedObjectContext().deleteObject(entity)
+        }
+        
+        DbContextBase.getManagedObjectContext().save(nil)
+    }
 
     class func insertEntity(entity : NSManagedObject) {
         
         getManagedObjectContext().performBlockAndWait({
             DbContextBase.registerEntity(entity)
+            //let ret = DbContextBase.getManagedObjectContext().obtainPermanentIDsForObjects([entity], error: nil)
             DbContextBase.getManagedObjectContext().save(nil)
         })
     }
@@ -138,6 +151,9 @@ class DbContextBase: NSObject {
             
             request = fetchRequest
         }
+        else{
+            fatalError("FetchRequestTemplate not found. name:\(templateName)")
+        }
         
         return request
     }
@@ -189,7 +205,19 @@ class DbContextBase: NSObject {
         
         return entity
     }
-    
+
+    func findByPk<TResultEntity : NSManagedObject>(pk : Int) -> TResultEntity? {
+        
+        var entity : TResultEntity? = nil
+        if var results = DbContextBase.findByFetchRequestTemplate(self.templateNameFindByPk(), variables: ["pk" : pk], sortDescriptors: nil, limit: 0) as? [TResultEntity] {
+            if results.count > 0{
+                entity = results[0]
+            }
+        }
+        
+        return entity
+    }
+
     func maxId() -> Int {
         
         var req = NSFetchRequest()
@@ -214,5 +242,29 @@ class DbContextBase: NSObject {
         }
         
         return maxId == NSNotFound ? 0 : Int(maxId)
+    }
+    
+    func searchSyncRequestsByEntityTypeName() -> [SyncRequest] {
+        
+        var sortKeys : [AnyObject] = []
+        return DbContextBase.findByFetchRequestTemplate(
+            "searchSyncRequestsByEntityTypeNameFetchRequest",
+            variables: ["entityTypeName":self.entityName()],
+            sortDescriptors: sortKeys,
+            limit: 0) as! [SyncRequest]
+    
+    }
+    
+    class func zpk(entity: NSManagedObject) -> Int {
+        if entity.objectID.temporaryID {
+            fatalError("objectID is Temporary !!")
+        }
+        
+        var zPK = 0
+        if var objectIDString = entity.objectID.URIRepresentation().lastPathComponent {
+            zPK = objectIDString.substringFromIndex(objectIDString.startIndex.successor()).toInt() ?? 0
+        }
+        
+        return zPK
     }
 }

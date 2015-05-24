@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7549" systemVersion="14D136" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14D136" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Bean" representedClassName="MyPocketSBUX.Bean" syncable="YES">
         <attribute name="acidity" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
@@ -150,6 +150,10 @@
         <attribute name="storeId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
     </entity>
+    <entity name="SyncRequest" representedClassName="MyPocketSBUX.SyncRequest" syncable="YES">
+        <attribute name="entityPk" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="entityTypeName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="TastingLog" representedClassName="MyPocketSBUX.TastingLog" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="detail" optional="YES" attributeType="String" syncable="YES"/>
@@ -208,6 +212,7 @@
     <fetchRequest name="allProductIngredientsFetchRequest" entity="ProductIngredient"/>
     <fetchRequest name="allSeminarsFetchRequest" entity="Seminar"/>
     <fetchRequest name="allStoresFetchRequest" entity="Store"/>
+    <fetchRequest name="allSyncRequestsFetchRequest" entity="SyncRequest"/>
     <fetchRequest name="allTastingLogsFetchRequest" entity="TastingLog"/>
     <fetchRequest name="allTunesFetchRequest" entity="Tune"/>
     <fetchRequest name="findBeanByIdFetchRequest" entity="Bean" predicateString="$id == id"/>
@@ -219,7 +224,9 @@
     <fetchRequest name="findNutritionByJanCodeSizeMilkLiquidTemperatureFetchRequest" entity="Nutrition" predicateString="id == 0 AND liquidTemperature == $liquidTemperature AND janCode == $janCode AND milk == $milk"/>
     <fetchRequest name="findProductIngredientsByOrderIdAndOrderDetailIdFetchRequest" entity="ProductIngredient" predicateString="orderId == $orderId AND orderDetailId == $orderDetailId"/>
     <fetchRequest name="findStoreByStoreIdFetchRequest" entity="Store" predicateString="storeId == $storeId"/>
+    <fetchRequest name="findTastingLogByPkFetchRequest" entity="TastingLog" predicateString="_pk == $pk"/>
     <fetchRequest name="orderDetailsWithOrderIdFetchRequest" entity="OrderDetail" predicateString="orderId == $orderId"/>
+    <fetchRequest name="searchSyncRequestsByEntityTypeNameFetchRequest" entity="SyncRequest" predicateString="entityTypeName == $entityTypeName"/>
     <elements>
         <element name="Bean" positionX="124" positionY="-15" width="128" height="285"/>
         <element name="Drink" positionX="-54" positionY="135" width="128" height="225"/>
@@ -232,6 +239,7 @@
         <element name="ProductIngredient" positionX="-36" positionY="153" width="128" height="255"/>
         <element name="Seminar" positionX="108" positionY="135" width="128" height="225"/>
         <element name="Store" positionX="-54" positionY="36" width="128" height="328"/>
+        <element name="SyncRequest" positionX="108" positionY="135" width="128" height="75"/>
         <element name="TastingLog" positionX="135" positionY="162" width="128" height="180"/>
         <element name="Tune" positionX="108" positionY="135" width="128" height="555"/>
     </elements>

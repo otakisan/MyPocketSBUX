@@ -11,6 +11,10 @@ import UIKit
 class TastingLogManager: NSObject {
     static let instance = TastingLogManager()
     
+    func entityResourceName() -> String {
+        return "tasting_log"
+    }
+    
     func newTastingLog() -> TastingLog {
         var tastingLog : TastingLog = TastingLogs.instance().createEntity()
         self.initializeTastingLog(tastingLog)
@@ -34,7 +38,8 @@ class TastingLogManager: NSObject {
         
         if newTastingLog {
             tastingLog.createdAt = NSDate()
-            tastingLog.id = TastingLogs.instance().maxId() + 1
+            // IDはサーバーで採番する
+            //tastingLog.id = TastingLogs.instance().maxId() + 1
             TastingLogs.insertEntity(tastingLog)
         }
         else{
@@ -50,5 +55,38 @@ class TastingLogManager: NSObject {
             TastingLogs.getManagedObjectContext().refreshObject(tastingLog, mergeChanges: false)
         }
     }
+    
+    func registerSyncRequest(tastingLog: TastingLog) {
+        var entity: SyncRequest = SyncRequests.instance().createEntity()
+        entity.entityTypeName = TastingLogs.instance().entityName()
+        entity.entityPk = DbContextBase.zpk(tastingLog)
+        
+        TastingLogs.insertEntity(entity)
+    }
 
+    func postJsonContentsToWeb(tastingLog: TastingLog) -> Bool {
+        return ContentsManager.instance.postJsonContentsToWeb(tastingLog, entityName: self.entityResourceName())
+    }
+    
+    func postJsonContentsToWebWithRegiserSyncRequestIfFailed(tastingLog: TastingLog) {
+        if !self.postJsonContentsToWeb(tastingLog) {
+            // TODO: 同期が失敗した場合は、同期要求に格納する
+            self.registerSyncRequest(tastingLog)
+        }
+    }
+    
+    func postJsonContentsToWebWithSyncRequest() {
+        
+        var syncedList: [SyncRequest] = []
+        let syncRequests = TastingLogs.instance().searchSyncRequestsByEntityTypeName()
+        for syncRequest in syncRequests {
+            if let targetEntity : TastingLog = TastingLogs.instance().findByPk(syncRequest.entityPk as Int) {
+                if self.postJsonContentsToWeb(targetEntity) {
+                    syncedList += [syncRequest]
+                }
+            }
+        }
+        
+        SyncRequests.deleteEntities(syncedList)
+    }
 }

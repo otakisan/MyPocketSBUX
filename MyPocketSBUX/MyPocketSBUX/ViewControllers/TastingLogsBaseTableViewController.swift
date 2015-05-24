@@ -123,7 +123,11 @@ class TastingLogsBaseTableViewController: UITableViewController, TastingLogEdito
     
     func refresh() {
         
-        self.refreshControl?.endRefreshing()
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            TastingLogManager.instance.postJsonContentsToWebWithSyncRequest()
+            
+            self.refreshControl?.endRefreshing()
+        })
     }
     /*
     // Override to support rearranging the table view.
