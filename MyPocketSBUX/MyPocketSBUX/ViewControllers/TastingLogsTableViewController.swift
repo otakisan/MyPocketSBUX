@@ -16,6 +16,7 @@ class TastingLogsTableViewController: TastingLogsBaseTableViewController, UISear
     // Secondary search results table view.
     var filteredTastingLogsTableController: FilteredTastingLogsTableViewController!
     
+    private var refreshing = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -187,13 +188,22 @@ class TastingLogsTableViewController: TastingLogsBaseTableViewController, UISear
     }
     
     func refreshDataAndReloadTableView(){
-        
-        // TODO: 現状はローカルにしかないので、単純にローカルDBから取得するのみ
-        // 将来的にウェブにアップする場合には、ローカルとウェブとの差分の管理なんかも必要になるな
-        // キャッシュ用のオフライン専用テーブルを作成したほうがいいかも。
-        // シンプルにUNIONする等
-        self.tastingLogs = TastingLogs.instance().getAllOrderBy([("tastingAt", false)])
-        self.reloadData()
+                
+        // TODO: オーダーをサーバーにアップするようになったら、オーダーも取得する
+        ContentsManager.instance.fetchContents(["store"], orderKeys: [], completionHandler: { fetchResults in
+            ContentsManager.instance.fetchContents(["tasting_log"], orderKeys: [(columnName : "tastingAt", ascending : false)], completionHandler: { fetchResults in
+                self.tastingLogs = fetchResults.first?.entities as? [TastingLog] ?? []
+                self.reloadData()
+            })
+        })
+    }
+    
+    func refreshLocalDbAndReload(completionHandler: (Void -> Void)?) {
+        ContentsManager.instance.refreshContents(["tasting_log"], orderKeys: [(columnName : "tastingAt", ascending : false)], completionHandler: { fetchResults in
+            self.tastingLogs = fetchResults.first?.entities as? [TastingLog] ?? []
+            self.reloadData(completion: {self.refreshing = false})
+            completionHandler?()
+        })
     }
     
     func showNavigationPrompt(title : String, message : String, displayingTime: useconds_t) {
@@ -236,6 +246,48 @@ class TastingLogsTableViewController: TastingLogsBaseTableViewController, UISear
         var removed = self.tastingLogs.removeAtIndex(indexPath.row)
         self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
         TastingLogs.deleteEntity(removed)
+    }
+    
+    override func refresh() {
+        
+        // TODO: 一覧のリロードが完了するまでブロックする必要がある
+        if !self.refreshing {
+            self.refreshing = true
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                // サーバーにアップしていないものをアップする
+                TastingLogManager.instance.postJsonContentsToWebWithSyncRequest()
+                
+                // サーバーから最新版をフェッチする
+                self.refreshLocalDbAndReload({
+                    self.refreshControl?.endRefreshing()
+//                    self.refreshing = false
+                })
+            })
+        }
+    }
+    
+    func refreshViaFilteredList() {
+        if !self.refreshing {
+            self.refreshing = true
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                
+                // サーバーにアップしていないものをアップする
+                TastingLogManager.instance.postJsonContentsToWebWithSyncRequest()
+                
+                // サーバーから最新版をフェッチする
+                self.refreshLocalDbAndReload({
+                    self.updateSearchResultsForSearchController(self.searchController)
+                    
+                    // TODO: 消すタイミングを親側で決めるのは、密結合だけど、暫定的にそうする
+                    self.filteredTastingLogsTableController.refreshControl?.endRefreshing()
+                    
+//                    self.refreshing = false
+                })
+            })
+        }
+        
     }
 
 }

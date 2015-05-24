@@ -24,11 +24,12 @@ class TastingLogs: DbContextBase {
         for newData in jsonObject {
             var entity : TastingLog = TastingLogs.instance().createEntity()
             entity.id = (newData["id"] as? NSNumber) ?? 0
+            entity.tag = ((newData["tag"] as? NSString) ?? "") as String
             entity.title = ((newData["title"] as? NSString) ?? "") as String
-            entity.tastingAt = (newData["tasting_at"] as? NSDate) ?? NSDate(timeIntervalSince1970: 0)
+            entity.tastingAt = DateUtility.dateFromSqliteDateTimeString(newData as! NSDictionary, key: "tasting_at")
             entity.detail = ((newData["detail"] as? NSString) ?? "") as String
-            entity.createdAt = (newData["created_at"] as? NSDate) ?? NSDate(timeIntervalSince1970: 0)
-            entity.updatedAt = (newData["updated_at"] as? NSDate) ?? NSDate(timeIntervalSince1970: 0)
+            entity.createdAt = DateUtility.dateFromSqliteDateTimeString(newData as! NSDictionary, key: "created_at")
+            entity.updatedAt = DateUtility.dateFromSqliteDateTimeString(newData as! NSDictionary, key: "updated_at")
             
             // 先に登録して、ManagedObjectContext配下に置かないとリレーション設定の際にエラーになる
             // （不正なコンテキスト、というエラー）

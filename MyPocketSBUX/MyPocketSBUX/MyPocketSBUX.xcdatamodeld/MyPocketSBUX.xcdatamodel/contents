@@ -222,7 +222,9 @@
     <fetchRequest name="findFoodByJanCodeFetchRequest" entity="Food" predicateString="janCode == $janCode"/>
     <fetchRequest name="findNutritionByJanCodeFetchRequest" entity="Nutrition" predicateString="janCode == $janCode"/>
     <fetchRequest name="findNutritionByJanCodeSizeMilkLiquidTemperatureFetchRequest" entity="Nutrition" predicateString="id == 0 AND liquidTemperature == $liquidTemperature AND janCode == $janCode AND milk == $milk"/>
+    <fetchRequest name="findOrderByIdFetchRequest" entity="Order" predicateString="id == $id"/>
     <fetchRequest name="findProductIngredientsByOrderIdAndOrderDetailIdFetchRequest" entity="ProductIngredient" predicateString="orderId == $orderId AND orderDetailId == $orderDetailId"/>
+    <fetchRequest name="findStoreByIdFetchRequest" entity="Store" predicateString="id == $id"/>
     <fetchRequest name="findStoreByStoreIdFetchRequest" entity="Store" predicateString="storeId == $storeId"/>
     <fetchRequest name="findTastingLogByPkFetchRequest" entity="TastingLog" predicateString="_pk == $pk"/>
     <fetchRequest name="orderDetailsWithOrderIdFetchRequest" entity="OrderDetail" predicateString="orderId == $orderId"/>

@@ -41,6 +41,10 @@ class FilteredTastingLogsTableViewController: TastingLogsBaseTableViewController
 
         self.delegate?.deleteActionViaFilteredList(removed)
     }
+    
+    override func refresh() {
+        self.delegate?.refreshViaFilteredList()
+    }
 
     // MARK: - Table view data source
     
@@ -95,4 +99,5 @@ protocol FilteredTastingLogsTableViewControllerDelegate {
     func didSaveTastingLogViaFilteredList(tastingLog: TastingLog)
     func didCancelTastingLogViaFilteredList(tastingLog: TastingLog)
     func deleteActionViaFilteredList(tastingLog: TastingLog)
+    func refreshViaFilteredList()
 }

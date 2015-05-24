@@ -18,7 +18,10 @@ extension UITableViewController {
         dispatch_async(privateQueue, block)
     }
     
-    func reloadData(){
-        dispatch_async_main{self.tableView.reloadData()}
+    func reloadData(completion: (Void -> Void)? = nil){
+        dispatch_async_main{
+            self.tableView.reloadData()
+            completion?()
+        }
     }
 }
