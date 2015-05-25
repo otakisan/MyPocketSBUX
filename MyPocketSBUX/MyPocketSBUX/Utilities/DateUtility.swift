@@ -61,7 +61,7 @@ class DateUtility {
     }
     
     class func dateFromSqliteDateTimeString(jsonObject: NSDictionary, key: String) -> NSDate {
-        return DateUtility.dateFromSqliteDateTimeString((jsonObject[key] as? NSString ?? "") as String) ?? NSDate(timeIntervalSince1970: 0)
+        return DateUtility.dateFromSqliteDateTimeString((jsonObject[key] as? NSString ?? "1970-01-01T00:00:00") as String) ?? NSDate(timeIntervalSince1970: 0)
     }
     
     class func dateFromSqliteDateString(dateString : String) -> NSDate? {

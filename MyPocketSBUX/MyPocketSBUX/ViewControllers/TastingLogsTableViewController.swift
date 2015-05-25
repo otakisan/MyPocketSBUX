@@ -289,5 +289,15 @@ class TastingLogsTableViewController: TastingLogsBaseTableViewController, UISear
         }
         
     }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        // TODO: データの更新中に、非表示領域から復帰するセルの描画を空にすることでデータの不整合を防ぐ
+        if self.refreshing {
+            return tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) as! UITableViewCell
+        }
+        else{
+            return super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+        }
+    }
 
 }
