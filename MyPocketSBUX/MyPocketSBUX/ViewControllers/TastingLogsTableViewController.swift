@@ -237,7 +237,7 @@ class TastingLogsTableViewController: TastingLogsBaseTableViewController, UISear
     }
     
     func deleteActionViaFilteredList(tastingLog: TastingLog){
-        TastingLogs.deleteEntity(tastingLog)
+        TastingLogManager.instance.deleteTastingLog(tastingLog)
         self.refreshDataAndReloadTableView()
         self.updateSearchResultsForSearchController(self.searchController)
     }
@@ -245,7 +245,7 @@ class TastingLogsTableViewController: TastingLogsBaseTableViewController, UISear
     override func deleteAction(indexPath : NSIndexPath) {
         var removed = self.tastingLogs.removeAtIndex(indexPath.row)
         self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
-        TastingLogs.deleteEntity(removed)
+        TastingLogManager.instance.deleteTastingLog(removed)
     }
     
     override func refresh() {

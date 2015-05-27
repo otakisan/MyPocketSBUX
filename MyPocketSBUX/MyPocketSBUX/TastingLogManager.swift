@@ -56,10 +56,20 @@ class TastingLogManager: NSObject {
         }
     }
     
+    func deleteTastingLog(tastingLog: TastingLog) {
+        let idOnWeb = tastingLog.id as Int
+        if !ContentsManager.instance.deleteContentsToWeb(idOnWeb, entityName: "tasting_log") {
+            self.registerSyncRequest(tastingLog)
+        }
+        
+        TastingLogs.deleteEntity(tastingLog)
+    }
+    
     func registerSyncRequest(tastingLog: TastingLog) {
         var entity: SyncRequest = SyncRequests.instance().createEntity()
         entity.entityTypeName = TastingLogs.instance().entityName()
         entity.entityPk = DbContextBase.zpk(tastingLog)
+        entity.entityGlobalID = tastingLog.id ?? 0
         
         TastingLogs.insertEntity(entity)
     }
@@ -82,6 +92,11 @@ class TastingLogManager: NSObject {
         for syncRequest in syncRequests {
             if let targetEntity : TastingLog = TastingLogs.instance().findByPk(syncRequest.entityPk as Int) {
                 if self.postJsonContentsToWeb(targetEntity) {
+                    syncedList += [syncRequest]
+                }
+            }
+            else if syncRequest.entityGlobalID as Int > 0 {
+                if ContentsManager.instance.deleteContentsToWeb(syncRequest.entityGlobalID as Int, entityName: "tasting_log") {
                     syncedList += [syncRequest]
                 }
             }

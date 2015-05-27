@@ -244,6 +244,26 @@ class ContentsManager: NSObject {
         return isSuccess
     }
     
+    func deleteContentsToWeb(idOnWeb: Int, entityName: String) -> Bool {
+        var isSuccess = false
+        
+        var url = NSURL(string: "http://\(ResourceContext.instance.serviceHost()):\(ResourceContext.instance.servicePort())/\(entityName)s/\(idOnWeb).json")
+        var request = NSMutableURLRequest(URL: url!)
+        
+        // .jsonに要求を出すときは、content-typeの指定が必要。指定しないと適切に処理されない
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPMethod = "DELETE"
+        
+        var error: NSError?
+        if var data = NSURLConnection.sendSynchronousRequest(request, returningResponse: nil, error: &error) {
+            if var dic = NSJSONSerialization.JSONObjectWithData(data, options:nil, error: &error) as? NSDictionary {
+                isSuccess = true
+            }
+        }
+        
+        return isSuccess
+    }
+    
     func typeConvert(propTypeName: String, propValue: String) -> AnyObject {
         var converted : AnyObject = propValue
         if propTypeName.contains("NSDate") {

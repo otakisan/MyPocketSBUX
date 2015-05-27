@@ -13,5 +13,6 @@ class SyncRequest: NSManagedObject {
 
     @NSManaged var entityTypeName: String
     @NSManaged var entityPk: NSNumber
+    @NSManaged var entityGlobalID: NSNumber
 
 }

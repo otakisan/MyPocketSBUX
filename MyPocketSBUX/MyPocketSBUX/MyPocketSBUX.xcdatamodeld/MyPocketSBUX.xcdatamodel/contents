@@ -151,6 +151,7 @@
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
     </entity>
     <entity name="SyncRequest" representedClassName="MyPocketSBUX.SyncRequest" syncable="YES">
+        <attribute name="entityGlobalID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="entityPk" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="entityTypeName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -241,7 +242,7 @@
         <element name="ProductIngredient" positionX="-36" positionY="153" width="128" height="255"/>
         <element name="Seminar" positionX="108" positionY="135" width="128" height="225"/>
         <element name="Store" positionX="-54" positionY="36" width="128" height="328"/>
-        <element name="SyncRequest" positionX="108" positionY="135" width="128" height="75"/>
+        <element name="SyncRequest" positionX="108" positionY="135" width="128" height="90"/>
         <element name="TastingLog" positionX="135" positionY="162" width="128" height="180"/>
         <element name="Tune" positionX="108" positionY="135" width="128" height="555"/>
     </elements>
