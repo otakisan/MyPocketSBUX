@@ -16,13 +16,14 @@ class OrderManager: NSObject {
         return orderListItems.map({$0.orders}).reduce([], combine: {$0 + $1})
     }
     
-    func saveIngredients(ingredients : [Ingredient], orderId : Int, orderDetailId : Int, isCustom : Bool, now: NSDate) {
+    func saveIngredients(ingredients : [Ingredient], order : Order, orderDetail : OrderDetail, isCustom : Bool, now: NSDate) {
         
         for ingredient in ingredients {
             var ingredientEntity : ProductIngredient = ProductIngredients.instance().createEntity()
-            ingredientEntity.id = ProductIngredients.sequenceNumber()
-            ingredientEntity.orderId = orderId
-            ingredientEntity.orderDetailId = orderDetailId
+            ProductIngredients.registerEntity(ingredientEntity)
+            ingredientEntity.id = 0//ProductIngredients.sequenceNumber()
+            ingredientEntity.orderId = order.id
+            ingredientEntity.orderDetailId = orderDetail.id
             ingredientEntity.isCustom = !ingredient.isPartOfOriginalIngredients
             ingredientEntity.name = ingredient.name
             ingredientEntity.type = ingredient.type.name()
@@ -34,6 +35,7 @@ class OrderManager: NSObject {
             ingredientEntity.remarks = ""
             ingredientEntity.createdAt = now
             ingredientEntity.updatedAt = now
+            ingredientEntity.orderDetail = orderDetail
             
             ProductIngredients.insertEntity(ingredientEntity)
         }
@@ -57,13 +59,15 @@ class OrderManager: NSObject {
         order.remarks = ""
         order.createdAt = now
         order.updatedAt = now
-        Orders.insertEntity(order)
+        Orders.registerEntity(order)
         
+        var orderDetails: Set<OrderDetail> = []
         for orderListItem in self.unionOrderListItem(orderListItems) {
             // OrderDetail
             var orderDetail : OrderDetail = OrderDetails.instance().createEntity()
-            let orderDetailId = OrderDetails.sequenceNumber() // TODO: 秒単位だと重複する できればμs単位にしたい それか乱数
-            orderDetail.id = orderDetailId
+            OrderDetails.registerEntity(orderDetail)
+            //let orderDetailId = OrderDetails.sequenceNumber() // TODO: 秒単位だと重複する できればμs単位にしたい それか乱数
+            orderDetail.id = 0//orderDetailId
             orderDetail.orderId = orderId
             orderDetail.productName = orderListItem.productEntity?.valueForKey("name") as? String ?? ""
             orderDetail.productJanCode = orderListItem.productEntity?.valueForKey("janCode") as? String ?? ""
@@ -78,18 +82,24 @@ class OrderManager: NSObject {
             orderDetail.remarks = ""
             orderDetail.createdAt = now
             orderDetail.updatedAt = now
-            OrderDetails.insertEntity(orderDetail)
+            orderDetail.order = order
             
             // TODO: 標準構成の中の要素で変更が入ったものが分からない
             // カスタムをアクションとみなして、それを登録
             // DBから読み取ってリドゥする形がいいのかも
             if let originals = orderListItem.originalItems {
-                self.saveIngredients(originals.ingredients, orderId: orderId, orderDetailId: orderDetailId, isCustom: false, now: now)
+                self.saveIngredients(originals.ingredients, order: order, orderDetail: orderDetail, isCustom: false, now: now)
             }
             if let customs = orderListItem.customizationItems {
-                self.saveIngredients(customs.ingredients, orderId: orderId, orderDetailId: orderDetailId, isCustom: true, now: now)
+                self.saveIngredients(customs.ingredients, order: order, orderDetail: orderDetail, isCustom: true, now: now)
             }
+            
+            OrderDetails.insertEntity(orderDetail)
+            orderDetails.insert(orderDetail)
         }
+        
+        order.orderDetails = orderDetails
+        Orders.insertEntity(order)
     }
     
     func ticketString(orderListItem : OrderListItem) -> String {
@@ -170,7 +180,8 @@ class OrderManager: NSObject {
     func loadOrder(#orderDetail : OrderDetail) -> OrderListItem {
         var orderListItem = OrderListItem()
         
-        let ingredientEntities = ProductIngredients.findProductIngredientsByOrderIdAndOrderDetailIdFetchRequest(Int(orderDetail.orderId), orderDetailId: Int(orderDetail.id), orderKeys: [("id", true)])
+//        let ingredientEntities = ProductIngredients.findProductIngredientsByOrderIdAndOrderDetailIdFetchRequest(Int(orderDetail.orderId), orderDetailId: Int(orderDetail.id), orderKeys: [("id", true)])
+        let ingredientEntities = orderDetail.productIngredients.allObjects as! [ProductIngredient]
         let ingredientCollection = self.ingredientCollection(ingredientEntities)
         
         orderListItem.on = self.oneMoreCoffee(orderDetail.ticket)

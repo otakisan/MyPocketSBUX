@@ -291,7 +291,8 @@ class OrderTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, Orders
     
     func reloadOrderLabel(order: Order?) {
         if let id = order?.id as? Int {
-            let details = OrderDetails.getOrderDetailsWithOrderId(id, orderKeys: [(columnName: "id", ascending: true)])
+//            let details = OrderDetails.getOrderDetailsWithOrderId(id, orderKeys: [(columnName: "id", ascending: true)])
+            let details = order?.orderDetails.allObjects as! [OrderDetail]
             self.reloadLabel(details.first?.productName ?? "")
         }
     }

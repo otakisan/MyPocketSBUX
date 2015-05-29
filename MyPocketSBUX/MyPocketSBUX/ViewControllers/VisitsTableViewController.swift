@@ -101,7 +101,8 @@ class VisitsTableViewController: UITableViewController {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 // TODO: オーダー詳細のソート順は、ドリンク／フード別に分けたいのもあり、単純な名称の辞書順では済まない
                 let order = self.visits[indexPath.row].order
-                let orderDetails = OrderDetails.getOrderDetailsWithOrderId(Int(order.id), orderKeys: [("id", true)])
+//                let orderDetails = OrderDetails.getOrderDetailsWithOrderId(Int(order.id), orderKeys: [("id", true)])
+                let orderDetails = order.orderDetails.allObjects as! [OrderDetail]
                 let orderInfo = OrderManager.instance.loadOrder(order, orderDetails: orderDetails)
                 vc.orderHeader = orderInfo.header
                 vc.orderItems = orderInfo.details

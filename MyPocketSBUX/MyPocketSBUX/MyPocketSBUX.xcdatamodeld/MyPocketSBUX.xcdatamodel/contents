@@ -63,6 +63,7 @@
         <attribute name="taxExcludedTotalPrice" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="taxIncludedTotalPrice" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="orderDetails" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OrderDetail" inverseName="order" inverseEntity="OrderDetail" syncable="YES"/>
     </entity>
     <entity name="OrderDetail" representedClassName="MyPocketSBUX.OrderDetail" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
@@ -80,6 +81,8 @@
         <attribute name="ticket" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="totalCalorie" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="order" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Order" inverseName="orderDetails" inverseEntity="Order" syncable="YES"/>
+        <relationship name="productIngredients" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ProductIngredient" inverseName="orderDetail" inverseEntity="ProductIngredient" syncable="YES"/>
     </entity>
     <entity name="Pairing" representedClassName="MyPocketSBUX.Pairing" syncable="YES">
         <attribute name="beanId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -114,6 +117,7 @@
         <attribute name="unitCalorie" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="unitPrice" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="orderDetail" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OrderDetail" inverseName="productIngredients" inverseEntity="OrderDetail" syncable="YES"/>
     </entity>
     <entity name="Seminar" representedClassName="MyPocketSBUX.Seminar" syncable="YES">
         <attribute name="capacity" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -235,11 +239,11 @@
         <element name="Drink" positionX="-54" positionY="135" width="128" height="225"/>
         <element name="Food" positionX="-45" positionY="144" width="128" height="195"/>
         <element name="Nutrition" positionX="-45" positionY="135" width="128" height="165"/>
-        <element name="Order" positionX="-54" positionY="135" width="128" height="165"/>
-        <element name="OrderDetail" positionX="-45" positionY="144" width="128" height="270"/>
+        <element name="Order" positionX="-54" positionY="135" width="128" height="180"/>
+        <element name="OrderDetail" positionX="-45" positionY="144" width="128" height="300"/>
         <element name="Pairing" positionX="286" positionY="99" width="128" height="148"/>
         <element name="PressRelease" positionX="-63" positionY="-18" width="128" height="150"/>
-        <element name="ProductIngredient" positionX="-36" positionY="153" width="128" height="255"/>
+        <element name="ProductIngredient" positionX="-36" positionY="153" width="128" height="270"/>
         <element name="Seminar" positionX="108" positionY="135" width="128" height="225"/>
         <element name="Store" positionX="-54" positionY="36" width="128" height="328"/>
         <element name="SyncRequest" positionX="108" positionY="135" width="128" height="90"/>

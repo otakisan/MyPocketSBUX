@@ -55,7 +55,8 @@ class OrdersTableViewController: UITableViewController {
         let dateString = DateUtility.localDateString(self.orders[indexPath.row].order.createdAt)
         let timeString = DateUtility.localTimeString(self.orders[indexPath.row].order.createdAt)
         cell.textLabel?.text = "\(dateString) \(timeString) ¥\(self.orders[indexPath.row].order.taxExcludedTotalPrice) (¥\(self.orders[indexPath.row].order.taxIncludedTotalPrice)) (\(self.orders[indexPath.row].order.storeId))"
-        cell.detailTextLabel?.text = self.orders[indexPath.row].orderDetails.reduce("", combine: {$0 + ($0 != "" ? ", " : "") + $1.productName})
+//        cell.detailTextLabel?.text = self.orders[indexPath.row].orderDetails.reduce("", combine: {$0 + ($0 != "" ? ", " : "") + $1.productName})
+        cell.detailTextLabel?.text = (self.orders[indexPath.row].order.orderDetails.allObjects as? [OrderDetail])?.reduce("", combine: {$0! + ($0 != "" ? ", " : "") + $1.productName}) ?? ""
 
         return cell
     }
@@ -109,7 +110,8 @@ class OrdersTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
         if var vc = segue.destinationViewController as? OrderTableViewController {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
-                let orderInfo = OrderManager.instance.loadOrder(self.orders[indexPath.row].order, orderDetails: self.orders[indexPath.row].orderDetails)
+//                let orderInfo = OrderManager.instance.loadOrder(self.orders[indexPath.row].order, orderDetails: self.orders[indexPath.row].orderDetails)
+                let orderInfo = OrderManager.instance.loadOrder(self.orders[indexPath.row].order, orderDetails: self.orders[indexPath.row].order.orderDetails.allObjects as! [OrderDetail])
                 vc.orderHeader = orderInfo.header
                 vc.orderItems = orderInfo.details
             }
@@ -120,8 +122,9 @@ class OrdersTableViewController: UITableViewController {
     func fetchRecentOrders() {
         let orders = OrderManager.instance.getAllOrderFromLocal()
         for order in orders {
-            var orderDetails = OrderDetails.getOrderDetailsWithOrderId(Int(order.id), orderKeys: [])
-            self.orders += [(order, orderDetails)]
+//            var orderDetails = OrderDetails.getOrderDetailsWithOrderId(Int(order.id), orderKeys: [])
+//            self.orders += [(order, orderDetails)]
+            self.orders += [(order, order.orderDetails.allObjects as! [OrderDetail])]
         }
         
     }

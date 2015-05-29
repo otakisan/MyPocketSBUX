@@ -26,5 +26,7 @@ class OrderDetail: NSManagedObject {
     @NSManaged var remarks: String
     @NSManaged var createdAt: NSDate
     @NSManaged var updatedAt: NSDate
+    @NSManaged var order: Order?
+    @NSManaged var productIngredients: NSSet
 
 }

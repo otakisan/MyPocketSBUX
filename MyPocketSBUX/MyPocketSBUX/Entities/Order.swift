@@ -19,5 +19,6 @@ class Order: NSManagedObject {
     @NSManaged var taxIncludedTotalPrice: NSNumber
     @NSManaged var updatedAt: NSDate
     @NSManaged var notes: String
+    @NSManaged var orderDetails: NSSet
 
 }

@@ -25,5 +25,6 @@ class ProductIngredient: NSManagedObject {
     @NSManaged var remarks: String
     @NSManaged var createdAt: NSDate
     @NSManaged var updatedAt: NSDate
+    @NSManaged var orderDetail: OrderDetail?
 
 }
