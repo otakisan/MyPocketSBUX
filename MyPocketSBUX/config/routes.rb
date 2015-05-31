@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :product_ingredients
+
+  resources :order_details
+
   resources :tasting_logs
 
   resources :orders

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150519222129) do
+ActiveRecord::Schema.define(version: 20150531051411) do
 
   create_table "beans", force: true do |t|
     t.string   "name"
@@ -67,6 +67,25 @@ ActiveRecord::Schema.define(version: 20150519222129) do
     t.datetime "updated_at"
   end
 
+  create_table "order_details", force: true do |t|
+    t.integer  "order_id"
+    t.string   "product_jan_code"
+    t.string   "product_name"
+    t.string   "size"
+    t.string   "hot_or_iced"
+    t.integer  "reusable_cup"
+    t.string   "ticket"
+    t.integer  "tax_exclude_total_price"
+    t.integer  "tax_exclude_custom_price"
+    t.integer  "total_calorie"
+    t.integer  "custom_calorie"
+    t.string   "remarks"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "order_details", ["order_id"], name: "index_order_details_on_order_id"
+
   create_table "orders", force: true do |t|
     t.integer  "store_id"
     t.integer  "tax_excluded_total_price"
@@ -100,6 +119,23 @@ ActiveRecord::Schema.define(version: 20150519222129) do
   end
 
   add_index "press_releases", ["press_release_sn"], name: "index_press_releases_on_press_release_sn"
+
+  create_table "product_ingredients", force: true do |t|
+    t.integer  "order_detail_id"
+    t.integer  "is_custom"
+    t.string   "name"
+    t.string   "milk_type"
+    t.integer  "unit_calorie"
+    t.integer  "unit_price"
+    t.integer  "quantity"
+    t.integer  "enabled"
+    t.integer  "quantity_type"
+    t.string   "remarks"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "product_ingredients", ["order_detail_id"], name: "index_product_ingredients_on_order_detail_id"
 
   create_table "seminars", force: true do |t|
     t.integer  "store_id"

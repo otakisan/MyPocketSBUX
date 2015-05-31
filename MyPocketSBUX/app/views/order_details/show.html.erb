@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Order:</strong>
+  <%= @order_detail.order %>
+</p>
+
+<p>
+  <strong>Product jan code:</strong>
+  <%= @order_detail.product_jan_code %>
+</p>
+
+<p>
+  <strong>Product name:</strong>
+  <%= @order_detail.product_name %>
+</p>
+
+<p>
+  <strong>Size:</strong>
+  <%= @order_detail.size %>
+</p>
+
+<p>
+  <strong>Hot or iced:</strong>
+  <%= @order_detail.hot_or_iced %>
+</p>
+
+<p>
+  <strong>Reusable cup:</strong>
+  <%= @order_detail.reusable_cup %>
+</p>
+
+<p>
+  <strong>Ticket:</strong>
+  <%= @order_detail.ticket %>
+</p>
+
+<p>
+  <strong>Tax exclude total price:</strong>
+  <%= @order_detail.tax_exclude_total_price %>
+</p>
+
+<p>
+  <strong>Tax exclude custom price:</strong>
+  <%= @order_detail.tax_exclude_custom_price %>
+</p>
+
+<p>
+  <strong>Total calorie:</strong>
+  <%= @order_detail.total_calorie %>
+</p>
+
+<p>
+  <strong>Custom calorie:</strong>
+  <%= @order_detail.custom_calorie %>
+</p>
+
+<p>
+  <strong>Remarks:</strong>
+  <%= @order_detail.remarks %>
+</p>
+
+<%= link_to 'Edit', edit_order_detail_path(@order_detail) %> |
+<%= link_to 'Back', order_details_path %>

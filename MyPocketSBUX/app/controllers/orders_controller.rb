@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+  protect_from_forgery :except => [:create, :update, :destroy]
 
   # GET /orders
   # GET /orders.json
@@ -25,6 +26,12 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
+    #p order_params[:order_details_attributes]
+    #p order_params[:order_details]
+    #p order_params[:tax_excluded_total_price]
+    #p order_params[:order].store_id
+    #p order_params[:order].order_details_attributes
+    #p @order.order_details.length
 
     respond_to do |format|
       if @order.save
@@ -69,6 +76,12 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:store_id, :tax_excluded_total_price, :tax_included_total_price, :remarks, :notes)
+      #p "test !!"
+      #p params[:order_details_attributes]
+      #params.require(:order).permit(:store_id, :tax_excluded_total_price, :tax_included_total_price, :remarks, :notes, :order_details_attributes => [:order_id, :product_jan_code, :product_name, :size, :hot_or_iced, :reusable_cup, :ticket, :tax_exclude_total_price, :tax_exclude_custom_price, :total_calorie, :custom_calorie, :remarks])
+      params.require(:order).permit(:store_id, :tax_excluded_total_price, :tax_included_total_price, :remarks, :notes, :order_details_attributes => [:order_id, :product_jan_code, :product_name, :size, :hot_or_iced, :reusable_cup, :ticket, :tax_exclude_total_price, :tax_exclude_custom_price, :total_calorie, :custom_calorie, :remarks]).tap do |whitelisted|
+    whitelisted[:order_details_attributes] = params[:order_details_attributes]
+    end
+      #params.require(:order).permit(:store_id, :tax_excluded_total_price, :tax_included_total_price, :remarks, :notes, order_details_attributes: [{:order_id, :product_jan_code, :product_name, :size, :hot_or_iced, :reusable_cup, :ticket, :tax_exclude_total_price, :tax_exclude_custom_price, :total_calorie, :custom_calorie, :remarks}])
     end
 end

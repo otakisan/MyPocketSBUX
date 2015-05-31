@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Order detail:</strong>
+  <%= @product_ingredient.order_detail %>
+</p>
+
+<p>
+  <strong>Is custom:</strong>
+  <%= @product_ingredient.is_custom %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @product_ingredient.name %>
+</p>
+
+<p>
+  <strong>Milk type:</strong>
+  <%= @product_ingredient.milk_type %>
+</p>
+
+<p>
+  <strong>Unit calorie:</strong>
+  <%= @product_ingredient.unit_calorie %>
+</p>
+
+<p>
+  <strong>Unit price:</strong>
+  <%= @product_ingredient.unit_price %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @product_ingredient.quantity %>
+</p>
+
+<p>
+  <strong>Enabled:</strong>
+  <%= @product_ingredient.enabled %>
+</p>
+
+<p>
+  <strong>Quantity type:</strong>
+  <%= @product_ingredient.quantity_type %>
+</p>
+
+<p>
+  <strong>Remarks:</strong>
+  <%= @product_ingredient.remarks %>
+</p>
+
+<%= link_to 'Edit', edit_product_ingredient_path(@product_ingredient) %> |
+<%= link_to 'Back', product_ingredients_path %>

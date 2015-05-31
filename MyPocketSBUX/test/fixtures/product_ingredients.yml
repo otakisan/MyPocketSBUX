@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  order_detail_id: 
+  is_custom: 1
+  name: MyString
+  milk_type: MyString
+  unit_calorie: 1
+  unit_price: 1
+  quantity: 1
+  enabled: 1
+  quantity_type: 1
+  remarks: MyString
+
+two:
+  order_detail_id: 
+  is_custom: 1
+  name: MyString
+  milk_type: MyString
+  unit_calorie: 1
+  unit_price: 1
+  quantity: 1
+  enabled: 1
+  quantity_type: 1
+  remarks: MyString

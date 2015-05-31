@@ -1,0 +1,47 @@
+<h1>Listing order_details</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Order</th>
+      <th>Product jan code</th>
+      <th>Product name</th>
+      <th>Size</th>
+      <th>Hot or iced</th>
+      <th>Reusable cup</th>
+      <th>Ticket</th>
+      <th>Tax exclude total price</th>
+      <th>Tax exclude custom price</th>
+      <th>Total calorie</th>
+      <th>Custom calorie</th>
+      <th>Remarks</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @order_details.each do |order_detail| %>
+      <tr>
+        <td><%= order_detail.order %></td>
+        <td><%= order_detail.product_jan_code %></td>
+        <td><%= order_detail.product_name %></td>
+        <td><%= order_detail.size %></td>
+        <td><%= order_detail.hot_or_iced %></td>
+        <td><%= order_detail.reusable_cup %></td>
+        <td><%= order_detail.ticket %></td>
+        <td><%= order_detail.tax_exclude_total_price %></td>
+        <td><%= order_detail.tax_exclude_custom_price %></td>
+        <td><%= order_detail.total_calorie %></td>
+        <td><%= order_detail.custom_calorie %></td>
+        <td><%= order_detail.remarks %></td>
+        <td><%= link_to 'Show', order_detail %></td>
+        <td><%= link_to 'Edit', edit_order_detail_path(order_detail) %></td>
+        <td><%= link_to 'Destroy', order_detail, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Order detail', new_order_detail_path %>

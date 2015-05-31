@@ -1,0 +1,65 @@
+<%= form_for(@order_detail) do |f| %>
+  <% if @order_detail.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@order_detail.errors.count, "error") %> prohibited this order_detail from being saved:</h2>
+
+      <ul>
+      <% @order_detail.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :order_id %><br>
+    <%= f.text_field :order_id %>
+  </div>
+  <div class="field">
+    <%= f.label :product_jan_code %><br>
+    <%= f.text_field :product_jan_code %>
+  </div>
+  <div class="field">
+    <%= f.label :product_name %><br>
+    <%= f.text_field :product_name %>
+  </div>
+  <div class="field">
+    <%= f.label :size %><br>
+    <%= f.text_field :size %>
+  </div>
+  <div class="field">
+    <%= f.label :hot_or_iced %><br>
+    <%= f.text_field :hot_or_iced %>
+  </div>
+  <div class="field">
+    <%= f.label :reusable_cup %><br>
+    <%= f.number_field :reusable_cup %>
+  </div>
+  <div class="field">
+    <%= f.label :ticket %><br>
+    <%= f.text_field :ticket %>
+  </div>
+  <div class="field">
+    <%= f.label :tax_exclude_total_price %><br>
+    <%= f.number_field :tax_exclude_total_price %>
+  </div>
+  <div class="field">
+    <%= f.label :tax_exclude_custom_price %><br>
+    <%= f.number_field :tax_exclude_custom_price %>
+  </div>
+  <div class="field">
+    <%= f.label :total_calorie %><br>
+    <%= f.number_field :total_calorie %>
+  </div>
+  <div class="field">
+    <%= f.label :custom_calorie %><br>
+    <%= f.number_field :custom_calorie %>
+  </div>
+  <div class="field">
+    <%= f.label :remarks %><br>
+    <%= f.text_field :remarks %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
