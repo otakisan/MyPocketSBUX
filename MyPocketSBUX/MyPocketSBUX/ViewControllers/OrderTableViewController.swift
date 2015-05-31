@@ -10,6 +10,11 @@ import UIKit
 
 class OrderTableViewController: UITableViewController, OrderTableViewCellDelegate, CustomizingOrderTableViewDelegate, StoresTableViewDelegate, NotesOrderTableViewCellDelegate {
     
+    struct StoryboardConstants {
+        static let storyboardName = "Main"
+        static let viewControllerIdentifier = "OrderTableViewController"
+    }
+
     let headerSection = 0
     let productSection = 1
     let storeRow = 0
@@ -18,6 +23,18 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
 //    var orderItems : [(productCategory : String, orders : [OrderListItem])] = []
     var orderHeader : OrderHeader = OrderHeader()
     var orderItems : [OrderListItem] = []
+
+    class func forOrder(order: Order) -> OrderTableViewController {
+        let storyboard = UIStoryboard(name: StoryboardConstants.storyboardName, bundle: nil)
+        
+        let viewController = storyboard.instantiateViewControllerWithIdentifier(StoryboardConstants.viewControllerIdentifier) as! OrderTableViewController
+        
+        let orderInfo = OrderManager.instance.loadOrder(order, orderDetails: order.orderDetails.allObjects as! [OrderDetail])
+        viewController.orderHeader = orderInfo.header
+        viewController.orderItems = orderInfo.details
+        
+        return viewController
+    }
 
     func getReuseCellIdentifier(orderListItem : OrderListItem) -> String {
         var identifier = ""

@@ -75,7 +75,7 @@ class OrdersBaseTableViewController: UITableViewController {
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("defaultOrdersTableViewCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) as! UITableViewCell
         
         // Configure the cell...
 //        let dateString = DateUtility.localDateString(self.orders[indexPath.row].order.createdAt)
@@ -160,7 +160,11 @@ class OrdersBaseTableViewController: UITableViewController {
     }
     
     func deleteAction(indexPath : NSIndexPath) {
-    }    
+    }
+    
+    func navigationControllerForOrder() -> UINavigationController? {
+        return nil
+    }
 }
 
 protocol OrdersTableViewControllerDelegate {
@@ -213,7 +217,8 @@ class MasterDetailOrdersTableViewControllerHandler: OrdersTableViewControllerHan
     var viewController: OrdersBaseTableViewController?
     
     override func didSelectRow(viewController: OrdersBaseTableViewController, indexPath: NSIndexPath) {
-        viewController.performSegueWithIdentifier("showOrderSegue", sender: nil)
+        //viewController.performSegueWithIdentifier("showOrderSegue", sender: nil)
+        pushTastingLogDetailViewOnCellSelected(viewController, order: viewController.orders[indexPath.row])
     }
     
     override func canEditRowAtIndexPath(viewController: OrdersBaseTableViewController, indexPath: NSIndexPath) -> Bool {
@@ -227,5 +232,20 @@ class MasterDetailOrdersTableViewControllerHandler: OrdersTableViewControllerHan
         deleteAction.backgroundColor = UIColor.redColor()
         
         return [deleteAction]
+    }
+    
+    func pushTastingLogDetailViewOnCellSelected(viewController: OrdersBaseTableViewController, order : Order) {
+        
+        if let nv = viewController.navigationControllerForOrder() {
+            // Set up the detail view controller to show.
+            var detailViewController = OrderTableViewController.forOrder(order)
+            //detailViewController.delegate = self
+            
+            // Note: Should not be necessary but current iOS 8.0 bug requires it.
+            viewController.tableView.deselectRowAtIndexPath(viewController.tableView.indexPathForSelectedRow()!, animated: false)
+            
+            //viewController.presentViewController(detailViewController, animated: true, completion: nil)
+            nv.pushViewController(detailViewController, animated: true)
+        }
     }
 }

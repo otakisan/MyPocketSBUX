@@ -35,6 +35,8 @@ class OrdersTableViewController: OrdersBaseTableViewController, UISearchBarDeleg
         self.filteredOrdersTableController.tableView.delegate = self.filteredOrdersTableController
         self.filteredOrdersTableController.tableView.dataSource = self.filteredOrdersTableController
         self.filteredOrdersTableController.delegateForParent = self
+        self.filteredOrdersTableController.handler = self.handler
+        self.filteredOrdersTableController.navigationControllerOfOriginalViewController = self.navigationController
         
         self.searchController = UISearchController(searchResultsController: self.filteredOrdersTableController)
         self.searchController.searchResultsUpdater = self
@@ -185,5 +187,9 @@ class OrdersTableViewController: OrdersBaseTableViewController, UISearchBarDeleg
         OrderManager.instance.deleteOrder(self.orders[indexPath.row])
         self.orders.removeAtIndex(indexPath.row)
         self.reloadData(completion: nil)
+    }
+    
+    override func navigationControllerForOrder() -> UINavigationController? {
+        return self.navigationController
     }
 }

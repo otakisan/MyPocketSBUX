@@ -10,6 +10,7 @@ import UIKit
 
 class FilteredOrdersTableViewController: OrdersBaseTableViewController {
     var delegateForParent: FilteredOrdersTableViewControllerDelegate?
+    var navigationControllerOfOriginalViewController: UINavigationController?
     
     override func deleteAction(indexPath: NSIndexPath) {
         var removed = self.orders.removeAtIndex(indexPath.row)
@@ -20,6 +21,10 @@ class FilteredOrdersTableViewController: OrdersBaseTableViewController {
     
     override func refresh() {
         self.delegateForParent?.refreshViaFilteredList()
+    }
+    
+    override func navigationControllerForOrder() -> UINavigationController? {
+        return self.navigationControllerOfOriginalViewController
     }
 }
 
