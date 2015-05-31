@@ -8,165 +8,182 @@
 
 import UIKit
 
-class OrdersTableViewController: UITableViewController {
+class OrdersTableViewController: OrdersBaseTableViewController, UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, FilteredOrdersTableViewControllerDelegate {
     
-    var orders : [(order : Order, orderDetails : [OrderDetail])] = []
-    var delegate: OrdersTableViewControllerDelegate?
-    var handler: OrdersTableViewControllerHandler = MasterDetailOrdersTableViewControllerHandler()
+    // Search controller to help us with filtering.
+    var searchController: UISearchController!
+    
+    // Secondary search results table view.
+    var filteredOrdersTableController: FilteredOrdersTableViewController!
+    
+    private var refreshing = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        self.fetchRecentOrders()
+        self.intializeSearchController()
         
-        self.handler.ordersTableViewDidLoad(self)
+        self.refreshDataAndReloadTableView()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func intializeSearchController() {
+        
+        // サーチ後の結果
+        self.filteredOrdersTableController = FilteredOrdersTableViewController()
+        
+        // We want to be the delegate for our filtered table so didSelectRowAtIndexPath(_:) is called for both tables.
+        self.filteredOrdersTableController.tableView.delegate = self.filteredOrdersTableController
+        self.filteredOrdersTableController.tableView.dataSource = self.filteredOrdersTableController
+        self.filteredOrdersTableController.delegateForParent = self
+        
+        self.searchController = UISearchController(searchResultsController: self.filteredOrdersTableController)
+        self.searchController.searchResultsUpdater = self
+        self.searchController.searchBar.sizeToFit()
+        self.tableView.tableHeaderView = searchController.searchBar
+        
+        self.searchController.delegate = self
+        self.searchController.dimsBackgroundDuringPresentation = false // default is YES
+        self.searchController.searchBar.delegate = self    // so we can monitor text changes + others
+        
+        // Search is now just presenting a view controller. As such, normal view controller
+        // presentation semantics apply. Namely that presentation will walk up the view controller
+        // hierarchy until it finds the root view controller or one that defines a presentation context.
+        self.definesPresentationContext = true
+        
+    }
+    
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        
+        // Update the filtered array based on the search text.
+        let searchResults = self.orders
+        
+        // サーチバーに入力されたテキストをトリム後に単語単位に分割
+        // Strip out all the leading and trailing spaces.
+        let whitespaceCharacterSet = NSCharacterSet.whitespaceCharacterSet()
+        let strippedString = searchController.searchBar.text.stringByTrimmingCharactersInSet(whitespaceCharacterSet)
+        let searchItems = strippedString.componentsSeparatedByString(" ") as [String]
+        
+        // Build all the "AND" expressions for each value in the searchString.
+        var andMatchPredicates = [NSPredicate]()
+        
+        for searchString in searchItems {
+            // Each searchString creates an OR predicate for: name, yearIntroduced, introPrice.
+            //
+            // Example if searchItems contains "iphone 599 2007":
+            //      name CONTAINS[c] "iphone"
+            //      name CONTAINS[c] "599", yearIntroduced ==[c] 599, introPrice ==[c] 599
+            //      name CONTAINS[c] "2007", yearIntroduced ==[c] 2007, introPrice ==[c] 2007
+            //
+            var searchItemsPredicate = [NSPredicate]()
+            
+            // Below we use NSExpression represent expressions in our predicates.
+            // NSPredicate is mmiade up of smaller, atomic parts: two NSExpressions (a left-hand value and a right-hand value).
+            
+            for prop in ["notes"] {
+                var lhs = NSExpression(forKeyPath: prop)
+                var rhs = NSExpression(forConstantValue: searchString)
+                
+                var finalPredicate = NSComparisonPredicate(leftExpression: lhs, rightExpression: rhs, modifier: .DirectPredicateModifier, type: .ContainsPredicateOperatorType, options: .CaseInsensitivePredicateOption)
+                searchItemsPredicate.append(finalPredicate)
+            }
+            
+            // Add this OR predicate to our master AND predicate.
+            let orMatchPredicates = NSCompoundPredicate.orPredicateWithSubpredicates(searchItemsPredicate)
+            andMatchPredicates.append(orMatchPredicates)
+        }
+        
+        // Match up the fields of the Product object.
+        let finalCompoundPredicate = NSCompoundPredicate.andPredicateWithSubpredicates(andMatchPredicates)
+        
+        let filteredResults = searchResults.filter { finalCompoundPredicate.evaluateWithObject($0) }
+        
+        // Hand over the filtered results to our search results table.
+        let resultsController = searchController.searchResultsController as! FilteredOrdersTableViewController
+        resultsController.orders = filteredResults
+        resultsController.tableView.reloadData()
+        
+    }
+    
+    func deleteActionViaFilteredList(order: Order){
+        OrderManager.instance.deleteOrder(order)
+        self.refreshDataAndReloadTableView()
+        self.updateSearchResultsForSearchController(self.searchController)
     }
 
-    // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        return 1
+    func refreshDataAndReloadTableView(){
+        
+        // TODO: オーダーをサーバーにアップするようになったら、オーダーも取得する
+        ContentsManager.instance.fetchContents(["store"], orderKeys: [], completionHandler: { fetchResults in
+            ContentsManager.instance.fetchContents(["order"], orderKeys: [(columnName : "updatedAt", ascending : false)], completionHandler: { fetchResults in
+                self.orders = fetchResults.first?.entities as? [Order] ?? []
+                self.reloadData()
+            })
+        })
+    }
+    
+    func refreshLocalDbAndReload(completionHandler: (Void -> Void)?) {
+        ContentsManager.instance.refreshContents(["order"], orderKeys: [(columnName : "updatedAt", ascending : false)], completionHandler: { fetchResults in
+            self.orders = fetchResults.first?.entities as? [Order] ?? []
+            self.reloadData(completion: {self.refreshing = false})
+            completionHandler?()
+        })
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return self.orders.count
+    func refreshViaFilteredList() {
+        if !self.refreshing {
+            self.refreshing = true
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                
+                // サーバーにアップしていないものをアップする
+                OrderManager.instance.postJsonContentsToWebWithSyncRequest()
+                
+                // サーバーから最新版をフェッチする
+                self.refreshLocalDbAndReload({
+                    self.updateSearchResultsForSearchController(self.searchController)
+                    
+                    // TODO: 消すタイミングを親側で決めるのは、密結合だけど、暫定的にそうする
+                    self.filteredOrdersTableController.refreshControl?.endRefreshing()
+                    
+                    //                    self.refreshing = false
+                })
+            })
+        }
+        
     }
-
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("defaultOrdersTableViewCell", forIndexPath: indexPath) as! UITableViewCell
-
-        // Configure the cell...
-        let dateString = DateUtility.localDateString(self.orders[indexPath.row].order.createdAt)
-        let timeString = DateUtility.localTimeString(self.orders[indexPath.row].order.createdAt)
-        cell.textLabel?.text = "\(dateString) \(timeString) ¥\(self.orders[indexPath.row].order.taxExcludedTotalPrice) (¥\(self.orders[indexPath.row].order.taxIncludedTotalPrice)) (\(self.orders[indexPath.row].order.storeId))"
-//        cell.detailTextLabel?.text = self.orders[indexPath.row].orderDetails.reduce("", combine: {$0 + ($0 != "" ? ", " : "") + $1.productName})
-        cell.detailTextLabel?.text = (self.orders[indexPath.row].order.orderDetails.allObjects as? [OrderDetail])?.reduce("", combine: {$0! + ($0 != "" ? ", " : "") + $1.productName}) ?? ""
-
-        return cell
-    }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.handler.didSelectRow(self, indexPath: indexPath)
-        //self.performSegueWithIdentifier("showOrderSegue", sender: self)
+        // TODO: データの更新中に、非表示領域から復帰するセルの描画を空にすることでデータの不整合を防ぐ
+        if self.refreshing {
+            return tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) as! UITableViewCell
+        }
+        else{
+            return super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+        }
     }
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-        if var vc = segue.destinationViewController as? OrderTableViewController {
-            if let indexPath = self.tableView.indexPathForSelectedRow() {
-//                let orderInfo = OrderManager.instance.loadOrder(self.orders[indexPath.row].order, orderDetails: self.orders[indexPath.row].orderDetails)
-                let orderInfo = OrderManager.instance.loadOrder(self.orders[indexPath.row].order, orderDetails: self.orders[indexPath.row].order.orderDetails.allObjects as! [OrderDetail])
-                vc.orderHeader = orderInfo.header
-                vc.orderItems = orderInfo.details
-            }
+    override func refresh() {
+        
+        // TODO: 一覧のリロードが完了するまでブロックする必要がある
+        if !self.refreshing {
+            self.refreshing = true
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                // サーバーにアップしていないものをアップする
+                OrderManager.instance.postJsonContentsToWebWithSyncRequest()
+                
+                // サーバーから最新版をフェッチする
+                self.refreshLocalDbAndReload({
+                    self.refreshControl?.endRefreshing()
+                    //                    self.refreshing = false
+                })
+            })
         }
     }
     
-    
-    func fetchRecentOrders() {
-        let orders = OrderManager.instance.getAllOrderFromLocal()
-        for order in orders {
-//            var orderDetails = OrderDetails.getOrderDetailsWithOrderId(Int(order.id), orderKeys: [])
-//            self.orders += [(order, orderDetails)]
-            self.orders += [(order, order.orderDetails.allObjects as! [OrderDetail])]
-        }
-        
-    }
-
-}
-
-protocol OrdersTableViewControllerDelegate {
-    func didSelectOrder(order: Order)
-}
-
-class OrdersTableViewControllerHandler: NSObject {
-    func ordersTableViewDidLoad(viewController: OrdersTableViewController) {
-        
-    }
-    
-    func didSelectRow(viewController: OrdersTableViewController, indexPath: NSIndexPath) {
-    }
-}
-
-class SelectItemOrdersTableViewControllerHandler: OrdersTableViewControllerHandler {
-    override func didSelectRow(viewController: OrdersTableViewController, indexPath: NSIndexPath) {
-        viewController.delegate?.didSelectOrder(viewController.orders[indexPath.row].order)
-        viewController.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    override func ordersTableViewDidLoad(viewController: OrdersTableViewController) {
-        self.addCancelButton(viewController)
-    }
-    
-    func addCancelButton(viewController: OrdersTableViewController){
-        viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "didRuntimeCancelButton:")
-        cancelTarget = viewController
-    }
-    
-    var cancelTarget: UIViewController?
-    func didRuntimeCancelButton(sender: UIBarButtonItem){
-        cancelTarget?.dismissViewControllerAnimated(true, completion: {})
-    }
-}
-
-class MasterDetailOrdersTableViewControllerHandler: OrdersTableViewControllerHandler {
-    override func didSelectRow(viewController: OrdersTableViewController, indexPath: NSIndexPath) {
-        viewController.performSegueWithIdentifier("showOrderSegue", sender: nil)
+    override func deleteAction(indexPath : NSIndexPath) {
+        OrderManager.instance.deleteOrder(self.orders[indexPath.row])
+        self.orders.removeAtIndex(indexPath.row)
+        self.reloadData(completion: nil)
     }
 }

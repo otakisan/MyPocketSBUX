@@ -53,6 +53,9 @@ class ContentsManager: NSObject {
         else if entityName == "store" {
             dbContext = Stores.instance()
         }
+        else if entityName == "order" {
+            dbContext = Orders.instance()
+        }
         else {
             fatalError("invalid entityName : \(entityName)")
         }
@@ -203,8 +206,7 @@ class ContentsManager: NSObject {
             
         // まずPOSTで送信したい情報をセット。
         if let jsonData = self.jsonData(dataObject) {
-            var logString = NSString(data: jsonData, encoding: NSUTF8StringEncoding)
-            print(logString!)
+            self.printJsonData(jsonData)
             
             let id = dataObject.valueForKey("id") as? NSNumber as? Int ?? 0
             let isNew = id == 0 ? true : false
@@ -255,8 +257,8 @@ class ContentsManager: NSObject {
         request.HTTPMethod = "DELETE"
         
         var error: NSError?
-        if var data = NSURLConnection.sendSynchronousRequest(request, returningResponse: nil, error: &error) {
-            if var dic = NSJSONSerialization.JSONObjectWithData(data, options:nil, error: &error) as? NSDictionary {
+        if  var data = NSURLConnection.sendSynchronousRequest(request, returningResponse: nil, error: &error) {
+            if error == nil {
                 isSuccess = true
             }
         }
@@ -277,6 +279,13 @@ class ContentsManager: NSObject {
     
     func jsonData(dataObject: NSObject) -> NSData? {
         
+        let topObject = jsonObject(dataObject)
+        
+        return NSJSONSerialization.dataWithJSONObject(topObject as NSDictionary, options: nil, error: nil)
+    }
+    
+    func jsonObject(dataObject: NSObject) -> [String:AnyObject] {
+        
         var topObject : [String:AnyObject] = [:]
         let propNames = dataObject.propertyNames()
         for propName in propNames {
@@ -290,6 +299,8 @@ class ContentsManager: NSObject {
                     }else if valueData is NSDate {
                         // TODO: ひとまず、日本での時差で固定 サマータイムだと+0800になる？？
                         topObject.updateValue(DateUtility.railsLocalDateString(valueData as! NSDate) + "+0900", forKey: snakeCasePropName)
+                    }else if valueData is NSSet {
+                        topObject.updateValue(jsonObjects((valueData as! NSSet).allObjects as! [NSObject]), forKey: "\(snakeCasePropName)_attributes")
                     }else{
                         topObject.updateValue(dataObject.valueForKey(propName)!, forKey: snakeCasePropName)
                     }
@@ -297,6 +308,32 @@ class ContentsManager: NSObject {
             }
         }
         
-        return NSJSONSerialization.dataWithJSONObject(topObject as NSDictionary, options: nil, error: nil)
+        return topObject
     }
+    
+//    func jsonObjects(dataObjects: [NSObject]) -> NSArray {
+//        var objects: [[String:AnyObject]] = []
+//        for dataObject in dataObjects {
+//            objects += [jsonObject(dataObject)]
+//        }
+//        
+//        return objects
+//    }
+    
+    func jsonObjects(dataObjects: [NSObject]) -> [String:AnyObject] {
+        var objects: [String:AnyObject] = [:]
+        
+        for index in 0..<dataObjects.count {
+            objects["\(index)"] = jsonObject(dataObjects[index])
+        }
+        
+        return objects
+    }
+    
+    func printJsonData(jsonData: NSData) {
+        if let logString = NSString(data: jsonData, encoding: NSUTF8StringEncoding) {
+            print(logString)
+        }
+    }
+
 }

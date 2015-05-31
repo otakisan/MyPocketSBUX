@@ -70,6 +70,10 @@
 		1683F0AF1ADBDE4E0034C7CB /* OrderListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0AE1ADBDE4E0034C7CB /* OrderListItem.swift */; };
 		1683F0B11ADC80270034C7CB /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0B01ADC80270034C7CB /* OrderTableViewCell.swift */; };
 		1683F0B31ADD321F0034C7CB /* CustomizingOrderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1683F0B21ADD321F0034C7CB /* CustomizingOrderTableViewController.swift */; };
+		16A51ADE1B1AE90C001933AB /* OrdersBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A51ADD1B1AE90C001933AB /* OrdersBaseTableViewController.swift */; };
+		16A51AE01B1AF5CA001933AB /* FilteredOrdersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A51ADF1B1AF5CA001933AB /* FilteredOrdersTableViewController.swift */; };
+		16A51AE31B1AF738001933AB /* OrdersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A51AE11B1AF738001933AB /* OrdersTableViewCell.swift */; };
+		16A51AE41B1AF738001933AB /* OrdersTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16A51AE21B1AF738001933AB /* OrdersTableViewCell.xib */; };
 		16A74F301B081BB80078BCC9 /* TastingLogsBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A74F2F1B081BB80078BCC9 /* TastingLogsBaseTableViewController.swift */; };
 		16A74F331B08221D0078BCC9 /* TastingLogsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A74F311B08221D0078BCC9 /* TastingLogsTableViewCell.swift */; };
 		16A74F341B08221D0078BCC9 /* TastingLogsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16A74F321B08221D0078BCC9 /* TastingLogsTableViewCell.xib */; };
@@ -202,6 +206,10 @@
 		1683F0AE1ADBDE4E0034C7CB /* OrderListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderListItem.swift; sourceTree = "<group>"; };
 		1683F0B01ADC80270034C7CB /* OrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
 		1683F0B21ADD321F0034C7CB /* CustomizingOrderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomizingOrderTableViewController.swift; sourceTree = "<group>"; };
+		16A51ADD1B1AE90C001933AB /* OrdersBaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrdersBaseTableViewController.swift; sourceTree = "<group>"; };
+		16A51ADF1B1AF5CA001933AB /* FilteredOrdersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilteredOrdersTableViewController.swift; sourceTree = "<group>"; };
+		16A51AE11B1AF738001933AB /* OrdersTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrdersTableViewCell.swift; sourceTree = "<group>"; };
+		16A51AE21B1AF738001933AB /* OrdersTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrdersTableViewCell.xib; sourceTree = "<group>"; };
 		16A74F2F1B081BB80078BCC9 /* TastingLogsBaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TastingLogsBaseTableViewController.swift; sourceTree = "<group>"; };
 		16A74F311B08221D0078BCC9 /* TastingLogsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TastingLogsTableViewCell.swift; sourceTree = "<group>"; };
 		16A74F321B08221D0078BCC9 /* TastingLogsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TastingLogsTableViewCell.xib; sourceTree = "<group>"; };
@@ -285,9 +293,6 @@
 		164BFDC41AC671E8003BF77B /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				16DF6D491B188EE100BD079A /* ProductIngredient.swift */,
-				16DF6D471B188EE100BD079A /* OrderDetail.swift */,
-				16DF6D451B188EE000BD079A /* Order.swift */,
 				16EDCA001B11498F00FB71B1 /* SyncRequest.swift */,
 				16EDCA021B1149E000FB71B1 /* SyncRequests.swift */,
 				16E50E431B04C65800554229 /* Seminar.swift */,
@@ -302,8 +307,11 @@
 				16757DD51AF7893A00925C50 /* Beans.swift */,
 				16757DC31AF60F1200925C50 /* Nutrition.swift */,
 				16757DC11AF60DF200925C50 /* Nutritions.swift */,
+				16DF6D491B188EE100BD079A /* ProductIngredient.swift */,
 				16060EBA1AF046EC0099379F /* ProductIngredients.swift */,
+				16DF6D471B188EE100BD079A /* OrderDetail.swift */,
 				16060EB81AF046040099379F /* OrderDetails.swift */,
+				16DF6D451B188EE000BD079A /* Order.swift */,
 				16060EB61AF0456E0099379F /* Orders.swift */,
 				16F21E471ADA08430052AD2A /* Drink.swift */,
 				16F21E531ADA34FE0052AD2A /* Drinks.swift */,
@@ -351,6 +359,8 @@
 				1682F7E81AFE469100FD630D /* ProductImagesCollectionViewCell.swift */,
 				16A74F311B08221D0078BCC9 /* TastingLogsTableViewCell.swift */,
 				16A74F321B08221D0078BCC9 /* TastingLogsTableViewCell.xib */,
+				16A51AE11B1AF738001933AB /* OrdersTableViewCell.swift */,
+				16A51AE21B1AF738001933AB /* OrdersTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -439,6 +449,8 @@
 				16F21E451AD9F9FD0052AD2A /* ProductDetailTableViewController.swift */,
 				1683F0AC1ADBDAD80034C7CB /* OrderTableViewController.swift */,
 				16060EBC1AF0D1AF0099379F /* OrdersTableViewController.swift */,
+				16A51ADD1B1AE90C001933AB /* OrdersBaseTableViewController.swift */,
+				16A51ADF1B1AF5CA001933AB /* FilteredOrdersTableViewController.swift */,
 				16F6B0C61AECBC06007F7E51 /* OrderConfirmationTableViewController.swift */,
 				1683F0B21ADD321F0034C7CB /* CustomizingOrderTableViewController.swift */,
 				16CAF78D1AE1E75B00318AE5 /* CustomItemsStaticTableViewController.swift */,
@@ -597,6 +609,7 @@
 			files = (
 				16AE14181ABD6B1A00370062 /* Main.storyboard in Resources */,
 				16A74F341B08221D0078BCC9 /* TastingLogsTableViewCell.xib in Resources */,
+				16A51AE41B1AF738001933AB /* OrdersTableViewCell.xib in Resources */,
 				164BFDE81AD021E7003BF77B /* StoresTableViewCell.xib in Resources */,
 				16AE141D1ABD6B1A00370062 /* LaunchScreen.xib in Resources */,
 				16AE141A1ABD6B1A00370062 /* Images.xcassets in Resources */,
@@ -671,9 +684,11 @@
 				1683F0AD1ADBDAD80034C7CB /* OrderTableViewController.swift in Sources */,
 				16757DEC1AF8F28700925C50 /* TastingLogEditorTableViewController.swift in Sources */,
 				1682F7E11AFDD58600FD630D /* Tune.swift in Sources */,
+				16A51AE01B1AF5CA001933AB /* FilteredOrdersTableViewController.swift in Sources */,
 				162CE3EA1B0163A0009D3C6C /* FilteredNewsTableViewController.swift in Sources */,
 				16A74F361B08309E0078BCC9 /* FilteredTastingLogsTableViewController.swift in Sources */,
 				165F3F7E1AFA26AF00BCF1BB /* TastingLog.swift in Sources */,
+				16A51ADE1B1AE90C001933AB /* OrdersBaseTableViewController.swift in Sources */,
 				16C979D91ACD8EC600543120 /* FilteredSeminarsTableViewController.swift in Sources */,
 				16AE14381AC2BF7A00370062 /* NewsTableViewController.swift in Sources */,
 				16757DD41AF7891A00925C50 /* Bean.swift in Sources */,
@@ -711,6 +726,7 @@
 				16EDCA031B1149E000FB71B1 /* SyncRequests.swift in Sources */,
 				16DF6D4A1B188EE100BD079A /* ProductIngredient.swift in Sources */,
 				1683F0B11ADC80270034C7CB /* OrderTableViewCell.swift in Sources */,
+				16A51AE31B1AF738001933AB /* OrdersTableViewCell.swift in Sources */,
 				16757DC41AF60F1200925C50 /* Nutrition.swift in Sources */,
 				164BFDEA1AD02F8F003BF77B /* StoreDetailTableViewController.swift in Sources */,
 				16AE14131ABD6B1A00370062 /* MyPocketSBUX.xcdatamodeld in Sources */,

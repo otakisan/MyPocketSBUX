@@ -12,11 +12,11 @@ import CoreData
 class ProductIngredient: NSManagedObject {
 
     @NSManaged var id: NSNumber
-    @NSManaged var orderId: NSNumber
+    //@NSManaged var orderId: NSNumber
     @NSManaged var orderDetailId: NSNumber
     @NSManaged var isCustom: NSNumber
     @NSManaged var name: String
-    @NSManaged var type: String
+    @NSManaged var milkType: String
     @NSManaged var unitCalorie: NSNumber
     @NSManaged var unitPrice: NSNumber
     @NSManaged var quantity: NSNumber

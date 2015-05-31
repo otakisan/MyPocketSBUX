@@ -22,11 +22,11 @@ class OrderManager: NSObject {
             var ingredientEntity : ProductIngredient = ProductIngredients.instance().createEntity()
             ProductIngredients.registerEntity(ingredientEntity)
             ingredientEntity.id = 0//ProductIngredients.sequenceNumber()
-            ingredientEntity.orderId = order.id
+            //ingredientEntity.orderId = order.id
             ingredientEntity.orderDetailId = orderDetail.id
             ingredientEntity.isCustom = !ingredient.isPartOfOriginalIngredients
             ingredientEntity.name = ingredient.name
-            ingredientEntity.type = ingredient.type.name()
+            ingredientEntity.milkType = ingredient.type.name()
             ingredientEntity.unitCalorie = ingredient.unitCalorie
             ingredientEntity.unitPrice = ingredient.unitPrice
             ingredientEntity.quantity = ingredient.quantity
@@ -49,9 +49,9 @@ class OrderManager: NSObject {
         // 連番、登録日時、更新日時、店舗ID、合計金額（税抜）、合計金額（税込）、
         let now = NSDate()
         var order : Order = Orders.instance().createEntity()
-        let orderId = Orders.sequenceNumber()
-        order.id = orderId
-        order.storeId = orderHeader?.store?.storeId ?? 0
+        //let orderId = Orders.sequenceNumber()
+        order.id = 0//orderId
+        order.storeId = orderHeader?.store?.storeId ?? 0 // TODO: ストアIDを実際の店舗IDとrailsのIDとどちらにするか
         let totalPrice = PriceCalculator.totalPrice(OrderManager.instance.unionOrderListItem(orderListItems))
         order.taxExcludedTotalPrice = totalPrice.taxExcluded
         order.taxIncludedTotalPrice = totalPrice.taxIncluded
@@ -68,7 +68,7 @@ class OrderManager: NSObject {
             OrderDetails.registerEntity(orderDetail)
             //let orderDetailId = OrderDetails.sequenceNumber() // TODO: 秒単位だと重複する できればμs単位にしたい それか乱数
             orderDetail.id = 0//orderDetailId
-            orderDetail.orderId = orderId
+            orderDetail.orderId = order.id
             orderDetail.productName = orderListItem.productEntity?.valueForKey("name") as? String ?? ""
             orderDetail.productJanCode = orderListItem.productEntity?.valueForKey("janCode") as? String ?? ""
             orderDetail.size = orderListItem.size.name()
@@ -100,6 +100,8 @@ class OrderManager: NSObject {
         
         order.orderDetails = orderDetails
         Orders.insertEntity(order)
+        
+        self.postJsonContentsToWebWithRegiserSyncRequestIfFailed(order)
     }
     
     func ticketString(orderListItem : OrderListItem) -> String {
@@ -126,7 +128,7 @@ class OrderManager: NSObject {
     
     func ingredient(productIngredient : ProductIngredient) -> Ingredient {
         var ingredient = Ingredient()
-        ingredient.type = CustomizationIngredientype.fromString(productIngredient.type)
+        ingredient.type = CustomizationIngredientype.fromString(productIngredient.milkType)
         ingredient.name = productIngredient.name
         ingredient.unitCalorie = Int(productIngredient.unitCalorie)
         ingredient.unitPrice = Int(productIngredient.unitPrice)
@@ -201,6 +203,72 @@ class OrderManager: NSObject {
     
     func getAllOrderFromLocal() -> [Order] {
         return Orders.getAllOrderBy("allOrdersFetchRequest", orderKeys: [(columnName : "createdAt", ascending : true)])
+    }
+
+    func entityResourceName() -> String {
+        return "order"
+    }
+    
+    func postJsonContentsToWeb(order: Order) -> Bool {
+        return ContentsManager.instance.postJsonContentsToWeb(order, entityName: self.entityResourceName())
+    }
+    
+    func postJsonContentsToWebWithRegiserSyncRequestIfFailed(order: Order) {
+        if !self.postJsonContentsToWeb(order) {
+            // TODO: 同期が失敗した場合は、同期要求に格納する
+            self.registerSyncRequest(order)
+        }
+    }
+    
+    func postJsonContentsToWebWithSyncRequest() {
+        
+        var syncedList: [SyncRequest] = []
+        let syncRequests = Orders.instance().searchSyncRequestsByEntityTypeName()
+        for syncRequest in syncRequests {
+            if let targetEntity : Order = Orders.instance().findByPk(syncRequest.entityPk as Int) {
+                if self.postJsonContentsToWeb(targetEntity) {
+                    syncedList += [syncRequest]
+                }
+            }
+            else if syncRequest.entityGlobalID as Int > 0 {
+                if ContentsManager.instance.deleteContentsToWeb(syncRequest.entityGlobalID as Int, entityName: "order") {
+                    syncedList += [syncRequest]
+                }
+            }
+        }
+        
+        SyncRequests.deleteEntities(syncedList)
+    }
+    
+    func registerSyncRequest(order: Order) {
+        var entity: SyncRequest = SyncRequests.instance().createEntity()
+        entity.entityTypeName = Orders.instance().entityName()
+        entity.entityPk = DbContextBase.zpk(order)
+        entity.entityGlobalID = order.id ?? 0
+        
+        SyncRequests.insertEntity(entity)
+    }
+
+    func deleteOrder(order: Order) {
+        // TODO: ロジックが似通ったもので動作するのなら、将来的にはさらに共通化・フレームワーク化する
+        let idOnWeb = order.id as Int
+        if !ContentsManager.instance.deleteContentsToWeb(idOnWeb, entityName: "order") {
+            self.registerSyncRequest(order)
+        }
+        
+        for object in order.orderDetails.allObjects {
+            if let orderDetail = object as? OrderDetail {
+                for object2 in orderDetail.productIngredients.allObjects {
+                    if let productIngredient = object2 as? ProductIngredient {
+                        ProductIngredients.deleteEntity(productIngredient)
+                    }
+                }
+                
+                OrderDetails.deleteEntity(orderDetail)
+            }
+        }
+        
+        Orders.deleteEntity(order)
     }
 
 }

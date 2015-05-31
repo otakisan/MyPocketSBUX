@@ -71,7 +71,7 @@ class TastingLogManager: NSObject {
         entity.entityPk = DbContextBase.zpk(tastingLog)
         entity.entityGlobalID = tastingLog.id ?? 0
         
-        TastingLogs.insertEntity(entity)
+        SyncRequests.insertEntity(entity)
     }
 
     func postJsonContentsToWeb(tastingLog: TastingLog) -> Bool {

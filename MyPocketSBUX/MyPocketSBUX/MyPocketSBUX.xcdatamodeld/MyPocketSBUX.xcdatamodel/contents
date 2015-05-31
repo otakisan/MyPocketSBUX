@@ -107,13 +107,12 @@
         <attribute name="enabled" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="isCustom" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="milkType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="orderDetailId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="orderId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="quantity" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="quantityType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="remarks" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="unitCalorie" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="unitPrice" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
@@ -228,6 +227,7 @@
     <fetchRequest name="findNutritionByJanCodeFetchRequest" entity="Nutrition" predicateString="janCode == $janCode"/>
     <fetchRequest name="findNutritionByJanCodeSizeMilkLiquidTemperatureFetchRequest" entity="Nutrition" predicateString="id == 0 AND liquidTemperature == $liquidTemperature AND janCode == $janCode AND milk == $milk"/>
     <fetchRequest name="findOrderByIdFetchRequest" entity="Order" predicateString="id == $id"/>
+    <fetchRequest name="findOrderByPkFetchRequest" entity="Order" predicateString="_pk == $pk"/>
     <fetchRequest name="findProductIngredientsByOrderIdAndOrderDetailIdFetchRequest" entity="ProductIngredient" predicateString="orderId == $orderId AND orderDetailId == $orderDetailId"/>
     <fetchRequest name="findStoreByIdFetchRequest" entity="Store" predicateString="id == $id"/>
     <fetchRequest name="findStoreByStoreIdFetchRequest" entity="Store" predicateString="storeId == $storeId"/>
@@ -243,7 +243,7 @@
         <element name="OrderDetail" positionX="-45" positionY="144" width="128" height="300"/>
         <element name="Pairing" positionX="286" positionY="99" width="128" height="148"/>
         <element name="PressRelease" positionX="-63" positionY="-18" width="128" height="150"/>
-        <element name="ProductIngredient" positionX="-36" positionY="153" width="128" height="270"/>
+        <element name="ProductIngredient" positionX="-36" positionY="153" width="128" height="255"/>
         <element name="Seminar" positionX="108" positionY="135" width="128" height="225"/>
         <element name="Store" positionX="-54" positionY="36" width="128" height="328"/>
         <element name="SyncRequest" positionX="108" positionY="135" width="128" height="90"/>
