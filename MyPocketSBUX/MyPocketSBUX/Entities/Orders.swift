@@ -86,7 +86,7 @@ class Orders: DbContextBase {
             }
             
             // TODO: 店舗ID、どうするか
-            if let store : Store = Stores.instance().findById(Int((newData["store_id"] as? NSNumber) ?? 0)) {
+            if let store : Store = Stores.findByStoreId(Int((newData["store_id"] as? NSNumber) ?? 0)) {
                 entity.storeId = store.storeId
             }
             
