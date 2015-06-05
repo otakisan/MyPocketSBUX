@@ -107,6 +107,8 @@
 		16DF6D461B188EE000BD079A /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DF6D451B188EE000BD079A /* Order.swift */; };
 		16DF6D481B188EE100BD079A /* OrderDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DF6D471B188EE100BD079A /* OrderDetail.swift */; };
 		16DF6D4A1B188EE100BD079A /* ProductIngredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DF6D491B188EE100BD079A /* ProductIngredient.swift */; };
+		16DF6D4C1B1FBC1200BD079A /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DF6D4B1B1FBC1200BD079A /* AccountSettingsViewController.swift */; };
+		16DF6D4E1B21C36F00BD079A /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DF6D4D1B21C36F00BD079A /* AccountManager.swift */; };
 		16E442CB1AD8EE7A003C3AA2 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E442CA1AD8EE7A003C3AA2 /* NewsTableViewCell.swift */; };
 		16E442CD1AD90314003C3AA2 /* PressRelease.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E442CC1AD90314003C3AA2 /* PressRelease.swift */; };
 		16E50E421B04C57E00554229 /* Seminars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E50E411B04C57E00554229 /* Seminars.swift */; };
@@ -247,6 +249,8 @@
 		16DF6D451B188EE000BD079A /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		16DF6D471B188EE100BD079A /* OrderDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetail.swift; sourceTree = "<group>"; };
 		16DF6D491B188EE100BD079A /* ProductIngredient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductIngredient.swift; sourceTree = "<group>"; };
+		16DF6D4B1B1FBC1200BD079A /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
+		16DF6D4D1B21C36F00BD079A /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		16E442CA1AD8EE7A003C3AA2 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		16E442CC1AD90314003C3AA2 /* PressRelease.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PressRelease.swift; sourceTree = "<group>"; };
 		16E50E411B04C57E00554229 /* Seminars.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Seminars.swift; sourceTree = "<group>"; };
@@ -475,6 +479,7 @@
 				1682F7D01AFC386800FD630D /* SettingsTableViewController.swift */,
 				1682F7DA1AFC9FD800FD630D /* BeansCardTableViewController.swift */,
 				1682F7EA1AFED9D200FD630D /* ProductImageViewController.swift */,
+				16DF6D4B1B1FBC1200BD079A /* AccountSettingsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -501,6 +506,7 @@
 				1682F7CE1AFB48CB00FD630D /* TuneManager.swift */,
 				1682F7D21AFC3FBC00FD630D /* SettingsManager.swift */,
 				1682F7DC1AFCA05600FD630D /* BeansCardManager.swift */,
+				16DF6D4D1B21C36F00BD079A /* AccountManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -659,6 +665,7 @@
 				16F21E501ADA2FE20052AD2A /* MenuListItemTableViewCell.swift in Sources */,
 				16F21E5A1ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift in Sources */,
 				1682F7DD1AFCA05600FD630D /* BeansCardManager.swift in Sources */,
+				16DF6D4E1B21C36F00BD079A /* AccountManager.swift in Sources */,
 				16757DDA1AF83F0900925C50 /* PairingsTableViewController.swift in Sources */,
 				1682F7CF1AFB48CB00FD630D /* TuneManager.swift in Sources */,
 				16F21E4C1ADA0B930052AD2A /* Foods.swift in Sources */,
@@ -674,6 +681,7 @@
 				16F21E4A1ADA0A6C0052AD2A /* Food.swift in Sources */,
 				16CAF7901AE28CE000318AE5 /* DrinkOrderTableViewCell.swift in Sources */,
 				16757DCA1AF6FAF100925C50 /* MakingCoffeeContentsManager.swift in Sources */,
+				16DF6D4C1B1FBC1200BD079A /* AccountSettingsViewController.swift in Sources */,
 				16B1F28F1ADAAF1B0026E377 /* ResourceContext.swift in Sources */,
 				16E50E421B04C57E00554229 /* Seminars.swift in Sources */,
 				164BFDE21ACFC9B9003BF77B /* DbContextBase.swift in Sources */,
