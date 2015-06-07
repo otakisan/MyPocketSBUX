@@ -70,6 +70,6 @@ class TastingLogsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tasting_log_params
-      params.require(:tasting_log).permit(:title, :tag, :tasting_at, :detail, :store_id, :order_id)
+      params.require(:tasting_log).permit(:title, :tag, :tasting_at, :detail, :store_id, :order_id, :my_pocket_id)
     end
 end

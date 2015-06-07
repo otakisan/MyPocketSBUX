@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150531051411) do
+ActiveRecord::Schema.define(version: 20150606233619) do
 
   create_table "beans", force: true do |t|
     t.string   "name"
@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 20150531051411) do
     t.string   "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "my_pocket_id",             default: "", null: false
   end
 
   add_index "orders", ["store_id"], name: "index_orders_on_store_id"
@@ -183,6 +184,7 @@ ActiveRecord::Schema.define(version: 20150531051411) do
     t.integer  "order_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "my_pocket_id", default: "", null: false
   end
 
   add_index "tasting_logs", ["order_id"], name: "index_tasting_logs_on_order_id"
@@ -223,5 +225,16 @@ ActiveRecord::Schema.define(version: 20150531051411) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "users", force: true do |t|
+    t.string   "my_pocket_id",  null: false
+    t.string   "email_address"
+    t.string   "password"
+    t.string   "remarks"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["my_pocket_id"], name: "index_users_on_my_pocket_id", unique: true
 
 end

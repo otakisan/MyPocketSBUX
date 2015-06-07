@@ -9,6 +9,7 @@
       <th>Detail</th>
       <th>Store</th>
       <th>Order</th>
+      <th>My pocket id</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -22,6 +23,7 @@
         <td><%= tasting_log.detail %></td>
         <td><%= tasting_log.store %></td>
         <td><%= tasting_log.order %></td>
+        <td><%= tasting_log.my_pocket_id %></td>
         <td><%= link_to 'Show', tasting_log %></td>
         <td><%= link_to 'Edit', edit_tasting_log_path(tasting_log) %></td>
         <td><%= link_to 'Destroy', tasting_log, method: :delete, data: { confirm: 'Are you sure?' } %></td>

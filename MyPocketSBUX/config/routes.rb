@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :users
+  get '/users/:my_pocket_id/:password' => 'users#show_by_my_pocket_id'
+
   resources :product_ingredients
 
   resources :order_details

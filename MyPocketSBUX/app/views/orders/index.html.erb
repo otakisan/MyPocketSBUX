@@ -8,6 +8,7 @@
       <th>Tax included total price</th>
       <th>Remarks</th>
       <th>Notes</th>
+      <th>My pocket id</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -20,6 +21,7 @@
         <td><%= order.tax_included_total_price %></td>
         <td><%= order.remarks %></td>
         <td><%= order.notes %></td>
+        <td><%= order.my_pocket_id %></td>
         <td><%= link_to 'Show', order %></td>
         <td><%= link_to 'Edit', edit_order_path(order) %></td>
         <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>

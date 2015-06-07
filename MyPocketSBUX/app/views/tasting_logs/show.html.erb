@@ -30,5 +30,10 @@
   <%= @tasting_log.order %>
 </p>
 
+<p>
+  <strong>My pocket id:</strong>
+  <%= @tasting_log.my_pocket_id %>
+</p>
+
 <%= link_to 'Edit', edit_tasting_log_path(@tasting_log) %> |
 <%= link_to 'Back', tasting_logs_path %>

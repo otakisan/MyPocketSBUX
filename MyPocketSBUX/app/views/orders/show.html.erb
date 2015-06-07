@@ -25,5 +25,10 @@
   <%= @order.notes %>
 </p>
 
+<p>
+  <strong>My pocket id:</strong>
+  <%= @order.my_pocket_id %>
+</p>
+
 <%= link_to 'Edit', edit_order_path(@order) %> |
 <%= link_to 'Back', orders_path %>

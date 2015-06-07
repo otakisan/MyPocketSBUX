@@ -79,7 +79,7 @@ class OrdersController < ApplicationController
       #p "test !!"
       #p params[:order_details_attributes]
       #params.require(:order).permit(:store_id, :tax_excluded_total_price, :tax_included_total_price, :remarks, :notes, :order_details_attributes => [:order_id, :product_jan_code, :product_name, :size, :hot_or_iced, :reusable_cup, :ticket, :tax_exclude_total_price, :tax_exclude_custom_price, :total_calorie, :custom_calorie, :remarks])
-      params.require(:order).permit(:store_id, :tax_excluded_total_price, :tax_included_total_price, :remarks, :notes, :order_details_attributes => [:order_id, :product_jan_code, :product_name, :size, :hot_or_iced, :reusable_cup, :ticket, :tax_exclude_total_price, :tax_exclude_custom_price, :total_calorie, :custom_calorie, :remarks]).tap do |whitelisted|
+      params.require(:order).permit(:store_id, :tax_excluded_total_price, :tax_included_total_price, :remarks, :notes, :my_pocket_id, :order_details_attributes => [:order_id, :product_jan_code, :product_name, :size, :hot_or_iced, :reusable_cup, :ticket, :tax_exclude_total_price, :tax_exclude_custom_price, :total_calorie, :custom_calorie, :remarks]).tap do |whitelisted|
     whitelisted[:order_details_attributes] = params[:order_details_attributes]
     end
       #params.require(:order).permit(:store_id, :tax_excluded_total_price, :tax_included_total_price, :remarks, :notes, order_details_attributes: [{:order_id, :product_jan_code, :product_name, :size, :hot_or_iced, :reusable_cup, :ticket, :tax_exclude_total_price, :tax_exclude_custom_price, :total_calorie, :custom_calorie, :remarks}])
