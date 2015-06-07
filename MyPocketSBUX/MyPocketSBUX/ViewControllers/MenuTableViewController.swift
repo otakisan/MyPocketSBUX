@@ -31,7 +31,7 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
         let productCategories = [MenuSectionItem.ProductCategory.drink, MenuSectionItem.ProductCategory.food]
         let semaphoreCount = productCategories.count
         let semaphore = dispatch_semaphore_create(semaphoreCount)
-        let timeout = dispatch_time(DISPATCH_TIME_NOW, Int64(10 * Double(NSEC_PER_SEC)))
+        let timeout = dispatch_time(DISPATCH_TIME_NOW, Int64(ContentsManager.instance.timeoutInSeconds * Double(NSEC_PER_SEC)))
         for productCategory in productCategories {
             dispatch_semaphore_wait(semaphore, timeout/*DISPATCH_TIME_FOREVER*/)
             let dbContext = self.getDbContext(productCategory)

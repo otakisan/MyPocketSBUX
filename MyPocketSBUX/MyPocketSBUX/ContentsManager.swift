@@ -12,6 +12,7 @@ import CoreData
 class ContentsManager: NSObject {
     
     static let instance = ContentsManager()
+    let timeoutInSeconds = 30.0
     
     func fetchContentsFromWeb(entityName : String, completionHandler: ((NSData!, NSURLResponse!, NSError!) -> Void)?){
         
@@ -88,7 +89,7 @@ class ContentsManager: NSObject {
         // 同期的にセマフォを取得し、取得処理完了後にハンドラを起動する
         let semaphoreCount = entityNames.count
         let semaphore = dispatch_semaphore_create(semaphoreCount)
-        let timeout = dispatch_time(DISPATCH_TIME_NOW, Int64(10 * Double(NSEC_PER_SEC)))
+        let timeout = dispatch_time(DISPATCH_TIME_NOW, Int64(self.timeoutInSeconds * Double(NSEC_PER_SEC)))
         
         for entityName in entityNames {
             dispatch_semaphore_wait(semaphore, timeout/*DISPATCH_TIME_FOREVER*/)
@@ -140,7 +141,7 @@ class ContentsManager: NSObject {
         // 同期的にセマフォを取得し、取得処理完了後にハンドラを起動する
         let semaphoreCount = entityNames.count
         let semaphore = dispatch_semaphore_create(semaphoreCount)
-        let timeout = dispatch_time(DISPATCH_TIME_NOW, Int64(10 * Double(NSEC_PER_SEC)))
+        let timeout = dispatch_time(DISPATCH_TIME_NOW, Int64(self.timeoutInSeconds * Double(NSEC_PER_SEC)))
         
         // ウェブに最新版を取得しに行き、通信に成功した場合には該当テーブルをクリアして、挿入、データをフェッチして返す
         // 失敗した場合には、テーブルには触れず、既存のデータをフェッチして返す。いずれもステータス（成功・失敗）を返却する。
