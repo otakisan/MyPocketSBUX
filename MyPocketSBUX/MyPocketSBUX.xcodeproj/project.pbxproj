@@ -74,6 +74,9 @@
 		16A51AE01B1AF5CA001933AB /* FilteredOrdersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A51ADF1B1AF5CA001933AB /* FilteredOrdersTableViewController.swift */; };
 		16A51AE31B1AF738001933AB /* OrdersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A51AE11B1AF738001933AB /* OrdersTableViewCell.swift */; };
 		16A51AE41B1AF738001933AB /* OrdersTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16A51AE21B1AF738001933AB /* OrdersTableViewCell.xib */; };
+		16A51AE61B22CDEE001933AB /* JSONUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A51AE51B22CDEE001933AB /* JSONUtility.swift */; };
+		16A51AE81B22E5B1001933AB /* IdentityContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A51AE71B22E5B1001933AB /* IdentityContext.swift */; };
+		16A51AEA1B22ED80001933AB /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A51AE91B22ED80001933AB /* SignInViewController.swift */; };
 		16A74F301B081BB80078BCC9 /* TastingLogsBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A74F2F1B081BB80078BCC9 /* TastingLogsBaseTableViewController.swift */; };
 		16A74F331B08221D0078BCC9 /* TastingLogsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A74F311B08221D0078BCC9 /* TastingLogsTableViewCell.swift */; };
 		16A74F341B08221D0078BCC9 /* TastingLogsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16A74F321B08221D0078BCC9 /* TastingLogsTableViewCell.xib */; };
@@ -212,6 +215,9 @@
 		16A51ADF1B1AF5CA001933AB /* FilteredOrdersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilteredOrdersTableViewController.swift; sourceTree = "<group>"; };
 		16A51AE11B1AF738001933AB /* OrdersTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrdersTableViewCell.swift; sourceTree = "<group>"; };
 		16A51AE21B1AF738001933AB /* OrdersTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrdersTableViewCell.xib; sourceTree = "<group>"; };
+		16A51AE51B22CDEE001933AB /* JSONUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONUtility.swift; sourceTree = "<group>"; };
+		16A51AE71B22E5B1001933AB /* IdentityContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentityContext.swift; sourceTree = "<group>"; };
+		16A51AE91B22ED80001933AB /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		16A74F2F1B081BB80078BCC9 /* TastingLogsBaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TastingLogsBaseTableViewController.swift; sourceTree = "<group>"; };
 		16A74F311B08221D0078BCC9 /* TastingLogsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TastingLogsTableViewCell.swift; sourceTree = "<group>"; };
 		16A74F321B08221D0078BCC9 /* TastingLogsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TastingLogsTableViewCell.xib; sourceTree = "<group>"; };
@@ -336,6 +342,7 @@
 				164BFDCA1AC67D9C003BF77B /* DateUtility.swift */,
 				164BFDCC1AC67DF5003BF77B /* StringExtension.swift */,
 				164BFDD91ACFBEF3003BF77B /* UITableViewControllerExtension.swift */,
+				16A51AE51B22CDEE001933AB /* JSONUtility.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -480,6 +487,7 @@
 				1682F7DA1AFC9FD800FD630D /* BeansCardTableViewController.swift */,
 				1682F7EA1AFED9D200FD630D /* ProductImageViewController.swift */,
 				16DF6D4B1B1FBC1200BD079A /* AccountSettingsViewController.swift */,
+				16A51AE91B22ED80001933AB /* SignInViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -488,6 +496,7 @@
 			isa = PBXGroup;
 			children = (
 				16B1F28E1ADAAF1B0026E377 /* ResourceContext.swift */,
+				16A51AE71B22E5B1001933AB /* IdentityContext.swift */,
 			);
 			path = Context;
 			sourceTree = "<group>";
@@ -645,6 +654,7 @@
 				164BFDD11ACF89D1003BF77B /* SeminarsTableViewCell.swift in Sources */,
 				164BFDDA1ACFBEF3003BF77B /* UITableViewControllerExtension.swift in Sources */,
 				16757DE61AF8D54F00925C50 /* TastingLogsTableViewController.swift in Sources */,
+				16A51AEA1B22ED80001933AB /* SignInViewController.swift in Sources */,
 				16F6B0C51AEB9358007F7E51 /* PriceCalculator.swift in Sources */,
 				164BFDD41ACFA8CF003BF77B /* StoresTableViewController.swift in Sources */,
 				16E442CB1AD8EE7A003C3AA2 /* NewsTableViewCell.swift in Sources */,
@@ -669,6 +679,7 @@
 				16757DDA1AF83F0900925C50 /* PairingsTableViewController.swift in Sources */,
 				1682F7CF1AFB48CB00FD630D /* TuneManager.swift in Sources */,
 				16F21E4C1ADA0B930052AD2A /* Foods.swift in Sources */,
+				16A51AE81B22E5B1001933AB /* IdentityContext.swift in Sources */,
 				165F3F841AFA32E700BCF1BB /* Recommender.swift in Sources */,
 				16757DE21AF888AE00925C50 /* OfficialContentsTableViewController.swift in Sources */,
 				16757DEE1AF97CCE00925C50 /* TastingLogEditorTableViewCell.swift in Sources */,
@@ -690,6 +701,7 @@
 				16757DDC1AF8417800925C50 /* Pairings.swift in Sources */,
 				165F3F801AFA2D2800BCF1BB /* RecommendationParametersViewController.swift in Sources */,
 				1683F0AD1ADBDAD80034C7CB /* OrderTableViewController.swift in Sources */,
+				16A51AE61B22CDEE001933AB /* JSONUtility.swift in Sources */,
 				16757DEC1AF8F28700925C50 /* TastingLogEditorTableViewController.swift in Sources */,
 				1682F7E11AFDD58600FD630D /* Tune.swift in Sources */,
 				16A51AE01B1AF5CA001933AB /* FilteredOrdersTableViewController.swift in Sources */,

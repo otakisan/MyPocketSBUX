@@ -57,6 +57,7 @@ class OrderManager: NSObject {
         order.taxIncludedTotalPrice = totalPrice.taxIncluded
         order.notes = orderHeader?.notes ?? ""
         order.remarks = ""
+        order.myPocketId = IdentityContext.sharedInstance.currentUserIDCorrespondingToSignIn()
         order.createdAt = now
         order.updatedAt = now
         Orders.registerEntity(order)
@@ -210,7 +211,7 @@ class OrderManager: NSObject {
     }
     
     func postJsonContentsToWeb(order: Order) -> Bool {
-        return ContentsManager.instance.postJsonContentsToWeb(order, entityName: self.entityResourceName())
+        return IdentityContext.sharedInstance.signedIn() && ContentsManager.instance.postJsonContentsToWeb(order, entityName: self.entityResourceName())
     }
     
     func postJsonContentsToWebWithRegiserSyncRequestIfFailed(order: Order) {
@@ -223,9 +224,11 @@ class OrderManager: NSObject {
     func postJsonContentsToWebWithSyncRequest() {
         
         var syncedList: [SyncRequest] = []
-        let syncRequests = Orders.instance().searchSyncRequestsByEntityTypeName()
+        let syncRequests = Orders.instance().searchSyncRequestsByEntityTypeNameOnCurrentUser()
         for syncRequest in syncRequests {
             if let targetEntity : Order = Orders.instance().findByPk(syncRequest.entityPk as Int) {
+                // TODO: 現在の仕様としては未ログイン時に登録したものを同期する場合、カレントIDのデータとみなして登録する
+                targetEntity.myPocketId = IdentityContext.sharedInstance.currentUserIDCorrespondingToSignIn()
                 if self.postJsonContentsToWeb(targetEntity) {
                     syncedList += [syncRequest]
                 }
@@ -245,6 +248,7 @@ class OrderManager: NSObject {
         entity.entityTypeName = Orders.instance().entityName()
         entity.entityPk = DbContextBase.zpk(order)
         entity.entityGlobalID = order.id ?? 0
+        entity.myPocketId = IdentityContext.sharedInstance.currentUserIDCorrespondingToSignIn()
         
         SyncRequests.insertEntity(entity)
     }

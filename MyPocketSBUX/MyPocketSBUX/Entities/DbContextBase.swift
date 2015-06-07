@@ -132,6 +132,19 @@ class DbContextBase: NSObject {
         }
     }
     
+    func clearAllEntitiesExceptForUnsyncData() {
+        if var results = DbContextBase.getManagedObjectContext().executeFetchRequest(NSFetchRequest(entityName: self.entityName()), error: nil) {
+            contains([], "")
+            for result in results as! [NSManagedObject] {
+                if !contains(result.propertyNames(), "myPocketId") || result.valueForKey("myPocketId") as? String != IdentityContext.sharedInstance.anonymousUserID() {
+                    DbContextBase.getManagedObjectContext().deleteObject(result)
+                }
+            }
+            
+            DbContextBase.getManagedObjectContext().save(nil)
+        }
+    }
+    
     class func rollback() {
         getManagedObjectContext().rollback()
     }
@@ -254,7 +267,39 @@ class DbContextBase: NSObject {
             limit: 0) as! [SyncRequest]
     
     }
-    
+
+    func searchSyncRequestsByEntityTypeNameOnCurrentUser() -> [SyncRequest] {
+        var results : [NSManagedObject] = []
+        
+        //getManagedObjectContext().performBlockAndWait({
+        
+        if var fetchRequest = DbContextBase.getFetchRequestTemplate("searchSyncRequestsByEntityTypeNameFetchRequest", variables: ["entityTypeName":self.entityName()], sortDescriptors: [], limit: 0){
+
+            // 追加の条件を足しこむ
+            var additionalPredicate1: NSPredicate = NSPredicate(format: "myPocketId = %@", argumentArray: [IdentityContext.sharedInstance.currentUserIDCorrespondingToSignIn()])
+            var additionalPredicate2: NSPredicate = NSPredicate(format: "myPocketId = %@", argumentArray: [IdentityContext.sharedInstance.anonymousUserID()])
+            var identityPredicate = NSCompoundPredicate(type: NSCompoundPredicateType.OrPredicateType, subpredicates: [additionalPredicate1, additionalPredicate2])
+            
+            fetchRequest.predicate = NSCompoundPredicate(type: NSCompoundPredicateType.AndPredicateType, subpredicates: [fetchRequest.predicate!, identityPredicate])
+            
+            if let fetchResults = DbContextBase.getManagedObjectContext().executeFetchRequest(fetchRequest, error: nil) {
+                results = fetchResults as! [NSManagedObject]
+            }
+        }
+        
+        //})
+        
+        return results as! [SyncRequest]
+        
+//        var sortKeys : [AnyObject] = []
+//        return DbContextBase.findByFetchRequestTemplate(
+//            "searchSyncRequestsByEntityTypeNameFetchRequest",
+//            variables: ["entityTypeName":self.entityName()],
+//            sortDescriptors: sortKeys,
+//            limit: 0) as! [SyncRequest]
+        
+    }
+
     class func zpk(entity: NSManagedObject) -> Int {
         if entity.objectID.temporaryID {
             fatalError("objectID is Temporary !!")

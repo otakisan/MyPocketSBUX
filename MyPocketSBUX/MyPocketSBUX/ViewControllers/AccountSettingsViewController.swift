@@ -9,6 +9,8 @@
 import UIKit
 
 class AccountSettingsViewController: UIViewController, UITextFieldDelegate {
+    
+    var delegate: AccountSettingsViewControllerDelegate?
 
     @IBOutlet weak var myPocketIDTextField: UITextField!
     @IBOutlet weak var emailAddressTextField: UITextField!
@@ -18,10 +20,21 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate {
     @IBAction func touchUpInsideDoneBarButtonItem(sender: UIBarButtonItem) {
         let validationResult = self.valid()
         if validationResult.valid {
-            AccountManager.instance.CreateAccount(self.myPocketIDTextField.text, emailAddress: self.emailAddressTextField.text, password: self.passwordTextField.text)
+            let result = AccountManager.instance.createAccountAndChangeCurrentUser(self.myPocketIDTextField.text, emailAddress: self.emailAddressTextField.text, password: self.passwordTextField.text)
+            if result.success {
+                self.delegate?.createdAccount(self.myPocketIDTextField.text)
+                self.navigationController?.popViewControllerAnimated(true)
+            }
+            else{
+                UIAlertView(title: "Failed to create the account.", message: result.reason, delegate: nil, cancelButtonTitle: "Close.").show()
+            }
         }else{
             UIAlertView(title: validationResult.reason, message: "Please make sure your input.", delegate: nil, cancelButtonTitle: "Close.").show()
         }
+    }
+    
+    deinit {
+        self.delegate = nil
     }
     
     func valid() -> (valid: Bool, reason: String) {
@@ -55,4 +68,8 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate {
     }
     */
 
+}
+
+protocol AccountSettingsViewControllerDelegate {
+    func createdAccount(myPocketId: String)
 }

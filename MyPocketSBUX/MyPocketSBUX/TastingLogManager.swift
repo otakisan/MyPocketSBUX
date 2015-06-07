@@ -28,6 +28,7 @@ class TastingLogManager: NSObject {
         tastingLog.tag = ""
         tastingLog.tastingAt = DateUtility.minimumDate()
         tastingLog.detail = ""
+        tastingLog.myPocketId = ""
         tastingLog.createdAt = DateUtility.minimumDate()
         tastingLog.updatedAt = DateUtility.minimumDate()
         tastingLog.store = nil
@@ -35,6 +36,7 @@ class TastingLogManager: NSObject {
     
     func saveTastingLog(tastingLog: TastingLog, newTastingLog: Bool) {
         tastingLog.updatedAt = NSDate()
+        tastingLog.myPocketId = IdentityContext.sharedInstance.currentUserIDCorrespondingToSignIn()
         
         if newTastingLog {
             tastingLog.createdAt = NSDate()
@@ -66,16 +68,18 @@ class TastingLogManager: NSObject {
     }
     
     func registerSyncRequest(tastingLog: TastingLog) {
+        // TODO: ここも共通化の必要性あり。SyncRequestのスキーマ変更時に漏れが出るリスクがあるため。
         var entity: SyncRequest = SyncRequests.instance().createEntity()
         entity.entityTypeName = TastingLogs.instance().entityName()
         entity.entityPk = DbContextBase.zpk(tastingLog)
         entity.entityGlobalID = tastingLog.id ?? 0
+        entity.myPocketId = IdentityContext.sharedInstance.currentUserIDCorrespondingToSignIn()
         
         SyncRequests.insertEntity(entity)
     }
 
     func postJsonContentsToWeb(tastingLog: TastingLog) -> Bool {
-        return ContentsManager.instance.postJsonContentsToWeb(tastingLog, entityName: self.entityResourceName())
+        return IdentityContext.sharedInstance.signedIn() && ContentsManager.instance.postJsonContentsToWeb(tastingLog, entityName: self.entityResourceName())
     }
     
     func postJsonContentsToWebWithRegiserSyncRequestIfFailed(tastingLog: TastingLog) {
@@ -88,9 +92,11 @@ class TastingLogManager: NSObject {
     func postJsonContentsToWebWithSyncRequest() {
         
         var syncedList: [SyncRequest] = []
-        let syncRequests = TastingLogs.instance().searchSyncRequestsByEntityTypeName()
+        let syncRequests = TastingLogs.instance().searchSyncRequestsByEntityTypeNameOnCurrentUser()
         for syncRequest in syncRequests {
             if let targetEntity : TastingLog = TastingLogs.instance().findByPk(syncRequest.entityPk as Int) {
+                // TODO: 現在の仕様としては未ログイン時に登録したものを同期する場合、カレントIDのデータとみなして登録する
+                targetEntity.myPocketId = IdentityContext.sharedInstance.currentUserIDCorrespondingToSignIn()
                 if self.postJsonContentsToWeb(targetEntity) {
                     syncedList += [syncRequest]
                 }

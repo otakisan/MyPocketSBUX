@@ -14,6 +14,7 @@ class TastingLog: NSManagedObject {
     @NSManaged var createdAt: NSDate
     @NSManaged var detail: String
     @NSManaged var id: NSNumber
+    @NSManaged var myPocketId: String
     @NSManaged var tag: String
     @NSManaged var tastingAt: NSDate
     @NSManaged var title: String

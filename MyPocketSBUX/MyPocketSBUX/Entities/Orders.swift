@@ -34,6 +34,7 @@ class Orders: DbContextBase {
             entity.taxIncludedTotalPrice = (newData["tax_included_total_price"] as? NSNumber) ?? 0
             entity.remarks = ((newData["remarks"] as? NSString) ?? "") as String
             entity.notes = ((newData["notes"] as? NSString) ?? "") as String
+            entity.myPocketId = ((newData["my_pocket_id"] as? NSString) ?? "") as String
             entity.createdAt = DateUtility.dateFromSqliteDateTimeString(newData as! NSDictionary, key: "created_at")
             entity.updatedAt = DateUtility.dateFromSqliteDateTimeString(newData as! NSDictionary, key: "updated_at")
             

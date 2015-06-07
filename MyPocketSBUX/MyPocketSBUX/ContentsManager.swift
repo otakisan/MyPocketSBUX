@@ -151,7 +151,7 @@ class ContentsManager: NSObject {
                 if error == nil {
                     if var productsJson = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray {
                         let dbContext = self.getDbContext(entityName)
-                        dbContext.clearAllEntities()
+                        dbContext.clearAllEntitiesExceptForUnsyncData()
                         dbContext.insertEntityFromJsonObject(productsJson)
                     }
                 }
@@ -217,7 +217,7 @@ class ContentsManager: NSObject {
             // この下二行を見つけるのに、少々てこずりました。
             // .jsonに要求を出すときは、content-typeの指定が必要。指定しないと適切に処理されない
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.HTTPMethod = isNew ? "POST" : "PUT"
+            request.HTTPMethod = isNew ? "POST" : "PATCH"
             request.HTTPBody = jsonData
             
             var error: NSError?

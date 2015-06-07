@@ -28,6 +28,7 @@ class TastingLogs: DbContextBase {
             entity.title = ((newData["title"] as? NSString) ?? "") as String
             entity.tastingAt = DateUtility.dateFromSqliteDateTimeString(newData as! NSDictionary, key: "tasting_at")
             entity.detail = ((newData["detail"] as? NSString) ?? "") as String
+            entity.myPocketId = ((newData["my_pocket_id"] as? NSString) ?? "") as String
             entity.createdAt = DateUtility.dateFromSqliteDateTimeString(newData as! NSDictionary, key: "created_at")
             entity.updatedAt = DateUtility.dateFromSqliteDateTimeString(newData as! NSDictionary, key: "updated_at")
             
