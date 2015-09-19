@@ -33,7 +33,7 @@ class Stores: DbContextBase {
     override func insertEntityFromJsonObject(jsonObject : NSArray) {
         for json in jsonObject {
             if let newData = json as? NSDictionary {
-                var entity : Store = Stores.instance().createEntity()
+                let entity : Store = Stores.instance().createEntity()
                 entity.id = (newData["id"] as? NSNumber) ?? 0
                 entity.storeId = (newData["store_id"] as? NSNumber) ?? 0
                 entity.name = ((newData["name"] as? NSString) ?? "") as String

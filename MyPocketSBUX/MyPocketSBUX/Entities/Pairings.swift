@@ -22,7 +22,7 @@ class Pairings: DbContextBase {
     override func insertEntityFromJsonObject(jsonObject : NSArray) {
         
         for newData in jsonObject {
-            var entity : Pairing = Pairings.instance().createEntity()
+            let entity : Pairing = Pairings.instance().createEntity()
             entity.id = (newData["id"] as? NSNumber) ?? 0
             entity.beanId = (newData["bean_id"] as? NSNumber) ?? 0
             entity.foodId = (newData["food_id"] as? NSNumber) ?? 0
@@ -39,7 +39,10 @@ class Pairings: DbContextBase {
                 entity.food = food
             }
             
-            Pairings.getManagedObjectContext().save(nil)
+            do {
+                try Pairings.getManagedObjectContext().save()
+            } catch _ {
+            }
         }
     }
 }

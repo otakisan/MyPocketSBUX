@@ -24,8 +24,8 @@ class ProductDetailTableViewController: UITableViewController {
         self.nutritions = Nutritions.findByJanCode(self.product?.valueForKey("janCode") as? String ?? "", orderKeys: [])
         
         // TODO: 背景に商品画像を表示 デザインて面で検討の余地あり
-        if var image = UIImage(named: self.product?.valueForKey("janCode") as! String) {
-            var imageView = UIImageView(image: image)
+        if let image = UIImage(named: self.product?.valueForKey("janCode") as! String) {
+            let imageView = UIImageView(image: image)
             imageView.contentMode = UIViewContentMode.ScaleAspectFill
             self.tableView.backgroundView = imageView
         }
@@ -63,7 +63,7 @@ class ProductDetailTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(indexPath.section == 0 && indexPath.row == 0 ? "productImagesProductDetailTableViewCell" : "defaultProductDetailTableViewCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(indexPath.section == 0 && indexPath.row == 0 ? "productImagesProductDetailTableViewCell" : "defaultProductDetailTableViewCell", forIndexPath: indexPath) 
         
         // TODO: ひとまず決め打ちで
         if indexPath.section == 0 {
@@ -80,7 +80,6 @@ class ProductDetailTableViewController: UITableViewController {
                 
             }
         }else if indexPath.section == 1 {
-            let na = "na"
             cell.textLabel?.text = "\(self.nutritions[indexPath.row].liquidTemperature.emptyIfNa()) \(self.nutritions[indexPath.row].size.emptyIfNa()) \(self.nutritions[indexPath.row].milk.emptyIfNa())"
             cell.detailTextLabel?.text = "\(self.nutritions[indexPath.row].calorie)"
         }
@@ -141,8 +140,8 @@ class ProductDetailTableViewController: UITableViewController {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         
-        if var vc = segue.destinationViewController as? ProductImageViewController {
-            if let indexPath = (sender as? UICollectionView)?.indexPathsForSelectedItems().first as? NSIndexPath {
+        if let vc = segue.destinationViewController as? ProductImageViewController {
+            if let indexPath = (sender as? UICollectionView)?.indexPathsForSelectedItems()!.first {
                 vc.imageName = self.imageNames()[indexPath.row % self.imageNames().count]
             }
         }
@@ -189,18 +188,18 @@ extension NSObject {
         
         // retrieve the properties via the class_copyPropertyList function
         var count: UInt32 = 0;
-        var myClass: AnyClass = self.classForCoder;
-        var properties = class_copyPropertyList(myClass, &count);
+        let myClass: AnyClass = self.classForCoder;
+        let properties = class_copyPropertyList(myClass, &count);
         
         // iterate each objc_property_t struct
         for var i: UInt32 = 0; i < count; i++ {
-            var property = properties[Int(i)];
+            let property = properties[Int(i)];
             
             // retrieve the property name by calling property_getName function
-            var cname = property_getName(property);
+            let cname = property_getName(property);
             
             // covert the c string into a Swift string
-            var name = String.fromCString(cname);
+            let name = String.fromCString(cname);
             results.append(name!);
         }
         
@@ -215,20 +214,20 @@ extension NSObject {
         
         // retrieve the properties via the class_copyPropertyList function
         var count: UInt32 = 0;
-        var myClass: AnyClass = self.classForCoder;
-        var properties = class_copyPropertyList(myClass, &count);
+        let myClass: AnyClass = self.classForCoder;
+        let properties = class_copyPropertyList(myClass, &count);
         
         // iterate each objc_property_t struct
         for var i: UInt32 = 0; i < count; i++ {
-            var property = properties[Int(i)];
+            let property = properties[Int(i)];
             
             // retrieve the property name by calling property_getName function
-            var cname = property_getName(property);
+            let cname = property_getName(property);
             
             // covert the c string into a Swift string
-            var name = String.fromCString(cname);
+            let name = String.fromCString(cname);
             if name == propName {
-                var cpropName = property_getAttributes(property)
+                let cpropName = property_getAttributes(property)
                 propertyType = String.fromCString(cpropName)!
                 break
             }

@@ -63,7 +63,7 @@ class PriceCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
     override func configure(orderListItem: OrderListItem, delegate : CustomizingOrderTableViewCellDelegate?, indexPath : NSIndexPath) {
         super.configure(orderListItem, delegate: delegate, indexPath: indexPath)
         
-        var price = orderListItem.totalPrice
+        let price = orderListItem.totalPrice
         self.priceLabel.text = "¥\(price)"
     }
 }
@@ -104,7 +104,7 @@ class SizeCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
             if let title = self.sizeSegment.titleForSegmentAtIndex(segmentIndex) {
                 
                 // exist, infexOfをもっと簡単に使えないかな
-                if let range = title.rangeOfString(orderListItem.size.name(), options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil, locale: nil){
+                if let _ = title.rangeOfString(orderListItem.size.name(), options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil, locale: nil){
                     self.sizeSegment.selectedSegmentIndex = segmentIndex
                     break
                 }
@@ -199,7 +199,7 @@ class HotOrIcedCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
         for segmentIndex in 0..<self.hotOrIcedSegment.numberOfSegments {
             if let title = self.hotOrIcedSegment.titleForSegmentAtIndex(segmentIndex) {
                 
-                if let range = title.rangeOfString(orderListItem.hotOrIce, options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil, locale: nil){
+                if let _ = title.rangeOfString(orderListItem.hotOrIce, options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil, locale: nil){
                     self.hotOrIcedSegment.selectedSegmentIndex = segmentIndex
                     break
                 }

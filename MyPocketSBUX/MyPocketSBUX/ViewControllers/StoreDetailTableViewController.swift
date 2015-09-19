@@ -75,7 +75,7 @@ class StoreDetailTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("defaultStoreDetailTableViewCellIdentifier", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("defaultStoreDetailTableViewCellIdentifier", forIndexPath: indexPath) 
 
         // cell.detailTextLabelのほうだと複数行でも自動調整されない
         cell.textLabel?.text = self.displayData[indexPath.row].value
@@ -104,12 +104,12 @@ class StoreDetailTableViewController: UITableViewController {
         if self.displayData.count > indexPath.row {
             let valueSet = self.displayData[indexPath.row]
             switch valueSet {
-            case ("tel", var telNumber):
+            case ("tel", let telNumber):
                 var adjusted = telNumber.stringByReplacingOccurrencesOfString("-", withString: "", options: .LiteralSearch, range: nil)
                 // テスト
                 adjusted = "0120-800-000"
                 if let url = NSURL(string: "tel:\(adjusted)") {
-                    var result = UIApplication.sharedApplication().openURL(url)
+                    _ = UIApplication.sharedApplication().openURL(url)
                 }
             case ("address", _):
                 self.navigationController?.pushViewController(StoreMapViewController.forStoreMap(self.store), animated: true)

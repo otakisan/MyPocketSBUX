@@ -45,7 +45,7 @@ class TunesTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("defaultTunesTableViewCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("defaultTunesTableViewCell", forIndexPath: indexPath) 
 
         // Configure the cell...
         cell.textLabel?.text = self.tunes[indexPath.row].entity.trackName
@@ -101,14 +101,14 @@ class TunesTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
-        if let indexPath = self.tableView.indexPathForSelectedRow() {
-            if var webViewVc = segue.destinationViewController as? BaseWKWebViewController {
+        if let indexPath = self.tableView.indexPathForSelectedRow {
+            if let webViewVc = segue.destinationViewController as? BaseWKWebViewController {
                webViewVc.absoluteURL = "https://www.youtube.com/results?search_query=\(TuneManager.instance.searchKeyword(self.tunes[indexPath.row]))"
             }
-            else if var avPrayerViewVc = segue.destinationViewController as? AVPlayerViewController {
-                if let avPlayer = AVPlayer.playerWithURL(NSURL(string: self.tunes[indexPath.row].entity.previewUrl)) as? AVPlayer {
-                    avPrayerViewVc.player = avPlayer
-                    avPrayerViewVc.player.play()
+            else if let avPrayerViewVc = segue.destinationViewController as? AVPlayerViewController {
+                if let url = NSURL(string: self.tunes[indexPath.row].entity.previewUrl) {
+                    avPrayerViewVc.player = AVPlayer(URL: url)
+                    avPrayerViewVc.player!.play()
                 }
             }
         }

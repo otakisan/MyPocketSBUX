@@ -15,7 +15,7 @@ class JSONUtility: NSObject {
         
         let topObject = jsonObject(dataObject)
         
-        return NSJSONSerialization.dataWithJSONObject(topObject as NSDictionary, options: nil, error: nil)
+        return try? NSJSONSerialization.dataWithJSONObject(topObject as NSDictionary, options: [])
     }
     
     class func jsonObject(dataObject: NSObject) -> [String:AnyObject] {
@@ -66,12 +66,12 @@ class JSONUtility: NSObject {
     
     class func printJsonData(jsonData: NSData) {
         if let logString = NSString(data: jsonData, encoding: NSUTF8StringEncoding) {
-            println(logString)
+            print(logString)
         }
     }
     
     class func objectFromJsonObject<TObject: NSObject>(jsonObject: NSDictionary) -> TObject {
-        var newObject: TObject = TObject()
+        let newObject: TObject = TObject()
         let propNames = newObject.propertyNames()
         for propName in propNames {
             newObject.setValue(jsonObject.valueForKey(propName.snakeCase()), forKey: propName)

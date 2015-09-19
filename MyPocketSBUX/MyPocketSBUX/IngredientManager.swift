@@ -115,7 +115,7 @@ class AvailableChoiceMapping {
         var customs : [Ingredient] = self.frappuccinoCommonCustoms()
         
         // 重複ものを外す
-        customs = customs.filter { customItem in !contains(originals, {original in original.name == customItem.name }) }
+        customs = customs.filter { customItem in !originals.contains({original in original.name == customItem.name }) }
         
         return (originals, customs)
     }
@@ -136,7 +136,7 @@ class AvailableChoiceMapping {
         var customs : [Ingredient] = self.foodCommonCustoms()
         
         // 重複ものを外す
-        customs = customs.filter { customItem in !contains(originals, {original in original.name == customItem.name }) }
+        customs = customs.filter { customItem in !originals.contains({original in original.name == customItem.name }) }
         
         return (originals, customs)
     }

@@ -62,13 +62,13 @@ class FoodPriceCalculator : PriceCalculator {
         // カスタム内容によらず無料のものは除外する
         // ショット、コーヒー、ホイップ、シロップ、チップ、ソイ、期間限定（ジェリー、プリン）
         // 期間限定ものは、それが始まってから随時対応する
-        var total = max(0, self.basePrice + self.priceForCustoms())
+        let total = max(0, self.basePrice + self.priceForCustoms())
         
         return total
     }
     
     override func priceForCustoms() -> Int {
-        var total = self.priceForWhippedCreme()
+        let total = self.priceForWhippedCreme()
         
         return total
     }
@@ -94,7 +94,7 @@ class DrinkPriceCalculator : PriceCalculator {
     
     init(janCode : String, customizedOriginals : IngredientCollection?, customs : IngredientCollection?, discountFactors : [String], size: DrinkSize){
         
-        var baseIngredientCollection = IngredientCollection()
+        let baseIngredientCollection = IngredientCollection()
         baseIngredientCollection.ingredients = IngredientManager.instance.getAvailableCustomizationChoices(janCode).originals
         self.baseIngredients = baseIngredientCollection
         
@@ -116,13 +116,13 @@ class DrinkPriceCalculator : PriceCalculator {
         // カスタム内容によらず無料のものは除外する
         // ショット、コーヒー、ホイップ、シロップ、チップ、ソイ、期間限定（ジェリー、プリン）
         // 期間限定ものは、それが始まってから随時対応する
-        var total = max(0, self.basePrice + self.sizePrice() + self.priceForCustoms() - self.discountPrice() - self.couponPrice())
+        let total = max(0, self.basePrice + self.sizePrice() + self.priceForCustoms() - self.discountPrice() - self.couponPrice())
         
         return total
     }
     
     override func priceForCustoms() -> Int {
-        var total = self.priceForEspresso() + self.priceForBrewedCoffee() + self.priceForWhippedCreme() + self.priceForSyrup() + self.priceForChips() + self.priceForMilk()
+        let total = self.priceForEspresso() + self.priceForBrewedCoffee() + self.priceForWhippedCreme() + self.priceForSyrup() + self.priceForChips() + self.priceForMilk()
         
         return total
     }
@@ -178,12 +178,12 @@ class DrinkPriceCalculator : PriceCalculator {
     
     func priceForChips() -> Int {
         //
-        var baseNumberOfChipTypes = self.baseIngredients.categorized(.Chip).count
-        var totalNumberOfChipTypes = self.totalNumberOfChipTypes()
-        var addedNumberOfChipTypes = totalNumberOfChipTypes - baseNumberOfChipTypes
+        let baseNumberOfChipTypes = self.baseIngredients.categorized(.Chip).count
+        let totalNumberOfChipTypes = self.totalNumberOfChipTypes()
+        let addedNumberOfChipTypes = totalNumberOfChipTypes - baseNumberOfChipTypes
         
         // ベース以下のショット数にしても価格は同じ
-        var price = max(0, addedNumberOfChipTypes * 50)
+        let price = max(0, addedNumberOfChipTypes * 50)
         
         return price
     }
@@ -194,12 +194,12 @@ class DrinkPriceCalculator : PriceCalculator {
     
     func priceForWhippedCreme() -> Int {
         //
-        var baseNumberOfWhippedCreamTypes = self.baseIngredients.categorized(.WhippedCreamDrink).count
-        var totalNumberOfWhippedCreamTypes = self.totalNumberOfWhippedCreamTypes()
-        var addedNumberOfWhippedCreamTypes = totalNumberOfWhippedCreamTypes - baseNumberOfWhippedCreamTypes
+        let baseNumberOfWhippedCreamTypes = self.baseIngredients.categorized(.WhippedCreamDrink).count
+        let totalNumberOfWhippedCreamTypes = self.totalNumberOfWhippedCreamTypes()
+        let addedNumberOfWhippedCreamTypes = totalNumberOfWhippedCreamTypes - baseNumberOfWhippedCreamTypes
         
         // ベース以下のショット数にしても価格は同じ
-        var price = max(0, addedNumberOfWhippedCreamTypes * 50)
+        let price = max(0, addedNumberOfWhippedCreamTypes * 50)
         
         return price
     }
@@ -210,12 +210,12 @@ class DrinkPriceCalculator : PriceCalculator {
     
     func priceForBrewedCoffee() -> Int {
         // 1が標準、2が増量
-        var baseNumberOfCoffee = self.baseIngredients.categorized(.Coffee).count
-        var totalNumberOfCoffee = self.totalNumberOfCoffee()
-        var addedNumberOfCoffee = totalNumberOfCoffee - baseNumberOfCoffee
+        let baseNumberOfCoffee = self.baseIngredients.categorized(.Coffee).count
+        let totalNumberOfCoffee = self.totalNumberOfCoffee()
+        let addedNumberOfCoffee = totalNumberOfCoffee - baseNumberOfCoffee
         
         // ベース以下のショット数にしても価格は同じ
-        var price = max(0, addedNumberOfCoffee * 50)
+        let price = max(0, addedNumberOfCoffee * 50)
         
         return price
     }
@@ -226,12 +226,12 @@ class DrinkPriceCalculator : PriceCalculator {
     
     func priceForEspresso() -> Int {
         // ショット数の差分
-        var baseNumberOfEspressoShots = self.baseIngredients.categorized(.Espresso).count
-        var totalNumberOfEspressoShots = self.totalNumberOfEspressoShots()
-        var addedNumberOfEspressoShots = totalNumberOfEspressoShots - baseNumberOfEspressoShots
+        let baseNumberOfEspressoShots = self.baseIngredients.categorized(.Espresso).count
+        let totalNumberOfEspressoShots = self.totalNumberOfEspressoShots()
+        let addedNumberOfEspressoShots = totalNumberOfEspressoShots - baseNumberOfEspressoShots
         
         // ベース以下のショット数にしても価格は同じ
-        var price = max(0, addedNumberOfEspressoShots * 50)
+        let price = max(0, addedNumberOfEspressoShots * 50)
         
         return price
     }
@@ -243,13 +243,13 @@ class DrinkPriceCalculator : PriceCalculator {
     
     func priceForSyrup() -> Int {
         // シロップの種類から
-        var baseNumberOfSyrupTypes = self.baseIngredients.categorized(.Syrup).count
-        var totalNumberOfSyrupTypes = self.totalNumberOfSyrupTypes()
-        var addedNumberOfSyrupTypes = totalNumberOfSyrupTypes - baseNumberOfSyrupTypes
+        let baseNumberOfSyrupTypes = self.baseIngredients.categorized(.Syrup).count
+        let totalNumberOfSyrupTypes = self.totalNumberOfSyrupTypes()
+        let addedNumberOfSyrupTypes = totalNumberOfSyrupTypes - baseNumberOfSyrupTypes
         
         // ベースが１種類、ノンシロップにしてもマイナスにはならない
         // 変更であれば、差分がゼロになる
-        var price = max(0, addedNumberOfSyrupTypes * 50)
+        let price = max(0, addedNumberOfSyrupTypes * 50)
         
         return price
     }

@@ -34,7 +34,7 @@ class DrinkRecommender : Recommender {
         
         var recommendedItems : [DrinkRecommendedItem] = []
         if let orderDetail = OrderDetails.instance().getAllOrderBy([("createdAt", false)]).first as? OrderDetail {
-            var lastOrder = DrinkRecommendedItem()
+            let lastOrder = DrinkRecommendedItem()
             lastOrder.janCode = orderDetail.productJanCode
             recommendedItems += [lastOrder]
         }

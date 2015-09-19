@@ -17,8 +17,8 @@ class SignInViewController: UIViewController, AccountSettingsViewControllerDeleg
     
     @IBAction func touchUpInsideSignInButton(sender: UIButton) {
         // TODO: 入力値チェック（空、ASCII以外、等々）
-        if let user = AccountManager.instance.signIn(self.myPocketIDTextField.text, password: self.passwordTextField.text) {
-            UIAlertView(title: "Signed in.", message: "success.", delegate: nil, cancelButtonTitle: "Close").show()
+        if let user = AccountManager.instance.signIn(self.myPocketIDTextField.text!, password: self.passwordTextField.text!) {
+            UIAlertView(title: "\(user.myPocketId) signed in.", message: "success.", delegate: nil, cancelButtonTitle: "Close").show()
         }
         else {
             UIAlertView(title: "Failed to sign in.", message: "failed.", delegate: nil, cancelButtonTitle: "Close").show()
@@ -77,7 +77,7 @@ class SignInViewController: UIViewController, AccountSettingsViewControllerDeleg
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if var vc = segue.destinationViewController as? AccountSettingsViewController {
+        if let vc = segue.destinationViewController as? AccountSettingsViewController {
             vc.delegate = self
         }
     }

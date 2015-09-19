@@ -27,7 +27,7 @@ class ProductsForSaleTableViewController: UITableViewController, ProductsForSale
             self.productsForSaleItems = fetchResults.map {
                 var listItems : [ProductsForSaleListItem] = []
                 for entity in $0.entities {
-                    var listItem = ProductsForSaleListItem()
+                    let listItem = ProductsForSaleListItem()
                     listItem.productEntity = entity
                     listItem.isOnOrderList = false
                     
@@ -111,12 +111,12 @@ class ProductsForSaleTableViewController: UITableViewController, ProductsForSale
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
-        if var orderViewController = segue.destinationViewController as? OrderTableViewController {
+        if let orderViewController = segue.destinationViewController as? OrderTableViewController {
             
             var selected : [OrderListItem] = []
             for category in self.productsForSaleItems {
-                var orders = category.listItems.filter({$0.isOnOrderList}).map { (listItem : ProductsForSaleListItem) -> OrderListItem in
-                    var orderListItem = OrderListItem()
+                let orders = category.listItems.filter({$0.isOnOrderList}).map { (listItem : ProductsForSaleListItem) -> OrderListItem in
+                    let orderListItem = OrderListItem()
                     orderListItem.productEntity = listItem.productEntity
                     orderListItem.totalPrice = (orderListItem.productEntity?.valueForKey("price") as? NSNumber ?? NSNumber(integer: 0)).integerValue
                     orderListItem.on = listItem.isOnOrderList
@@ -128,8 +128,8 @@ class ProductsForSaleTableViewController: UITableViewController, ProductsForSale
             
             orderViewController.orderItems = selected
         }
-        else if var productDetailViewController = segue.destinationViewController as? ProductDetailTableViewController {
-            if let indexPath = self.tableView.indexPathForSelectedRow() {
+        else if let productDetailViewController = segue.destinationViewController as? ProductDetailTableViewController {
+            if let indexPath = self.tableView.indexPathForSelectedRow {
             
                 productDetailViewController.product = self.productsForSaleItems[indexPath.section].listItems[indexPath.row].productEntity
             }

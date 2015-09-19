@@ -60,7 +60,7 @@ class TastingLogsBaseTableViewController: UITableViewController, TastingLogEdito
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) 
         
         // Configure the cell...
         cell.textLabel?.text = self.tastingLogs[indexPath.row].title
@@ -76,11 +76,11 @@ class TastingLogsBaseTableViewController: UITableViewController, TastingLogEdito
     func pushTastingLogDetailViewOnCellSelected(tastingLog : TastingLog) {
         
         // Set up the detail view controller to show.
-        var detailViewController = TastingLogEditorTableViewController.forTastingLog(tastingLog)
+        let detailViewController = TastingLogEditorTableViewController.forTastingLog(tastingLog)
         detailViewController.delegate = self
         
         // Note: Should not be necessary but current iOS 8.0 bug requires it.
-        self.tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow()!, animated: false)
+        self.tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow!, animated: false)
         
         self.presentViewController(detailViewController, animated: true, completion: nil)
     }
@@ -103,7 +103,7 @@ class TastingLogsBaseTableViewController: UITableViewController, TastingLogEdito
     }
     
     // スワイプ時に表示する項目
-    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         
         let deleteAction = UITableViewRowAction(style: .Default, title: "delete") {
             (action, indexPath) in self.deleteAction(indexPath)

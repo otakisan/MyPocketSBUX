@@ -37,7 +37,7 @@ class DrinkMenuListItemTableViewCell: MenuListItemTableViewCell {
                 self.productNameLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
                 self.productNameLabel.sizeToFit()
                 
-                var range = entity.size.rangeOfString("Tall", options: NSStringCompareOptions.LiteralSearch, range: nil, locale: nil)
+                let range = entity.size.rangeOfString("Tall", options: NSStringCompareOptions.LiteralSearch, range: nil, locale: nil)
                 var sizeText = ""
                 if range != nil {
                    sizeText = "(Tall) "

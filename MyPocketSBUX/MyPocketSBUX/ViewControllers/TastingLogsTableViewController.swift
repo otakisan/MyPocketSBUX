@@ -71,7 +71,7 @@ class TastingLogsTableViewController: TastingLogsBaseTableViewController, UISear
         // サーチバーに入力されたテキストをトリム後に単語単位に分割
         // Strip out all the leading and trailing spaces.
         let whitespaceCharacterSet = NSCharacterSet.whitespaceCharacterSet()
-        let strippedString = searchController.searchBar.text.stringByTrimmingCharactersInSet(whitespaceCharacterSet)
+        let strippedString = searchController.searchBar.text!.stringByTrimmingCharactersInSet(whitespaceCharacterSet)
         let searchItems = strippedString.componentsSeparatedByString(" ") as [String]
         
         // Build all the "AND" expressions for each value in the searchString.
@@ -91,20 +91,20 @@ class TastingLogsTableViewController: TastingLogsBaseTableViewController, UISear
             // NSPredicate is mmiade up of smaller, atomic parts: two NSExpressions (a left-hand value and a right-hand value).
             
             for prop in ["title", "tag", "detail"] {
-                var lhs = NSExpression(forKeyPath: prop)
-                var rhs = NSExpression(forConstantValue: searchString)
+                let lhs = NSExpression(forKeyPath: prop)
+                let rhs = NSExpression(forConstantValue: searchString)
                 
-                var finalPredicate = NSComparisonPredicate(leftExpression: lhs, rightExpression: rhs, modifier: .DirectPredicateModifier, type: .ContainsPredicateOperatorType, options: .CaseInsensitivePredicateOption)
+                let finalPredicate = NSComparisonPredicate(leftExpression: lhs, rightExpression: rhs, modifier: .DirectPredicateModifier, type: .ContainsPredicateOperatorType, options: .CaseInsensitivePredicateOption)
                 searchItemsPredicate.append(finalPredicate)
             }
             
             // Add this OR predicate to our master AND predicate.
-            let orMatchPredicates = NSCompoundPredicate.orPredicateWithSubpredicates(searchItemsPredicate)
+            let orMatchPredicates = NSCompoundPredicate(orPredicateWithSubpredicates: searchItemsPredicate)
             andMatchPredicates.append(orMatchPredicates)
         }
         
         // Match up the fields of the Product object.
-        let finalCompoundPredicate = NSCompoundPredicate.andPredicateWithSubpredicates(andMatchPredicates)
+        let finalCompoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: andMatchPredicates)
         
         let filteredResults = searchResults.filter { finalCompoundPredicate.evaluateWithObject($0) }
         
@@ -165,7 +165,7 @@ class TastingLogsTableViewController: TastingLogsBaseTableViewController, UISear
                 case "addTastingLogSegue":
                 vc.tastingLog = TastingLogManager.instance.newTastingLog()
             case "editTastingLogSegue":
-                if let indexPath = self.tableView.indexPathForSelectedRow() {
+                if let indexPath = self.tableView.indexPathForSelectedRow {
                     vc.tastingLog = self.tastingLogs[indexPath.row]
                 }
             default:
@@ -201,7 +201,7 @@ class TastingLogsTableViewController: TastingLogsBaseTableViewController, UISear
     func refreshLocalDbAndReload(completionHandler: (Void -> Void)?) {
         ContentsManager.instance.refreshContents(["tasting_log"], orderKeys: [(columnName : "tastingAt", ascending : false)], completionHandler: { fetchResults in
             self.tastingLogs = fetchResults.first?.entities as? [TastingLog] ?? []
-            self.reloadData(completion: {self.refreshing = false})
+            self.reloadData({self.refreshing = false})
             completionHandler?()
         })
     }
@@ -243,7 +243,7 @@ class TastingLogsTableViewController: TastingLogsBaseTableViewController, UISear
     }
     
     override func deleteAction(indexPath : NSIndexPath) {
-        var removed = self.tastingLogs.removeAtIndex(indexPath.row)
+        let removed = self.tastingLogs.removeAtIndex(indexPath.row)
         self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
         TastingLogManager.instance.deleteTastingLog(removed)
     }
@@ -293,7 +293,7 @@ class TastingLogsTableViewController: TastingLogsBaseTableViewController, UISear
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // TODO: データの更新中に、非表示領域から復帰するセルの描画を空にすることでデータの不整合を防ぐ
         if self.refreshing {
-            return tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) as! UITableViewCell
+            return tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) 
         }
         else{
             return super.tableView(tableView, cellForRowAtIndexPath: indexPath)

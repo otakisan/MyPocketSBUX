@@ -75,7 +75,7 @@ class OrdersBaseTableViewController: UITableViewController {
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) 
         
         // Configure the cell...
 //        let dateString = DateUtility.localDateString(self.orders[indexPath.row].order.createdAt)
@@ -107,7 +107,7 @@ class OrdersBaseTableViewController: UITableViewController {
     }
     
     // スワイプ時に表示する項目
-    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         return self.handler.editActionsForRowAtIndexPath(self, indexPath: indexPath)
     }
     
@@ -134,8 +134,8 @@ class OrdersBaseTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
-        if var vc = segue.destinationViewController as? OrderTableViewController {
-            if let indexPath = self.tableView.indexPathForSelectedRow() {
+        if let vc = segue.destinationViewController as? OrderTableViewController {
+            if let indexPath = self.tableView.indexPathForSelectedRow {
                 //                let orderInfo = OrderManager.instance.loadOrder(self.orders[indexPath.row].order, orderDetails: self.orders[indexPath.row].orderDetails)
 //                let orderInfo = OrderManager.instance.loadOrder(self.orders[indexPath.row].order, orderDetails: self.orders[indexPath.row].order.orderDetails.allObjects as! [OrderDetail])
 //                vc.orderHeader = orderInfo.header
@@ -186,7 +186,7 @@ class OrdersTableViewControllerHandler: NSObject {
         
     }
     
-    func editActionsForRowAtIndexPath(viewController: OrdersBaseTableViewController, indexPath: NSIndexPath) -> [AnyObject]? {
+    func editActionsForRowAtIndexPath(viewController: OrdersBaseTableViewController, indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         return nil
     }
 }
@@ -225,7 +225,7 @@ class MasterDetailOrdersTableViewControllerHandler: OrdersTableViewControllerHan
         return true
     }
     
-    override func editActionsForRowAtIndexPath(viewController: OrdersBaseTableViewController, indexPath: NSIndexPath) -> [AnyObject]? {
+    override func editActionsForRowAtIndexPath(viewController: OrdersBaseTableViewController, indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: .Default, title: "delete") {
             (action, indexPath) in viewController.deleteAction(indexPath)
         }
@@ -238,11 +238,11 @@ class MasterDetailOrdersTableViewControllerHandler: OrdersTableViewControllerHan
         
         if let nv = viewController.navigationControllerForOrder() {
             // Set up the detail view controller to show.
-            var detailViewController = OrderTableViewController.forOrder(order)
+            let detailViewController = OrderTableViewController.forOrder(order)
             //detailViewController.delegate = self
             
             // Note: Should not be necessary but current iOS 8.0 bug requires it.
-            viewController.tableView.deselectRowAtIndexPath(viewController.tableView.indexPathForSelectedRow()!, animated: false)
+            viewController.tableView.deselectRowAtIndexPath(viewController.tableView.indexPathForSelectedRow!, animated: false)
             
             //viewController.presentViewController(detailViewController, animated: true, completion: nil)
             nv.pushViewController(detailViewController, animated: true)

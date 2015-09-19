@@ -26,7 +26,7 @@ class ProductIngredients: DbContextBase {
     
     class func findProductIngredientsByOrderIdAndOrderDetailIdFetchRequest(orderId : Int, orderDetailId : Int, orderKeys : [(columnName : String, ascending : Bool)]) -> [ProductIngredient] {
         
-        var sortKeys : [AnyObject] = []
+        var sortKeys : [NSSortDescriptor] = []
         for orderkey in orderKeys {
             sortKeys.append(NSSortDescriptor(key: orderkey.columnName, ascending: orderkey.ascending))
         }

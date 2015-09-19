@@ -64,7 +64,7 @@ class NewsTableViewController: NewsBaseTableViewController, UISearchBarDelegate,
         var results : [PressRelease] = []
         
         for newPressRelease in newPressReleaseData {
-            var entity = PressReleases.createEntity()
+            let entity = PressReleases.createEntity()
             entity.fiscalYear = (newPressRelease["fiscal_year"] as? NSNumber) ?? 0
             entity.pressReleaseSn = (newPressRelease["press_release_sn"] as? NSNumber) ?? 0
             entity.title = ((newPressRelease["title"] as? NSString) ?? "") as String
@@ -98,9 +98,9 @@ class NewsTableViewController: NewsBaseTableViewController, UISearchBarDelegate,
             let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
             let task    = session.dataTaskWithURL(url, completionHandler: {
                 (data, resp, err) in
-                if var newsData = self.initializeNewsArrayFromJson(data) {
+                if let data = data, let newsData = self.initializeNewsArrayFromJson(data) {
                     var newPressReleaseData  : [PressRelease] = self.insertNewPressReleaseToLocal(newsData)
-                    newPressReleaseData.extend(self.pressReleaseEntities)
+                    newPressReleaseData.appendContentsOf(self.pressReleaseEntities)
                     self.pressReleaseEntities = newPressReleaseData
                 }
                 self.reloadData()
@@ -112,7 +112,7 @@ class NewsTableViewController: NewsBaseTableViewController, UISearchBarDelegate,
     }
     
     func initializeNewsArrayFromJson(newsJson: NSData) -> NSArray?{
-        return NSJSONSerialization.JSONObjectWithData(newsJson, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray
+        return (try? NSJSONSerialization.JSONObjectWithData(newsJson, options: NSJSONReadingOptions.MutableContainers)) as? NSArray
     }
 
     override func didReceiveMemoryWarning() {
@@ -174,7 +174,7 @@ class NewsTableViewController: NewsBaseTableViewController, UISearchBarDelegate,
         // サーチバーに入力されたテキストをトリム後に単語単位に分割
         // Strip out all the leading and trailing spaces.
         let whitespaceCharacterSet = NSCharacterSet.whitespaceCharacterSet()
-        let strippedString = searchController.searchBar.text.stringByTrimmingCharactersInSet(whitespaceCharacterSet)
+        let strippedString = searchController.searchBar.text!.stringByTrimmingCharactersInSet(whitespaceCharacterSet)
         let searchItems = strippedString.componentsSeparatedByString(" ") as [String]
         
         // Build all the "AND" expressions for each value in the searchString.
@@ -219,12 +219,12 @@ class NewsTableViewController: NewsBaseTableViewController, UISearchBarDelegate,
             }
             
             // Add this OR predicate to our master AND predicate.
-            let orMatchPredicates = NSCompoundPredicate.orPredicateWithSubpredicates(searchItemsPredicate)
+            let orMatchPredicates = NSCompoundPredicate(orPredicateWithSubpredicates: searchItemsPredicate)
             andMatchPredicates.append(orMatchPredicates)
         }
         
         // Match up the fields of the Product object.
-        let finalCompoundPredicate = NSCompoundPredicate.andPredicateWithSubpredicates(andMatchPredicates)
+        let finalCompoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: andMatchPredicates)
         
         // サーチバーのキーワードでフィルタ
         let filteredResults = searchResults.filter { finalCompoundPredicate.evaluateWithObject($0) }

@@ -16,7 +16,7 @@ class BeansCardManager: NSObject {
         // それらの合計をそのオーダーでの豆の購入金額とする
         // 普通にSQLでいくなら、ジョインかExsitsでいけるけど…
         
-        var orderdetails = OrderDetails.instance().orderDetailsWithBean()
+        let orderdetails = OrderDetails.instance().orderDetailsWithBean()
         
         var purchasedItems : [PurchasedBeanItem] = []
         var prevOrderId = -1
@@ -24,7 +24,7 @@ class BeansCardManager: NSObject {
             let orderId = Int(orderDetail.orderId)
             if orderId != prevOrderId {
                 prevOrderId = orderId
-                var listItem = PurchasedBeanItem()
+                let listItem = PurchasedBeanItem()
                 purchasedItems += [listItem]
             }
             

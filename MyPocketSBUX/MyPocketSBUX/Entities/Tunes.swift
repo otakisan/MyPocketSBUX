@@ -22,7 +22,7 @@ class Tunes: DbContextBase {
     override func insertEntityFromJsonObject(jsonObject : NSArray) {
         
         for newData in jsonObject {
-            var entity : Tune = Tunes.instance().createEntity()
+            let entity : Tune = Tunes.instance().createEntity()
             entity.id = (newData["id"] as? NSNumber) ?? 0
             
             entity.wrapperType = ((newData["wrapper_type"] as? NSString) ?? "") as String

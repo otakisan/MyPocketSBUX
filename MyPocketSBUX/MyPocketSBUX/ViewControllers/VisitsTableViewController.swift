@@ -45,7 +45,7 @@ class VisitsTableViewController: UITableViewController {
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("defaultVisitsTableViewCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("defaultVisitsTableViewCell", forIndexPath: indexPath) 
 
         // Configure the cell...
         cell.textLabel?.text = self.visits[indexPath.row].store.name
@@ -97,8 +97,8 @@ class VisitsTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
-        if var vc = segue.destinationViewController as? OrderTableViewController {
-            if let indexPath = self.tableView.indexPathForSelectedRow() {
+        if let vc = segue.destinationViewController as? OrderTableViewController {
+            if let indexPath = self.tableView.indexPathForSelectedRow {
                 // TODO: オーダー詳細のソート順は、ドリンク／フード別に分けたいのもあり、単純な名称の辞書順では済まない
                 let order = self.visits[indexPath.row].order
 //                let orderDetails = OrderDetails.getOrderDetailsWithOrderId(Int(order.id), orderKeys: [("id", true)])

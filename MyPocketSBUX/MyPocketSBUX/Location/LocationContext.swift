@@ -38,12 +38,12 @@ class LocationContext: NSObject, CLLocationManagerDelegate {
     }
     
     /** 位置情報取得成功時 */
-    func locationManager(manager: CLLocationManager!, didUpdateToLocation newLocation: CLLocation!, fromLocation oldLocation: CLLocation!){
-        self.coordinate = newLocation.coordinate
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.coordinate = locations.last?.coordinate
     }
     
     /** 位置情報取得失敗時 */
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         //NSLog("Error")
     }
 

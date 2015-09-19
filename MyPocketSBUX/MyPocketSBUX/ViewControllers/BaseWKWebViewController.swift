@@ -21,10 +21,10 @@ class BaseWKWebViewController: UIViewController, WKNavigationDelegate {
     var activityIndicatorView : UIActivityIndicatorView?
     
     private let _progressView = UIProgressView(progressViewStyle: UIProgressViewStyle.Bar)
-    private let _closeBtn = UIButton.buttonWithType(.Custom) as! UIButton
-    private let _goBackBtn = UIButton.buttonWithType(.Custom) as! UIButton
-    private let _goForwardBtn = UIButton.buttonWithType(.Custom) as! UIButton
-    private let _reloadBtn = UIButton.buttonWithType(.Custom) as! UIButton
+    private let _closeBtn = UIButton(type: .Custom)
+    private let _goBackBtn = UIButton(type: .Custom)
+    private let _goForwardBtn = UIButton(type: .Custom)
+    private let _reloadBtn = UIButton(type: .Custom)
     
     private let _baseMenuView = UIView()
 
@@ -52,7 +52,7 @@ class BaseWKWebViewController: UIViewController, WKNavigationDelegate {
     */
     
     func urlString() -> String {
-        return (self.absoluteURL == "" ? "http://\(self.baseURL)/\(self.relativePath)" : self.absoluteURL).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+        return (self.absoluteURL == "" ? "http://\(self.baseURL)/\(self.relativePath)" : self.absoluteURL).stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
     }
     
     func initializeWebView(){
@@ -60,9 +60,9 @@ class BaseWKWebViewController: UIViewController, WKNavigationDelegate {
         self.view.addSubview(self.webkitview)
         self.webkitview.navigationDelegate = self
         
-        if var url = NSURL(string:self.urlString()){
+        if let url = NSURL(string:self.urlString()){
             self.showActivityIndicator()
-            var req = NSURLRequest(URL:url)
+            let req = NSURLRequest(URL:url)
             self.webkitview.loadRequest(req)
         }
     }
@@ -70,7 +70,7 @@ class BaseWKWebViewController: UIViewController, WKNavigationDelegate {
     func showActivityIndicator() {
         
         if self.activityIndicatorView == nil {
-            var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+            let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
             activityIndicator.hidesWhenStopped = true
             activityIndicator.center = self.view.center
             self.view.addSubview(activityIndicator)
@@ -134,9 +134,9 @@ class BaseWKWebViewController: UIViewController, WKNavigationDelegate {
     }
     
     // Observerで監視対象のプロパティに変更があったときの処理
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         
-        if object.isEqual(webkitview){
+        if object!.isEqual(webkitview){
             if keyPath == "estimatedProgress"{
                 _progressView.progress = Float(webkitview.estimatedProgress)
             }else if keyPath == "canGoBack"{
@@ -152,21 +152,20 @@ class BaseWKWebViewController: UIViewController, WKNavigationDelegate {
         
         // baseMenu
         var baseMenuViewConstraints = [NSLayoutConstraint]()
-        _baseMenuView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        _baseMenuView.translatesAutoresizingMaskIntoConstraints = false
         baseMenuViewConstraints.append(NSLayoutConstraint(item: _baseMenuView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 50.0))
         viewConstraints.append(NSLayoutConstraint(item: _baseMenuView, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1.0, constant: 0.0))
         viewConstraints.append(NSLayoutConstraint(item: _baseMenuView, attribute: .Right, relatedBy: .Equal, toItem: self.view, attribute: .Right, multiplier: 1.0, constant: 0.0))
         viewConstraints.append(NSLayoutConstraint(item: _baseMenuView, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: -50.0/*タブバー分上げる*/))
         
         // progressView
-        _progressView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        var progressViewConstraints = [NSLayoutConstraint]()
+        _progressView.translatesAutoresizingMaskIntoConstraints = false
         baseMenuViewConstraints.append(NSLayoutConstraint(item: _progressView, attribute: .Left, relatedBy: .Equal, toItem: _baseMenuView, attribute: .Left, multiplier: 1.0, constant: 0.0))
         baseMenuViewConstraints.append(NSLayoutConstraint(item: _progressView, attribute: .Right, relatedBy: .Equal, toItem: _baseMenuView, attribute: .Right, multiplier: 1.0, constant: 0.0))
         baseMenuViewConstraints.append(NSLayoutConstraint(item: _progressView, attribute: .Top, relatedBy: .Equal, toItem: _baseMenuView, attribute: .Top, multiplier: 1.0, constant: 0.0))
         
         // closeBtn
-        _closeBtn.setTranslatesAutoresizingMaskIntoConstraints(false)
+        _closeBtn.translatesAutoresizingMaskIntoConstraints = false
         var closeBtnConstraints = [NSLayoutConstraint]()
         closeBtnConstraints.append(NSLayoutConstraint(item: _closeBtn, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 40.0))
         closeBtnConstraints.append(NSLayoutConstraint(item: _closeBtn, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 24.0))
@@ -174,7 +173,7 @@ class BaseWKWebViewController: UIViewController, WKNavigationDelegate {
         baseMenuViewConstraints.append(NSLayoutConstraint(item: _closeBtn, attribute: .Left, relatedBy: .Equal, toItem: _baseMenuView, attribute: .Left, multiplier: 1.0, constant: 10.0))
         
         // reloadBtn
-        _reloadBtn.setTranslatesAutoresizingMaskIntoConstraints(false)
+        _reloadBtn.translatesAutoresizingMaskIntoConstraints = false
         var reloadBtnConstraints = [NSLayoutConstraint]()
         reloadBtnConstraints.append(NSLayoutConstraint(item: _reloadBtn, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 40.0))
         reloadBtnConstraints.append(NSLayoutConstraint(item: _reloadBtn, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 24.0))
@@ -182,7 +181,7 @@ class BaseWKWebViewController: UIViewController, WKNavigationDelegate {
         baseMenuViewConstraints.append(NSLayoutConstraint(item: _reloadBtn, attribute: .Left, relatedBy: .Equal, toItem: _closeBtn, attribute: .Right, multiplier: 1.0, constant: 20.0))
         
         // goBackBtn
-        _goBackBtn.setTranslatesAutoresizingMaskIntoConstraints(false)
+        _goBackBtn.translatesAutoresizingMaskIntoConstraints = false
         var goBackBtnConstraints = [NSLayoutConstraint]()
         goBackBtnConstraints.append(NSLayoutConstraint(item: _goBackBtn, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 40.0))
         goBackBtnConstraints.append(NSLayoutConstraint(item: _goBackBtn, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 24.0))
@@ -190,7 +189,7 @@ class BaseWKWebViewController: UIViewController, WKNavigationDelegate {
         baseMenuViewConstraints.append(NSLayoutConstraint(item: _goBackBtn, attribute: .Left, relatedBy: .Equal, toItem: _reloadBtn, attribute: .Right, multiplier: 1.0, constant: 20.0))
         
         // goForwardBtn
-        _goForwardBtn.setTranslatesAutoresizingMaskIntoConstraints(false)
+        _goForwardBtn.translatesAutoresizingMaskIntoConstraints = false
         var goForwardBtnConstraints = [NSLayoutConstraint]()
         goForwardBtnConstraints.append(NSLayoutConstraint(item: _goForwardBtn, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 40.0))
         goForwardBtnConstraints.append(NSLayoutConstraint(item: _goForwardBtn, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 24.0))
@@ -198,8 +197,7 @@ class BaseWKWebViewController: UIViewController, WKNavigationDelegate {
         baseMenuViewConstraints.append(NSLayoutConstraint(item: _goForwardBtn, attribute: .Left, relatedBy: .Equal, toItem: _goBackBtn, attribute: .Right, multiplier: 1.0, constant: 20.0))
         
         // webView
-        webkitview.setTranslatesAutoresizingMaskIntoConstraints(false)
-        var webViewConstraints = [NSLayoutConstraint]()
+        webkitview.translatesAutoresizingMaskIntoConstraints = false
         viewConstraints.append(NSLayoutConstraint(item: webkitview, attribute: .Top, relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1.0, constant: 0.0))
         viewConstraints.append(NSLayoutConstraint(item: webkitview, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1.0, constant: 0.0))
         viewConstraints.append(NSLayoutConstraint(item: webkitview, attribute: .Bottom, relatedBy: .Equal, toItem: _baseMenuView, attribute: .Top, multiplier: 1.0, constant: 0.0))

@@ -42,7 +42,7 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
     func showActivityIndicator() {
         
         if self.activityIndicatorView == nil {
-            var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+            let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
             activityIndicator.center = self.view.center
             self.tableView.addSubview(activityIndicator)
             
@@ -59,7 +59,7 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         }
     }
 
-    func updateStoreLocalDb(completionHandler: ((NSData!, NSURLResponse!, NSError!) -> Void)?){
+    func updateStoreLocalDb(completionHandler: ((NSData?, NSURLResponse?, NSError?) -> Void)){
         
         // 最新版を取得
         let nextSn = self.maxStoreSeqId() + 1
@@ -68,7 +68,7 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         if let url  = NSURL(string: "http://\(ResourceContext.instance.serviceHost()):3000/stores.json/?type=range&key=id&sortdirection=ASC&from=\(nextSn)") {
             
             // TODO: defaultSessionConfigurationはデフォルト設定でインスタンスを生成するので、毎回設定する必要あり
-            var config = NSURLSessionConfiguration.defaultSessionConfiguration()
+            let config = NSURLSessionConfiguration.defaultSessionConfiguration()
             config.timeoutIntervalForResource = 10
             config.timeoutIntervalForRequest = 10
             let session = NSURLSession(configuration: config)
@@ -89,7 +89,7 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         self.updateStoreLocalDb({
             (data, resp, err) in
             
-            if var newsData = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray {
+            if let data = data, let newsData = (try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)) as? NSArray {
                 
                 self.insertNewStoreToLocal(newsData)
             }
@@ -112,7 +112,7 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
     func insertNewStoreToLocal(newStoreData : NSArray) {
         
         for newStore in newStoreData {
-            var entity : Store = Stores.instance().createEntity()
+            let entity : Store = Stores.instance().createEntity()
             entity.id = (newStore["id"] as? NSNumber) ?? 0
             entity.storeId = (newStore["store_id"] as? NSNumber) ?? 0
             entity.name = ((newStore["name"] as? NSString) ?? "") as String
@@ -150,7 +150,7 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
                 self.groupKeyToIndex[prefId] = self.groupKeyToIndex.count
             }
             
-            if var appendIndex = self.groupKeyToIndex[prefId] {
+            if let appendIndex = self.groupKeyToIndex[prefId] {
                 if results.count <= appendIndex {
                     results.append([String:AnyObject]())
                 }
@@ -202,12 +202,12 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         // セグメントフィルタ
         let paddingHeight = CGFloat(5.0)
         
-        var segmentedGPS = UISegmentedControl(items: ["All", "Nearby"])
+        let segmentedGPS = UISegmentedControl(items: ["All", "Nearby"])
         segmentedGPS.frame = CGRectMake((searchController.searchBar.frame.width - segmentedGPS.frame.width) / 2.0, searchController.searchBar.frame.height + paddingHeight, segmentedGPS.frame.width, segmentedGPS.frame.height)
         
         // _______________
         // 親ビュー
-        var superView = UIView(frame: CGRectMake(0, 0, searchController.searchBar.frame.width, searchController.searchBar.frame.height + segmentedGPS.frame.height + paddingHeight * 2))
+        let superView = UIView(frame: CGRectMake(0, 0, searchController.searchBar.frame.width, searchController.searchBar.frame.height + segmentedGPS.frame.height + paddingHeight * 2))
         superView.addSubview(searchController.searchBar)
         superView.addSubview(segmentedGPS)
         superView.backgroundColor = UIColor.whiteColor()
@@ -239,7 +239,7 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         // サーチバーに入力されたテキストをトリム後に単語単位に分割
         // Strip out all the leading and trailing spaces.
         let whitespaceCharacterSet = NSCharacterSet.whitespaceCharacterSet()
-        let strippedString = searchController.searchBar.text.stringByTrimmingCharactersInSet(whitespaceCharacterSet)
+        let strippedString = searchController.searchBar.text!.stringByTrimmingCharactersInSet(whitespaceCharacterSet)
         let searchItems = strippedString.componentsSeparatedByString(" ") as [String]
         
         // Build all the "AND" expressions for each value in the searchString.
@@ -311,12 +311,12 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
             //            }
             
             // Add this OR predicate to our master AND predicate.
-            let orMatchPredicates = NSCompoundPredicate.orPredicateWithSubpredicates(searchItemsPredicate)
+            let orMatchPredicates = NSCompoundPredicate(orPredicateWithSubpredicates: searchItemsPredicate)
             andMatchPredicates.append(orMatchPredicates)
         }
         
         // Match up the fields of the Product object.
-        let finalCompoundPredicate = NSCompoundPredicate.andPredicateWithSubpredicates(andMatchPredicates)
+        let finalCompoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: andMatchPredicates)
         
         // キーワードに合致するものを取得
         var filteredResults = searchResults?.map { (groupDic : [String:AnyObject]) -> [String:AnyObject] in
@@ -383,7 +383,7 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         restoredState.wasFirstResponder = coder.decodeBoolForKey(RestorationKeys.searchBarIsFirstResponder)
         
         // Restore the text in the search field.
-        searchController.searchBar.text = coder.decodeObjectForKey(RestorationKeys.searchBarText) as! String
+        searchController.searchBar.text = coder.decodeObjectForKey(RestorationKeys.searchBarText) as? String
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -414,7 +414,7 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         initializeStoreData()
         
         // 初期化
-        var coord = LocationContext.current.coordinate
+        _ = LocationContext.current.coordinate
     }
 
     override func didReceiveMemoryWarning() {
@@ -437,7 +437,7 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) 
 
         self.configureCell(cell, forStores: self.storesData, indexPath: indexPath)
         
@@ -500,7 +500,7 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
-        if var storeMapViewController = segue.destinationViewController as? StoreMapViewController {
+        if let storeMapViewController = segue.destinationViewController as? StoreMapViewController {
             // 位置情報サービスから現在地を取得
             storeMapViewController.centerCoordinate = LocationContext.current.coordinate ?? storeMapViewController.centerCoordinate
             storeMapViewController.annotations = self.storeAnnotations + [(coordinate : (latitude : storeMapViewController.centerCoordinate.latitude, longitude : storeMapViewController.centerCoordinate.longitude), title : "現在地", subStitle : "", store : nil)]
@@ -510,7 +510,7 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
     func allStoreAnnotationsAndCurrent() -> [(coordinate : (latitude : Double, longitude : Double), title : String, subStitle : String, store : Store?)] {
         var results : [(coordinate : (latitude : Double, longitude : Double), title : String, subStitle : String, store : Store?)] = []
         for entity in self.storeEntities {
-            var annotationInfo : (coordinate : (latitude : Double, longitude : Double), title : String, subStitle : String, store : Store?) =
+            let annotationInfo : (coordinate : (latitude : Double, longitude : Double), title : String, subStitle : String, store : Store?) =
             (coordinate: (Double(entity.latitude), Double(entity.longitude)), title: entity.name, subStitle: "\(DateUtility.localTimeString(entity.openingTimeWeekday)) - \(DateUtility.localTimeString(entity.closingTimeWeekday))", store : entity)
             
             results += [annotationInfo]
@@ -540,7 +540,7 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
     }
     
     func addCancelButtonIfNeeded(){
-        if let rootVc = self.navigationController?.viewControllers.first as? UIViewController {
+        if let rootVc = self.navigationController?.viewControllers.first {
             if self.needToAddCancelButton && rootVc == self {
                 
                 self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "didRuntimeCancelButton:")

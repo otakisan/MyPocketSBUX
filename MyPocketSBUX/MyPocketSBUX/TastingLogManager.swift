@@ -16,7 +16,7 @@ class TastingLogManager: NSObject {
     }
     
     func newTastingLog() -> TastingLog {
-        var tastingLog : TastingLog = TastingLogs.instance().createEntity()
+        let tastingLog : TastingLog = TastingLogs.instance().createEntity()
         self.initializeTastingLog(tastingLog)
         
         return tastingLog
@@ -45,7 +45,10 @@ class TastingLogManager: NSObject {
             TastingLogs.insertEntity(tastingLog)
         }
         else{
-            TastingLogs.getManagedObjectContext().save(nil)
+            do {
+                try TastingLogs.getManagedObjectContext().save()
+            } catch _ {
+            }
         }
     }
     
@@ -69,7 +72,7 @@ class TastingLogManager: NSObject {
     
     func registerSyncRequest(tastingLog: TastingLog) {
         // TODO: ここも共通化の必要性あり。SyncRequestのスキーマ変更時に漏れが出るリスクがあるため。
-        var entity: SyncRequest = SyncRequests.instance().createEntity()
+        let entity: SyncRequest = SyncRequests.instance().createEntity()
         entity.entityTypeName = TastingLogs.instance().entityName()
         entity.entityPk = DbContextBase.zpk(tastingLog)
         entity.entityGlobalID = tastingLog.id ?? 0

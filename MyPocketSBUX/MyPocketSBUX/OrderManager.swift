@@ -19,7 +19,7 @@ class OrderManager: NSObject {
     func saveIngredients(ingredients : [Ingredient], order : Order, orderDetail : OrderDetail, isCustom : Bool, now: NSDate) {
         
         for ingredient in ingredients {
-            var ingredientEntity : ProductIngredient = ProductIngredients.instance().createEntity()
+            let ingredientEntity : ProductIngredient = ProductIngredients.instance().createEntity()
             ProductIngredients.registerEntity(ingredientEntity)
             ingredientEntity.id = 0//ProductIngredients.sequenceNumber()
             //ingredientEntity.orderId = order.id
@@ -48,7 +48,7 @@ class OrderManager: NSObject {
         // Order
         // 連番、登録日時、更新日時、店舗ID、合計金額（税抜）、合計金額（税込）、
         let now = NSDate()
-        var order : Order = Orders.instance().createEntity()
+        let order : Order = Orders.instance().createEntity()
         //let orderId = Orders.sequenceNumber()
         order.id = 0//orderId
         order.storeId = orderHeader?.store?.storeId ?? 0 // TODO: ストアIDを実際の店舗IDとrailsのIDとどちらにするか
@@ -65,7 +65,7 @@ class OrderManager: NSObject {
         var orderDetails: Set<OrderDetail> = []
         for orderListItem in self.unionOrderListItem(orderListItems) {
             // OrderDetail
-            var orderDetail : OrderDetail = OrderDetails.instance().createEntity()
+            let orderDetail : OrderDetail = OrderDetails.instance().createEntity()
             OrderDetails.registerEntity(orderDetail)
             //let orderDetailId = OrderDetails.sequenceNumber() // TODO: 秒単位だと重複する できればμs単位にしたい それか乱数
             orderDetail.id = 0//orderDetailId
@@ -128,7 +128,7 @@ class OrderManager: NSObject {
     }
     
     func ingredient(productIngredient : ProductIngredient) -> Ingredient {
-        var ingredient = Ingredient()
+        let ingredient = Ingredient()
         ingredient.type = CustomizationIngredientype.fromString(productIngredient.milkType)
         ingredient.name = productIngredient.name
         ingredient.unitCalorie = Int(productIngredient.unitCalorie)
@@ -142,9 +142,9 @@ class OrderManager: NSObject {
     }
     
     func ingredientCollection(ingredientEntities : [ProductIngredient]) -> (originals:IngredientCollection, customs:IngredientCollection) {
-        var ingredientCollectionOriginals = IngredientCollection()
+        let ingredientCollectionOriginals = IngredientCollection()
         ingredientCollectionOriginals.ingredients = []
-        var ingredientCollectionCustoms = IngredientCollection()
+        let ingredientCollectionCustoms = IngredientCollection()
         ingredientCollectionCustoms.ingredients = []
         
         
@@ -162,15 +162,15 @@ class OrderManager: NSObject {
     }
     
     func loadOrder(order : Order, orderDetails : [OrderDetail]) -> (header: OrderHeader, details: [OrderListItem]) {
-        var header = OrderHeader()
+        let header = OrderHeader()
         header.store = Stores.findByStoreId(Int(order.storeId))
         header.notes = order.notes
-        var details = self.loadOrder(orderDetails: orderDetails)
+        let details = self.loadOrder(orderDetails: orderDetails)
         
         return (header, details)
     }
     
-    func loadOrder(#orderDetails : [OrderDetail]) -> [OrderListItem] {
+    func loadOrder(orderDetails orderDetails : [OrderDetail]) -> [OrderListItem] {
         
         var orderListItems : [OrderListItem] = []
         for orderDetail in orderDetails {
@@ -180,8 +180,8 @@ class OrderManager: NSObject {
         return orderListItems
     }
     
-    func loadOrder(#orderDetail : OrderDetail) -> OrderListItem {
-        var orderListItem = OrderListItem()
+    func loadOrder(orderDetail orderDetail : OrderDetail) -> OrderListItem {
+        let orderListItem = OrderListItem()
         
 //        let ingredientEntities = ProductIngredients.findProductIngredientsByOrderIdAndOrderDetailIdFetchRequest(Int(orderDetail.orderId), orderDetailId: Int(orderDetail.id), orderKeys: [("id", true)])
         let ingredientEntities = orderDetail.productIngredients.allObjects as! [ProductIngredient]
@@ -244,7 +244,7 @@ class OrderManager: NSObject {
     }
     
     func registerSyncRequest(order: Order) {
-        var entity: SyncRequest = SyncRequests.instance().createEntity()
+        let entity: SyncRequest = SyncRequests.instance().createEntity()
         entity.entityTypeName = Orders.instance().entityName()
         entity.entityPk = DbContextBase.zpk(order)
         entity.entityGlobalID = order.id ?? 0

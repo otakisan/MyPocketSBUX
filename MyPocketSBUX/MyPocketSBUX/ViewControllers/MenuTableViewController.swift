@@ -35,16 +35,18 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
         for productCategory in productCategories {
             dispatch_semaphore_wait(semaphore, timeout/*DISPATCH_TIME_FOREVER*/)
             let dbContext = self.getDbContext(productCategory)
-            var count = dbContext.countByFetchRequestTemplate([NSObject:AnyObject]())
+            let count = dbContext.countByFetchRequestTemplate([String:AnyObject]())
             if count == 0 {
                 self.updateProductLocalDb(productCategory, completionHandler: { data, res, error in
                     
-                    if var productsJson = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray {
-                        dbContext.insertEntityFromJsonObject(productsJson)
+                    if data != nil {
+                        if let productsJson = (try? NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)) as? NSArray {
+                            dbContext.insertEntityFromJsonObject(productsJson)
+                        }
+                        
+                        // ローカルDBのキャッシュデータを取得
+                        self.menuDisplayItemList += self.createProductSectionItemsFromLocalDb(productCategory)
                     }
-                    
-                    // ローカルDBのキャッシュデータを取得
-                    self.menuDisplayItemList += self.createProductSectionItemsFromLocalDb(productCategory)
                     
                     // 解放
                     dispatch_semaphore_signal(semaphore)
@@ -60,11 +62,13 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
         
         // カロリー
         // 商品情報の取得が完了するまで待機して、メニューリストを更新、UIを更新する
-        if 0 == Nutritions.instance().countByFetchRequestTemplate([NSObject:AnyObject]()) {
+        if 0 == Nutritions.instance().countByFetchRequestTemplate([String:AnyObject]()) {
             self.updateProductLocalDb("nutrition", completionHandler: { data, res, error in
                 
-                if var productsJson = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray {
-                    Nutritions.instance().insertEntityFromJsonObject(productsJson)
+                if let receivedData = data {
+                    if let productsJson = (try? NSJSONSerialization.JSONObjectWithData(receivedData, options: NSJSONReadingOptions.MutableContainers)) as? NSArray {
+                        Nutritions.instance().insertEntityFromJsonObject(productsJson)
+                    }
                 }
                 
                 // メニューリストを更新（カロリー情報）
@@ -87,11 +91,11 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
     
     func waitAndUpdateCalorie(semaphore : dispatch_semaphore_t, semaphoreCount : Int, timeout: dispatch_time_t) {
         // 待機
-        for index in 0..<semaphoreCount {
+        for _ in 0..<semaphoreCount {
             dispatch_semaphore_wait(semaphore, timeout/*DISPATCH_TIME_FOREVER*/)
         }
         // 解放しないとアベンドする
-        for index in 0..<semaphoreCount {
+        for _ in 0..<semaphoreCount {
             dispatch_semaphore_signal(semaphore)
         }
         
@@ -123,14 +127,14 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
     }
     
     func createOrderSectionItem() -> MenuSectionItem {
-        var orderSection = MenuSectionItem()
+        let orderSection = MenuSectionItem()
         orderSection.sectionCategory = MenuSectionItem.SectionCategory.order
         
         return orderSection
     }
     
     func createProductSectionItem(productCategory : String, subCategory : String) -> MenuSectionItem {
-        var productSection = MenuSectionItem()
+        let productSection = MenuSectionItem()
         productSection.sectionCategory = MenuSectionItem.SectionCategory.product
         productSection.productCategory = productCategory
         productSection.subCategory = subCategory
@@ -138,7 +142,7 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
         return productSection
     }
     
-    func updateProductLocalDb(productCategory : String, completionHandler: ((NSData!, NSURLResponse!, NSError!) -> Void)?){
+    func updateProductLocalDb(productCategory : String, completionHandler: ((NSData?, NSURLResponse?, NSError?) -> Void)){
         
         // 全件を取得
         if let url  = NSURL(string: "http://\(ResourceContext.instance.serviceHost()):3000/\(productCategory)s.json") {
@@ -173,9 +177,9 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
         
         var results : [MenuSectionItem] = []
         var prevSectionItem : MenuSectionItem?
-        var entities : [AnyObject] = self.getProductsAllOrderBy(productCategory, orderKeys: [(columnName : "category", ascending : true), (columnName : "name", ascending : true)])
+        let entities : [AnyObject] = self.getProductsAllOrderBy(productCategory, orderKeys: [(columnName : "category", ascending : true), (columnName : "name", ascending : true)])
         for entity in entities {
-            var menuItem = self.createMenuListItem(productCategory)
+            let menuItem = self.createMenuListItem(productCategory)
             menuItem.productEntity = entity
             
             if !(prevSectionItem?.subCategory == entity.category) {
@@ -255,7 +259,7 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
                     if filtered.count == 1 {
                         let removed = self.menuDisplayItemList[0].listItems.removeAtIndex(fromIndexPath.row)
                         filtered.first!.listItems += [removed]
-                        if let index = find(menuDisplayItemList, filtered.first!) {
+                        if let index = menuDisplayItemList.indexOf(filtered.first!) {
                             toSectionIndex = index
                         }
                     }
@@ -377,9 +381,9 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
         // カートみたいなものが独立して存在するようにさせるか
         // 今だと戻るとリセットされてしまう
         // TODO: 過去のオーダーをもとに参照新規する機能
-        if var orderViewController = segue.destinationViewController as? OrderTableViewController {
-            var orders = self.menuDisplayItemList[0].listItems.map { (m : MenuListItem) -> OrderListItem in
-                var orderListItem = OrderListItem()
+        if let orderViewController = segue.destinationViewController as? OrderTableViewController {
+            let orders = self.menuDisplayItemList[0].listItems.map { (m : MenuListItem) -> OrderListItem in
+                let orderListItem = OrderListItem()
                 orderListItem.productEntity = m.productEntity
                 orderListItem.totalPrice = (orderListItem.productEntity?.valueForKey("price") as? NSNumber ?? NSNumber(integer: 0)).integerValue
                 orderListItem.on = m.isOnOrderList
@@ -393,9 +397,9 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
             
             orderViewController.orderItems = orders
         }
-        else if var productDetailViewController = segue.destinationViewController as? ProductDetailTableViewController {
+        else if let productDetailViewController = segue.destinationViewController as? ProductDetailTableViewController {
             
-            if let indexPath = self.tableView.indexPathForSelectedRow() {
+            if let indexPath = self.tableView.indexPathForSelectedRow {
                 productDetailViewController.product = self.menuDisplayItemList[indexPath.section].listItems[indexPath.row].productEntity as? NSObject
             }
         }

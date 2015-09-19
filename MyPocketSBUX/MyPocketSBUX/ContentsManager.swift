@@ -14,7 +14,7 @@ class ContentsManager: NSObject {
     static let instance = ContentsManager()
     let timeoutInSeconds = 30.0
     
-    func fetchContentsFromWeb(entityName : String, completionHandler: ((NSData!, NSURLResponse!, NSError!) -> Void)?){
+    func fetchContentsFromWeb(entityName : String, completionHandler: ((NSData?, NSURLResponse?, NSError?) -> Void)){
         
         // 全件を取得
         if let url  = NSURL(string: "http://\(ResourceContext.instance.serviceHost()):\(ResourceContext.instance.servicePort())/\(entityName)s.json") {
@@ -68,7 +68,7 @@ class ContentsManager: NSObject {
 
     func fetchEntitiesFromLocalDb(entityName : String, orderKeys : [(columnName : String, ascending : Bool)]) -> [NSManagedObject] {
         
-        var entities : [NSManagedObject] = self.getProductsAllOrderBy(entityName, orderKeys: orderKeys)
+        let entities : [NSManagedObject] = self.getProductsAllOrderBy(entityName, orderKeys: orderKeys)
         
         return entities
     }
@@ -94,11 +94,11 @@ class ContentsManager: NSObject {
         for entityName in entityNames {
             dispatch_semaphore_wait(semaphore, timeout/*DISPATCH_TIME_FOREVER*/)
             let dbContext = self.getDbContext(entityName)
-            var count = dbContext.countByFetchRequestTemplate([NSObject:AnyObject]())
+            let count = dbContext.countByFetchRequestTemplate([String:AnyObject]())
             if count == 0 {
                 self.fetchContentsFromWeb(entityName, completionHandler: { data, res, error in
                     
-                    if var productsJson = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray {
+                    if let productsJson = (try? NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)) as? NSArray {
                         dbContext.insertEntityFromJsonObject(productsJson)
                     }
                     
@@ -121,11 +121,11 @@ class ContentsManager: NSObject {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             
             // 待機
-            for index in 0..<semaphoreCount {
+            for _ in 0..<semaphoreCount {
                 dispatch_semaphore_wait(semaphore, timeout/*DISPATCH_TIME_FOREVER*/)
             }
             // 解放しないとアベンドする
-            for index in 0..<semaphoreCount {
+            for _ in 0..<semaphoreCount {
                 dispatch_semaphore_signal(semaphore)
             }
             
@@ -150,7 +150,7 @@ class ContentsManager: NSObject {
             self.fetchContentsFromWeb(entityName, completionHandler: { data, res, error in
                 
                 if error == nil {
-                    if var productsJson = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray {
+                    if let productsJson = (try? NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)) as? NSArray {
                         let dbContext = self.getDbContext(entityName)
                         dbContext.clearAllEntitiesExceptForUnsyncData()
                         dbContext.insertEntityFromJsonObject(productsJson)
@@ -168,11 +168,11 @@ class ContentsManager: NSObject {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             
             // 待機
-            for index in 0..<semaphoreCount {
+            for _ in 0..<semaphoreCount {
                 dispatch_semaphore_wait(semaphore, timeout/*DISPATCH_TIME_FOREVER*/)
             }
             // 解放しないとアベンドする
-            for index in 0..<semaphoreCount {
+            for _ in 0..<semaphoreCount {
                 dispatch_semaphore_signal(semaphore)
             }
             
@@ -187,16 +187,16 @@ class ContentsManager: NSObject {
             let str = "tasting_log[title]=test log from ios&tasting_log[tag]=test tag&tasting_log[tasting_at(1i)]=2015&tasting_log[tasting_at(2i)]=5&tasting_log[tasting_at(3i)]=19&tasting_log[tasting_at(4i)]=22&tasting_log[tasting_at(5i)]=23&tasting_log[detail]=test detail&tasting_log[store_id]=2153&tasting_log[order_id]="
         let strData = str.dataUsingEncoding(NSUTF8StringEncoding)
 
-        var url = NSURL(string: "http://localhost:3000/tasting_logs")
-        var request = NSMutableURLRequest(URL: url!)
+        let url = NSURL(string: "http://localhost:3000/tasting_logs")
+        let request = NSMutableURLRequest(URL: url!)
         
         // この下二行を見つけるのに、少々てこずりました。
         request.HTTPMethod = "POST"
         request.HTTPBody = strData
         
-        if var data = NSURLConnection.sendSynchronousRequest(request, returningResponse: nil, error: nil) {
-            if var dic = NSJSONSerialization.JSONObjectWithData(data, options:nil, error: nil) as? NSDictionary {
-                print(dic.count)
+        if let data = try? NSURLConnection.sendSynchronousRequest(request, returningResponse: nil) {
+            if let dic = (try? NSJSONSerialization.JSONObjectWithData(data, options:[])) as? NSDictionary {
+                print(dic.count, terminator: "")
             }
         }
     }
@@ -212,8 +212,8 @@ class ContentsManager: NSObject {
             let id = dataObject.valueForKey("id") as? NSNumber as? Int ?? 0
             let isNew = id == 0 ? true : false
             
-            var url = NSURL(string: isNew ? "http://\(ResourceContext.instance.serviceHost()):\(ResourceContext.instance.servicePort())/\(entityName)s.json" : "http://\(ResourceContext.instance.serviceHost()):\(ResourceContext.instance.servicePort())/\(entityName)s/\(id).json")
-            var request = NSMutableURLRequest(URL: url!)
+            let url = NSURL(string: isNew ? "http://\(ResourceContext.instance.serviceHost()):\(ResourceContext.instance.servicePort())/\(entityName)s.json" : "http://\(ResourceContext.instance.serviceHost()):\(ResourceContext.instance.servicePort())/\(entityName)s/\(id).json")
+            let request = NSMutableURLRequest(URL: url!)
             
             // この下二行を見つけるのに、少々てこずりました。
             // .jsonに要求を出すときは、content-typeの指定が必要。指定しないと適切に処理されない
@@ -221,9 +221,9 @@ class ContentsManager: NSObject {
             request.HTTPMethod = isNew ? "POST" : "PATCH"
             request.HTTPBody = jsonData
             
-            var error: NSError?
-            if var data = NSURLConnection.sendSynchronousRequest(request, returningResponse: nil, error: &error) {
-                if var dic = NSJSONSerialization.JSONObjectWithData(data, options:nil, error: &error) as? NSDictionary {
+            do {
+                let data = try NSURLConnection.sendSynchronousRequest(request, returningResponse: nil)
+                if let dic = try? NSJSONSerialization.JSONObjectWithData(data, options:[]) as? NSDictionary {
                     isSuccess = true
                     //print(dic.count)
                     
@@ -231,7 +231,7 @@ class ContentsManager: NSObject {
                     // TODO: ここで状態を変えて保存してよいか
                     let propNames = dataObject.propertyNames()
                     for propName in propNames {
-                        if var propValue: AnyObject = dic.valueForKey(propName.snakeCase()) {
+                        if var propValue: AnyObject = dic?.valueForKey(propName.snakeCase()) {
                             if propValue is String {
                                 propValue = self.typeConvert(dataObject.propertyTypeName(propName), propValue: propValue as! String)
                             }
@@ -239,8 +239,9 @@ class ContentsManager: NSObject {
                         }
                     }
                     
-                    DbContextBase.getManagedObjectContext().save(nil)
+                    try DbContextBase.getManagedObjectContext().save()
                 }
+            } catch _ as NSError {
             }
         }
         
@@ -250,18 +251,17 @@ class ContentsManager: NSObject {
     func deleteContentsToWeb(idOnWeb: Int, entityName: String) -> Bool {
         var isSuccess = false
         
-        var url = NSURL(string: "http://\(ResourceContext.instance.serviceHost()):\(ResourceContext.instance.servicePort())/\(entityName)s/\(idOnWeb).json")
-        var request = NSMutableURLRequest(URL: url!)
+        let url = NSURL(string: "http://\(ResourceContext.instance.serviceHost()):\(ResourceContext.instance.servicePort())/\(entityName)s/\(idOnWeb).json")
+        let request = NSMutableURLRequest(URL: url!)
         
         // .jsonに要求を出すときは、content-typeの指定が必要。指定しないと適切に処理されない
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.HTTPMethod = "DELETE"
         
-        var error: NSError?
-        if  var data = NSURLConnection.sendSynchronousRequest(request, returningResponse: nil, error: &error) {
-            if error == nil {
-                isSuccess = true
-            }
+        do {
+            _ = try NSURLConnection.sendSynchronousRequest(request, returningResponse: nil)
+            isSuccess = true
+        } catch _ as NSError {
         }
         
         return isSuccess
@@ -272,7 +272,7 @@ class ContentsManager: NSObject {
         if propTypeName.contains("NSDate") {
             converted = DateUtility.dateFromSqliteDateTimeString(propValue) ?? DateUtility.minimumDate()
         } else if propTypeName.contains("NSNumber") {
-            converted = propTypeName.toInt() ?? 0 as NSNumber
+            converted = Int(propTypeName) ?? 0 as NSNumber
         }
         
         return converted
@@ -282,7 +282,7 @@ class ContentsManager: NSObject {
         
         let topObject = jsonObject(dataObject)
         
-        return NSJSONSerialization.dataWithJSONObject(topObject as NSDictionary, options: nil, error: nil)
+        return try? NSJSONSerialization.dataWithJSONObject(topObject as NSDictionary, options: [])
     }
     
     func jsonObject(dataObject: NSObject) -> [String:AnyObject] {
@@ -333,7 +333,7 @@ class ContentsManager: NSObject {
     
     func printJsonData(jsonData: NSData) {
         if let logString = NSString(data: jsonData, encoding: NSUTF8StringEncoding) {
-            print(logString)
+            print(logString, terminator: "")
         }
     }
 

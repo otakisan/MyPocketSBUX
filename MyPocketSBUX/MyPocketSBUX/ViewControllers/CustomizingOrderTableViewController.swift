@@ -201,7 +201,7 @@ class CustomizingOrderTableViewController: UITableViewController,
     }
 
     // スワイプ時に表示する項目
-    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
 //        let editAction =
 //        UITableViewRowAction(style: .Normal, // 削除等の破壊的な操作を示さないスタイル
 //            title: "edit"){(action, indexPath) in println("\(indexPath) edited")}
@@ -210,7 +210,7 @@ class CustomizingOrderTableViewController: UITableViewController,
         let deleteAction =
         UITableViewRowAction(style: .Default, // 標準のスタイル
             title: "delete"){(action, indexPath) in
-                println("\(indexPath) deleted")
+                print("\(indexPath) deleted")
                 // カスタムアイテムを削除
                 self.deleteCustomItem(indexPath)
 //                self.orderItem?.customizationItems?.ingredients.removeAtIndex(indexPath.row)
@@ -235,7 +235,7 @@ class CustomizingOrderTableViewController: UITableViewController,
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
-        if var customItemsViewController = segue.destinationViewController as? CustomItemsTableViewController {
+        if let customItemsViewController = segue.destinationViewController as? CustomItemsTableViewController {
             customItemsViewController.orderListItem = self.orderItem
             if let cell = sender as? CustomItemCustomizingOrderTableViewCell {
                 customItemsViewController.customItemForEdit = cell.ingredient
@@ -245,15 +245,15 @@ class CustomizingOrderTableViewController: UITableViewController,
     
     override func didMoveToParentViewController(parent: UIViewController?) {
         if let nv = parent as? UINavigationController {
-            println("appended")
+            print("appended")
             
             // 直前のViewControllerを取得し、delegateに設定
-            if var ov = nv.viewControllers[nv.viewControllers.count - 2] as? CustomizingOrderTableViewDelegate {
+            if let ov = nv.viewControllers[nv.viewControllers.count - 2] as? CustomizingOrderTableViewDelegate {
                 self.delegate = ov
             }
         }
         else {
-            println("unwind")
+            print("unwind")
             self.delegate?.didCompleteCustomizeOrder(self.orderItem)
             self.delegate = nil
         }
@@ -261,7 +261,7 @@ class CustomizingOrderTableViewController: UITableViewController,
     
     @IBAction func customItemListDidComplete(segue : UIStoryboardSegue) {
         if let customItemListViewController = segue.sourceViewController as? CustomItemsTableViewController {
-            println("[complete] unwind to dst")
+            print("[complete] unwind to dst")
             
             // オリジナルかカスタムかで制御を分ける
             // オリジナル
@@ -276,7 +276,7 @@ class CustomizingOrderTableViewController: UITableViewController,
 //                    }
 //                }
 //                else {
-                    if var current = self.orderItem?.originalItems?.ingredients.filter( { $0.name == customItemListViewController.customItemForEdit!.name }).first {
+                    if let current = self.orderItem?.originalItems?.ingredients.filter( { $0.name == customItemListViewController.customItemForEdit!.name }).first {
                         
                         current.name = customItemListViewController.editResults.first?.name ?? ""
                         current.enable = customItemListViewController.editResults.first?.enable ?? false
@@ -300,7 +300,7 @@ class CustomizingOrderTableViewController: UITableViewController,
     
     @IBAction func customItemListDidCancel(segue : UIStoryboardSegue) {
         if let customItemListViewController = segue.sourceViewController as? CustomItemsTableViewController {
-            println("[cancel] unwind to dst")
+            print("[cancel] unwind to dst")
             
         }
     }
@@ -329,7 +329,7 @@ class CustomizingOrderTableViewController: UITableViewController,
         //self.orderItem?.customizationItems?.ingredients = ingredients
         
         for ing in ingredients {
-            if let index = find(self.orderItem!.customizationItems!.ingredients, ing) {
+            if let index = self.orderItem!.customizationItems!.ingredients.indexOf(ing) {
                 if ing.enable {
                     self.orderItem?.customizationItems?.ingredients[index].quantityType = ing.quantityType
                 }
@@ -365,7 +365,7 @@ class CustomizingOrderTableViewController: UITableViewController,
     }
     
     func updateTotalPrice() {
-        if var calculator = PriceCalculator.createPriceCalculatorForEntity(self.orderItem?.productEntity, customizedOriginals: self.orderItem?.originalItems, customs: self.orderItem?.customizationItems, discountFactors: self.discountFactors(), size: self.orderItem?.size ?? DrinkSize.Tall) {
+        if let calculator = PriceCalculator.createPriceCalculatorForEntity(self.orderItem?.productEntity, customizedOriginals: self.orderItem?.originalItems, customs: self.orderItem?.customizationItems, discountFactors: self.discountFactors(), size: self.orderItem?.size ?? DrinkSize.Tall) {
             self.orderItem?.customPrice = calculator.priceForCustoms()
             self.orderItem?.totalPrice = calculator.priceForTotal()
             self.addPrice(0)
@@ -373,13 +373,13 @@ class CustomizingOrderTableViewController: UITableViewController,
     }
 
     func updateCustomizationPrice() {
-        var delta = (self.orderItem?.customizationItems?.price() ?? 0) - (self.orderItem?.customPrice ?? 0)
+        let delta = (self.orderItem?.customizationItems?.price() ?? 0) - (self.orderItem?.customPrice ?? 0)
         self.orderItem?.customPrice = self.orderItem?.customizationItems?.price() ?? 0
         self.addPrice(delta)
     }
     
     func addPrice(delta : Int) {
-        if var totalPrice = self.orderItem?.totalPrice {
+        if let totalPrice = self.orderItem?.totalPrice {
             let newPrice = totalPrice + delta
             self.orderItem?.totalPrice = newPrice
             

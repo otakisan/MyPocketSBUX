@@ -13,13 +13,10 @@ class DateUtility {
     class func isEqualDateComponent(date1 : NSDate, date2 : NSDate) -> Bool{
         
         // 日付部分が同一かどうか
-        var unitFlags = NSCalendarUnit.CalendarUnitYear
-            | NSCalendarUnit.CalendarUnitMonth
-            | NSCalendarUnit.CalendarUnitDay
-            | NSCalendarUnit.CalendarUnitTimeZone
+        let unitFlags: NSCalendarUnit = [NSCalendarUnit.Year, NSCalendarUnit.Month, NSCalendarUnit.Day, NSCalendarUnit.TimeZone]
         
-        var compo1 = NSCalendar.currentCalendar().components(unitFlags, fromDate: date1)
-        var compo2 = NSCalendar.currentCalendar().components(unitFlags, fromDate: date2)
+        let compo1 = NSCalendar.currentCalendar().components(unitFlags, fromDate: date1)
+        let compo2 = NSCalendar.currentCalendar().components(unitFlags, fromDate: date2)
         
         compo1.timeZone = NSTimeZone.systemTimeZone()
         compo2.timeZone = NSTimeZone.systemTimeZone()
@@ -28,11 +25,11 @@ class DateUtility {
     }
     
     private class func edgeOfDay(date : NSDate, edgeString : String) -> NSDate {
-        var formatterSrc = NSDateFormatter()
+        let formatterSrc = NSDateFormatter()
         formatterSrc.dateFormat = "yyyyMMdd"
-        var dateStringSrc = formatterSrc.stringFromDate(date)
+        let dateStringSrc = formatterSrc.stringFromDate(date)
         
-        var formatterDst = NSDateFormatter()
+        let formatterDst = NSDateFormatter()
         formatterDst.dateFormat = "yyyyMMddHHmmssSSS"
         
         return formatterDst.dateFromString("\(dateStringSrc)\(edgeString)")!
@@ -49,13 +46,13 @@ class DateUtility {
     class func dateFromSqliteDateTimeString(dateString : String) -> NSDate? {
         // TとZが不要なので消す
         var dateStringInner = (dateString as NSString).stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "Z"))
-        var index = dateString.rangeOfString("T", options: NSStringCompareOptions.LiteralSearch, range: nil, locale: nil)
+        let index = dateString.rangeOfString("T", options: NSStringCompareOptions.LiteralSearch, range: nil, locale: nil)
         dateStringInner.replaceRange(index!, with: " ")
         
-        var formatter = NSDateFormatter()
+        let formatter = NSDateFormatter()
         formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
-        var date = formatter.dateFromString(dateStringInner)
+        let date = formatter.dateFromString(dateStringInner)
         
         return date
     }
@@ -65,32 +62,32 @@ class DateUtility {
     }
     
     class func dateFromSqliteDateString(dateString : String) -> NSDate? {
-        var formatter = NSDateFormatter()
+        let formatter = NSDateFormatter()
         formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
         formatter.dateFormat = "yyyy-MM-dd"
-        var date = formatter.dateFromString(dateString)
+        let date = formatter.dateFromString(dateString)
         
         return date
     }
 
     class func localDateString(date : NSDate) -> String {
-        var formatter = NSDateFormatter()
+        let formatter = NSDateFormatter()
         formatter.dateStyle = NSDateFormatterStyle.FullStyle;
         formatter.timeStyle = NSDateFormatterStyle.NoStyle
         formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
         formatter.locale = NSLocale.currentLocale()
-        var dateStringSrc = formatter.stringFromDate(date)
+        let dateStringSrc = formatter.stringFromDate(date)
         
         return dateStringSrc
     }
     
     class func localTimeString(date : NSDate) -> String {
-        var formatter = NSDateFormatter()
+        let formatter = NSDateFormatter()
         formatter.dateStyle = NSDateFormatterStyle.NoStyle;
         formatter.timeStyle = NSDateFormatterStyle.ShortStyle
         formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
         formatter.locale = NSLocale.currentLocale()
-        var dateStringSrc = formatter.stringFromDate(date)
+        let dateStringSrc = formatter.stringFromDate(date)
         
         return dateStringSrc
     }
@@ -100,11 +97,11 @@ class DateUtility {
     }
     
     class func railsLocalDateString(date : NSDate) -> String {
-        var formatter = NSDateFormatter()
+        let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
         formatter.locale = NSLocale.currentLocale()
-        var dateStringSrc = formatter.stringFromDate(date)
+        let dateStringSrc = formatter.stringFromDate(date)
         
         return dateStringSrc
     }

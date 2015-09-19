@@ -14,20 +14,20 @@ class DbContextBase: NSObject {
     /**
     ManagedObjectContext取得
     
-    :returns: ManagedObjectContext
+    - returns: ManagedObjectContext
     */
     class func getManagedObjectContext() -> NSManagedObjectContext {
         
-        var appDel : AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
-        var context : NSManagedObjectContext = appDel.managedObjectContext!
+        let appDel : AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
+        let context : NSManagedObjectContext = appDel.managedObjectContext!
         
         return context
     }
     
     class func getManagedObjectModel() -> NSManagedObjectModel {
         
-        var appDel : AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
-        var context : NSManagedObjectModel = appDel.managedObjectModel
+        let appDel : AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
+        let context : NSManagedObjectModel = appDel.managedObjectModel
         
         return context
     }
@@ -49,7 +49,7 @@ class DbContextBase: NSObject {
     }
     
     func createEntity<T : NSManagedObject>() -> T {
-        var context : NSManagedObjectContext = DbContextBase.getManagedObjectContext()
+        let context : NSManagedObjectContext = DbContextBase.getManagedObjectContext()
         let ent = NSEntityDescription.entityForName(self.entityName(), inManagedObjectContext: context)
         
         return T(entity: ent!, insertIntoManagedObjectContext: nil)
@@ -67,7 +67,10 @@ class DbContextBase: NSObject {
     
     class func deleteEntity(entity : NSManagedObject) {
         DbContextBase.getManagedObjectContext().deleteObject(entity)
-        DbContextBase.getManagedObjectContext().save(nil)
+        do {
+            try DbContextBase.getManagedObjectContext().save()
+        } catch _ {
+        }
     }
     
     class func deleteEntities(entities : [NSManagedObject]) {
@@ -75,21 +78,27 @@ class DbContextBase: NSObject {
             DbContextBase.getManagedObjectContext().deleteObject(entity)
         }
         
-        DbContextBase.getManagedObjectContext().save(nil)
+        do {
+            try DbContextBase.getManagedObjectContext().save()
+        } catch _ {
+        }
     }
 
     class func insertEntity(entity : NSManagedObject) {
         
         getManagedObjectContext().performBlockAndWait({
             DbContextBase.registerEntity(entity)
-            //let ret = DbContextBase.getManagedObjectContext().obtainPermanentIDsForObjects([entity], error: nil)
-            DbContextBase.getManagedObjectContext().save(nil)
+            do {
+                //let ret = DbContextBase.getManagedObjectContext().obtainPermanentIDsForObjects([entity], error: nil)
+                try DbContextBase.getManagedObjectContext().save()
+            } catch _ {
+            }
         })
     }
     
-    func insertEntity<TEntity: NSManagedObject>(attributeValues : [String:AnyObject?]) {
+    func insertEntity(attributeValues : [String:AnyObject?]) {
         
-        var entity = self.createEntity()
+        let entity = self.createEntity()
         DbContextBase.registerEntity(entity)
         
         for (key, value) in attributeValues {
@@ -105,7 +114,7 @@ class DbContextBase: NSObject {
     
     class func getAllOrderBy<TResultEntity : NSManagedObject>(templateName: String, orderKeys : [(columnName : String, ascending : Bool)]) -> [TResultEntity] {
         
-        var sortKeys : [AnyObject] = []
+        var sortKeys : [NSSortDescriptor] = []
         for orderkey in orderKeys {
             sortKeys.append(NSSortDescriptor(key: orderkey.columnName, ascending: orderkey.ascending))
         }
@@ -123,25 +132,30 @@ class DbContextBase: NSObject {
     }
     
     func clearAllEntities() {
-        if var results = DbContextBase.getManagedObjectContext().executeFetchRequest(NSFetchRequest(entityName: self.entityName()), error: nil) {
+        if let results = try? DbContextBase.getManagedObjectContext().executeFetchRequest(NSFetchRequest(entityName: self.entityName())) {
             for result in results as! [NSManagedObject] {
                 DbContextBase.getManagedObjectContext().deleteObject(result)
             }
             
-            DbContextBase.getManagedObjectContext().save(nil)
+            do {
+                try DbContextBase.getManagedObjectContext().save()
+            } catch _ {
+            }
         }
     }
     
     func clearAllEntitiesExceptForUnsyncData() {
-        if var results = DbContextBase.getManagedObjectContext().executeFetchRequest(NSFetchRequest(entityName: self.entityName()), error: nil) {
-            contains([], "")
+        if let results = try? DbContextBase.getManagedObjectContext().executeFetchRequest(NSFetchRequest(entityName: self.entityName())) {
             for result in results as! [NSManagedObject] {
-                if !contains(result.propertyNames(), "myPocketId") || result.valueForKey("myPocketId") as? String != IdentityContext.sharedInstance.anonymousUserID() {
+                if !result.propertyNames().contains("myPocketId") || result.valueForKey("myPocketId") as? String != IdentityContext.sharedInstance.anonymousUserID() {
                     DbContextBase.getManagedObjectContext().deleteObject(result)
                 }
             }
             
-            DbContextBase.getManagedObjectContext().save(nil)
+            do {
+                try DbContextBase.getManagedObjectContext().save()
+            } catch _ {
+            }
         }
     }
     
@@ -149,11 +163,11 @@ class DbContextBase: NSObject {
         getManagedObjectContext().rollback()
     }
     
-    class func getFetchRequestTemplate(templateName : String, variables : [NSObject:AnyObject], sortDescriptors : [AnyObject]?, limit : Int) -> NSFetchRequest? {
+    class func getFetchRequestTemplate(templateName : String, variables : [String:AnyObject], sortDescriptors : [NSSortDescriptor]?, limit : Int) -> NSFetchRequest? {
         
         var request : NSFetchRequest?
         
-        if var fetchRequest = getManagedObjectModel().fetchRequestFromTemplateWithName(templateName, substitutionVariables: variables){
+        if let fetchRequest = getManagedObjectModel().fetchRequestFromTemplateWithName(templateName, substitutionVariables: variables){
             fetchRequest.returnsObjectsAsFaults = false
             
             if(limit > 0){
@@ -171,11 +185,11 @@ class DbContextBase: NSObject {
         return request
     }
     
-    class func countByFetchRequestTemplate(templateName : String, variables : [NSObject:AnyObject]) -> Int {
+    class func countByFetchRequestTemplate(templateName : String, variables : [String:AnyObject]) -> Int {
         
         var count = 0
         
-        if var fetchRequest = getFetchRequestTemplate(templateName, variables: variables, sortDescriptors: nil, limit: 0){
+        if let fetchRequest = getFetchRequestTemplate(templateName, variables: variables, sortDescriptors: nil, limit: 0){
             
             count = getManagedObjectContext().countForFetchRequest(fetchRequest, error: nil)
         }
@@ -183,21 +197,21 @@ class DbContextBase: NSObject {
         return count
     }
     
-    func countByFetchRequestTemplate(variables : [NSObject:AnyObject]) -> Int {
+    func countByFetchRequestTemplate(variables : [String:AnyObject]) -> Int {
         
         return DbContextBase.countByFetchRequestTemplate(self.templateNameFetchAll(), variables: variables)
     }
     
     
-    class func findByFetchRequestTemplate(templateName : String, variables : [NSObject:AnyObject], sortDescriptors : [AnyObject]?, limit : Int) -> [NSManagedObject] {
+    class func findByFetchRequestTemplate(templateName : String, variables : [String:AnyObject], sortDescriptors : [NSSortDescriptor]?, limit : Int) -> [NSManagedObject] {
         
         var results : [NSManagedObject] = []
         
         //getManagedObjectContext().performBlockAndWait({
             
-            if var fetchRequest = DbContextBase.getFetchRequestTemplate(templateName, variables: variables, sortDescriptors: sortDescriptors, limit: limit){
+            if let fetchRequest = DbContextBase.getFetchRequestTemplate(templateName, variables: variables, sortDescriptors: sortDescriptors, limit: limit){
                 
-                if let fetchResults = DbContextBase.getManagedObjectContext().executeFetchRequest(fetchRequest, error: nil) {
+                if let fetchResults = try? DbContextBase.getManagedObjectContext().executeFetchRequest(fetchRequest) {
                     results = fetchResults as! [NSManagedObject]
                 }
             }
@@ -233,14 +247,14 @@ class DbContextBase: NSObject {
 
     func maxId() -> Int {
         
-        var req = NSFetchRequest()
-        var entity = NSEntityDescription.entityForName(self.entityName(), inManagedObjectContext: DbContextBase.getManagedObjectContext())
+        let req = NSFetchRequest()
+        let entity = NSEntityDescription.entityForName(self.entityName(), inManagedObjectContext: DbContextBase.getManagedObjectContext())
         req.entity = entity
         req.resultType = NSFetchRequestResultType.DictionaryResultType
         
-        var keyPathExpression = NSExpression(forKeyPath:"id")
-        var maxExpression = NSExpression(forFunction:"max:", arguments:[keyPathExpression])
-        var expressionDescription = NSExpressionDescription()
+        let keyPathExpression = NSExpression(forKeyPath:"id")
+        let maxExpression = NSExpression(forFunction:"max:", arguments:[keyPathExpression])
+        let expressionDescription = NSExpressionDescription()
         expressionDescription.name = "maxId"
         expressionDescription.expression = maxExpression
         expressionDescription.expressionResultType = NSAttributeType.Integer32AttributeType
@@ -248,7 +262,7 @@ class DbContextBase: NSObject {
         
         var maxId = NSNotFound
         var error : NSError? = nil
-        if let fetchResult = DbContextBase.getManagedObjectContext().executeFetchRequest(req, error: nil){
+        if let fetchResult = try? DbContextBase.getManagedObjectContext().executeFetchRequest(req){
             if fetchResult.count > 0 {
                 maxId = fetchResult.first!["maxId"] as! NSInteger
             }
@@ -259,7 +273,7 @@ class DbContextBase: NSObject {
     
     func searchSyncRequestsByEntityTypeName() -> [SyncRequest] {
         
-        var sortKeys : [AnyObject] = []
+        let sortKeys : [NSSortDescriptor] = []
         return DbContextBase.findByFetchRequestTemplate(
             "searchSyncRequestsByEntityTypeNameFetchRequest",
             variables: ["entityTypeName":self.entityName()],
@@ -273,16 +287,16 @@ class DbContextBase: NSObject {
         
         //getManagedObjectContext().performBlockAndWait({
         
-        if var fetchRequest = DbContextBase.getFetchRequestTemplate("searchSyncRequestsByEntityTypeNameFetchRequest", variables: ["entityTypeName":self.entityName()], sortDescriptors: [], limit: 0){
+        if let fetchRequest = DbContextBase.getFetchRequestTemplate("searchSyncRequestsByEntityTypeNameFetchRequest", variables: ["entityTypeName":self.entityName()], sortDescriptors: [], limit: 0){
 
             // 追加の条件を足しこむ
-            var additionalPredicate1: NSPredicate = NSPredicate(format: "myPocketId = %@", argumentArray: [IdentityContext.sharedInstance.currentUserIDCorrespondingToSignIn()])
-            var additionalPredicate2: NSPredicate = NSPredicate(format: "myPocketId = %@", argumentArray: [IdentityContext.sharedInstance.anonymousUserID()])
-            var identityPredicate = NSCompoundPredicate(type: NSCompoundPredicateType.OrPredicateType, subpredicates: [additionalPredicate1, additionalPredicate2])
+            let additionalPredicate1: NSPredicate = NSPredicate(format: "myPocketId = %@", argumentArray: [IdentityContext.sharedInstance.currentUserIDCorrespondingToSignIn()])
+            let additionalPredicate2: NSPredicate = NSPredicate(format: "myPocketId = %@", argumentArray: [IdentityContext.sharedInstance.anonymousUserID()])
+            let identityPredicate = NSCompoundPredicate(type: NSCompoundPredicateType.OrPredicateType, subpredicates: [additionalPredicate1, additionalPredicate2])
             
             fetchRequest.predicate = NSCompoundPredicate(type: NSCompoundPredicateType.AndPredicateType, subpredicates: [fetchRequest.predicate!, identityPredicate])
             
-            if let fetchResults = DbContextBase.getManagedObjectContext().executeFetchRequest(fetchRequest, error: nil) {
+            if let fetchResults = try? DbContextBase.getManagedObjectContext().executeFetchRequest(fetchRequest) {
                 results = fetchResults as! [NSManagedObject]
             }
         }
@@ -306,8 +320,8 @@ class DbContextBase: NSObject {
         }
         
         var zPK = 0
-        if var objectIDString = entity.objectID.URIRepresentation().lastPathComponent {
-            zPK = objectIDString.substringFromIndex(objectIDString.startIndex.successor()).toInt() ?? 0
+        if let objectIDString = entity.objectID.URIRepresentation().lastPathComponent {
+            zPK = Int(objectIDString.substringFromIndex(objectIDString.startIndex.successor())) ?? 0
         }
         
         return zPK

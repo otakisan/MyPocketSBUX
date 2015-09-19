@@ -36,7 +36,7 @@ class CustomItemsTableViewController: UITableViewController, SyrupCustomItemsTab
     
     func initAvailableCustomizationChoices() -> IngredientCollection{
         // 商品コード（もしくは名称等の情報）を渡せば、その商品に適用可能なカスタムアイテムを表示する
-        var choices = IngredientCollection()
+        let choices = IngredientCollection()
         if let editItem = self.customItemForEdit {
             choices.ingredients += [editItem]
         }
@@ -49,7 +49,7 @@ class CustomItemsTableViewController: UITableViewController, SyrupCustomItemsTab
     
     func availableCustomizationChoicesRemaining() -> [Ingredient] {
         var choices = [Ingredient]()
-        var availableChoices = self.getAvailableCustomizationChoices(self.orderListItem?.productEntity?.valueForKey("janCode") as? String ?? "").customs
+        let availableChoices = self.getAvailableCustomizationChoices(self.orderListItem?.productEntity?.valueForKey("janCode") as? String ?? "").customs
         
         // 適用可能なもののうち、まだカスタマイズに追加されていないもののみにする
         // TODO: オーダーの管理は専用のクラスを作って、そっちで管理する。画面クラスは値の受け渡しのみするように。
@@ -57,7 +57,7 @@ class CustomItemsTableViewController: UITableViewController, SyrupCustomItemsTab
         if let orderListItem = self.orderListItem {
             if let customItems = orderListItem.customizationItems {
                 choices = availableChoices.filter { (choice : Ingredient) in
-                    !contains(customItems.ingredients) { (added : Ingredient) in
+                    !customItems.ingredients.contains { (added : Ingredient) in
                         added.name == choice.name
                     }
                 }
@@ -69,7 +69,7 @@ class CustomItemsTableViewController: UITableViewController, SyrupCustomItemsTab
     
     func getAvailableCustomizationChoices(janCode : String) -> (originals : [Ingredient], customs : [Ingredient]) {
         // 商品の構成要素（カスタム可能なもののみ）を取得する
-        var choices = IngredientManager.instance.getAvailableCustomizationChoices(janCode)
+        let choices = IngredientManager.instance.getAvailableCustomizationChoices(janCode)
         
         return choices
     }
@@ -175,9 +175,9 @@ class CustomItemsTableViewController: UITableViewController, SyrupCustomItemsTab
         switch segue.identifier ?? "" {
         case "cancelCustomItemListUnwindSegue", "doneCustomItemListUnwindSegue":
             // TODO: 画面上での設定値は、セルからのイベント契機で随時更新するのでここでは処理不要？
-            println("now unwinding...")
+            print("now unwinding...")
         default:
-            println("undefined segue")
+            print("undefined segue")
         }
         
     }
@@ -185,7 +185,7 @@ class CustomItemsTableViewController: UITableViewController, SyrupCustomItemsTab
     func thisCustomItem(sender : Ingredient) -> Ingredient? {
 //        return self.orderListItem?.customizationItems?.ingredients.filter { $0.name == sender.name }.first
         var ing : Ingredient?
-        if let index = find(self.editResults, sender) {
+        if let index = self.editResults.indexOf(sender) {
             ing = self.editResults[index]
         }
         return ing
@@ -206,7 +206,7 @@ class CustomItemsTableViewController: UITableViewController, SyrupCustomItemsTab
     
     // 共通処理（現状では、すべて個別イベントから受けているため、まとめられるのならまとめる）
     func valueChangedCommonAdditionSwitch(cell : CustomItemsTableViewCell, added : Bool){
-        var ingredient = self.thisCustomItem(cell.ingredient) ?? self.addIngredient(cell.ingredient)
+        let ingredient = self.thisCustomItem(cell.ingredient) ?? self.addIngredient(cell.ingredient)
         
         ingredient.enable = added
         ingredient.quantity = added ? 1: 0
@@ -235,7 +235,7 @@ class CustomItemsTableViewController: UITableViewController, SyrupCustomItemsTab
 
     func valueChangedAdditionSwitch(cell : SyrupCustomItemsTableViewCell, added : Bool){
         // TODO: レシピ情報とサイズがあれば、具体的な数量をだせるけど…
-        var ingredient = self.thisCustomItem(cell.ingredient) ?? self.addIngredient(cell.ingredient)
+        let ingredient = self.thisCustomItem(cell.ingredient) ?? self.addIngredient(cell.ingredient)
         
         ingredient.enable = added
         ingredient.quantity = added ? 1: 0
@@ -248,7 +248,7 @@ class CustomItemsTableViewController: UITableViewController, SyrupCustomItemsTab
     }
     
     func valueChangedMilkAdditionSwitch(cell : MilkCustomItemsTableViewCell, added : Bool){
-        var ingredient = self.thisCustomItem(cell.ingredient) ?? self.addIngredient(cell.ingredient)
+        let ingredient = self.thisCustomItem(cell.ingredient) ?? self.addIngredient(cell.ingredient)
         
         ingredient.enable = added
     }
@@ -256,7 +256,7 @@ class CustomItemsTableViewController: UITableViewController, SyrupCustomItemsTab
     func valueChangedMilkSegment(cell : MilkCustomItemsTableViewCell, type : MilkType){
         // ミルクの場合、要素そのものが変わるので新たに取得
         // 一部の値を引き継ぐ
-        var milk = IngredientManager.instance.milk(type)
+        let milk = IngredientManager.instance.milk(type)
         milk.isPartOfOriginalIngredients = cell.ingredient.isPartOfOriginalIngredients
         milk.quantityType = cell.ingredient.quantityType
         milk.unitPrice = (type == .Soy ? milk.unitPrice : 0)
@@ -266,7 +266,7 @@ class CustomItemsTableViewController: UITableViewController, SyrupCustomItemsTab
         cell.ingredient = milk
         
         // 結果に反映
-        for (index, value) in enumerate(self.editResults) {
+        for (index, value) in self.editResults.enumerate() {
             if self.editResults[index].type == milk.type {
                 self.editResults[index] = milk
                 break

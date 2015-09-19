@@ -20,9 +20,9 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate {
     @IBAction func touchUpInsideDoneBarButtonItem(sender: UIBarButtonItem) {
         let validationResult = self.valid()
         if validationResult.valid {
-            let result = AccountManager.instance.createAccountAndChangeCurrentUser(self.myPocketIDTextField.text, emailAddress: self.emailAddressTextField.text, password: self.passwordTextField.text)
+            let result = AccountManager.instance.createAccountAndChangeCurrentUser(self.myPocketIDTextField.text!, emailAddress: self.emailAddressTextField.text!, password: self.passwordTextField.text!)
             if result.success {
-                self.delegate?.createdAccount(self.myPocketIDTextField.text)
+                self.delegate?.createdAccount(self.myPocketIDTextField.text!)
                 self.navigationController?.popViewControllerAnimated(true)
             }
             else{

@@ -45,16 +45,16 @@ class SBUXWKWebViewController: UIViewController, WKNavigationDelegate {
         self.view.addSubview(self.webkitview)
         self.webkitview.navigationDelegate = self
         
-        if var url = NSURL(string: self.fullPath()){
+        if let url = NSURL(string: self.fullPath()){
             self.showActivityIndicator()
-            var req = NSURLRequest(URL:url)
+            let req = NSURLRequest(URL:url)
             self.webkitview.loadRequest(req)
         }
     }
     
     func fullPath() -> String {
         
-        var rootRelativePath = ((self.relativePath == "" || self.relativePath.substringToIndex(self.relativePath.startIndex.successor()) != "/") ? "/" : "") + self.relativePath
+        let rootRelativePath = ((self.relativePath == "" || self.relativePath.substringToIndex(self.relativePath.startIndex.successor()) != "/") ? "/" : "") + self.relativePath
         return "http://www.starbucks.co.jp\(rootRelativePath)"
     }
 
@@ -66,7 +66,7 @@ class SBUXWKWebViewController: UIViewController, WKNavigationDelegate {
     func showActivityIndicator() {
         
         if self.activityIndicatorView == nil {
-            var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+            let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
             activityIndicator.hidesWhenStopped = true
 //            var indicatorSize = activityIndicator.frame.size
 //            var viewSize = self.view.frame.size

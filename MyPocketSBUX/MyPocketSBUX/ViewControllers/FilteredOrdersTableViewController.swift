@@ -13,7 +13,7 @@ class FilteredOrdersTableViewController: OrdersBaseTableViewController {
     var navigationControllerOfOriginalViewController: UINavigationController?
     
     override func deleteAction(indexPath: NSIndexPath) {
-        var removed = self.orders.removeAtIndex(indexPath.row)
+        let removed = self.orders.removeAtIndex(indexPath.row)
         self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
         
         self.delegateForParent?.deleteActionViaFilteredList(removed)

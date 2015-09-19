@@ -44,7 +44,7 @@ class BeansCardTableViewController: UITableViewController {
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("defaultBeansCardTableViewCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("defaultBeansCardTableViewCell", forIndexPath: indexPath) 
 
         // Configure the cell...
         cell.textLabel?.text = self.purchasedBeanItems[indexPath.row].title

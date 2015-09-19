@@ -81,7 +81,7 @@ class NotesOrderTableViewCell : OrderHeaderTableViewCell, UITextFieldDelegate {
     @IBOutlet weak var notesTextField: UITextField!
     
     @IBAction func editingDidEndNotesTextField(sender: UITextField) {
-        (self.delegate as? NotesOrderTableViewCellDelegate)?.editingDidEndNotesTextField(self, notes: sender.text)
+        (self.delegate as? NotesOrderTableViewCellDelegate)?.editingDidEndNotesTextField(self, notes: sender.text!)
     }
     
     override func configure(orderHeader : OrderHeader) {
@@ -93,7 +93,7 @@ class NotesOrderTableViewCell : OrderHeaderTableViewCell, UITextFieldDelegate {
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         self.notesTextField.resignFirstResponder()
-        (self.delegate as? NotesOrderTableViewCellDelegate)?.textFieldShouldReturnNotesTextField(self, notes: textField.text)
+        (self.delegate as? NotesOrderTableViewCellDelegate)?.textFieldShouldReturnNotesTextField(self, notes: textField.text!)
         return true
     }
 

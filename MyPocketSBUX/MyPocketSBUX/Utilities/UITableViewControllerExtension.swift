@@ -14,7 +14,7 @@ extension UITableViewController {
     }
     
     func dispatch_async_serial(block: () -> ()) {
-        var privateQueue : dispatch_queue_t = dispatch_queue_create("jp.cafe.MyPocketSBUX.serial", DISPATCH_QUEUE_SERIAL)
+        let privateQueue : dispatch_queue_t = dispatch_queue_create("jp.cafe.MyPocketSBUX.serial", DISPATCH_QUEUE_SERIAL)
         dispatch_async(privateQueue, block)
     }
     

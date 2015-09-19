@@ -91,7 +91,7 @@ class OfficialContentsTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
-        if var webVc = segue.destinationViewController as? BaseWKWebViewController {
+        if let webVc = segue.destinationViewController as? BaseWKWebViewController {
             switch segue.identifier ?? "" {
             case "sbuxOfficialWebsiteSegue":
                 webVc.baseURL = "www.starbucks.co.jp"

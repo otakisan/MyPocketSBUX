@@ -45,7 +45,7 @@ class PairingsTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("defaultPairingsTableViewCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("defaultPairingsTableViewCell", forIndexPath: indexPath) 
 
         // Configure the cell...
         cell.textLabel?.text = self.foodPairings[indexPath.section].foods[indexPath.row].name
@@ -99,8 +99,8 @@ class PairingsTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
-        if var productDetailViewController = segue.destinationViewController as? ProductDetailTableViewController {
-            if let indexPath = self.tableView.indexPathForSelectedRow() {
+        if let productDetailViewController = segue.destinationViewController as? ProductDetailTableViewController {
+            if let indexPath = self.tableView.indexPathForSelectedRow {
                 
                 productDetailViewController.product = self.foodPairings[indexPath.section].foods[indexPath.row]
             }

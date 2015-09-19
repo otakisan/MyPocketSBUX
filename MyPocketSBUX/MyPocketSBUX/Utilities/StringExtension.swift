@@ -21,22 +21,21 @@ extension String {
     }
     
     func toFloatToInt() -> Int? {
-        return String(format: "%.0f", self.toFloat()).toInt()
+        return Int(String(format: "%.0f", self.toFloat()))
     }
     
     func prefecture() -> String {
         
-        var address = self
+        let address = self
         var resultPrefecture = ""
         
         //パターンから正規表現オブジェクト作成
-        if let regex = NSRegularExpression(pattern: "[^\\d\\s-]+?[都道府県](?=\\s+)", options: NSRegularExpressionOptions.CaseInsensitive, error: nil){
+        if let regex = try? NSRegularExpression(pattern: "[^\\d\\s-]+?[都道府県](?=\\s+)", options: NSRegularExpressionOptions.CaseInsensitive){
             //matchesにはマッチした文字列の位置情報が格納されている
-            if var matches = regex.matchesInString(address, options: nil, range:NSMakeRange(0,  count(address))) as? Array<NSTextCheckingResult> {
-                //のでそれをforで順番にとってきて利用
-                if matches.count > 0 {
-                    resultPrefecture = (address as NSString).substringWithRange(matches.first!.range)
-                }
+            let matches = regex.matchesInString(address, options: [], range:NSMakeRange(0,  address.characters.count))
+            //のでそれをforで順番にとってきて利用
+            if matches.count > 0 {
+                resultPrefecture = (address as NSString).substringWithRange(matches.first!.range)
             }
         }
         
@@ -53,7 +52,7 @@ extension String {
             options: NSStringCompareOptions.RegularExpressionSearch, range: nil)
         
         // make the first letter lower case
-        let head = self.substringToIndex(advance(self.startIndex, 1))
+        let head = self.substringToIndex(self.startIndex.advancedBy(1))
         camel.replaceRange(camel.startIndex...camel.startIndex, with: head.lowercaseString)
         
         return camel
@@ -64,6 +63,6 @@ extension String {
     }
     
     func contains(compare: String) -> Bool {
-        return self.rangeOfString(compare, options: NSStringCompareOptions.allZeros, range: nil, locale: nil) != nil
+        return self.rangeOfString(compare, options: NSStringCompareOptions(), range: nil, locale: nil) != nil
     }
 }

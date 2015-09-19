@@ -35,7 +35,7 @@ class MakingCoffeePageViewController: UIPageViewController/*, UIPageViewControll
         UIPageControl.appearance().backgroundColor = UIColor.whiteColor()
         
         // 開始ビューの設定が必須
-        var startingViewController = self.contentDataSource.viewControllerAtIndex(0)!
+        let startingViewController = self.contentDataSource.viewControllerAtIndex(0)!
         self.setViewControllers([startingViewController], direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
         
         // Change the size of page view controller
@@ -160,7 +160,7 @@ class MakingCoffeePageViewControllerDataSource : NSObject, UIPageViewControllerD
         // Auto Layoutのタイミングが遅く、かくつくので保持する
         var vc = self.contentViews[index]
         if vc == nil {
-            var pageContentViewController = self.storyBoard.instantiateViewControllerWithIdentifier("MakingCoffeePageContentViewController") as! MakingCoffeePageContentViewController
+            let pageContentViewController = self.storyBoard.instantiateViewControllerWithIdentifier("MakingCoffeePageContentViewController") as! MakingCoffeePageContentViewController
             pageContentViewController.imageName = self.pageContents[index].imageName
             pageContentViewController.titleText = self.pageContents[index].title
             pageContentViewController.detailText = self.pageContents[index].detail

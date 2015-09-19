@@ -28,7 +28,7 @@ class Orders: DbContextBase {
     override func insertEntityFromJsonObject(jsonObject : NSArray) {
         
         for newData in jsonObject {
-            var entity : Order = Orders.instance().createEntity()
+            let entity : Order = Orders.instance().createEntity()
             entity.id = (newData["id"] as? NSNumber) ?? 0
             entity.taxExcludedTotalPrice = (newData["tax_excluded_total_price"] as? NSNumber) ?? 0
             entity.taxIncludedTotalPrice = (newData["tax_included_total_price"] as? NSNumber) ?? 0
@@ -43,7 +43,7 @@ class Orders: DbContextBase {
             Orders.registerEntity(entity)
             
             for childData in newData["order_details"] as! NSArray {
-                var childEntity : OrderDetail = OrderDetails.instance().createEntity()
+                let childEntity : OrderDetail = OrderDetails.instance().createEntity()
                 childEntity.id = (childData["id"] as? NSNumber) ?? 0
                 childEntity.productJanCode = ((childData["product_jan_code"] as? NSString) ?? "") as String
                 childEntity.productName = ((childData["product_name"] as? NSString) ?? "") as String
@@ -63,7 +63,7 @@ class Orders: DbContextBase {
                 childEntity.order = entity
             
                 for grandChildData in childData["product_ingredients"] as! NSArray {
-                    var grandChildEntity : ProductIngredient = ProductIngredients.instance().createEntity()
+                    let grandChildEntity : ProductIngredient = ProductIngredients.instance().createEntity()
                     grandChildEntity.id = (grandChildData["id"] as? NSNumber) ?? 0
                     grandChildEntity.isCustom = (grandChildData["is_custom"] as? NSNumber) ?? 0
                     grandChildEntity.name = ((grandChildData["name"] as? NSString) ?? "") as String

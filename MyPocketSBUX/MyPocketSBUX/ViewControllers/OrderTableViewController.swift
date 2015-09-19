@@ -184,22 +184,22 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
         
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
-        if var customizingOrderViewController = segue.destinationViewController as? CustomizingOrderTableViewController {
+        if let customizingOrderViewController = segue.destinationViewController as? CustomizingOrderTableViewController {
             customizingOrderViewController.orderItem = self.editRequestedOrderItem
         }
-        else if var orderConfirmationViewController = segue.destinationViewController as? OrderConfirmationTableViewController {
+        else if let orderConfirmationViewController = segue.destinationViewController as? OrderConfirmationTableViewController {
             // TODO: ドリンク、フード、…とカテゴリ別に分ける
             orderConfirmationViewController.orderListItem = [(category: ProductCategory.Drink, orders: self.orderItems.filter({$0.on}))]
             orderConfirmationViewController.orderHeader = self.orderHeader
         }
-        else if var storesVc = segue.destinationViewController as? StoresTableViewController {
+        else if let storesVc = segue.destinationViewController as? StoresTableViewController {
             storesVc.selectBySwipe = true
             storesVc.delegate = self
         }
     }
     
     func valueChangedOrderSwitch(cell : OrderTableViewCell, on : Bool) {
-        if var order = cell.orderListItem {
+        if let order = cell.orderListItem {
             order.on = on
         }
     }
@@ -213,7 +213,7 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
     }
     
     func notesEndEditing() {
-        if var notesCell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: self.notesRow, inSection: self.headerSection)) as? NotesOrderTableViewCell {
+        if let notesCell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: self.notesRow, inSection: self.headerSection)) as? NotesOrderTableViewCell {
             notesCell.notesTextField.endEditing(true)
         }
     }
@@ -233,7 +233,7 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
         // 全体をリフレッシュするか 個別の情報をもらうか
         // 配列の順に表示が済んでいる前提
         if let current = orderListItem {
-            if let index = find(self.orderItems, current) {
+            if let index = self.orderItems.indexOf(current) {
                 self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: self.productSection)], withRowAnimation: .Automatic)
             }
             //self.tableView.reloadData()
@@ -244,7 +244,7 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
         self.orderHeader.store = store
         
         // TODO: 位置が決めうちになっている
-        if var cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: self.storeRow, inSection: self.headerSection)) as? StoreOrderTableViewCell {
+        if let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: self.storeRow, inSection: self.headerSection)) as? StoreOrderTableViewCell {
             cell.storeNameLabel.text = self.orderHeader.store?.name
         }
     }

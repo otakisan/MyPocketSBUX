@@ -23,7 +23,7 @@ class Seminars: DbContextBase {
 
         for json in jsonObject {
             if let newData = json as? NSDictionary {
-                var entity : Seminar = Seminars.instance().createEntity()
+                let entity : Seminar = Seminars.instance().createEntity()
                 entity.id = (newData["id"] as? NSNumber) ?? 0
                 entity.edition = ((newData["edition"] as? NSString) ?? "") as String
                 entity.startTime = DateUtility.dateFromSqliteDateTimeString(newData, key: "start_time")

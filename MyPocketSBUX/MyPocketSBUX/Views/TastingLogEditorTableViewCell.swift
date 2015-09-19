@@ -65,12 +65,12 @@ class TitleTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, UIText
     @IBOutlet weak var titleTextField: UITextField!
     
     @IBAction func editingDidEndTitleTextField(sender: UITextField) {
-        (self.delegate as? TitleTastingLogEditorTableViewCellDelegate)?.editingDidEndTitleTextField(self, title: sender.text)
+        (self.delegate as? TitleTastingLogEditorTableViewCellDelegate)?.editingDidEndTitleTextField(self, title: sender.text!)
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         self.titleTextField.resignFirstResponder()
-        (self.delegate as? TitleTastingLogEditorTableViewCellDelegate)?.textFieldShouldReturnTitleTextField(self, title: textField.text)
+        (self.delegate as? TitleTastingLogEditorTableViewCellDelegate)?.textFieldShouldReturnTitleTextField(self, title: textField.text!)
         return true
     }
 
@@ -91,12 +91,12 @@ class TagTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, UITextFi
     @IBOutlet weak var tagTextField: UITextField!
     
     @IBAction func editingDidEndTagTextField(sender: UITextField) {
-        (self.delegate as? TagTastingLogEditorTableViewCellDelegate)?.editingDidEndTagTextField(self, tag: sender.text)
+        (self.delegate as? TagTastingLogEditorTableViewCellDelegate)?.editingDidEndTagTextField(self, tag: sender.text!)
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         self.tagTextField.resignFirstResponder()
-        (self.delegate as? TagTastingLogEditorTableViewCellDelegate)?.textFieldShouldReturnTagTextField(self, tag: textField.text)
+        (self.delegate as? TagTastingLogEditorTableViewCellDelegate)?.textFieldShouldReturnTagTextField(self, tag: textField.text!)
         return true
     }
     
@@ -123,7 +123,7 @@ class TastingAtTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, Da
     }
     
     override func detailView() -> UIViewController? {
-        var detailView : DatePickerViewController? = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("DatePickerViewController") as? DatePickerViewController
+        let detailView : DatePickerViewController? = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("DatePickerViewController") as? DatePickerViewController
         
         if detailView != nil {
             detailView!.delegate = self
@@ -176,7 +176,7 @@ class StoreTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, Stores
     }
     
     override func detailView() -> UIViewController? {
-        var detailView : StoresTableViewController? = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("StoresTableViewController") as? StoresTableViewController
+        let detailView : StoresTableViewController? = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("StoresTableViewController") as? StoresTableViewController
         
         if detailView != nil {
             detailView!.delegate = self
@@ -227,7 +227,7 @@ class DetailTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, TextV
     }
     
     override func detailView() -> UIViewController? {
-        var detailView : TextViewController? = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("TextViewController") as? TextViewController
+        let detailView : TextViewController? = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("TextViewController") as? TextViewController
         
         if detailView != nil {
             detailView!.delegate = self
@@ -277,7 +277,7 @@ class OrderTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, Orders
     }
     
     override func detailView() -> UIViewController? {
-        var detailView : OrdersTableViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("OrdersTableViewController") as!OrdersTableViewController
+        let detailView : OrdersTableViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("OrdersTableViewController") as!OrdersTableViewController
         detailView.delegate = self
         detailView.handler = SelectItemOrdersTableViewControllerHandler()
         
@@ -290,7 +290,7 @@ class OrderTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, Orders
     }
     
     func reloadOrderLabel(order: Order?) {
-        if let id = order?.id as? Int {
+        if let _ = order?.id as? Int {
 //            let details = OrderDetails.getOrderDetailsWithOrderId(id, orderKeys: [(columnName: "id", ascending: true)])
             let details = order?.orderDetails.allObjects as! [OrderDetail]
             self.reloadLabel(details.first?.productName ?? "")

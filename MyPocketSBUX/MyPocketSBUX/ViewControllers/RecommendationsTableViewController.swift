@@ -45,7 +45,7 @@ class RecommendationsTableViewController: UITableViewController {
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("defaultRecommendationsTableViewCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("defaultRecommendationsTableViewCell", forIndexPath: indexPath) 
 
         // TODO: DBからのフェッチは非同期で。
         if let drinkEntity = Drinks.findByJanCode(self.recommendedItems[indexPath.row].janCode) {

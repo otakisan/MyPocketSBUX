@@ -22,7 +22,7 @@ class Foods: DbContextBase {
     override func insertEntityFromJsonObject(jsonObject : NSArray) {
         
         for newFood in jsonObject {
-            var entity : Food = Foods.instance().createEntity()
+            let entity : Food = Foods.instance().createEntity()
             entity.id = (newFood["id"] as? NSNumber) ?? 0
             entity.name = ((newFood["name"] as? NSString) ?? "") as String
             entity.category = ((newFood["category"] as? NSString) ?? "") as String

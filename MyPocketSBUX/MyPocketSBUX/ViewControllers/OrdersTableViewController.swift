@@ -62,7 +62,7 @@ class OrdersTableViewController: OrdersBaseTableViewController, UISearchBarDeleg
         // サーチバーに入力されたテキストをトリム後に単語単位に分割
         // Strip out all the leading and trailing spaces.
         let whitespaceCharacterSet = NSCharacterSet.whitespaceCharacterSet()
-        let strippedString = searchController.searchBar.text.stringByTrimmingCharactersInSet(whitespaceCharacterSet)
+        let strippedString = searchController.searchBar.text!.stringByTrimmingCharactersInSet(whitespaceCharacterSet)
         let searchItems = strippedString.componentsSeparatedByString(" ") as [String]
         
         // Build all the "AND" expressions for each value in the searchString.
@@ -82,20 +82,20 @@ class OrdersTableViewController: OrdersBaseTableViewController, UISearchBarDeleg
             // NSPredicate is mmiade up of smaller, atomic parts: two NSExpressions (a left-hand value and a right-hand value).
             
             for prop in ["notes"] {
-                var lhs = NSExpression(forKeyPath: prop)
-                var rhs = NSExpression(forConstantValue: searchString)
+                let lhs = NSExpression(forKeyPath: prop)
+                let rhs = NSExpression(forConstantValue: searchString)
                 
-                var finalPredicate = NSComparisonPredicate(leftExpression: lhs, rightExpression: rhs, modifier: .DirectPredicateModifier, type: .ContainsPredicateOperatorType, options: .CaseInsensitivePredicateOption)
+                let finalPredicate = NSComparisonPredicate(leftExpression: lhs, rightExpression: rhs, modifier: .DirectPredicateModifier, type: .ContainsPredicateOperatorType, options: .CaseInsensitivePredicateOption)
                 searchItemsPredicate.append(finalPredicate)
             }
             
             // Add this OR predicate to our master AND predicate.
-            let orMatchPredicates = NSCompoundPredicate.orPredicateWithSubpredicates(searchItemsPredicate)
+            let orMatchPredicates = NSCompoundPredicate(orPredicateWithSubpredicates: searchItemsPredicate)
             andMatchPredicates.append(orMatchPredicates)
         }
         
         // Match up the fields of the Product object.
-        let finalCompoundPredicate = NSCompoundPredicate.andPredicateWithSubpredicates(andMatchPredicates)
+        let finalCompoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: andMatchPredicates)
         
         let filteredResults = searchResults.filter { finalCompoundPredicate.evaluateWithObject($0) }
         
@@ -126,7 +126,7 @@ class OrdersTableViewController: OrdersBaseTableViewController, UISearchBarDeleg
     func refreshLocalDbAndReload(completionHandler: (Void -> Void)?) {
         ContentsManager.instance.refreshContents(["order"], orderKeys: [(columnName : "updatedAt", ascending : false)], completionHandler: { fetchResults in
             self.orders = fetchResults.first?.entities as? [Order] ?? []
-            self.reloadData(completion: {self.refreshing = false})
+            self.reloadData({self.refreshing = false})
             completionHandler?()
         })
     }
@@ -157,7 +157,7 @@ class OrdersTableViewController: OrdersBaseTableViewController, UISearchBarDeleg
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // TODO: データの更新中に、非表示領域から復帰するセルの描画を空にすることでデータの不整合を防ぐ
         if self.refreshing {
-            return tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) as! UITableViewCell
+            return tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) 
         }
         else{
             return super.tableView(tableView, cellForRowAtIndexPath: indexPath)
@@ -186,7 +186,7 @@ class OrdersTableViewController: OrdersBaseTableViewController, UISearchBarDeleg
     override func deleteAction(indexPath : NSIndexPath) {
         OrderManager.instance.deleteOrder(self.orders[indexPath.row])
         self.orders.removeAtIndex(indexPath.row)
-        self.reloadData(completion: nil)
+        self.reloadData(nil)
     }
     
     override func navigationControllerForOrder() -> UINavigationController? {

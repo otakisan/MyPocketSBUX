@@ -26,8 +26,8 @@ class TuneManager: NSObject {
     func play(tuneUrl: String) -> AVAudioPlayer? {
         var av: AVAudioPlayer?
         if let url = NSURL(string: tuneUrl) {
-            var data = NSData(contentsOfURL: url)
-            av = AVAudioPlayer(data: data, error: nil)
+            let data = NSData(contentsOfURL: url)
+            av = try? AVAudioPlayer(data: data!)
             av?.play()
         }
         
@@ -41,7 +41,7 @@ class TuneManager: NSObject {
         
         let keywords = (artistName + trackName)
         
-        return join("+", keywords)
+        return keywords.joinWithSeparator("+")
     }
 }
 

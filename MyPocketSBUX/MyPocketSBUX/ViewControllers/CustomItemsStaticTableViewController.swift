@@ -28,7 +28,7 @@ class CustomItemsStaticTableViewController: UITableViewController {
     }
     
     // 第一引数も明示的に指定
-    func paraTest(#arg1 : Int, arg2 : Int) {
+    func paraTest(arg1 arg1 : Int, arg2 : Int) {
         
     }
     
@@ -72,7 +72,7 @@ class CustomItemsStaticTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int){
-        if var header = view as? UITableViewHeaderFooterView {
+        if let header = view as? UITableViewHeaderFooterView {
             header.contentView.opaque = true
             header.contentView.backgroundColor = UIColor.redColor()
         }
@@ -214,7 +214,7 @@ class Ingredient : Equatable {
     
     func overrideQuantity(newQuantity : Int) -> Ingredient {
         
-        var newObject = Ingredient(srcIngredient: self)
+        let newObject = Ingredient(srcIngredient: self)
         newObject.quantity = newQuantity
         return newObject
     }
@@ -228,7 +228,7 @@ class Ingredient : Equatable {
     }
     
     func clone() -> Ingredient {
-        var cloned = Ingredient(srcIngredient: self)
+        let cloned = Ingredient(srcIngredient: self)
         return cloned
     }
 }

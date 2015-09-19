@@ -36,7 +36,7 @@ class FilteredTastingLogsTableViewController: TastingLogsBaseTableViewController
     }
     
     override func deleteAction(indexPath: NSIndexPath) {
-        var removed = self.tastingLogs.removeAtIndex(indexPath.row)
+        let removed = self.tastingLogs.removeAtIndex(indexPath.row)
         self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
 
         self.delegate?.deleteActionViaFilteredList(removed)

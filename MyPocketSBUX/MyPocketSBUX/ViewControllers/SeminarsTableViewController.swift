@@ -56,7 +56,7 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
     }
     
     func initializeDataArrayFromJson(dataJson: NSData) -> NSArray?{
-        return NSJSONSerialization.JSONObjectWithData(dataJson, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSArray
+        return (try? NSJSONSerialization.JSONObjectWithData(dataJson, options: NSJSONReadingOptions.MutableContainers)) as? NSArray
     }
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
@@ -67,7 +67,7 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
         // サーチバーに入力されたテキストをトリム後に単語単位に分割
         // Strip out all the leading and trailing spaces.
         let whitespaceCharacterSet = NSCharacterSet.whitespaceCharacterSet()
-        let strippedString = searchController.searchBar.text.stringByTrimmingCharactersInSet(whitespaceCharacterSet)
+        let strippedString = searchController.searchBar.text!.stringByTrimmingCharactersInSet(whitespaceCharacterSet)
         let searchItems = strippedString.componentsSeparatedByString(" ") as [String]
         
         // Build all the "AND" expressions for each value in the searchString.
@@ -101,12 +101,12 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
             searchItemsPredicate.append(finalPredicate)
             
             // Add this OR predicate to our master AND predicate.
-            let orMatchPredicates = NSCompoundPredicate.orPredicateWithSubpredicates(searchItemsPredicate)
+            let orMatchPredicates = NSCompoundPredicate(orPredicateWithSubpredicates: searchItemsPredicate)
             andMatchPredicates.append(orMatchPredicates)
         }
         
         // Match up the fields of the Product object.
-        let finalCompoundPredicate = NSCompoundPredicate.andPredicateWithSubpredicates(andMatchPredicates)
+        let finalCompoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: andMatchPredicates)
         
         let filteredResults = searchResults.map { $0.filter { finalCompoundPredicate.evaluateWithObject($0) }}
         

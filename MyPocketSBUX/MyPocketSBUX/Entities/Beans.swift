@@ -22,7 +22,7 @@ class Beans: DbContextBase {
     override func insertEntityFromJsonObject(jsonObject : NSArray) {
         
         for newData in jsonObject {
-            var entity : Bean = Beans.instance().createEntity()
+            let entity : Bean = Beans.instance().createEntity()
             entity.id = (newData["id"] as? NSNumber) ?? 0
             entity.name = ((newData["name"] as? NSString) ?? "") as String
             entity.category = ((newData["category"] as? NSString) ?? "") as String
@@ -45,7 +45,7 @@ class Beans: DbContextBase {
     }
     
     class func findByJanCode(janCode : String, orderKeys : [(columnName : String, ascending : Bool)]) -> [Bean] {
-        var sortKeys : [AnyObject] = []
+        var sortKeys : [NSSortDescriptor] = []
         for orderkey in orderKeys {
             sortKeys.append(NSSortDescriptor(key: orderkey.columnName, ascending: orderkey.ascending))
         }

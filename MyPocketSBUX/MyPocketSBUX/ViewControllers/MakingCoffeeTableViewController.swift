@@ -91,7 +91,7 @@ class MakingCoffeeTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
-        if var vc = segue.destinationViewController as? MakingCoffeePageViewController {
+        if let vc = segue.destinationViewController as? MakingCoffeePageViewController {
             // TODO: 遷移元により分ける
             switch segue.identifier ?? "" {
             case "pourOverSegue":

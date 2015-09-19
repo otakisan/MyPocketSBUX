@@ -81,11 +81,11 @@ class OrderConfirmationTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // 先頭がヘッダ（2行）、末尾が合計（1行）、残りはオーダー数による
-        return section == OrderHeaderIndex.tableViewSection ? 2 : section < self.tableView.numberOfSections() - 1 ? self.orderListItem[section - self.productSectionOffset].orders.count : 1
+        return section == OrderHeaderIndex.tableViewSection ? 2 : section < self.tableView.numberOfSections - 1 ? self.orderListItem[section - self.productSectionOffset].orders.count : 1
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIds.defaultCell, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(CellIds.defaultCell, forIndexPath: indexPath) 
 
         // 先頭がヘッダ、最終セクションは合計
         if indexPath.section == OrderHeaderIndex.tableViewSection {
@@ -99,7 +99,7 @@ class OrderConfirmationTableViewController: UITableViewController {
                 cell.textLabel?.text = "uknown"
             }
         }
-        else if indexPath.section < self.tableView.numberOfSections() - 1 {
+        else if indexPath.section < self.tableView.numberOfSections - 1 {
             let name = self.orderListItem[indexPath.section - self.productSectionOffset].orders[indexPath.row].productEntity?.valueForKey("name") as? String ?? ""
             let price = "\(self.orderListItem[indexPath.section - self.productSectionOffset].orders[indexPath.row].totalPrice)"
             cell.textLabel?.text = "\(name) ¥\(price)"
@@ -112,7 +112,7 @@ class OrderConfirmationTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == OrderHeaderIndex.tableViewSection ? "General" : section < self.tableView.numberOfSections() - 1 ? self.orderListItem[section - self.productSectionOffset].category.name() : "Total"
+        return section == OrderHeaderIndex.tableViewSection ? "General" : section < self.tableView.numberOfSections - 1 ? self.orderListItem[section - self.productSectionOffset].category.name() : "Total"
     }
 
     /*

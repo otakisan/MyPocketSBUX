@@ -137,7 +137,7 @@ class NewsBaseTableViewController: UITableViewController, UIGestureRecognizerDel
     
     func addPinchGestureRecognizer(){
         // ピンチジェスチャをビューに登録
-        var pinch = UIPinchGestureRecognizer(target:self, action:"pinchGesture:")
+        let pinch = UIPinchGestureRecognizer(target:self, action:"pinchGesture:")
         pinch.delegate = self;
         self.tableView.addGestureRecognizer(pinch)
     }
@@ -170,7 +170,7 @@ class NewsBaseTableViewController: UITableViewController, UIGestureRecognizerDel
         let detailViewController = SBUXWKWebViewController.forRelativePath(relativePath)
         
         // Note: Should not be necessary but current iOS 8.0 bug requires it.
-        self.tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow()!, animated: false)
+        self.tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow!, animated: false)
         
         navigationController.pushViewController(detailViewController, animated: true)
         

@@ -66,7 +66,7 @@ class StoresBaseTableViewController: UITableViewController {
         let detailViewController = StoreDetailTableViewController.forStore(store)
         
         // Note: Should not be necessary but current iOS 8.0 bug requires it.
-        self.tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow()!, animated: false)
+        self.tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow!, animated: false)
         
         navigationController.pushViewController(detailViewController, animated: true)
     
@@ -162,12 +162,12 @@ class StoresBaseTableViewController: UITableViewController {
     }
     
     // スワイプ時に表示する項目
-    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         
         let editAction =
         UITableViewRowAction(style: .Normal, // 削除等の破壊的な操作を示さないスタイル
             title: "select"){(action, indexPath) in
-                println("\(indexPath) selected")
+                print("\(indexPath) selected")
                 self.selectAndClose(indexPath)
         }
         editAction.backgroundColor = UIColor.greenColor()

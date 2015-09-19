@@ -27,7 +27,7 @@ class OrderDetails: DbContextBase {
     
     class func getOrderDetailsWithOrderId(orderId : Int, orderKeys : [(columnName : String, ascending : Bool)]) -> [OrderDetail] {
         
-        var sortKeys : [AnyObject] = []
+        var sortKeys : [NSSortDescriptor] = []
         for orderkey in orderKeys {
             sortKeys.append(NSSortDescriptor(key: orderkey.columnName, ascending: orderkey.ascending))
         }
@@ -40,21 +40,21 @@ class OrderDetails: DbContextBase {
     }
     
     func orderDetailsWithBean() -> [OrderDetail] {
-        var fetchRequest = NSFetchRequest()
-        var entity = NSEntityDescription.entityForName(self.entityName(), inManagedObjectContext: DbContextBase.getManagedObjectContext())
+        let fetchRequest = NSFetchRequest()
+        let entity = NSEntityDescription.entityForName(self.entityName(), inManagedObjectContext: DbContextBase.getManagedObjectContext())
         
         fetchRequest.entity = entity
         // Specify criteria for filtering which objects to fetch
         let beans : [Bean] = Beans.instance().getAllOrderBy([])
-        var args : [String] = beans.map {$0.janCode}
-        var predicate = NSPredicate(format:"productJanCode IN %@", args)
+        let args : [String] = beans.map {$0.janCode}
+        let predicate = NSPredicate(format:"productJanCode IN %@", args)
         fetchRequest.predicate = predicate
         // Specify how the fetched objects should be sorted
-        var sortDescriptor = NSSortDescriptor(key: "orderId", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "orderId", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         var details : [OrderDetail] = []
-        if let results = DbContextBase.getManagedObjectContext().executeFetchRequest(fetchRequest, error: nil) as? [OrderDetail] {
+        if let results = (try? DbContextBase.getManagedObjectContext().executeFetchRequest(fetchRequest)) as? [OrderDetail] {
             details = results
         }
 

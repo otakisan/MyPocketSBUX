@@ -56,7 +56,7 @@ class AccountManager: NSObject {
     func postAccountToWeb(myPocketID: String, emailAddress: String, password: String) -> (success: Bool, reason: String) {
         
         // NSObjectに直接serValueできない。プロパティを持つクラスを定義しておく必要がある。
-        var user = User()
+        let user = User()
         user.myPocketId = myPocketID
         user.emailAddress = emailAddress
         user.password = password
@@ -64,8 +64,8 @@ class AccountManager: NSObject {
         JSONUtility.printJsonData(jsonData!)
         
         // ポート番号までは同じだから共通化したい
-        var url = NSURL(string: "http://\(ResourceContext.instance.serviceHost()):\(ResourceContext.instance.servicePort())/users.json")
-        var request = NSMutableURLRequest(URL: url!)
+        let url = NSURL(string: "http://\(ResourceContext.instance.serviceHost()):\(ResourceContext.instance.servicePort())/users.json")
+        let request = NSMutableURLRequest(URL: url!)
         
         // JSONでのリクエスト時、下記のcontent-typeの指定忘れでBad Requestになり、ハマることが多いので対策を練る
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -74,8 +74,8 @@ class AccountManager: NSObject {
         
         var success = false
         var errorReason = ""
-        if var data = NSURLConnection.sendSynchronousRequest(request, returningResponse: nil, error: nil) {
-            if var dic = NSJSONSerialization.JSONObjectWithData(data, options:nil, error: nil) as? NSDictionary {
+        if let data = try? NSURLConnection.sendSynchronousRequest(request, returningResponse: nil) {
+            if let dic = (try? NSJSONSerialization.JSONObjectWithData(data, options:[])) as? NSDictionary {
                 // 登録が成功した、イコール、登録データのmy_pocket_idと等しい、とする
                 // エラーの場合、配列でメッセージを返却する仕様らしい
                 if let returnId = dic.valueForKey("my_pocket_id") as? String where returnId == user.myPocketId {
@@ -87,7 +87,7 @@ class AccountManager: NSObject {
                 else{
                     errorReason = "error. but, there is no error message."
                 }
-                println(dic.description)
+                print(dic.description)
             }
         }
         
@@ -96,21 +96,19 @@ class AccountManager: NSObject {
 
     func getUser(myPocketID: String, password: String) -> User? {
         // ポート番号までは同じだから共通化したい
-        var url = NSURL(string: "http://\(ResourceContext.instance.serviceHost()):\(ResourceContext.instance.servicePort())/users/\(myPocketID)/\(password).json")
-        var request = NSMutableURLRequest(URL: url!)
+        let url = NSURL(string: "http://\(ResourceContext.instance.serviceHost()):\(ResourceContext.instance.servicePort())/users/\(myPocketID)/\(password).json")
+        let request = NSMutableURLRequest(URL: url!)
         
         // JSONでのリクエスト時、下記のcontent-typeの指定忘れでBad Requestになり、ハマることが多いので対策を練る
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.HTTPMethod = "GET"
         
         var result: User? = nil
-        var success = false
-        var errorReason = ""
-        if var data = NSURLConnection.sendSynchronousRequest(request, returningResponse: nil, error: nil) {
-            if var dic = NSJSONSerialization.JSONObjectWithData(data, options:nil, error: nil) as? NSDictionary {
-                var user: User = JSONUtility.objectFromJsonObject(dic)
+        if let data = try? NSURLConnection.sendSynchronousRequest(request, returningResponse: nil) {
+            if let dic = (try? NSJSONSerialization.JSONObjectWithData(data, options:[])) as? NSDictionary {
+                let user: User = JSONUtility.objectFromJsonObject(dic)
                 result = user
-                println(dic.description)
+                print(dic.description)
             }
         }
         

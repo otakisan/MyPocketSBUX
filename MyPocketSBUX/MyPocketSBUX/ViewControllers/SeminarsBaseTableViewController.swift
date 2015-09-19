@@ -67,7 +67,7 @@ class SeminarsBaseTableViewController: UITableViewController {
     }
     
     func configureHeaderInSection(tableView: UITableView, viewForHeaderInSection section: Int, forSeminars seminars: [[NSDictionary]]) -> UIView? {
-        var label = UILabel()
+        let label = UILabel()
         label.text = seminars[section].first?["edition"] as? String
         label.sizeToFit()
         label.backgroundColor = UIColor.grayColor()
@@ -94,7 +94,7 @@ class SeminarsBaseTableViewController: UITableViewController {
         let detailViewController = SBUXWKWebViewController.forRelativePath(relativePath)
         
         // Note: Should not be necessary but current iOS 8.0 bug requires it.
-        self.tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow()!, animated: false)
+        self.tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow!, animated: false)
         
         navigationController.pushViewController(detailViewController, animated: true)
         
@@ -109,7 +109,7 @@ class SeminarsBaseTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) 
         
         self.configureCell(cell, forSeminars: self.seminars, indexPath: indexPath)
         
