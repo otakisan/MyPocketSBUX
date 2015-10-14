@@ -13,11 +13,12 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    let appDelegateBackend = BaseFactory.instance.createAppDelegeteBackend()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        return true
+        let result = self.appDelegateBackend?.application?(application, didFinishLaunchingWithOptions: launchOptions) ?? true
+        return result
     }
 
     func applicationWillResignActive(application: UIApplication) {

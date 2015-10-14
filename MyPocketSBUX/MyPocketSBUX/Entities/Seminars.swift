@@ -19,6 +19,10 @@ class Seminars: DbContextBase {
         return "Seminar"
     }
     
+    override func childRelations() -> [(foreignKeyName:String, propertyName:String, destinationEntityName:String, destinationKeyName:String)] {
+        return [(foreignKeyName: "storeId", propertyName:"store", destinationEntityName: "store", destinationKeyName: "storeId")]
+    }
+    
     override func insertEntityFromJsonObject(jsonObject : NSArray) {
 
         for json in jsonObject {

@@ -9,6 +9,7 @@
 import UIKit
 
 extension UITableViewController {
+    // ワーカースレッドからUIスレッド上で実行したい処理を指定するときに使う
     func dispatch_async_main(block: () -> ()) {
         dispatch_async(dispatch_get_main_queue(), block)
     }

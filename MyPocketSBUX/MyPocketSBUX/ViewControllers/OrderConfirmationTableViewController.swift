@@ -26,6 +26,13 @@ class OrderConfirmationTableViewController: UITableViewController {
     var orderListItem : [(category : ProductCategory, orders: [OrderListItem])] = []
 
     @IBAction func didPressDoneBarButton(sender: UIBarButtonItem) {
+        
+        // サインイン必須
+        if !IdentityContext.sharedInstance.signedIn() {
+            self.showNavigationPrompt("please sign in.", message: "order detail", displayingTime: 2.0)
+            return
+        }
+        
         // オーダーを登録
         self.saveOrder()
         

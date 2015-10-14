@@ -77,7 +77,13 @@ class ProductDetailTableViewController: UITableViewController {
                     cell.textLabel?.text = "\(propValue)"
                     cell.detailTextLabel?.text = ""
                 }
-                
+                else{
+                    // Parseでは、undefinedだと、JSON的にいうと、プロパティが存在しない状態になる
+                    // なので、値が取得できないこと場合は空を設定する必要がある。
+                    // なにも設定しないと、セルが再利用されることに絡んでか、意図したのと別のセクションにデータが表示されたりする
+                    cell.textLabel?.text = ""
+                    cell.detailTextLabel?.text = ""
+                }
             }
         }else if indexPath.section == 1 {
             cell.textLabel?.text = "\(self.nutritions[indexPath.row].liquidTemperature.emptyIfNa()) \(self.nutritions[indexPath.row].size.emptyIfNa()) \(self.nutritions[indexPath.row].milk.emptyIfNa())"

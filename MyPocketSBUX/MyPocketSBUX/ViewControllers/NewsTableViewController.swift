@@ -59,27 +59,6 @@ class NewsTableViewController: NewsBaseTableViewController, UISearchBarDelegate,
         return PressReleases.getAllOrderBy([(columnName : "issueDate", ascending : false), (columnName : "pressReleaseSn", ascending : false)])
     }
     
-    func insertNewPressReleaseToLocal(newPressReleaseData : NSArray) -> [PressRelease] {
-        
-        var results : [PressRelease] = []
-        
-        for newPressRelease in newPressReleaseData {
-            let entity = PressReleases.createEntity()
-            entity.fiscalYear = (newPressRelease["fiscal_year"] as? NSNumber) ?? 0
-            entity.pressReleaseSn = (newPressRelease["press_release_sn"] as? NSNumber) ?? 0
-            entity.title = ((newPressRelease["title"] as? NSString) ?? "") as String
-            entity.url = ((newPressRelease["url"] as? NSString) ?? "") as String
-            entity.issueDate = DateUtility.dateFromSqliteDateString(newPressRelease["issue_date"] as? String ?? "") ?? NSDate(timeIntervalSince1970: 0)
-            entity.createdAt = DateUtility.dateFromSqliteDateTimeString(newPressRelease["created_at"] as? String ?? "") ?? NSDate(timeIntervalSince1970: 0)
-            entity.updatedAt = DateUtility.dateFromSqliteDateTimeString(newPressRelease["updated_at"] as? String ?? "") ?? NSDate(timeIntervalSince1970: 0)
-            
-            PressReleases.insertEntity(entity)
-            results.append(entity)
-        }
-        
-        return results
-    }
-    
     func initializeNewsData(){
         
         // ローカルDBのキャッシュデータを取得
@@ -93,28 +72,15 @@ class NewsTableViewController: NewsBaseTableViewController, UISearchBarDelegate,
         
         // 最新版を取得
         let nextSn = Int(maxSn) + 1
-        if let url  = NSURL(string: "http://\(ResourceContext.instance.serviceHost()):3000/press_releases.json/?type=range&key=press_release_sn&from=\(nextSn)") {
+        PressReleaseManager.instance.fetchAndStore(nextSn, completion: {pressReleases in
+            var newPressReleaseData = pressReleases
+            newPressReleaseData.appendContentsOf(self.pressReleaseEntities)
+            self.pressReleaseEntities = newPressReleaseData
             
-            let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-            let task    = session.dataTaskWithURL(url, completionHandler: {
-                (data, resp, err) in
-                if let data = data, let newsData = self.initializeNewsArrayFromJson(data) {
-                    var newPressReleaseData  : [PressRelease] = self.insertNewPressReleaseToLocal(newsData)
-                    newPressReleaseData.appendContentsOf(self.pressReleaseEntities)
-                    self.pressReleaseEntities = newPressReleaseData
-                }
-                self.reloadData()
-                //println(NSString(data: data, encoding:NSUTF8StringEncoding))
-            })
-        
-            task.resume()
-        }
+            self.reloadData()
+        })
     }
     
-    func initializeNewsArrayFromJson(newsJson: NSData) -> NSArray?{
-        return (try? NSJSONSerialization.JSONObjectWithData(newsJson, options: NSJSONReadingOptions.MutableContainers)) as? NSArray
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

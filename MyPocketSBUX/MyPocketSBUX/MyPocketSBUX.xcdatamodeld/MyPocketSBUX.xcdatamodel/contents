@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14D136" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8195" systemVersion="14F27" minimumToolsVersion="Automatic">
     <entity name="Bean" representedClassName="MyPocketSBUX.Bean" syncable="YES">
         <attribute name="acidity" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
@@ -64,7 +64,7 @@
         <attribute name="taxExcludedTotalPrice" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="taxIncludedTotalPrice" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="orderDetails" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OrderDetail" inverseName="order" inverseEntity="OrderDetail" syncable="YES"/>
+        <relationship name="orderDetails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="OrderDetail" inverseName="order" inverseEntity="OrderDetail" syncable="YES"/>
     </entity>
     <entity name="OrderDetail" representedClassName="MyPocketSBUX.OrderDetail" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
@@ -83,7 +83,7 @@
         <attribute name="totalCalorie" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="order" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Order" inverseName="orderDetails" inverseEntity="Order" syncable="YES"/>
-        <relationship name="productIngredients" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ProductIngredient" inverseName="orderDetail" inverseEntity="ProductIngredient" syncable="YES"/>
+        <relationship name="productIngredients" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ProductIngredient" inverseName="orderDetail" inverseEntity="ProductIngredient" syncable="YES"/>
     </entity>
     <entity name="Pairing" representedClassName="MyPocketSBUX.Pairing" syncable="YES">
         <attribute name="beanId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>

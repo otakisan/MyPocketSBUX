@@ -135,6 +135,33 @@
 		16F6B0C51AEB9358007F7E51 /* PriceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6B0C41AEB9358007F7E51 /* PriceCalculator.swift */; };
 		16F6B0C71AECBC06007F7E51 /* OrderConfirmationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6B0C61AECBC06007F7E51 /* OrderConfirmationTableViewController.swift */; };
 		16F6B0C91AECF39C007F7E51 /* OrderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F6B0C81AECF39C007F7E51 /* OrderManager.swift */; };
+		16F9227A1BB223AD0000B26E /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F922701BB223AD0000B26E /* Accounts.framework */; };
+		16F9227B1BB223AD0000B26E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F922711BB223AD0000B26E /* AudioToolbox.framework */; };
+		16F9227C1BB223AD0000B26E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F922721BB223AD0000B26E /* CFNetwork.framework */; };
+		16F9227D1BB223AD0000B26E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F922731BB223AD0000B26E /* CoreGraphics.framework */; };
+		16F9227E1BB223AD0000B26E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F922741BB223AD0000B26E /* CoreLocation.framework */; };
+		16F9227F1BB223AD0000B26E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F922751BB223AD0000B26E /* QuartzCore.framework */; };
+		16F922801BB223AD0000B26E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F922761BB223AD0000B26E /* Security.framework */; };
+		16F922811BB223AD0000B26E /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F922771BB223AD0000B26E /* Social.framework */; };
+		16F922821BB223AD0000B26E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F922781BB223AD0000B26E /* StoreKit.framework */; };
+		16F922831BB223AD0000B26E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F922791BB223AD0000B26E /* SystemConfiguration.framework */; };
+		16F922861BB223EF0000B26E /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F922841BB223EF0000B26E /* libsqlite3.dylib */; };
+		16F922871BB223EF0000B26E /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F922851BB223EF0000B26E /* libz.1.dylib */; };
+		16F9228E1BB224C30000B26E /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F9228B1BB224C30000B26E /* Bolts.framework */; settings = {ASSET_TAGS = (); }; };
+		16F9228F1BB224C30000B26E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F9228C1BB224C30000B26E /* Parse.framework */; settings = {ASSET_TAGS = (); }; };
+		16F922901BB224C30000B26E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F9228D1BB224C30000B26E /* ParseUI.framework */; settings = {ASSET_TAGS = (); }; };
+		16F922931BB22CD20000B26E /* ParseAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922921BB22CD20000B26E /* ParseAccountManager.swift */; settings = {ASSET_TAGS = (); }; };
+		16F922961BB22F060000B26E /* BaseFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922951BB22F060000B26E /* BaseFactory.swift */; settings = {ASSET_TAGS = (); }; };
+		16F922981BB234D20000B26E /* ParseFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922971BB234D20000B26E /* ParseFactory.swift */; settings = {ASSET_TAGS = (); }; };
+		16F9229A1BB250810000B26E /* ParseAppDelegete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922991BB250810000B26E /* ParseAppDelegete.swift */; settings = {ASSET_TAGS = (); }; };
+		16F9229C1BB268440000B26E /* PressReleaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F9229B1BB268440000B26E /* PressReleaseManager.swift */; settings = {ASSET_TAGS = (); }; };
+		16F9229E1BB2894D0000B26E /* ParsePressReleaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F9229D1BB2894D0000B26E /* ParsePressReleaseManager.swift */; settings = {ASSET_TAGS = (); }; };
+		16F922A01BB2B48A0000B26E /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F9229F1BB2B48A0000B26E /* StoreManager.swift */; settings = {ASSET_TAGS = (); }; };
+		16F922A21BB2BD4E0000B26E /* ParseStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922A11BB2BD4E0000B26E /* ParseStoreManager.swift */; settings = {ASSET_TAGS = (); }; };
+		16F922A41BB66C2D0000B26E /* ParseContentsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922A31BB66C2D0000B26E /* ParseContentsManager.swift */; settings = {ASSET_TAGS = (); }; };
+		16F922A61BB6B0670000B26E /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922A51BB6B0670000B26E /* MenuManager.swift */; settings = {ASSET_TAGS = (); }; };
+		16F922A81BB6BAF10000B26E /* ParseMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922A71BB6BAF10000B26E /* ParseMenuManager.swift */; settings = {ASSET_TAGS = (); }; };
+		16F922AA1BB7B2FD0000B26E /* ParseOrderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922A91BB7B2FD0000B26E /* ParseOrderManager.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -280,6 +307,33 @@
 		16F6B0C41AEB9358007F7E51 /* PriceCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceCalculator.swift; sourceTree = "<group>"; };
 		16F6B0C61AECBC06007F7E51 /* OrderConfirmationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderConfirmationTableViewController.swift; sourceTree = "<group>"; };
 		16F6B0C81AECF39C007F7E51 /* OrderManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderManager.swift; sourceTree = "<group>"; };
+		16F922701BB223AD0000B26E /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		16F922711BB223AD0000B26E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		16F922721BB223AD0000B26E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		16F922731BB223AD0000B26E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		16F922741BB223AD0000B26E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		16F922751BB223AD0000B26E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		16F922761BB223AD0000B26E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		16F922771BB223AD0000B26E /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		16F922781BB223AD0000B26E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		16F922791BB223AD0000B26E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		16F922841BB223EF0000B26E /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = /usr/lib/libsqlite3.dylib; sourceTree = "<absolute>"; };
+		16F922851BB223EF0000B26E /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = /usr/lib/libz.1.dylib; sourceTree = "<absolute>"; };
+		16F9228B1BB224C30000B26E /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		16F9228C1BB224C30000B26E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		16F9228D1BB224C30000B26E /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
+		16F922921BB22CD20000B26E /* ParseAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseAccountManager.swift; sourceTree = "<group>"; };
+		16F922951BB22F060000B26E /* BaseFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseFactory.swift; sourceTree = "<group>"; };
+		16F922971BB234D20000B26E /* ParseFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseFactory.swift; sourceTree = "<group>"; };
+		16F922991BB250810000B26E /* ParseAppDelegete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseAppDelegete.swift; sourceTree = "<group>"; };
+		16F9229B1BB268440000B26E /* PressReleaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PressReleaseManager.swift; sourceTree = "<group>"; };
+		16F9229D1BB2894D0000B26E /* ParsePressReleaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParsePressReleaseManager.swift; sourceTree = "<group>"; };
+		16F9229F1BB2B48A0000B26E /* StoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
+		16F922A11BB2BD4E0000B26E /* ParseStoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseStoreManager.swift; sourceTree = "<group>"; };
+		16F922A31BB66C2D0000B26E /* ParseContentsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseContentsManager.swift; sourceTree = "<group>"; };
+		16F922A51BB6B0670000B26E /* MenuManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuManager.swift; sourceTree = "<group>"; };
+		16F922A71BB6BAF10000B26E /* ParseMenuManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseMenuManager.swift; sourceTree = "<group>"; };
+		16F922A91BB7B2FD0000B26E /* ParseOrderManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseOrderManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -287,6 +341,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16F922861BB223EF0000B26E /* libsqlite3.dylib in Frameworks */,
+				16F922871BB223EF0000B26E /* libz.1.dylib in Frameworks */,
+				16F9227A1BB223AD0000B26E /* Accounts.framework in Frameworks */,
+				16F9227B1BB223AD0000B26E /* AudioToolbox.framework in Frameworks */,
+				16F9227C1BB223AD0000B26E /* CFNetwork.framework in Frameworks */,
+				16F9227D1BB223AD0000B26E /* CoreGraphics.framework in Frameworks */,
+				16F9227E1BB223AD0000B26E /* CoreLocation.framework in Frameworks */,
+				16F9228E1BB224C30000B26E /* Bolts.framework in Frameworks */,
+				16F9227F1BB223AD0000B26E /* QuartzCore.framework in Frameworks */,
+				16F922801BB223AD0000B26E /* Security.framework in Frameworks */,
+				16F9228F1BB224C30000B26E /* Parse.framework in Frameworks */,
+				16F922811BB223AD0000B26E /* Social.framework in Frameworks */,
+				16F922901BB224C30000B26E /* ParseUI.framework in Frameworks */,
+				16F922821BB223AD0000B26E /* StoreKit.framework in Frameworks */,
+				16F922831BB223AD0000B26E /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,6 +448,7 @@
 		16AE14011ABD6B1900370062 = {
 			isa = PBXGroup;
 			children = (
+				16F9228A1BB2247A0000B26E /* Framework */,
 				16AE140C1ABD6B1900370062 /* MyPocketSBUX */,
 				16AE14251ABD6B1A00370062 /* MyPocketSBUXTests */,
 				16AE140B1ABD6B1900370062 /* Products */,
@@ -397,6 +467,8 @@
 		16AE140C1ABD6B1900370062 /* MyPocketSBUX */ = {
 			isa = PBXGroup;
 			children = (
+				16F922941BB22E2B0000B26E /* Factories */,
+				16F922911BB228A00000B26E /* Parse */,
 				16B6005D1AE79316000ECB7E /* Models */,
 				16B1F28D1ADAAE830026E377 /* Context */,
 				16F21E401AD9F2F20052AD2A /* ViewModels */,
@@ -516,6 +588,9 @@
 				1682F7D21AFC3FBC00FD630D /* SettingsManager.swift */,
 				1682F7DC1AFCA05600FD630D /* BeansCardManager.swift */,
 				16DF6D4D1B21C36F00BD079A /* AccountManager.swift */,
+				16F9229B1BB268440000B26E /* PressReleaseManager.swift */,
+				16F9229F1BB2B48A0000B26E /* StoreManager.swift */,
+				16F922A51BB6B0670000B26E /* MenuManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -540,6 +615,52 @@
 				1682F7D81AFC910300FD630D /* ProductsForSaleListItem.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		16F9228A1BB2247A0000B26E /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				16F9228B1BB224C30000B26E /* Bolts.framework */,
+				16F9228C1BB224C30000B26E /* Parse.framework */,
+				16F9228D1BB224C30000B26E /* ParseUI.framework */,
+				16F922841BB223EF0000B26E /* libsqlite3.dylib */,
+				16F922851BB223EF0000B26E /* libz.1.dylib */,
+				16F922701BB223AD0000B26E /* Accounts.framework */,
+				16F922711BB223AD0000B26E /* AudioToolbox.framework */,
+				16F922721BB223AD0000B26E /* CFNetwork.framework */,
+				16F922731BB223AD0000B26E /* CoreGraphics.framework */,
+				16F922741BB223AD0000B26E /* CoreLocation.framework */,
+				16F922751BB223AD0000B26E /* QuartzCore.framework */,
+				16F922761BB223AD0000B26E /* Security.framework */,
+				16F922771BB223AD0000B26E /* Social.framework */,
+				16F922781BB223AD0000B26E /* StoreKit.framework */,
+				16F922791BB223AD0000B26E /* SystemConfiguration.framework */,
+			);
+			name = Framework;
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		16F922911BB228A00000B26E /* Parse */ = {
+			isa = PBXGroup;
+			children = (
+				16F922921BB22CD20000B26E /* ParseAccountManager.swift */,
+				16F922971BB234D20000B26E /* ParseFactory.swift */,
+				16F922991BB250810000B26E /* ParseAppDelegete.swift */,
+				16F9229D1BB2894D0000B26E /* ParsePressReleaseManager.swift */,
+				16F922A11BB2BD4E0000B26E /* ParseStoreManager.swift */,
+				16F922A31BB66C2D0000B26E /* ParseContentsManager.swift */,
+				16F922A71BB6BAF10000B26E /* ParseMenuManager.swift */,
+				16F922A91BB7B2FD0000B26E /* ParseOrderManager.swift */,
+			);
+			path = Parse;
+			sourceTree = "<group>";
+		};
+		16F922941BB22E2B0000B26E /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+				16F922951BB22F060000B26E /* BaseFactory.swift */,
+			);
+			path = Factories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -664,17 +785,21 @@
 				16F21E3F1AD9F1D20052AD2A /* MenuTableViewController.swift in Sources */,
 				1682F7CD1AFB449100FD630D /* TunesTableViewController.swift in Sources */,
 				16757DE01AF84D3D00925C50 /* PairingManager.swift in Sources */,
+				16F922A01BB2B48A0000B26E /* StoreManager.swift in Sources */,
 				16F21E561ADA39AE0052AD2A /* FoodMenuListItem.swift in Sources */,
 				1682F7D71AFC791B00FD630D /* ProductsForSaleTableViewCell.swift in Sources */,
 				16C979D71ACD7E2400543120 /* SeminarsBaseTableViewController.swift in Sources */,
 				16AE143A1AC65A3700370062 /* SBUXWKWebViewController.swift in Sources */,
 				16B6005C1AE756E3000ECB7E /* CustomItemsTableViewController.swift in Sources */,
 				1682F7D11AFC386800FD630D /* SettingsTableViewController.swift in Sources */,
+				16F9229C1BB268440000B26E /* PressReleaseManager.swift in Sources */,
 				16C979D51ACA066A00543120 /* SeminarsTableViewController.swift in Sources */,
 				16F21E441AD9F7DA0052AD2A /* MenuListItem.swift in Sources */,
+				16F9229E1BB2894D0000B26E /* ParsePressReleaseManager.swift in Sources */,
 				16F21E481ADA08430052AD2A /* Drink.swift in Sources */,
 				1682F7E91AFE469100FD630D /* ProductImagesCollectionViewCell.swift in Sources */,
 				16F21E501ADA2FE20052AD2A /* MenuListItemTableViewCell.swift in Sources */,
+				16F922981BB234D20000B26E /* ParseFactory.swift in Sources */,
 				16F21E5A1ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift in Sources */,
 				1682F7DD1AFCA05600FD630D /* BeansCardManager.swift in Sources */,
 				16DF6D4E1B21C36F00BD079A /* AccountManager.swift in Sources */,
@@ -696,6 +821,7 @@
 				16757DCA1AF6FAF100925C50 /* MakingCoffeeContentsManager.swift in Sources */,
 				16DF6D4C1B1FBC1200BD079A /* AccountSettingsViewController.swift in Sources */,
 				16B1F28F1ADAAF1B0026E377 /* ResourceContext.swift in Sources */,
+				16F9229A1BB250810000B26E /* ParseAppDelegete.swift in Sources */,
 				16E50E421B04C57E00554229 /* Seminars.swift in Sources */,
 				164BFDE21ACFC9B9003BF77B /* DbContextBase.swift in Sources */,
 				16DF6D481B188EE100BD079A /* OrderDetail.swift in Sources */,
@@ -722,6 +848,7 @@
 				16E442CD1AD90314003C3AA2 /* PressRelease.swift in Sources */,
 				16757DCC1AF70AAC00925C50 /* MakingCoffeePageContentViewController.swift in Sources */,
 				16F6B0C71AECBC06007F7E51 /* OrderConfirmationTableViewController.swift in Sources */,
+				16F922A61BB6B0670000B26E /* MenuManager.swift in Sources */,
 				16CAF7941AE2ABA900318AE5 /* FoodOrderTableViewCell.swift in Sources */,
 				16757DCE1AF7166300925C50 /* MakingCoffeeTableViewController.swift in Sources */,
 				16AE14361ABEDDEE00370062 /* SBUXTableViewController.swift in Sources */,
@@ -729,13 +856,16 @@
 				16F21E581ADA45360052AD2A /* FoodMenuListItemTableViewCell.swift in Sources */,
 				16757DE41AF88C5100925C50 /* BaseWKWebViewController.swift in Sources */,
 				16A74F301B081BB80078BCC9 /* TastingLogsBaseTableViewController.swift in Sources */,
+				16F922A81BB6BAF10000B26E /* ParseMenuManager.swift in Sources */,
 				16757DC21AF60DF200925C50 /* Nutritions.swift in Sources */,
 				164BFDE01ACFC8FC003BF77B /* Stores.swift in Sources */,
 				16AE14101ABD6B1A00370062 /* AppDelegate.swift in Sources */,
 				164BFDCD1AC67DF5003BF77B /* StringExtension.swift in Sources */,
 				16F21E541ADA34FE0052AD2A /* Drinks.swift in Sources */,
+				16F922AA1BB7B2FD0000B26E /* ParseOrderManager.swift in Sources */,
 				1682F7D31AFC3FBC00FD630D /* SettingsManager.swift in Sources */,
 				164BFDE41ACFEAC5003BF77B /* Store.swift in Sources */,
+				16F922931BB22CD20000B26E /* ParseAccountManager.swift in Sources */,
 				164BFDC81AC6735E003BF77B /* PressReleases.swift in Sources */,
 				16F6B0C91AECF39C007F7E51 /* OrderManager.swift in Sources */,
 				16CAF7961AE3757300318AE5 /* CustomizingOrderTableViewCell.swift in Sources */,
@@ -746,6 +876,7 @@
 				165F3F821AFA306E00BCF1BB /* RecommendationsTableViewController.swift in Sources */,
 				16060EB71AF0456E0099379F /* Orders.swift in Sources */,
 				16EDCA031B1149E000FB71B1 /* SyncRequests.swift in Sources */,
+				16F922A21BB2BD4E0000B26E /* ParseStoreManager.swift in Sources */,
 				16DF6D4A1B188EE100BD079A /* ProductIngredient.swift in Sources */,
 				1683F0B11ADC80270034C7CB /* OrderTableViewCell.swift in Sources */,
 				16A51AE31B1AF738001933AB /* OrdersTableViewCell.swift in Sources */,
@@ -761,7 +892,9 @@
 				16757DEA1AF8E70100925C50 /* TastingLogs.swift in Sources */,
 				16757DDE1AF842F800925C50 /* Pairing.swift in Sources */,
 				16060EBB1AF046EC0099379F /* ProductIngredients.swift in Sources */,
+				16F922961BB22F060000B26E /* BaseFactory.swift in Sources */,
 				164BFDE71AD021E7003BF77B /* StoresTableViewCell.swift in Sources */,
+				16F922A41BB66C2D0000B26E /* ParseContentsManager.swift in Sources */,
 				16A74F331B08221D0078BCC9 /* TastingLogsTableViewCell.swift in Sources */,
 				16CAF78E1AE1E75B00318AE5 /* CustomItemsStaticTableViewController.swift in Sources */,
 				16DF6D461B188EE000BD079A /* Order.swift in Sources */,
@@ -890,6 +1023,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				INFOPLIST_FILE = MyPocketSBUX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -900,6 +1037,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				INFOPLIST_FILE = MyPocketSBUX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

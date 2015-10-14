@@ -18,7 +18,15 @@ class TastingLogs: DbContextBase {
     override func entityName() -> String {
         return "TastingLog"
     }
-        
+
+    override func childRelations() -> [(foreignKeyName: String, entityPropertyName: String, destinationEntityName: String, destinationKeyName: String)] {
+        // オーダーに関しては、アプリもしくはサーバーでの自動採番値、店舗に関しては公式の店舗ID
+        return [
+            (foreignKeyName: "orderId", entityPropertyName:"order", destinationEntityName: "order", destinationKeyName: "id"),
+            (foreignKeyName: "storeId", entityPropertyName:"store", destinationEntityName: "store", destinationKeyName: "storeId")
+        ]
+    }
+
     override func insertEntityFromJsonObject(jsonObject : NSArray) {
         
         for newData in jsonObject {

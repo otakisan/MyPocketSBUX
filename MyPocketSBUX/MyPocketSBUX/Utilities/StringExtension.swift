@@ -47,15 +47,19 @@ extension String {
     }
     
     func camelCaseFromSnakeCase() -> String {
-        let pattern = "(\\w{0,1})_"
-        var camel = self.capitalizedString.stringByReplacingOccurrencesOfString(pattern, withString: "$1",
-            options: NSStringCompareOptions.RegularExpressionSearch, range: nil)
+        var camel = pascalCaseFromSnakeCase()
         
         // make the first letter lower case
         let head = self.substringToIndex(self.startIndex.advancedBy(1))
         camel.replaceRange(camel.startIndex...camel.startIndex, with: head.lowercaseString)
         
         return camel
+    }
+    
+    func pascalCaseFromSnakeCase() -> String {
+        let pattern = "(\\w{0,1})_"
+        return self.capitalizedString.stringByReplacingOccurrencesOfString(pattern, withString: "$1",
+            options: NSStringCompareOptions.RegularExpressionSearch, range: nil)
     }
     
     func snakeCase() -> String {

@@ -48,6 +48,10 @@ class DbContextBase: NSObject {
         return "find\(self.entityName())ByPkFetchRequest"
     }
     
+    func childRelations() -> [(foreignKeyName:String, propertyName:String, destinationEntityName:String, destinationKeyName:String)] {
+        return []
+    }
+    
     func createEntity<T : NSManagedObject>() -> T {
         let context : NSManagedObjectContext = DbContextBase.getManagedObjectContext()
         let ent = NSEntityDescription.entityForName(self.entityName(), inManagedObjectContext: context)
@@ -221,6 +225,33 @@ class DbContextBase: NSObject {
         return results
     }
     
+    func findEntities<TResultEntity : NSManagedObject>(variables : [String:AnyObject], orderKeys : [(columnName : String, ascending : Bool)]) -> [TResultEntity] {
+        
+        var results : [TResultEntity] = []
+        var sortKeys : [NSSortDescriptor] = []
+        for orderkey in orderKeys {
+            sortKeys.append(NSSortDescriptor(key: orderkey.columnName, ascending: orderkey.ascending))
+        }
+        
+        if let allfetchRequest = DbContextBase.getFetchRequestTemplate(self.templateNameFetchAll(), variables: [:], sortDescriptors: sortKeys, limit: 0) {
+            variables.forEach({variable in
+                let additionalPredicate: NSPredicate = NSPredicate(format: "\(variable.0) = %@", argumentArray: [variable.1])
+                if let currentPredicate = allfetchRequest.predicate {
+                    allfetchRequest.predicate = NSCompoundPredicate(type: NSCompoundPredicateType.AndPredicateType, subpredicates: [currentPredicate, additionalPredicate])
+                }else{
+                    allfetchRequest.predicate = additionalPredicate
+                }
+            })  
+            
+            if let fetchResults = try? DbContextBase.getManagedObjectContext().executeFetchRequest(allfetchRequest) {
+                results = fetchResults as! [TResultEntity]
+            }
+
+        }
+        
+        return results
+    }
+    
     func findById<TResultEntity : NSManagedObject>(id : Int) -> TResultEntity? {
         
         var entity : TResultEntity? = nil
@@ -261,7 +292,6 @@ class DbContextBase: NSObject {
         req.propertiesToFetch = [expressionDescription]
         
         var maxId = NSNotFound
-        var error : NSError? = nil
         if let fetchResult = try? DbContextBase.getManagedObjectContext().executeFetchRequest(req){
             if fetchResult.count > 0 {
                 maxId = fetchResult.first!["maxId"] as! NSInteger
@@ -269,6 +299,31 @@ class DbContextBase: NSObject {
         }
         
         return maxId == NSNotFound ? 0 : Int(maxId)
+    }
+    
+    func maxCreatedAt() -> NSDate {
+        
+        let req = NSFetchRequest()
+        let entity = NSEntityDescription.entityForName(self.entityName(), inManagedObjectContext: DbContextBase.getManagedObjectContext())
+        req.entity = entity
+        req.resultType = NSFetchRequestResultType.DictionaryResultType
+        
+        let keyPathExpression = NSExpression(forKeyPath:"createdAt")
+        let maxExpression = NSExpression(forFunction:"max:", arguments:[keyPathExpression])
+        let expressionDescription = NSExpressionDescription()
+        expressionDescription.name = "maxCreatedAt"
+        expressionDescription.expression = maxExpression
+        expressionDescription.expressionResultType = NSAttributeType.DateAttributeType
+        req.propertiesToFetch = [expressionDescription]
+        
+        var maxCreatedAt = DateUtility.minimumDate()
+        if let fetchResult = try? DbContextBase.getManagedObjectContext().executeFetchRequest(req){
+            if let resultValue = fetchResult.first?["maxCreatedAt"] as? NSDate {
+                maxCreatedAt = resultValue
+            }
+        }
+        
+        return maxCreatedAt
     }
     
     func searchSyncRequestsByEntityTypeName() -> [SyncRequest] {

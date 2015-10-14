@@ -11,10 +11,25 @@ import CoreData
 
 class ContentsManager: NSObject {
     
-    static let instance = ContentsManager()
+    static let instance = BaseFactory.instance.createContentsManager()
     let timeoutInSeconds = 30.0
     
-    func fetchContentsFromWeb(entityName : String, completionHandler: ((NSData?, NSURLResponse?, NSError?) -> Void)){
+    func fetchContentsFromWebAndStoreLocalDb(entityName : String, isRefresh: Bool, completionHandler: (() -> Void)){
+        self.fetchContentsFromWeb(entityName, completionHandler: { data, res, error in
+            
+            if error == nil, let productsJson = (try? NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)) as? NSArray {
+                let dbContext = self.getDbContext(entityName)
+                if isRefresh {
+                    dbContext.clearAllEntitiesExceptForUnsyncData()
+                }
+                dbContext.insertEntityFromJsonObject(productsJson)
+            }
+            
+            completionHandler()
+        })
+    }
+    
+    private func fetchContentsFromWeb(entityName : String, completionHandler: ((NSData?, NSURLResponse?, NSError?) -> Void)){
         
         // 全件を取得
         if let url  = NSURL(string: "http://\(ResourceContext.instance.serviceHost()):\(ResourceContext.instance.servicePort())/\(entityName)s.json") {
@@ -35,6 +50,9 @@ class ContentsManager: NSObject {
         }
         else if entityName == MenuSectionItem.ProductCategory.food {
             dbContext = Foods.instance()
+        }
+        else if entityName == "nutrition" {
+            dbContext = Nutritions.instance()
         }
         else if entityName == "bean" {
             dbContext = Beans.instance()
@@ -96,11 +114,7 @@ class ContentsManager: NSObject {
             let dbContext = self.getDbContext(entityName)
             let count = dbContext.countByFetchRequestTemplate([String:AnyObject]())
             if count == 0 {
-                self.fetchContentsFromWeb(entityName, completionHandler: { data, res, error in
-                    
-                    if let productsJson = (try? NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)) as? NSArray {
-                        dbContext.insertEntityFromJsonObject(productsJson)
-                    }
+                self.fetchContentsFromWebAndStoreLocalDb(entityName, isRefresh: false, completionHandler: {
                     
                     // TODO: セクションごとのカテゴライズは別で行う
                     // ローカルDBのキャッシュデータを取得
@@ -147,15 +161,7 @@ class ContentsManager: NSObject {
         // 失敗した場合には、テーブルには触れず、既存のデータをフェッチして返す。いずれもステータス（成功・失敗）を返却する。
         for entityName in entityNames {
             dispatch_semaphore_wait(semaphore, timeout/*DISPATCH_TIME_FOREVER*/)
-            self.fetchContentsFromWeb(entityName, completionHandler: { data, res, error in
-                
-                if error == nil {
-                    if let productsJson = (try? NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)) as? NSArray {
-                        let dbContext = self.getDbContext(entityName)
-                        dbContext.clearAllEntitiesExceptForUnsyncData()
-                        dbContext.insertEntityFromJsonObject(productsJson)
-                    }
-                }
+            self.fetchContentsFromWebAndStoreLocalDb(entityName, isRefresh: true, completionHandler: {
                 
                 // ローカルDBのキャッシュデータを取得
                 fetchResults += [(entityName: entityName, entities: self.fetchEntitiesFromLocalDb(entityName, orderKeys: orderKeys))]
@@ -270,7 +276,12 @@ class ContentsManager: NSObject {
     func typeConvert(propTypeName: String, propValue: String) -> AnyObject {
         var converted : AnyObject = propValue
         if propTypeName.contains("NSDate") {
-            converted = DateUtility.dateFromSqliteDateTimeString(propValue) ?? DateUtility.minimumDate()
+            if let regex = try? NSRegularExpression(pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$", options: NSRegularExpressionOptions.CaseInsensitive)
+                where regex.matchesInString(propValue, options: NSMatchingOptions(), range: NSMakeRange(0, propValue.characters.count)).count > 0 {
+                converted = DateUtility.dateFromSqliteDateString(propValue) ?? DateUtility.minimumDate()
+            }else{
+                converted = DateUtility.dateFromSqliteDateTimeString(propValue) ?? DateUtility.minimumDate()
+            }
         } else if propTypeName.contains("NSNumber") {
             converted = Int(propTypeName) ?? 0 as NSNumber
         }
@@ -295,8 +306,8 @@ class ContentsManager: NSObject {
             if let valueData: AnyObject = dataObject.valueForKey(propName) {
                 if ["id", "created_at", "updated_at"].filter({$0 == snakeCasePropName}).count == 0 {
                     // プロパティがオブジェクトの場合はリレーションとみなし、idを設定する
-                    if valueData is NSManagedObject {
-                        topObject.updateValue(valueData.valueForKey("id") as! NSNumber, forKey: "\(snakeCasePropName)_id")
+                    if valueData is NSManagedObject, let idValue = valueData.valueForKey("id") as? NSNumber {
+                        topObject.updateValue(idValue, forKey: "\(snakeCasePropName)_id")
                     }else if valueData is NSDate {
                         // TODO: ひとまず、日本での時差で固定 サマータイムだと+0800になる？？
                         topObject.updateValue(DateUtility.railsLocalDateString(valueData as! NSDate) + "+0900", forKey: snakeCasePropName)
@@ -337,4 +348,7 @@ class ContentsManager: NSObject {
         }
     }
 
+    func nextId(entityName: String) -> Int {
+        return 0
+    }
 }

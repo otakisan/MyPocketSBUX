@@ -52,6 +52,16 @@ class OrdersBaseTableViewController: UITableViewController {
     }
     
     func refresh() {
+        if !IdentityContext.sharedInstance.signedIn() {
+            self.refreshControl?.endRefreshing()
+            return
+        }
+        
+        self.refreshImpl()
+    }
+    
+    func refreshImpl() {
+        
     }
     
     override func didReceiveMemoryWarning() {

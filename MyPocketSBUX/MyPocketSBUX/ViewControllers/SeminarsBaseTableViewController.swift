@@ -53,17 +53,20 @@ class SeminarsBaseTableViewController: UITableViewController {
     func configureCell(cell: UITableViewCell, forSeminars seminars: [[Seminar]], indexPath : NSIndexPath) {
         let objDic = seminars[indexPath.section][indexPath.row]
         
-        let storeName = objDic.store?.name ?? ""
-        let capacity = objDic.capacity
-        let status = objDic.status
-        let startDate = DateUtility.localDateString(objDic.startTime)
-        let startTime = DateUtility.localTimeString(objDic.startTime)
-        let capacityLabel = "capacity".localized()
-        let statusLabel = "status".localized()
-        let statusValue = (self.statusMappings[status] == nil ? "" : self.statusMappings[status]!).localized()
-        
-        cell.detailTextLabel?.text = "\(startDate) \(startTime)  \(capacityLabel):\(capacity)  \(statusLabel):\(statusValue)"
-        cell.textLabel?.text = "\(storeName)"
+        if !objDic.fault {
+            let storeName = objDic.store?.name ?? ""
+            let capacity = objDic.capacity
+            let status = objDic.status
+            let startDate = DateUtility.localDateString(objDic.startTime)
+            let startTime = DateUtility.localTimeString(objDic.startTime)
+            let capacityLabel = "capacity".localized()
+            let statusLabel = "status".localized()
+            let statusValue = (self.statusMappings[status] == nil ? "" : self.statusMappings[status]!).localized()
+            
+            cell.detailTextLabel?.text = "\(startDate) \(startTime)  \(capacityLabel):\(capacity)  \(statusLabel):\(statusValue)"
+            cell.textLabel?.text = "\(storeName)"
+            
+        }
     }
     
     func configureHeaderInSection(tableView: UITableView, viewForHeaderInSection section: Int, forSeminars seminars: [[NSDictionary]]) -> UIView? {

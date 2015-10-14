@@ -46,8 +46,9 @@ class DateUtility {
     class func dateFromSqliteDateTimeString(dateString : String) -> NSDate? {
         // TとZが不要なので消す
         var dateStringInner = (dateString as NSString).stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "Z"))
-        let index = dateString.rangeOfString("T", options: NSStringCompareOptions.LiteralSearch, range: nil, locale: nil)
-        dateStringInner.replaceRange(index!, with: " ")
+        if let index = dateString.rangeOfString("T", options: NSStringCompareOptions.LiteralSearch, range: nil, locale: nil) {
+            dateStringInner.replaceRange(index, with: " ")
+        }
         
         let formatter = NSDateFormatter()
         formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
@@ -104,5 +105,18 @@ class DateUtility {
         let dateStringSrc = formatter.stringFromDate(date)
         
         return dateStringSrc
+    }
+    
+    class func utcDateStringFromDate(date: NSDate) -> String {
+        //let utcDate = NSDate(timeInterval: (NSTimeInterval)(-1 * NSTimeZone.defaultTimeZone().secondsFromGMTForDate(date)), sinceDate: date)
+        
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
+        formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+        formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+        let dateStringSrc = formatter.stringFromDate(date)
+        
+        return dateStringSrc
+        
     }
 }

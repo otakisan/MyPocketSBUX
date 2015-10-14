@@ -164,7 +164,7 @@ class OrdersTableViewController: OrdersBaseTableViewController, UISearchBarDeleg
         }
     }
 
-    override func refresh() {
+    override func refreshImpl() {
         
         // TODO: 一覧のリロードが完了するまでブロックする必要がある
         if !self.refreshing {

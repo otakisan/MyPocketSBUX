@@ -42,6 +42,7 @@ class TastingLogManager: NSObject {
             tastingLog.createdAt = NSDate()
             // IDはサーバーで採番する
             //tastingLog.id = TastingLogs.instance().maxId() + 1
+            tastingLog.id = ContentsManager.instance.nextId(TastingLogs.instance().entityName())
             TastingLogs.insertEntity(tastingLog)
         }
         else{

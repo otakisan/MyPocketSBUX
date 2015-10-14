@@ -34,16 +34,11 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
         let timeout = dispatch_time(DISPATCH_TIME_NOW, Int64(ContentsManager.instance.timeoutInSeconds * Double(NSEC_PER_SEC)))
         for productCategory in productCategories {
             dispatch_semaphore_wait(semaphore, timeout/*DISPATCH_TIME_FOREVER*/)
-            let dbContext = self.getDbContext(productCategory)
+            let dbContext = ContentsManager.instance.getDbContext(productCategory)
             let count = dbContext.countByFetchRequestTemplate([String:AnyObject]())
             if count == 0 {
-                self.updateProductLocalDb(productCategory, completionHandler: { data, res, error in
-                    
-                    if data != nil {
-                        if let productsJson = (try? NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)) as? NSArray {
-                            dbContext.insertEntityFromJsonObject(productsJson)
-                        }
-                        
+                MenuManager.instance.updateProductLocalDb(productCategory, completionHandler: { (error) -> Void in
+                    if error == nil {
                         // ローカルDBのキャッシュデータを取得
                         self.menuDisplayItemList += self.createProductSectionItemsFromLocalDb(productCategory)
                     }
@@ -63,14 +58,7 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
         // カロリー
         // 商品情報の取得が完了するまで待機して、メニューリストを更新、UIを更新する
         if 0 == Nutritions.instance().countByFetchRequestTemplate([String:AnyObject]()) {
-            self.updateProductLocalDb("nutrition", completionHandler: { data, res, error in
-                
-                if let receivedData = data {
-                    if let productsJson = (try? NSJSONSerialization.JSONObjectWithData(receivedData, options: NSJSONReadingOptions.MutableContainers)) as? NSArray {
-                        Nutritions.instance().insertEntityFromJsonObject(productsJson)
-                    }
-                }
-                
+            MenuManager.instance.updateProductLocalDb("nutrition", completionHandler: { (error) -> Void in
                 // メニューリストを更新（カロリー情報）
                 self.waitAndUpdateCalorie(semaphore, semaphoreCount: semaphoreCount, timeout: timeout)
                 
@@ -111,21 +99,6 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
         }
     }
     
-    func getDbContext(productCategory : String) -> DbContextBase {
-        var dbContext : DbContextBase?
-        if productCategory == MenuSectionItem.ProductCategory.drink {
-            dbContext = Drinks.instance()
-        }
-        else if productCategory == MenuSectionItem.ProductCategory.food {
-            dbContext = Foods.instance()
-        }
-        else {
-            fatalError("invalid productCategory : \(productCategory)")
-        }
-        
-        return dbContext!
-    }
-    
     func createOrderSectionItem() -> MenuSectionItem {
         let orderSection = MenuSectionItem()
         orderSection.sectionCategory = MenuSectionItem.SectionCategory.order
@@ -155,7 +128,7 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
     }
     
     func getProductsAllOrderBy(productCategory : String, orderKeys : [(columnName : String, ascending : Bool)]) -> [AnyObject] {
-        return self.getDbContext(productCategory).getAllOrderBy(orderKeys)
+        return ContentsManager.instance.getDbContext(productCategory).getAllOrderBy(orderKeys)
     }
     
     func createMenuListItem(productCategory : String) -> MenuListItem {

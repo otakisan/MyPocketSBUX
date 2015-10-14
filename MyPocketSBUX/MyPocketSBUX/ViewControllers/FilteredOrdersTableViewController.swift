@@ -19,7 +19,7 @@ class FilteredOrdersTableViewController: OrdersBaseTableViewController {
         self.delegateForParent?.deleteActionViaFilteredList(removed)
     }
     
-    override func refresh() {
+    override func refreshImpl() {
         self.delegateForParent?.refreshViaFilteredList()
     }
     

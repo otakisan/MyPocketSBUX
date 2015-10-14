@@ -18,6 +18,13 @@ class Pairings: DbContextBase {
     override func entityName() -> String {
         return "Pairing"
     }
+
+    override func childRelations() -> [(foreignKeyName: String, entityPropertyName: String, destinationEntityName: String, destinationKeyName: String)] {
+    return [
+        (foreignKeyName: "beanId", entityPropertyName:"bean", destinationEntityName: "bean", destinationKeyName: "id"),
+        (foreignKeyName: "foodId", entityPropertyName:"food", destinationEntityName: "food", destinationKeyName: "id")
+        ]
+    }
     
     override func insertEntityFromJsonObject(jsonObject : NSArray) {
         

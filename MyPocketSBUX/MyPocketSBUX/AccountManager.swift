@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 
 class AccountManager: NSObject {
-    static var instance: AccountManager = AccountManager()
+    static var instance: AccountManager = BaseFactory.instance.createAccountManager()
     
     func signIn(myPocketID: String, password: String) -> User? {
         // TODO: パスワードを暗号化
@@ -46,14 +46,14 @@ class AccountManager: NSObject {
         return self.postAccountToWeb(myPocketID, emailAddress: emailAddress, password: encryptedPW)
     }
     
-    func encrypt(plainText: String) -> String {
+    private func encrypt(plainText: String) -> String {
         return plainText
     }
     
     /**
     アカウント情報をPOSTで送信し、登録を依頼する
     */
-    func postAccountToWeb(myPocketID: String, emailAddress: String, password: String) -> (success: Bool, reason: String) {
+    private func postAccountToWeb(myPocketID: String, emailAddress: String, password: String) -> (success: Bool, reason: String) {
         
         // NSObjectに直接serValueできない。プロパティを持つクラスを定義しておく必要がある。
         let user = User()
@@ -94,7 +94,7 @@ class AccountManager: NSObject {
         return (success: success, reason: errorReason)
     }
 
-    func getUser(myPocketID: String, password: String) -> User? {
+    private func getUser(myPocketID: String, password: String) -> User? {
         // ポート番号までは同じだから共通化したい
         let url = NSURL(string: "http://\(ResourceContext.instance.serviceHost()):\(ResourceContext.instance.servicePort())/users/\(myPocketID)/\(password).json")
         let request = NSMutableURLRequest(URL: url!)

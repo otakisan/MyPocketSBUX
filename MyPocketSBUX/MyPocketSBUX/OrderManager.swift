@@ -10,7 +10,7 @@ import UIKit
 
 class OrderManager: NSObject {
     
-    static let instance = OrderManager()
+    static let instance = BaseFactory.instance.createOrderManager()
     
     func unionOrderListItem(orderListItems : [(category : ProductCategory, orders: [OrderListItem])]) -> [OrderListItem] {
         return orderListItems.map({$0.orders}).reduce([], combine: {$0 + $1})
@@ -21,7 +21,7 @@ class OrderManager: NSObject {
         for ingredient in ingredients {
             let ingredientEntity : ProductIngredient = ProductIngredients.instance().createEntity()
             ProductIngredients.registerEntity(ingredientEntity)
-            ingredientEntity.id = 0//ProductIngredients.sequenceNumber()
+            ingredientEntity.id = self.nextProductIngredientId()//ProductIngredients.sequenceNumber()
             //ingredientEntity.orderId = order.id
             ingredientEntity.orderDetailId = orderDetail.id
             ingredientEntity.isCustom = !ingredient.isPartOfOriginalIngredients
@@ -50,7 +50,7 @@ class OrderManager: NSObject {
         let now = NSDate()
         let order : Order = Orders.instance().createEntity()
         //let orderId = Orders.sequenceNumber()
-        order.id = 0//orderId
+        order.id = self.nextOrderId()//orderId
         order.storeId = orderHeader?.store?.storeId ?? 0 // TODO: ストアIDを実際の店舗IDとrailsのIDとどちらにするか
         let totalPrice = PriceCalculator.totalPrice(OrderManager.instance.unionOrderListItem(orderListItems))
         order.taxExcludedTotalPrice = totalPrice.taxExcluded
@@ -68,7 +68,7 @@ class OrderManager: NSObject {
             let orderDetail : OrderDetail = OrderDetails.instance().createEntity()
             OrderDetails.registerEntity(orderDetail)
             //let orderDetailId = OrderDetails.sequenceNumber() // TODO: 秒単位だと重複する できればμs単位にしたい それか乱数
-            orderDetail.id = 0//orderDetailId
+            orderDetail.id = self.nextOrderDetailId()//orderDetailId
             orderDetail.orderId = order.id
             orderDetail.productName = orderListItem.productEntity?.valueForKey("name") as? String ?? ""
             orderDetail.productJanCode = orderListItem.productEntity?.valueForKey("janCode") as? String ?? ""
@@ -203,7 +203,7 @@ class OrderManager: NSObject {
     }
     
     func getAllOrderFromLocal() -> [Order] {
-        return Orders.getAllOrderBy("allOrdersFetchRequest", orderKeys: [(columnName : "createdAt", ascending : true)])
+        return Orders.getAllOrderBy("allOrdersFetchRequest", orderKeys: [(columnName : "createdAt", ascending : false)])
     }
 
     func entityResourceName() -> String {
@@ -275,4 +275,16 @@ class OrderManager: NSObject {
         Orders.deleteEntity(order)
     }
 
+    // 採番は普通サーバーだけど、rails版との兼ね合いで。
+    func nextOrderId() -> Int {
+        return 0
+    }
+    
+    func nextOrderDetailId() -> Int {
+        return 0
+    }
+    
+    func nextProductIngredientId() -> Int {
+        return 0
+    }
 }
