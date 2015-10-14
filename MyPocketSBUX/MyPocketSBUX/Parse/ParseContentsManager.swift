@@ -467,4 +467,22 @@ class ParseContentsManager: ContentsManager {
         })
     }
     
+    override func deleteContentsToWeb(idOnWeb: Int, entityName: String) -> Bool {
+        var deleted = false
+        
+        let query = PFQuery(className: entityName.pascalCaseFromSnakeCase())
+        query.limit = 1
+        query.whereKey("id", equalTo: idOnWeb)
+        
+        do{
+            if let results = try? query.findObjects(), let result = results.first {
+                try result.delete()
+                deleted = true
+            }
+        } catch let error as NSError {
+            print("error when deleting : \(error)")
+        }
+        
+        return deleted
+    }
 }
