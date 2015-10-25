@@ -447,7 +447,7 @@ class ParseContentsManager: ContentsManager {
                         if let foreignKeyValue : AnyObject = pfObject.valueForKey(relation.foreignKeyName) {
                             let relationDbContext = self.getDbContext(relation.destinationEntityName)
                             if let firstEntity = relationDbContext.findEntities([relation.destinationKeyName: foreignKeyValue], orderKeys: []).first {
-                                entity.setValue(firstEntity, forKey: relation.propertyName)
+                                entity.setValue(firstEntity, forKey: relation.entityPropertyName)
                             }
                         }
                     })

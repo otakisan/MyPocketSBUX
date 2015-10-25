@@ -48,7 +48,7 @@ class DbContextBase: NSObject {
         return "find\(self.entityName())ByPkFetchRequest"
     }
     
-    func childRelations() -> [(foreignKeyName:String, propertyName:String, destinationEntityName:String, destinationKeyName:String)] {
+    func childRelations() -> [(foreignKeyName: String, entityPropertyName: String, destinationEntityName: String, destinationKeyName: String)] {
         return []
     }
     
