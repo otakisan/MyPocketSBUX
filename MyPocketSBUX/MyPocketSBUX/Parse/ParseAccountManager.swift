@@ -17,6 +17,17 @@ class ParseAccountManager: AccountManager {
         if let pfUser = try? PFUser.logInWithUsername(myPocketID, password: password) {
             user = self.createUser(pfUser)
             IdentityContext.sharedInstance.currentUserID = user!.myPocketId
+            
+            PFInstallation.currentInstallation().saveInBackgroundWithBlock({ (succeeded, error) -> Void in
+                if let query = PFInstallation.query(), let currentUser = PFUser.currentUser() {
+                    let push = PFPush()
+                    // TODO: カレントユーザーと関係のあるユーザーにのみ通知するようにする
+                    query.whereKey("user", notEqualTo: currentUser)
+                    push.setQuery(query)
+                    push.setMessage("\(IdentityContext.sharedInstance.currentUserID) signed in!")
+                    push.sendPushInBackground()
+                }
+            })
         }
         
         return user
@@ -30,18 +41,19 @@ class ParseAccountManager: AccountManager {
     }
     
     override func signOut() {
+        
+        // Unsubscribe from push notifications by removing the user association from the current installation.
+        PFInstallation.currentInstallation().removeObjectForKey("user")
+        PFInstallation.currentInstallation().saveInBackground();
+        
+        // Clear all caches
+        PFQuery.clearAllCachedResults()
+
         PFUser.logOut()
+        
+        // TODO: これは共通の処理のほうか（本アプリの取り決めによるか）
         IdentityContext.sharedInstance.currentUserID = ""
     }
-    
-//    override func createAccountAndChangeCurrentUser(myPocketID: String, emailAddress: String, password: String) -> (success: Bool, reason: String) {
-//        let result = self.createAccount(myPocketID, emailAddress: emailAddress, password: password)
-//        if result.success {
-//            IdentityContext.sharedInstance.currentUserID = myPocketID
-//        }
-//        
-//        return result
-//    }
     
     override func createAccount(myPocketID: String, emailAddress: String, password: String) -> (success: Bool, reason: String) {
         // TODO: パスワードを暗号化
@@ -67,4 +79,16 @@ class ParseAccountManager: AccountManager {
         
         return result
     }
+    
+    // これはParse固有でないような気がする
+    override func registerForRemoteNotifications() {
+        
+        let userNotificationTypes = UIUserNotificationType(rawValue: UIUserNotificationType.Alert.rawValue | UIUserNotificationType.Badge.rawValue | UIUserNotificationType.Sound.rawValue)
+        
+        // カテゴリの指定なしだと、カテゴリの指定されていない通知のみを受け取る？
+        let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
+        UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+        UIApplication.sharedApplication().registerForRemoteNotifications()
+    }
+    
 }

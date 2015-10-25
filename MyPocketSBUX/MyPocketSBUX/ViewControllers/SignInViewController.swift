@@ -19,6 +19,9 @@ class SignInViewController: UIViewController, AccountSettingsViewControllerDeleg
         // TODO: 入力値チェック（空、ASCII以外、等々）
         if let user = AccountManager.instance.signIn(self.myPocketIDTextField.text!, password: self.passwordTextField.text!) {
             UIAlertView(title: "\(user.myPocketId) signed in.", message: "success.", delegate: nil, cancelButtonTitle: "Close").show()
+            
+            // ログイン後、通知許可を求める
+            AccountManager.instance.registerForRemoteNotifications()
         }
         else {
             UIAlertView(title: "Failed to sign in.", message: "failed.", delegate: nil, cancelButtonTitle: "Close").show()

@@ -114,6 +114,9 @@ class AccountManager: NSObject {
         
         return result
     }
+    
+    func registerForRemoteNotifications() {
+    }
 }
 
 class User: NSObject {

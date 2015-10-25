@@ -81,6 +81,8 @@
 		16A74F331B08221D0078BCC9 /* TastingLogsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A74F311B08221D0078BCC9 /* TastingLogsTableViewCell.swift */; };
 		16A74F341B08221D0078BCC9 /* TastingLogsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16A74F321B08221D0078BCC9 /* TastingLogsTableViewCell.xib */; };
 		16A74F361B08309E0078BCC9 /* FilteredTastingLogsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A74F351B08309E0078BCC9 /* FilteredTastingLogsTableViewController.swift */; };
+		16AD17D51BDC97020073CB97 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16AD17D41BDC97020073CB97 /* ParseCrashReporting.framework */; settings = {ASSET_TAGS = (); }; };
+		16AD17D71BDC9AF20073CB97 /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 16AD17D61BDC9AF20073CB97 /* libstdc++.6.0.9.dylib */; };
 		16AE14101ABD6B1A00370062 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AE140F1ABD6B1A00370062 /* AppDelegate.swift */; };
 		16AE14131ABD6B1A00370062 /* MyPocketSBUX.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16AE14111ABD6B1A00370062 /* MyPocketSBUX.xcdatamodeld */; };
 		16AE14181ABD6B1A00370062 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16AE14161ABD6B1A00370062 /* Main.storyboard */; };
@@ -249,6 +251,8 @@
 		16A74F311B08221D0078BCC9 /* TastingLogsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TastingLogsTableViewCell.swift; sourceTree = "<group>"; };
 		16A74F321B08221D0078BCC9 /* TastingLogsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TastingLogsTableViewCell.xib; sourceTree = "<group>"; };
 		16A74F351B08309E0078BCC9 /* FilteredTastingLogsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilteredTastingLogsTableViewController.swift; sourceTree = "<group>"; };
+		16AD17D41BDC97020073CB97 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
+		16AD17D61BDC9AF20073CB97 /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "../../../../../../../usr/lib/libstdc++.6.0.9.dylib"; sourceTree = "<group>"; };
 		16AE140A1ABD6B1900370062 /* MyPocketSBUX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyPocketSBUX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16AE140E1ABD6B1A00370062 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		16AE140F1ABD6B1A00370062 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -341,6 +345,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16AD17D71BDC9AF20073CB97 /* libstdc++.6.0.9.dylib in Frameworks */,
 				16F922861BB223EF0000B26E /* libsqlite3.dylib in Frameworks */,
 				16F922871BB223EF0000B26E /* libz.1.dylib in Frameworks */,
 				16F9227A1BB223AD0000B26E /* Accounts.framework in Frameworks */,
@@ -356,6 +361,7 @@
 				16F922901BB224C30000B26E /* ParseUI.framework in Frameworks */,
 				16F922821BB223AD0000B26E /* StoreKit.framework in Frameworks */,
 				16F922831BB223AD0000B26E /* SystemConfiguration.framework in Frameworks */,
+				16AD17D51BDC97020073CB97 /* ParseCrashReporting.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +454,7 @@
 		16AE14011ABD6B1900370062 = {
 			isa = PBXGroup;
 			children = (
+				16AD17D61BDC9AF20073CB97 /* libstdc++.6.0.9.dylib */,
 				16F9228A1BB2247A0000B26E /* Framework */,
 				16AE140C1ABD6B1900370062 /* MyPocketSBUX */,
 				16AE14251ABD6B1A00370062 /* MyPocketSBUXTests */,
@@ -620,6 +627,7 @@
 		16F9228A1BB2247A0000B26E /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				16AD17D41BDC97020073CB97 /* ParseCrashReporting.framework */,
 				16F9228B1BB224C30000B26E /* Bolts.framework */,
 				16F9228C1BB224C30000B26E /* Parse.framework */,
 				16F9228D1BB224C30000B26E /* ParseUI.framework */,
@@ -959,7 +967,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Takashi Ikeda (8WYY427W62)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -979,6 +987,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "25a00f5d-a4a4-42ea-a637-585eaa9f6bfc";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1001,7 +1010,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Takashi Ikeda (8WYY427W62)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1014,6 +1023,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "25a00f5d-a4a4-42ea-a637-585eaa9f6bfc";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
