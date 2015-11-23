@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="findFriendsTableViewCellIndetifier" id="KGk-i7-Jjw" customClass="FindFriendsTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sge-ZR-u5p">
+                        <rect key="frame" x="8" y="11" width="196" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I47-ym-XWx">
+                        <rect key="frame" x="212" y="7" width="100" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="100" id="fYZ-gp-5r5"/>
+                        </constraints>
+                        <state key="normal" title="Follow"/>
+                        <connections>
+                            <action selector="didTapFollowButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="cfo-An-BrJ"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="sge-ZR-u5p" firstAttribute="baseline" secondItem="I47-ym-XWx" secondAttribute="firstBaseline" id="2vl-rh-TRH"/>
+                    <constraint firstItem="I47-ym-XWx" firstAttribute="baseline" secondItem="sge-ZR-u5p" secondAttribute="baseline" id="7P6-91-mZq"/>
+                    <constraint firstItem="sge-ZR-u5p" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Kcd-Jj-DUG"/>
+                    <constraint firstItem="sge-ZR-u5p" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Ybz-Gq-1vO"/>
+                    <constraint firstItem="sge-ZR-u5p" firstAttribute="centerY" secondItem="I47-ym-XWx" secondAttribute="centerY" id="bFe-DY-8pi"/>
+                    <constraint firstItem="I47-ym-XWx" firstAttribute="leading" secondItem="sge-ZR-u5p" secondAttribute="trailing" constant="8" symbolic="YES" id="cZC-dx-Zgs"/>
+                    <constraint firstItem="I47-ym-XWx" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="hFm-Kb-T6C"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="followButton" destination="I47-ym-XWx" id="Thj-IM-dLS"/>
+                <outlet property="nameLabel" destination="sge-ZR-u5p" id="N1Z-0K-Lv2"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

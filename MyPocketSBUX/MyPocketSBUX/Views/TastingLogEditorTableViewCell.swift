@@ -312,3 +312,43 @@ class OrderTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, Orders
 protocol OrderTastingLogEditorTableViewCellDelegate : TastingLogEditorTableViewCellDelegate {
     func valueChangedOrder(order : Order)
 }
+
+class PhotoTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    @IBOutlet weak var photoView: UIImageView!
+
+    override func configure(tastingLog: TastingLog) {
+        super.configure(tastingLog)
+        
+        // TODO: イメージの設定
+        if let photoData = tastingLog.photo, let photoImage = UIImage(data: photoData) {
+            self.photoView.image = ImageUtility.photoThumbnail(photoImage)
+        }
+    }
+    
+    override func detailView() -> UIViewController? {
+        let detailView = UIImagePickerController()
+        detailView.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        detailView.delegate = self
+        
+        return detailView
+    }
+    
+    override func didPresentDetailView() {
+        (self.delegate as? PhotoTastingLogEditorTableViewCellDelegate)?.deselectSelectedCell()
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]){
+        picker.dismissViewControllerAnimated(true, completion: nil)
+        
+        if let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.photoView.image = ImageUtility.photoThumbnail(selectedImage)
+            (self.delegate as? PhotoTastingLogEditorTableViewCellDelegate)?.valueChangedPhoto(selectedImage)
+        }
+    }
+}
+
+protocol PhotoTastingLogEditorTableViewCellDelegate : TastingLogEditorTableViewCellDelegate {
+    func valueChangedPhoto(photo: UIImage)
+    func deselectSelectedCell()
+}

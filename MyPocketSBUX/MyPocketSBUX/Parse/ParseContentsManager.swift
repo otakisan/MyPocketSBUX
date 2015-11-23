@@ -75,6 +75,12 @@ class ParseContentsManager: ContentsManager {
                 }
                 else if propValue is NSDate {
                     pfObjectData[propName] = DateUtility.utcDateStringFromDate(propValue as! NSDate)
+                }
+                else if propValue is NSData {
+                    let photoFile = PFFile(data: propValue as! NSData)
+                    if ((try? photoFile.save()) != nil) {
+                        pfObjectData[propName] = photoFile
+                    }
                 }else{
                     pfObjectData[propName] = propValue
                 }
@@ -428,6 +434,14 @@ class ParseContentsManager: ContentsManager {
                         if var propValue: AnyObject = pfObject.valueForKey(propName) {
                             if propValue is String {
                                 propValue = ContentsManager.instance.typeConvert(entity.propertyTypeName(propName), propValue: propValue as! String)
+                            }
+                            else if let pfFile = propValue as? PFFile {
+                                if let photoData = try? pfFile.getData() {
+                                    propValue = photoData
+                                }
+                                else{
+                                    propValue = NSData()
+                                }
                             }
                             entity.setValue(propValue, forKey: propName)
                         } else if let pf = pfObject.valueForKey("\(propName)ObjectId") as? PFObject, let pfFilled = try?pf.fetchIfNeeded() {

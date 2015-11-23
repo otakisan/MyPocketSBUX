@@ -21,5 +21,5 @@ class TastingLog: NSManagedObject {
     @NSManaged var updatedAt: NSDate
     @NSManaged var store: Store?
     @NSManaged var order: Order?
-
+    @NSManaged var photo: NSData?
 }

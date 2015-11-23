@@ -12,6 +12,15 @@
 		16060EBB1AF046EC0099379F /* ProductIngredients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16060EBA1AF046EC0099379F /* ProductIngredients.swift */; };
 		16060EBD1AF0D1AF0099379F /* OrdersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16060EBC1AF0D1AF0099379F /* OrdersTableViewController.swift */; };
 		16216E971B000FB700DB6C0B /* NewsBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16216E961B000FB700DB6C0B /* NewsBaseTableViewController.swift */; };
+		16253F171BF80E2F00A68FB8 /* FindFriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16253F161BF80E2F00A68FB8 /* FindFriendsTableViewController.swift */; };
+		16253F1A1BF8226600A68FB8 /* FindFriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16253F181BF8226600A68FB8 /* FindFriendsTableViewCell.swift */; };
+		16253F1B1BF8226600A68FB8 /* FindFriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16253F191BF8226600A68FB8 /* FindFriendsTableViewCell.xib */; };
+		16253F1F1BF87B0300A68FB8 /* ParseUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16253F1E1BF87B0300A68FB8 /* ParseUtility.swift */; };
+		16253F211C005BFB00A68FB8 /* ActivitySwipeBetweenViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16253F201C005BFB00A68FB8 /* ActivitySwipeBetweenViewControllers.swift */; };
+		16253F231C005E2E00A68FB8 /* SwipeBetweenViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16253F221C005E2E00A68FB8 /* SwipeBetweenViewControllers.swift */; };
+		16253F251C00661600A68FB8 /* FollowingActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16253F241C00661600A68FB8 /* FollowingActivityTableViewController.swift */; };
+		16253F271C00693B00A68FB8 /* ToYouActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16253F261C00693B00A68FB8 /* ToYouActivityTableViewController.swift */; };
+		16253F291C01515A00A68FB8 /* TastingLogsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16253F281C01515A00A68FB8 /* TastingLogsCollectionViewController.swift */; };
 		162CE3E81B00E90B009D3C6C /* NewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 162CE3E71B00E90B009D3C6C /* NewsTableViewCell.xib */; };
 		162CE3EA1B0163A0009D3C6C /* FilteredNewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162CE3E91B0163A0009D3C6C /* FilteredNewsTableViewController.swift */; };
 		164BFDC81AC6735E003BF77B /* PressReleases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDC71AC6735E003BF77B /* PressReleases.swift */; };
@@ -29,6 +38,7 @@
 		164BFDE71AD021E7003BF77B /* StoresTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDE51AD021E7003BF77B /* StoresTableViewCell.swift */; };
 		164BFDE81AD021E7003BF77B /* StoresTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 164BFDE61AD021E7003BF77B /* StoresTableViewCell.xib */; };
 		164BFDEA1AD02F8F003BF77B /* StoreDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BFDE91AD02F8F003BF77B /* StoreDetailTableViewController.swift */; };
+		165864751C02D25600B25883 /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165864741C02D25600B25883 /* EditProfileTableViewController.swift */; };
 		165F3F7E1AFA26AF00BCF1BB /* TastingLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165F3F7D1AFA26AF00BCF1BB /* TastingLog.swift */; };
 		165F3F801AFA2D2800BCF1BB /* RecommendationParametersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165F3F7F1AFA2D2800BCF1BB /* RecommendationParametersViewController.swift */; };
 		165F3F821AFA306E00BCF1BB /* RecommendationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165F3F811AFA306E00BCF1BB /* RecommendationsTableViewController.swift */; };
@@ -81,7 +91,8 @@
 		16A74F331B08221D0078BCC9 /* TastingLogsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A74F311B08221D0078BCC9 /* TastingLogsTableViewCell.swift */; };
 		16A74F341B08221D0078BCC9 /* TastingLogsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16A74F321B08221D0078BCC9 /* TastingLogsTableViewCell.xib */; };
 		16A74F361B08309E0078BCC9 /* FilteredTastingLogsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A74F351B08309E0078BCC9 /* FilteredTastingLogsTableViewController.swift */; };
-		16AD17D51BDC97020073CB97 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16AD17D41BDC97020073CB97 /* ParseCrashReporting.framework */; settings = {ASSET_TAGS = (); }; };
+		16A7A77B1C02CF070088852E /* FollowingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A7A77A1C02CF070088852E /* FollowingTableViewController.swift */; };
+		16AD17D51BDC97020073CB97 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16AD17D41BDC97020073CB97 /* ParseCrashReporting.framework */; };
 		16AD17D71BDC9AF20073CB97 /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 16AD17D61BDC9AF20073CB97 /* libstdc++.6.0.9.dylib */; };
 		16AE14101ABD6B1A00370062 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AE140F1ABD6B1A00370062 /* AppDelegate.swift */; };
 		16AE14131ABD6B1A00370062 /* MyPocketSBUX.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16AE14111ABD6B1A00370062 /* MyPocketSBUX.xcdatamodeld */; };
@@ -96,6 +107,12 @@
 		16B6005C1AE756E3000ECB7E /* CustomItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B6005B1AE756E3000ECB7E /* CustomItemsTableViewController.swift */; };
 		16B6005F1AE79407000ECB7E /* IngredientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B6005E1AE79407000ECB7E /* IngredientManager.swift */; };
 		16B600611AE7CD8C000ECB7E /* CustomItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B600601AE7CD8C000ECB7E /* CustomItemsTableViewCell.swift */; };
+		16C396581C015AD700903113 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C396571C015AD700903113 /* ProfileTableViewController.swift */; };
+		16C3965B1C01D36C00903113 /* TastingLogsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C396591C01D36C00903113 /* TastingLogsCollectionViewCell.swift */; };
+		16C3965C1C01D36C00903113 /* TastingLogsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16C3965A1C01D36C00903113 /* TastingLogsCollectionViewCell.xib */; };
+		16C3965E1C0279BF00903113 /* FollowersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C3965D1C0279BF00903113 /* FollowersTableViewController.swift */; };
+		16C396611C0281A900903113 /* BasicProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C3965F1C0281A900903113 /* BasicProfileTableViewCell.swift */; };
+		16C396621C0281A900903113 /* BasicProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16C396601C0281A900903113 /* BasicProfileTableViewCell.xib */; };
 		16C979D51ACA066A00543120 /* SeminarsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C979D41ACA066A00543120 /* SeminarsTableViewController.swift */; };
 		16C979D71ACD7E2400543120 /* SeminarsBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C979D61ACD7E2400543120 /* SeminarsBaseTableViewController.swift */; };
 		16C979D91ACD8EC600543120 /* FilteredSeminarsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C979D81ACD8EC600543120 /* FilteredSeminarsTableViewController.swift */; };
@@ -120,6 +137,7 @@
 		16E50E441B04C65800554229 /* Seminar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E50E431B04C65800554229 /* Seminar.swift */; };
 		16EDCA011B11498F00FB71B1 /* SyncRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDCA001B11498F00FB71B1 /* SyncRequest.swift */; };
 		16EDCA031B1149E000FB71B1 /* SyncRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDCA021B1149E000FB71B1 /* SyncRequests.swift */; };
+		16EE33261C02F97E0026A926 /* ImageUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EE33251C02F97E0026A926 /* ImageUtility.swift */; };
 		16F21E3F1AD9F1D20052AD2A /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E3E1AD9F1D20052AD2A /* MenuTableViewController.swift */; };
 		16F21E421AD9F50A0052AD2A /* MenuSectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E411AD9F50A0052AD2A /* MenuSectionItem.swift */; };
 		16F21E441AD9F7DA0052AD2A /* MenuListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F21E431AD9F7DA0052AD2A /* MenuListItem.swift */; };
@@ -149,21 +167,21 @@
 		16F922831BB223AD0000B26E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F922791BB223AD0000B26E /* SystemConfiguration.framework */; };
 		16F922861BB223EF0000B26E /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F922841BB223EF0000B26E /* libsqlite3.dylib */; };
 		16F922871BB223EF0000B26E /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F922851BB223EF0000B26E /* libz.1.dylib */; };
-		16F9228E1BB224C30000B26E /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F9228B1BB224C30000B26E /* Bolts.framework */; settings = {ASSET_TAGS = (); }; };
-		16F9228F1BB224C30000B26E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F9228C1BB224C30000B26E /* Parse.framework */; settings = {ASSET_TAGS = (); }; };
-		16F922901BB224C30000B26E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F9228D1BB224C30000B26E /* ParseUI.framework */; settings = {ASSET_TAGS = (); }; };
-		16F922931BB22CD20000B26E /* ParseAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922921BB22CD20000B26E /* ParseAccountManager.swift */; settings = {ASSET_TAGS = (); }; };
-		16F922961BB22F060000B26E /* BaseFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922951BB22F060000B26E /* BaseFactory.swift */; settings = {ASSET_TAGS = (); }; };
-		16F922981BB234D20000B26E /* ParseFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922971BB234D20000B26E /* ParseFactory.swift */; settings = {ASSET_TAGS = (); }; };
-		16F9229A1BB250810000B26E /* ParseAppDelegete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922991BB250810000B26E /* ParseAppDelegete.swift */; settings = {ASSET_TAGS = (); }; };
-		16F9229C1BB268440000B26E /* PressReleaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F9229B1BB268440000B26E /* PressReleaseManager.swift */; settings = {ASSET_TAGS = (); }; };
-		16F9229E1BB2894D0000B26E /* ParsePressReleaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F9229D1BB2894D0000B26E /* ParsePressReleaseManager.swift */; settings = {ASSET_TAGS = (); }; };
-		16F922A01BB2B48A0000B26E /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F9229F1BB2B48A0000B26E /* StoreManager.swift */; settings = {ASSET_TAGS = (); }; };
-		16F922A21BB2BD4E0000B26E /* ParseStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922A11BB2BD4E0000B26E /* ParseStoreManager.swift */; settings = {ASSET_TAGS = (); }; };
-		16F922A41BB66C2D0000B26E /* ParseContentsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922A31BB66C2D0000B26E /* ParseContentsManager.swift */; settings = {ASSET_TAGS = (); }; };
-		16F922A61BB6B0670000B26E /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922A51BB6B0670000B26E /* MenuManager.swift */; settings = {ASSET_TAGS = (); }; };
-		16F922A81BB6BAF10000B26E /* ParseMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922A71BB6BAF10000B26E /* ParseMenuManager.swift */; settings = {ASSET_TAGS = (); }; };
-		16F922AA1BB7B2FD0000B26E /* ParseOrderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922A91BB7B2FD0000B26E /* ParseOrderManager.swift */; settings = {ASSET_TAGS = (); }; };
+		16F9228E1BB224C30000B26E /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F9228B1BB224C30000B26E /* Bolts.framework */; };
+		16F9228F1BB224C30000B26E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F9228C1BB224C30000B26E /* Parse.framework */; };
+		16F922901BB224C30000B26E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F9228D1BB224C30000B26E /* ParseUI.framework */; };
+		16F922931BB22CD20000B26E /* ParseAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922921BB22CD20000B26E /* ParseAccountManager.swift */; };
+		16F922961BB22F060000B26E /* BaseFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922951BB22F060000B26E /* BaseFactory.swift */; };
+		16F922981BB234D20000B26E /* ParseFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922971BB234D20000B26E /* ParseFactory.swift */; };
+		16F9229A1BB250810000B26E /* ParseAppDelegete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922991BB250810000B26E /* ParseAppDelegete.swift */; };
+		16F9229C1BB268440000B26E /* PressReleaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F9229B1BB268440000B26E /* PressReleaseManager.swift */; };
+		16F9229E1BB2894D0000B26E /* ParsePressReleaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F9229D1BB2894D0000B26E /* ParsePressReleaseManager.swift */; };
+		16F922A01BB2B48A0000B26E /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F9229F1BB2B48A0000B26E /* StoreManager.swift */; };
+		16F922A21BB2BD4E0000B26E /* ParseStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922A11BB2BD4E0000B26E /* ParseStoreManager.swift */; };
+		16F922A41BB66C2D0000B26E /* ParseContentsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922A31BB66C2D0000B26E /* ParseContentsManager.swift */; };
+		16F922A61BB6B0670000B26E /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922A51BB6B0670000B26E /* MenuManager.swift */; };
+		16F922A81BB6BAF10000B26E /* ParseMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922A71BB6BAF10000B26E /* ParseMenuManager.swift */; };
+		16F922AA1BB7B2FD0000B26E /* ParseOrderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F922A91BB7B2FD0000B26E /* ParseOrderManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -182,6 +200,15 @@
 		16060EBA1AF046EC0099379F /* ProductIngredients.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductIngredients.swift; sourceTree = "<group>"; };
 		16060EBC1AF0D1AF0099379F /* OrdersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrdersTableViewController.swift; sourceTree = "<group>"; };
 		16216E961B000FB700DB6C0B /* NewsBaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsBaseTableViewController.swift; sourceTree = "<group>"; };
+		16253F161BF80E2F00A68FB8 /* FindFriendsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindFriendsTableViewController.swift; sourceTree = "<group>"; };
+		16253F181BF8226600A68FB8 /* FindFriendsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindFriendsTableViewCell.swift; sourceTree = "<group>"; };
+		16253F191BF8226600A68FB8 /* FindFriendsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindFriendsTableViewCell.xib; sourceTree = "<group>"; };
+		16253F1E1BF87B0300A68FB8 /* ParseUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseUtility.swift; sourceTree = "<group>"; };
+		16253F201C005BFB00A68FB8 /* ActivitySwipeBetweenViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivitySwipeBetweenViewControllers.swift; sourceTree = "<group>"; };
+		16253F221C005E2E00A68FB8 /* SwipeBetweenViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeBetweenViewControllers.swift; sourceTree = "<group>"; };
+		16253F241C00661600A68FB8 /* FollowingActivityTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingActivityTableViewController.swift; sourceTree = "<group>"; };
+		16253F261C00693B00A68FB8 /* ToYouActivityTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToYouActivityTableViewController.swift; sourceTree = "<group>"; };
+		16253F281C01515A00A68FB8 /* TastingLogsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TastingLogsCollectionViewController.swift; sourceTree = "<group>"; };
 		162CE3E71B00E90B009D3C6C /* NewsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsTableViewCell.xib; sourceTree = "<group>"; };
 		162CE3E91B0163A0009D3C6C /* FilteredNewsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilteredNewsTableViewController.swift; sourceTree = "<group>"; };
 		164BFDC71AC6735E003BF77B /* PressReleases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PressReleases.swift; sourceTree = "<group>"; };
@@ -199,6 +226,7 @@
 		164BFDE51AD021E7003BF77B /* StoresTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoresTableViewCell.swift; sourceTree = "<group>"; };
 		164BFDE61AD021E7003BF77B /* StoresTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoresTableViewCell.xib; sourceTree = "<group>"; };
 		164BFDE91AD02F8F003BF77B /* StoreDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreDetailTableViewController.swift; sourceTree = "<group>"; };
+		165864741C02D25600B25883 /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
 		165F3F7D1AFA26AF00BCF1BB /* TastingLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TastingLog.swift; sourceTree = "<group>"; };
 		165F3F7F1AFA2D2800BCF1BB /* RecommendationParametersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendationParametersViewController.swift; sourceTree = "<group>"; };
 		165F3F811AFA306E00BCF1BB /* RecommendationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendationsTableViewController.swift; sourceTree = "<group>"; };
@@ -251,6 +279,7 @@
 		16A74F311B08221D0078BCC9 /* TastingLogsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TastingLogsTableViewCell.swift; sourceTree = "<group>"; };
 		16A74F321B08221D0078BCC9 /* TastingLogsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TastingLogsTableViewCell.xib; sourceTree = "<group>"; };
 		16A74F351B08309E0078BCC9 /* FilteredTastingLogsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilteredTastingLogsTableViewController.swift; sourceTree = "<group>"; };
+		16A7A77A1C02CF070088852E /* FollowingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingTableViewController.swift; sourceTree = "<group>"; };
 		16AD17D41BDC97020073CB97 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
 		16AD17D61BDC9AF20073CB97 /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "../../../../../../../usr/lib/libstdc++.6.0.9.dylib"; sourceTree = "<group>"; };
 		16AE140A1ABD6B1900370062 /* MyPocketSBUX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyPocketSBUX.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -270,6 +299,12 @@
 		16B6005B1AE756E3000ECB7E /* CustomItemsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomItemsTableViewController.swift; sourceTree = "<group>"; };
 		16B6005E1AE79407000ECB7E /* IngredientManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientManager.swift; sourceTree = "<group>"; };
 		16B600601AE7CD8C000ECB7E /* CustomItemsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomItemsTableViewCell.swift; sourceTree = "<group>"; };
+		16C396571C015AD700903113 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
+		16C396591C01D36C00903113 /* TastingLogsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TastingLogsCollectionViewCell.swift; sourceTree = "<group>"; };
+		16C3965A1C01D36C00903113 /* TastingLogsCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TastingLogsCollectionViewCell.xib; sourceTree = "<group>"; };
+		16C3965D1C0279BF00903113 /* FollowersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowersTableViewController.swift; sourceTree = "<group>"; };
+		16C3965F1C0281A900903113 /* BasicProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicProfileTableViewCell.swift; sourceTree = "<group>"; };
+		16C396601C0281A900903113 /* BasicProfileTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BasicProfileTableViewCell.xib; sourceTree = "<group>"; };
 		16C979D41ACA066A00543120 /* SeminarsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeminarsTableViewController.swift; sourceTree = "<group>"; };
 		16C979D61ACD7E2400543120 /* SeminarsBaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeminarsBaseTableViewController.swift; sourceTree = "<group>"; };
 		16C979D81ACD8EC600543120 /* FilteredSeminarsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilteredSeminarsTableViewController.swift; sourceTree = "<group>"; };
@@ -294,6 +329,7 @@
 		16E50E431B04C65800554229 /* Seminar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Seminar.swift; sourceTree = "<group>"; };
 		16EDCA001B11498F00FB71B1 /* SyncRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncRequest.swift; sourceTree = "<group>"; };
 		16EDCA021B1149E000FB71B1 /* SyncRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncRequests.swift; sourceTree = "<group>"; };
+		16EE33251C02F97E0026A926 /* ImageUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtility.swift; sourceTree = "<group>"; };
 		16F21E3E1AD9F1D20052AD2A /* MenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 		16F21E411AD9F50A0052AD2A /* MenuSectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuSectionItem.swift; sourceTree = "<group>"; };
 		16F21E431AD9F7DA0052AD2A /* MenuListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuListItem.swift; sourceTree = "<group>"; };
@@ -418,6 +454,7 @@
 				164BFDCC1AC67DF5003BF77B /* StringExtension.swift */,
 				164BFDD91ACFBEF3003BF77B /* UITableViewControllerExtension.swift */,
 				16A51AE51B22CDEE001933AB /* JSONUtility.swift */,
+				16EE33251C02F97E0026A926 /* ImageUtility.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -447,6 +484,12 @@
 				16A74F321B08221D0078BCC9 /* TastingLogsTableViewCell.xib */,
 				16A51AE11B1AF738001933AB /* OrdersTableViewCell.swift */,
 				16A51AE21B1AF738001933AB /* OrdersTableViewCell.xib */,
+				16253F181BF8226600A68FB8 /* FindFriendsTableViewCell.swift */,
+				16253F191BF8226600A68FB8 /* FindFriendsTableViewCell.xib */,
+				16C396591C01D36C00903113 /* TastingLogsCollectionViewCell.swift */,
+				16C3965A1C01D36C00903113 /* TastingLogsCollectionViewCell.xib */,
+				16C3965F1C0281A900903113 /* BasicProfileTableViewCell.swift */,
+				16C396601C0281A900903113 /* BasicProfileTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -567,6 +610,16 @@
 				1682F7EA1AFED9D200FD630D /* ProductImageViewController.swift */,
 				16DF6D4B1B1FBC1200BD079A /* AccountSettingsViewController.swift */,
 				16A51AE91B22ED80001933AB /* SignInViewController.swift */,
+				16253F161BF80E2F00A68FB8 /* FindFriendsTableViewController.swift */,
+				16253F221C005E2E00A68FB8 /* SwipeBetweenViewControllers.swift */,
+				16253F201C005BFB00A68FB8 /* ActivitySwipeBetweenViewControllers.swift */,
+				16253F241C00661600A68FB8 /* FollowingActivityTableViewController.swift */,
+				16253F261C00693B00A68FB8 /* ToYouActivityTableViewController.swift */,
+				16253F281C01515A00A68FB8 /* TastingLogsCollectionViewController.swift */,
+				16C396571C015AD700903113 /* ProfileTableViewController.swift */,
+				16C3965D1C0279BF00903113 /* FollowersTableViewController.swift */,
+				16A7A77A1C02CF070088852E /* FollowingTableViewController.swift */,
+				165864741C02D25600B25883 /* EditProfileTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -659,6 +712,7 @@
 				16F922A31BB66C2D0000B26E /* ParseContentsManager.swift */,
 				16F922A71BB6BAF10000B26E /* ParseMenuManager.swift */,
 				16F922A91BB7B2FD0000B26E /* ParseOrderManager.swift */,
+				16253F1E1BF87B0300A68FB8 /* ParseUtility.swift */,
 			);
 			path = Parse;
 			sourceTree = "<group>";
@@ -753,6 +807,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16C3965C1C01D36C00903113 /* TastingLogsCollectionViewCell.xib in Resources */,
 				16AE14181ABD6B1A00370062 /* Main.storyboard in Resources */,
 				16A74F341B08221D0078BCC9 /* TastingLogsTableViewCell.xib in Resources */,
 				16A51AE41B1AF738001933AB /* OrdersTableViewCell.xib in Resources */,
@@ -760,7 +815,9 @@
 				16AE141D1ABD6B1A00370062 /* LaunchScreen.xib in Resources */,
 				16AE141A1ABD6B1A00370062 /* Images.xcassets in Resources */,
 				162CE3E81B00E90B009D3C6C /* NewsTableViewCell.xib in Resources */,
+				16C396621C0281A900903113 /* BasicProfileTableViewCell.xib in Resources */,
 				164BFDD21ACF89D1003BF77B /* SeminarsTableViewCell.xib in Resources */,
+				16253F1B1BF8226600A68FB8 /* FindFriendsTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -799,6 +856,7 @@
 				16C979D71ACD7E2400543120 /* SeminarsBaseTableViewController.swift in Sources */,
 				16AE143A1AC65A3700370062 /* SBUXWKWebViewController.swift in Sources */,
 				16B6005C1AE756E3000ECB7E /* CustomItemsTableViewController.swift in Sources */,
+				16253F1A1BF8226600A68FB8 /* FindFriendsTableViewCell.swift in Sources */,
 				1682F7D11AFC386800FD630D /* SettingsTableViewController.swift in Sources */,
 				16F9229C1BB268440000B26E /* PressReleaseManager.swift in Sources */,
 				16C979D51ACA066A00543120 /* SeminarsTableViewController.swift in Sources */,
@@ -806,6 +864,7 @@
 				16F9229E1BB2894D0000B26E /* ParsePressReleaseManager.swift in Sources */,
 				16F21E481ADA08430052AD2A /* Drink.swift in Sources */,
 				1682F7E91AFE469100FD630D /* ProductImagesCollectionViewCell.swift in Sources */,
+				16C3965E1C0279BF00903113 /* FollowersTableViewController.swift in Sources */,
 				16F21E501ADA2FE20052AD2A /* MenuListItemTableViewCell.swift in Sources */,
 				16F922981BB234D20000B26E /* ParseFactory.swift in Sources */,
 				16F21E5A1ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift in Sources */,
@@ -817,6 +876,7 @@
 				16A51AE81B22E5B1001933AB /* IdentityContext.swift in Sources */,
 				165F3F841AFA32E700BCF1BB /* Recommender.swift in Sources */,
 				16757DE21AF888AE00925C50 /* OfficialContentsTableViewController.swift in Sources */,
+				16253F1F1BF87B0300A68FB8 /* ParseUtility.swift in Sources */,
 				16757DEE1AF97CCE00925C50 /* TastingLogEditorTableViewCell.swift in Sources */,
 				16D3B36A1AF9A0F600F5E67B /* TastingLogManager.swift in Sources */,
 				16F21E521ADA30A30052AD2A /* DrinkMenuListItemTableViewCell.swift in Sources */,
@@ -824,18 +884,23 @@
 				16C979E01AD2C88F00543120 /* LocationContext.swift in Sources */,
 				1683F0B31ADD321F0034C7CB /* CustomizingOrderTableViewController.swift in Sources */,
 				16B600611AE7CD8C000ECB7E /* CustomItemsTableViewCell.swift in Sources */,
+				16253F171BF80E2F00A68FB8 /* FindFriendsTableViewController.swift in Sources */,
 				16F21E4A1ADA0A6C0052AD2A /* Food.swift in Sources */,
 				16CAF7901AE28CE000318AE5 /* DrinkOrderTableViewCell.swift in Sources */,
+				16253F291C01515A00A68FB8 /* TastingLogsCollectionViewController.swift in Sources */,
 				16757DCA1AF6FAF100925C50 /* MakingCoffeeContentsManager.swift in Sources */,
 				16DF6D4C1B1FBC1200BD079A /* AccountSettingsViewController.swift in Sources */,
 				16B1F28F1ADAAF1B0026E377 /* ResourceContext.swift in Sources */,
 				16F9229A1BB250810000B26E /* ParseAppDelegete.swift in Sources */,
+				16A7A77B1C02CF070088852E /* FollowingTableViewController.swift in Sources */,
 				16E50E421B04C57E00554229 /* Seminars.swift in Sources */,
+				16253F251C00661600A68FB8 /* FollowingActivityTableViewController.swift in Sources */,
 				164BFDE21ACFC9B9003BF77B /* DbContextBase.swift in Sources */,
 				16DF6D481B188EE100BD079A /* OrderDetail.swift in Sources */,
 				16F21E4E1ADA2B7C0052AD2A /* DrinkMenuListItem.swift in Sources */,
 				16757DDC1AF8417800925C50 /* Pairings.swift in Sources */,
 				165F3F801AFA2D2800BCF1BB /* RecommendationParametersViewController.swift in Sources */,
+				16253F211C005BFB00A68FB8 /* ActivitySwipeBetweenViewControllers.swift in Sources */,
 				1683F0AD1ADBDAD80034C7CB /* OrderTableViewController.swift in Sources */,
 				16A51AE61B22CDEE001933AB /* JSONUtility.swift in Sources */,
 				16757DEC1AF8F28700925C50 /* TastingLogEditorTableViewController.swift in Sources */,
@@ -857,11 +922,14 @@
 				16757DCC1AF70AAC00925C50 /* MakingCoffeePageContentViewController.swift in Sources */,
 				16F6B0C71AECBC06007F7E51 /* OrderConfirmationTableViewController.swift in Sources */,
 				16F922A61BB6B0670000B26E /* MenuManager.swift in Sources */,
+				16C396611C0281A900903113 /* BasicProfileTableViewCell.swift in Sources */,
 				16CAF7941AE2ABA900318AE5 /* FoodOrderTableViewCell.swift in Sources */,
 				16757DCE1AF7166300925C50 /* MakingCoffeeTableViewController.swift in Sources */,
 				16AE14361ABEDDEE00370062 /* SBUXTableViewController.swift in Sources */,
+				16253F271C00693B00A68FB8 /* ToYouActivityTableViewController.swift in Sources */,
 				16C979DB1AD1F13800543120 /* StoreMapViewController.swift in Sources */,
 				16F21E581ADA45360052AD2A /* FoodMenuListItemTableViewCell.swift in Sources */,
+				16253F231C005E2E00A68FB8 /* SwipeBetweenViewControllers.swift in Sources */,
 				16757DE41AF88C5100925C50 /* BaseWKWebViewController.swift in Sources */,
 				16A74F301B081BB80078BCC9 /* TastingLogsBaseTableViewController.swift in Sources */,
 				16F922A81BB6BAF10000B26E /* ParseMenuManager.swift in Sources */,
@@ -885,10 +953,12 @@
 				16060EB71AF0456E0099379F /* Orders.swift in Sources */,
 				16EDCA031B1149E000FB71B1 /* SyncRequests.swift in Sources */,
 				16F922A21BB2BD4E0000B26E /* ParseStoreManager.swift in Sources */,
+				165864751C02D25600B25883 /* EditProfileTableViewController.swift in Sources */,
 				16DF6D4A1B188EE100BD079A /* ProductIngredient.swift in Sources */,
 				1683F0B11ADC80270034C7CB /* OrderTableViewCell.swift in Sources */,
 				16A51AE31B1AF738001933AB /* OrdersTableViewCell.swift in Sources */,
 				16757DC41AF60F1200925C50 /* Nutrition.swift in Sources */,
+				16C3965B1C01D36C00903113 /* TastingLogsCollectionViewCell.swift in Sources */,
 				164BFDEA1AD02F8F003BF77B /* StoreDetailTableViewController.swift in Sources */,
 				16AE14131ABD6B1A00370062 /* MyPocketSBUX.xcdatamodeld in Sources */,
 				16B6005F1AE79407000ECB7E /* IngredientManager.swift in Sources */,
@@ -896,6 +966,8 @@
 				16060EB91AF046040099379F /* OrderDetails.swift in Sources */,
 				16757DC61AF6DF1600925C50 /* VisitsTableViewController.swift in Sources */,
 				16757DC81AF6F2F800925C50 /* MakingCoffeePageViewController.swift in Sources */,
+				16C396581C015AD700903113 /* ProfileTableViewController.swift in Sources */,
+				16EE33261C02F97E0026A926 /* ImageUtility.swift in Sources */,
 				16E50E441B04C65800554229 /* Seminar.swift in Sources */,
 				16757DEA1AF8E70100925C50 /* TastingLogs.swift in Sources */,
 				16757DDE1AF842F800925C50 /* Pairing.swift in Sources */,

@@ -13,7 +13,8 @@ class TastingLogEditorTableViewController: UITableViewController, TitleTastingLo
     TastingTastingLogEditorTableViewCellDelegate,
     StoreTastingLogEditorTableViewCellDelegate,
     DetailTastingLogEditorTableViewCellDelegate,
-    OrderTastingLogEditorTableViewCellDelegate{
+    OrderTastingLogEditorTableViewCellDelegate,
+    PhotoTastingLogEditorTableViewCellDelegate{
 
     struct StoryboardConstants {
         static let storyboardName = "Main"
@@ -202,7 +203,18 @@ class TastingLogEditorTableViewController: UITableViewController, TitleTastingLo
     
     func valueChangedOrder(order : Order){
         self.tastingLog.order = order
-    }    
+    }
+    
+    func valueChangedPhoto(photo: UIImage) {
+        // 容量は大きくてもユーザーの端末なので大丈夫
+        // TODO: 画像のサイズから圧縮率を決める
+        self.tastingLog.photo = UIImageJPEGRepresentation(photo, 0.5)
+    }
+    
+    func deselectSelectedCell() {
+        // Note: Should not be necessary but current iOS 8.0 bug requires it.
+        self.tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow!, animated: false)
+    }
 }
 
 protocol TastingLogEditorTableViewControllerDelegate {
