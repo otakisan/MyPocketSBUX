@@ -12,6 +12,24 @@ import Parse
 class ProfileTableViewController: UITableViewController {
     
     var user : PFUser?
+    private(set) var isPrivateAccount = true
+
+    struct Constants {
+        struct Storyboard {
+            static let storyboardName = "Main"
+            static let viewControllerIdentifier = "ProfileTableViewController"
+        }
+    }
+
+    class func forUser(user : PFUser?) -> ProfileTableViewController {
+        let storyboard = UIStoryboard(name: Constants.Storyboard.storyboardName, bundle: nil)
+        
+        let viewController = storyboard.instantiateViewControllerWithIdentifier(Constants.Storyboard.viewControllerIdentifier) as! ProfileTableViewController
+        
+        viewController.user = user
+        
+        return viewController
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +45,9 @@ class ProfileTableViewController: UITableViewController {
         }
         
         self.navigationItem.title = self.user?.username
+        
+        self.setIsPrivateAccount()
+        //self.changeCellSelectionStyle()
     }
 
     override func didReceiveMemoryWarning() {
@@ -102,8 +123,67 @@ class ProfileTableViewController: UITableViewController {
             logsVC.user = self.user
         } else if let editProfileVC = segue.destinationViewController as? EditProfileTableViewController {
             editProfileVC.user = self.user
+        } else if let followersVC = segue.destinationViewController as? FollowersTableViewController {
+            followersVC.user = self.user
+        } else if let followingVC = segue.destinationViewController as? FollowingTableViewController {
+            followingVC.user = self.user
         }
     }
     
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        return !(["tastingLogsCollectionViewControllerSegue", "followerTableViewControllerSegue", "followingTableViewControllerSegue", "editProfileTableViewControllerSegue"].contains(identifier) && self.isPrivateAccount)
+    }
+    
+    private func setIsPrivateAccount() {
+        if let currentUser = PFUser.currentUser(), let targetUser = self.user, let isPrivateAccount = currentUser[userIsPrivateAccountKey] as? Bool {
+            if currentUser.username == targetUser.username || !isPrivateAccount {
+                // 自分自身もしくは公開アカウント
+                // 閲覧を有効化
+                self.isPrivateAccount = false
+            }
+            else {
+                // プロフィール閲覧の対象ユーザーをフォローしているか（非同期通信の結果で切り分け）
+                ParseUtility.instance.isFollowerInBackgroundWithBlock(currentUser, target: targetUser, block: { (results, error) -> Void in
+                    if error == nil, let activities = results where activities.count > 0 {
+                        self.isPrivateAccount = false
+                    } else {
+                        self.isPrivateAccount = true
+                    }
+                })
+            }
+        } else {
+            // 判定に必要な情報が取得できない場合は、参照不可
+            self.isPrivateAccount = true
+        }
+    }
+    
+    private func changeCellSelectionStyle() {
+        if let currentUser = PFUser.currentUser(), let targetUser = self.user, let isPrivateAccount = currentUser[userIsPrivateAccountKey] as? Bool {
+            if currentUser.username == targetUser.username || !isPrivateAccount {
+                // 自分自身もしくは公開アカウント
+                // 閲覧を有効化
+                self.changeCellSelectionStyleOfPrivateInfos(.Default)
+            }
+            else {
+                // プロフィール閲覧の対象ユーザーをフォローしているか（非同期通信の結果で切り分け）
+                ParseUtility.instance.isFollowerInBackgroundWithBlock(currentUser, target: targetUser, block: { (results, error) -> Void in
+                    if error == nil, let activities = results where activities.count > 0 {
+                        self.changeCellSelectionStyleOfPrivateInfos(.Default)
+                    } else {
+                        self.changeCellSelectionStyleOfPrivateInfos(.None)
+                    }
+                })
+            }
+        } else {
+            // 判定に必要な情報が取得できない場合は、参照不可
+            self.changeCellSelectionStyleOfPrivateInfos(.None)
+        }
+    }
+    
+    private func changeCellSelectionStyleOfPrivateInfos(selectionStyle : UITableViewCellSelectionStyle) {
+        for index in 0...3 {
+            self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0))?.selectionStyle = selectionStyle
+        }
+    }
 
 }

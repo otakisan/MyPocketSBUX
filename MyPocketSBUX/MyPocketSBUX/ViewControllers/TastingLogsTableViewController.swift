@@ -10,6 +10,11 @@ import UIKit
 
 class TastingLogsTableViewController: TastingLogsBaseTableViewController, UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, FilteredTastingLogsTableViewControllerDelegate {
     
+    struct StoryboardConstants {
+        static let storyboardName = "Main"
+        static let viewControllerIdentifier = "TastingLogsTableViewController"
+    }
+    
     // Search controller to help us with filtering.
     var searchController: UISearchController!
     
@@ -17,6 +22,18 @@ class TastingLogsTableViewController: TastingLogsBaseTableViewController, UISear
     var filteredTastingLogsTableController: FilteredTastingLogsTableViewController!
     
     private var refreshing = false
+    
+    var myPocketId = ""
+    
+    class func forUser(myPocketId : String) -> TastingLogsTableViewController {
+        let storyboard = UIStoryboard(name: StoryboardConstants.storyboardName, bundle: nil)
+        
+        let viewController = storyboard.instantiateViewControllerWithIdentifier(StoryboardConstants.viewControllerIdentifier) as! TastingLogsTableViewController
+        
+        viewController.myPocketId = myPocketId
+        
+        return viewController
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +43,11 @@ class TastingLogsTableViewController: TastingLogsBaseTableViewController, UISear
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        // TODO: 一旦、設定ない場合にはカレントユーザーを初期設定とする
+        if self.myPocketId == "" {
+            self.myPocketId = IdentityContext.sharedInstance.currentUserID
+        }
         
         self.intializeSearchController()
         
@@ -190,8 +212,9 @@ class TastingLogsTableViewController: TastingLogsBaseTableViewController, UISear
     func refreshDataAndReloadTableView(){
                 
         // TODO: オーダーをサーバーにアップするようになったら、オーダーも取得する
-        ContentsManager.instance.fetchContents(["store"], orderKeys: [], completionHandler: { fetchResults in
-            ContentsManager.instance.fetchContents(["tasting_log"], orderKeys: [(columnName : "tastingAt", ascending : false)], completionHandler: { fetchResults in
+        ContentsManager.instance.fetchContents(["store"], variables: [:], orderKeys: [], completionHandler: { fetchResults in
+            ContentsManager.instance.fetchContents(["tasting_log"], variables: ["myPocketId": self.myPocketId
+                ], orderKeys: [(columnName : "tastingAt", ascending : false)], completionHandler: { fetchResults in
                 self.tastingLogs = fetchResults.first?.entities as? [TastingLog] ?? []
                 self.reloadData()
             })
@@ -199,7 +222,8 @@ class TastingLogsTableViewController: TastingLogsBaseTableViewController, UISear
     }
     
     func refreshLocalDbAndReload(completionHandler: (Void -> Void)?) {
-        ContentsManager.instance.refreshContents(["tasting_log"], orderKeys: [(columnName : "tastingAt", ascending : false)], completionHandler: { fetchResults in
+        ContentsManager.instance.refreshContents(["tasting_log"], variables: ["myPocketId": self.myPocketId
+            ], orderKeys: [(columnName : "tastingAt", ascending : false)], completionHandler: { fetchResults in
             self.tastingLogs = fetchResults.first?.entities as? [TastingLog] ?? []
             self.reloadData({self.refreshing = false})
             completionHandler?()

@@ -56,10 +56,18 @@ class ToYouActivityTableViewController: PFQueryTableViewController {
     }
     
     override func queryForTable() -> PFQuery {
-        let query = PFQuery(className: "Activity")
-        query.includeKey("toUser")
-        query.includeKey("fromUser")
-        query.whereKey("toUser", equalTo: PFUser.currentUser() ?? PFUser())
+        let query = PFQuery(className: activityClassKey)
+        query.includeKey(activityToUserKey)
+        query.includeKey(activityFromUserKey)
+        query.whereKey(activityToUserKey, equalTo: PFUser.currentUser() ?? PFUser())
+        
+        // 非公開アカウントにしている場合は、承認したユーザーのアクティビティのみ表示
+        if let currentUser = PFUser.currentUser() where currentUser[userIsPrivateAccountKey] as? Bool == true {
+            let approvedQuery = PFQuery(className: activityClassKey)
+            approvedQuery.whereKey(activityTypeKey, equalTo: activityTypeApprove)
+            approvedQuery.whereKey(activityFromUserKey, equalTo: currentUser)
+            query.whereKey(activityFromUserKey, matchesKey: activityToUserKey, inQuery: approvedQuery)
+        }
         
         return query
     }
@@ -68,7 +76,7 @@ class ToYouActivityTableViewController: PFQueryTableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath)
         
         if let results = self.objects as? [PFObject] {
-            cell.textLabel?.text = "\((results[indexPath.row]["fromUser"] as? PFUser)?.username ?? "") \((results[indexPath.row]["type"] as? String ?? "")) your log."
+            cell.textLabel?.text = "\((results[indexPath.row][activityFromUserKey] as? PFUser)?.username ?? "") \((results[indexPath.row][activityTypeKey] as? String ?? "")) your log."
         }
         
         return cell

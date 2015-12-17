@@ -14,7 +14,7 @@ class ContentsManager: NSObject {
     static let instance = BaseFactory.instance.createContentsManager()
     let timeoutInSeconds = 30.0
     
-    func fetchContentsFromWebAndStoreLocalDb(entityName : String, isRefresh: Bool, completionHandler: (() -> Void)){
+    func fetchContentsFromWebAndStoreLocalDb(entityName : String, variables : [String:AnyObject], isRefresh: Bool, completionHandler: (() -> Void)){
         self.fetchContentsFromWeb(entityName, completionHandler: { data, res, error in
             
             if error == nil, let productsJson = (try? NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)) as? NSArray {
@@ -84,9 +84,14 @@ class ContentsManager: NSObject {
 //        return (NSClassFromString("\(entityName)s")() as NSObject.Type)() as! DbContextBase
     }
 
-    func fetchEntitiesFromLocalDb(entityName : String, orderKeys : [(columnName : String, ascending : Bool)]) -> [NSManagedObject] {
+    func fetchEntitiesFromLocalDb(entityName : String, variables : [String:AnyObject] = [:], orderKeys : [(columnName : String, ascending : Bool)]) -> [NSManagedObject] {
         
-        let entities : [NSManagedObject] = self.getProductsAllOrderBy(entityName, orderKeys: orderKeys)
+        var entities : [NSManagedObject] = []
+        if variables.count == 0 {
+            entities = self.getProductsAllOrderBy(entityName, orderKeys: orderKeys)
+        } else {
+            entities = self.getDbContext(entityName).findEntities(variables, orderKeys: orderKeys)
+        }
         
         return entities
     }
@@ -97,7 +102,7 @@ class ContentsManager: NSObject {
     
     // TODO: 現状だと、全て同じソート条件で全て同じエンティティを検索する
     // [(entityName: String, orderKeys: [(columnName : String, ascending : Bool)])]のセットで受け取るようにする
-    func fetchContents(entityNames : [String], orderKeys : [(columnName : String, ascending : Bool)], completionHandler: ([(entityName: String, entities: [NSManagedObject])] -> Void)?) {
+    func fetchContents(entityNames : [String], variables : [String:AnyObject], orderKeys : [(columnName : String, ascending : Bool)], completionHandler: ([(entityName: String, entities: [NSManagedObject])] -> Void)?) {
         
         var fetchResults : [(entityName: String, entities: [NSManagedObject])] = []
         
@@ -112,20 +117,20 @@ class ContentsManager: NSObject {
         for entityName in entityNames {
             dispatch_semaphore_wait(semaphore, timeout/*DISPATCH_TIME_FOREVER*/)
             let dbContext = self.getDbContext(entityName)
-            let count = dbContext.countByFetchRequestTemplate([String:AnyObject]())
+            let count = dbContext.countByFetchRequestTemplate(variables)
             if count == 0 {
-                self.fetchContentsFromWebAndStoreLocalDb(entityName, isRefresh: false, completionHandler: {
+                self.fetchContentsFromWebAndStoreLocalDb(entityName, variables: variables, isRefresh: false, completionHandler: {
                     
                     // TODO: セクションごとのカテゴライズは別で行う
                     // ローカルDBのキャッシュデータを取得
-                    fetchResults += [(entityName: entityName, entities: self.fetchEntitiesFromLocalDb(entityName, orderKeys: orderKeys))]
+                    fetchResults += [(entityName: entityName, entities: self.fetchEntitiesFromLocalDb(entityName, variables: variables, orderKeys: orderKeys))]
                     
                     // 解放
                     dispatch_semaphore_signal(semaphore)
                 })
             }
             else{
-                fetchResults += [(entityName: entityName, entities: self.fetchEntitiesFromLocalDb(entityName, orderKeys: orderKeys))]
+                fetchResults += [(entityName: entityName, entities: self.fetchEntitiesFromLocalDb(entityName, variables: variables, orderKeys: orderKeys))]
                 
                 // 解放
                 dispatch_semaphore_signal(semaphore)
@@ -147,7 +152,7 @@ class ContentsManager: NSObject {
         })
     }
 
-    func refreshContents(entityNames : [String], orderKeys : [(columnName : String, ascending : Bool)], completionHandler: ([(entityName: String, entities: [NSManagedObject])] -> Void)?) {
+    func refreshContents(entityNames : [String], variables : [String:AnyObject] = [:], orderKeys : [(columnName : String, ascending : Bool)], completionHandler: ([(entityName: String, entities: [NSManagedObject])] -> Void)?) {
         
         var fetchResults : [(entityName: String, entities: [NSManagedObject])] = []
         
@@ -161,10 +166,10 @@ class ContentsManager: NSObject {
         // 失敗した場合には、テーブルには触れず、既存のデータをフェッチして返す。いずれもステータス（成功・失敗）を返却する。
         for entityName in entityNames {
             dispatch_semaphore_wait(semaphore, timeout/*DISPATCH_TIME_FOREVER*/)
-            self.fetchContentsFromWebAndStoreLocalDb(entityName, isRefresh: true, completionHandler: {
+            self.fetchContentsFromWebAndStoreLocalDb(entityName, variables: variables, isRefresh: true, completionHandler: {
                 
                 // ローカルDBのキャッシュデータを取得
-                fetchResults += [(entityName: entityName, entities: self.fetchEntitiesFromLocalDb(entityName, orderKeys: orderKeys))]
+                fetchResults += [(entityName: entityName, entities: self.fetchEntitiesFromLocalDb(entityName, variables: variables, orderKeys: orderKeys))]
                 
                 // 解放
                 dispatch_semaphore_signal(semaphore)

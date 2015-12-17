@@ -68,22 +68,10 @@ class FindFriendsTableViewController: PFQueryTableViewController, FindFriendsCel
     override func queryForTable() -> PFQuery {
         var query : PFQuery = PFQuery()
         if IdentityContext.sharedInstance.signedIn(), let currentUser = PFUser.currentUser() {
-            // TODO: 一旦取得しなくても済む方法はある？
-            let activityQuery = PFQuery(className: "Activity")
-            activityQuery.includeKey("toUser")
-            activityQuery.whereKey("fromUser", equalTo: currentUser)
-            if let objects = try? activityQuery.findObjects() {
-                let toUserObjectIds : [String] = objects.reduce([], combine: { (var ids, activity) -> [String] in
-                    ids += [activity["toUser"].objectId ?? ""]
-                    return ids
-                })
-                
-                query = PFUser.query()!
-                // TODO: ログインユーザーとすでにフォローが完了しているユーザーを除去する
-                query.whereKey("username", notEqualTo: currentUser.username ?? "")
-                query.whereKey("objectId", notContainedIn: toUserObjectIds)
-                query.orderByDescending("createdAt")
-            }
+            // TODO: おすすめを自動検索する（暫定的にログインユーザー以外を全表示とする）
+            query = PFUser.query()!
+            query.whereKey("username", notEqualTo: currentUser.username ?? "")
+            query.orderByDescending("createdAt")
         }
         
         //let query = PFUser.query()!

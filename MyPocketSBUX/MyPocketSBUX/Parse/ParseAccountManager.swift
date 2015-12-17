@@ -62,6 +62,7 @@ class ParseAccountManager: AccountManager {
         user.username = myPocketID
         user.password = password
         user.email = emailAddress
+        user[userIsPrivateAccountKey] = true
         
         // other fields can be set if you want to save more information
         //user["phone"] = phone
@@ -91,4 +92,18 @@ class ParseAccountManager: AccountManager {
         UIApplication.sharedApplication().registerForRemoteNotifications()
     }
     
+    override var privateAccount : Bool {
+        get{
+            return PFUser.currentUser()?[userIsPrivateAccountKey] as? Bool ?? false
+        }
+        set{
+            if let currentUser = PFUser.currentUser() {
+                currentUser[userIsPrivateAccountKey] = newValue
+                
+                // TODO: 変更に成功した契機で、関連箇所の更新処理をキックする必要あり
+                // ここでのコールバックから行うか、webhooks起点で行うか。
+                currentUser.saveInBackground()
+            }
+        }
+    }
 }

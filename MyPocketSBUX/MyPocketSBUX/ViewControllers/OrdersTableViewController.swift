@@ -115,8 +115,8 @@ class OrdersTableViewController: OrdersBaseTableViewController, UISearchBarDeleg
     func refreshDataAndReloadTableView(){
         
         // TODO: オーダーをサーバーにアップするようになったら、オーダーも取得する
-        ContentsManager.instance.fetchContents(["store"], orderKeys: [], completionHandler: { fetchResults in
-            ContentsManager.instance.fetchContents(["order"], orderKeys: [(columnName : "updatedAt", ascending : false)], completionHandler: { fetchResults in
+        ContentsManager.instance.fetchContents(["store"], variables: [:], orderKeys: [], completionHandler: { fetchResults in
+            ContentsManager.instance.fetchContents(["order"], variables: [:], orderKeys: [(columnName : "updatedAt", ascending : false)], completionHandler: { fetchResults in
                 self.orders = fetchResults.first?.entities as? [Order] ?? []
                 self.reloadData()
             })

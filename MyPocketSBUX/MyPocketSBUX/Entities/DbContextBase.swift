@@ -381,4 +381,15 @@ class DbContextBase: NSObject {
         
         return zPK
     }
+    
+    static func addAndPredicatesFilteringByEqual(fetchRequerst : NSFetchRequest, variables : [String:AnyObject]) {
+        variables.forEach({variable in
+            let additionalPredicate: NSPredicate = NSPredicate(format: "\(variable.0) = %@", argumentArray: [variable.1])
+            if let currentPredicate = fetchRequerst.predicate {
+                fetchRequerst.predicate = NSCompoundPredicate(type: NSCompoundPredicateType.AndPredicateType, subpredicates: [currentPredicate, additionalPredicate])
+            }else{
+                fetchRequerst.predicate = additionalPredicate
+            }
+        })
+    }
 }

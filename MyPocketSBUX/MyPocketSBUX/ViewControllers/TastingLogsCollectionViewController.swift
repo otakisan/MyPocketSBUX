@@ -30,6 +30,9 @@ class TastingLogsCollectionViewController: PFQueryCollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // TODO: エディター側がローカルDB経由のみのデータ取得であることへの暫定処置
+        self.fetchTastingLogAndStoreLocalDb()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -128,6 +131,7 @@ class TastingLogsCollectionViewController: PFQueryCollectionViewController {
     // MARK: UICollectionViewDelegate
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        // TODO: あらかじめローカルDBに格納しておかないとヒットしない
         if let tastingLog : TastingLog = TastingLogs.instance().findById(self.objects[indexPath.row]["id"] as? Int ?? 0){
             self.presentTastingLogEditor(tastingLog)
         }
@@ -142,6 +146,16 @@ class TastingLogsCollectionViewController: PFQueryCollectionViewController {
         //self.tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow!, animated: false)
         
         self.presentViewController(detailViewController, animated: true, completion: nil)
+    }
+    
+    private func fetchTastingLogAndStoreLocalDb(){
+        // TODO: ローカルDBに格納して置かないと、エディター側に渡せない
+        ContentsManager.instance.fetchContents(["store"], variables: [:], orderKeys: [], completionHandler: { fetchResults in
+            ContentsManager.instance.fetchContents(["tasting_log"], variables: ["myPocketId": self.user?.username ?? ""
+                ], orderKeys: [(columnName : "tastingAt", ascending : false)], completionHandler: { fetchResults in
+                    print("completed to store \(self.user?.username)'s tastinglogs")
+            })
+        })
     }
     /*
     // Uncomment this method to specify if the specified item should be highlighted during tracking

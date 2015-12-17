@@ -115,6 +115,15 @@ class AccountManager: NSObject {
         return result
     }
     
+    var privateAccount : Bool {
+        get{
+            return false
+        }
+        set{
+            
+        }
+    }
+    
     func registerForRemoteNotifications() {
     }
 }

@@ -23,7 +23,7 @@ class ProductsForSaleTableViewController: UITableViewController, ProductsForSale
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         Beans.instance().clearAllEntities()
-        ContentsManager.instance.fetchContents(["bean"], orderKeys: [(columnName : "category", ascending : true), (columnName : "name", ascending : true)], completionHandler: { fetchResults in
+        ContentsManager.instance.fetchContents(["bean"], variables: [:], orderKeys: [(columnName : "category", ascending : true), (columnName : "name", ascending : true)], completionHandler: { fetchResults in
             self.productsForSaleItems = fetchResults.map {
                 var listItems : [ProductsForSaleListItem] = []
                 for entity in $0.entities {

@@ -120,7 +120,7 @@ class TunesTableViewController: UITableViewController {
 
     func intialize() {
         
-        ContentsManager.instance.fetchContents(["tune"], orderKeys: [(columnName : "id", ascending : true)], completionHandler: { fetchResults in
+        ContentsManager.instance.fetchContents(["tune"], variables: [:], orderKeys: [(columnName : "id", ascending : true)], completionHandler: { fetchResults in
             self.tunes = fetchResults.reduce([], combine: {
                 $0 + $1.entities.map( { entity in TuneItem(entity: entity as! Tune) } )
             })

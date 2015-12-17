@@ -17,8 +17,8 @@ class SeminarsTableViewController: SeminarsBaseTableViewController, UISearchBarD
     var filteredSeminarsTableController: FilteredSeminarsTableViewController!
     
     func intialize() {
-        ContentsManager.instance.fetchContents(["store"], orderKeys: [], completionHandler: { fetchResults in
-            ContentsManager.instance.fetchContents(["seminar"], orderKeys: [(columnName : "edition", ascending : true)], completionHandler: { fetchResults in
+        ContentsManager.instance.fetchContents(["store"], variables: [:], orderKeys: [], completionHandler: { fetchResults in
+            ContentsManager.instance.fetchContents(["seminar"], variables: [:], orderKeys: [(columnName : "edition", ascending : true)], completionHandler: { fetchResults in
                 self.seminars = self.categorized(fetchResults.first?.entities as? [Seminar] ?? [])
                 self.reloadData()
             })

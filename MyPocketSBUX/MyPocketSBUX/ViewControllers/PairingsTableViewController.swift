@@ -110,8 +110,8 @@ class PairingsTableViewController: UITableViewController {
     func refreshDataAndReloadTableView(){
         // beanとfoodがローカルDBに格納済みである必要あり
         // 下記だと、使用しないbeanとfoodが返却されてしまうので、Webから取得＆ローカルDBへの登録のみ行うオプション指定も可能とする必要あり
-        ContentsManager.instance.fetchContents(["bean", "food"], orderKeys: [], completionHandler: { fetchResults in
-            ContentsManager.instance.fetchContents(["pairing"], orderKeys: [(columnName : "beanId", ascending : true), (columnName : "foodId", ascending : true)], completionHandler: { fetchResults in
+        ContentsManager.instance.fetchContents(["bean", "food"], variables: [:], orderKeys: [], completionHandler: { fetchResults in
+            ContentsManager.instance.fetchContents(["pairing"], variables: [:], orderKeys: [(columnName : "beanId", ascending : true), (columnName : "foodId", ascending : true)], completionHandler: { fetchResults in
                 self.foodPairings = PairingManager.instance.arrayOfBeanToFoods(fetchResults.first?.entities as? [Pairing] ?? [])
                 self.reloadData()
             })

@@ -13,6 +13,7 @@ class TastingLogEditorTableViewCell: UITableViewCell {
     var delegate: TastingLogEditorTableViewCellDelegate?
     var detailViewController: UIViewController?
     var detailViewModally : Bool = true
+    var newTastingLog = false
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -48,6 +49,7 @@ class TastingLogEditorTableViewCell: UITableViewCell {
     }
     
     func configure(tastingLog: TastingLog) {
+        self.newTastingLog = tastingLog.id == 0
         self.detailViewController = self.detailView()
     }
     
@@ -351,4 +353,116 @@ class PhotoTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, UIImag
 protocol PhotoTastingLogEditorTableViewCellDelegate : TastingLogEditorTableViewCellDelegate {
     func valueChangedPhoto(photo: UIImage)
     func deselectSelectedCell()
+}
+
+class LikeTastingLogEditorTableViewCell : TastingLogEditorTableViewCell {
+    
+    private(set) var tastingLogId = 0
+    
+    override func configure(tastingLog: TastingLog) {
+        super.configure(tastingLog)
+        
+        self.tastingLogId = tastingLog.id as Int
+        
+        self.textLabel?.textColor = self.newTastingLog ? UIColor.lightGrayColor() : UIColor.blackColor()
+        
+        // カレントユーザーがすでに「いいね」をつけたか判定
+        ParseUtility.instance.hasLikedLogByCurrentUserInBackgroundWithBlock(tastingLog.id as Int) { (hasLiked, error) -> Void in
+            if hasLiked {
+                self.accessoryType = .Checkmark
+            } else {
+                self.accessoryType = .None
+            }
+        }
+        
+        // いいねの件数を取得、表示
+        self.refreshLikeCount()
+    }
+    
+    override func didSelect(parentViewController: UITableViewController) {
+        super.didSelect(parentViewController)
+        
+        // 「いいね」のON/OFF切り替え
+        // 新規の場合は不要
+        if !self.newTastingLog {
+            self.switchLike()
+        }
+    }
+    
+    private func switchLike() {
+        switch self.accessoryType {
+        case .Checkmark:
+            ParseUtility.instance.unlikeTastingLogInBackgroundWithBlock(self.tastingLogId, block: { (isSuccess, error) -> Void in
+                self.refreshLikeCount()
+                self.accessoryType = .None
+            })
+            break
+        case .None:
+            ParseUtility.instance.likeTastingLogInBackgroundWithBlock(self.tastingLogId, block: { (isSuccess, error) -> Void in
+                if isSuccess {
+                    self.accessoryType = .Checkmark
+                } else {
+                    self.accessoryType = .None
+                }
+                
+                // TODO: 完了後に数を取得しに行っているから、増加した後の値が取れるかと思いきや、サーバー側処理のよってはそうでないこともあるよう
+                self.refreshLikeCount()
+            })
+            break
+        default:
+            break
+        }
+    }
+    
+    private func refreshLikeCount() {
+        ParseUtility.instance.countLikeForLogInBackgroundWithBlock(self.tastingLogId as Int) { (count, error) -> Void in
+            self.detailTextLabel?.text = "(\(count))"
+        }
+    }
+}
+
+protocol LikeTastingLogEditorTableViewCellDelegate : TastingLogEditorTableViewCellDelegate {
+}
+
+class CommentTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, CommentsOnTastingLogContainerViewDelegate {
+    
+    private(set) var tastingLogId = 0
+    
+    override func configure(tastingLog: TastingLog) {
+        super.configure(tastingLog)
+        self.detailViewModally = false
+        self.tastingLogId = tastingLog.id as Int
+        self.textLabel?.textColor = self.newTastingLog ? UIColor.lightGrayColor() : UIColor.blackColor()
+        self.refreshCommentCount()
+    }
+    
+    override func detailView() -> UIViewController? {
+        var detailView : CommentsOnTastingLogContainerViewController?
+        
+        // 新規の場合はコメント不可（不要）
+        if !self.newTastingLog {
+            detailView = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("CommentsOnTastingLogContainerViewController") as? CommentsOnTastingLogContainerViewController
+            detailView?.delegate = self
+        }
+        
+        return detailView
+    }
+    
+    override func didSelect(parentViewController: UITableViewController) {
+        if let detailVc = self.detailViewController as? CommentsOnTastingLogContainerViewController {
+            detailVc.tastingLogId = self.tastingLogId
+        }
+        
+        super.didSelect(parentViewController)
+    }
+    
+    func didSendComment(comment : String) {
+        self.refreshCommentCount()
+    }
+    
+    private func refreshCommentCount() {
+        ParseUtility.instance.countCommentForLogInBackgroundWithBlock(self.tastingLogId as Int) { (count, error) -> Void in
+            self.detailTextLabel?.text = "(\(count))"
+        }
+    }
 }

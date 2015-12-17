@@ -22,6 +22,7 @@ class TastingLogEditorTableViewController: UITableViewController, TitleTastingLo
     }
 
     @IBOutlet weak var tastingLogEditorNavigationBar: UINavigationBar!
+    @IBOutlet weak var saveBarButtonItem: UIBarButtonItem!
     
     var tastingLog: TastingLog!
     var newTastingLog = false
@@ -76,6 +77,8 @@ class TastingLogEditorTableViewController: UITableViewController, TitleTastingLo
         // 登録されていなければ登録する
         self.newTastingLog = TastingLogs.registerEntity(self.tastingLog)
         
+        // ログインユーザー、もしくは新規のログのみ保存可能
+        self.saveBarButtonItem.enabled = IdentityContext.sharedInstance.signedIn() && (IdentityContext.sharedInstance.currentUserID == self.tastingLog.myPocketId || self.newTastingLog)
     }
 
     override func didReceiveMemoryWarning() {

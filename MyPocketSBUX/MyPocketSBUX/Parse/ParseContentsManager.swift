@@ -24,7 +24,7 @@ class ParseContentsManager: ContentsManager {
         return results?.count == 0 ? 0 : Int(results?.first?["id"] as? NSNumber ?? 0)
     }
 
-    override func fetchContentsFromWebAndStoreLocalDb(entityName: String, isRefresh: Bool, completionHandler: (() -> Void)) {
+    override func fetchContentsFromWebAndStoreLocalDb(entityName: String, variables : [String:AnyObject], isRefresh: Bool, completionHandler: (() -> Void)) {
         
         // 外部結合等、関連のない単体エンティティでないものは、それぞれ振り分ける
         // TODO: 結合が必要な場合でも汎用化できると思うが、ひとまずの動作を目指すため置いておく
@@ -44,7 +44,7 @@ class ParseContentsManager: ContentsManager {
             // REST APIにはSchema APIというのがあって、どんなカラムがあるのかわかる
             // ここでは一旦決め打ち
             if entityName == TastingLogManager.instance.entityResourceName() {
-                query.whereKey("myPocketId", equalTo: IdentityContext.sharedInstance.currentUserID)
+                query.whereKey("myPocketId", equalTo: variables["myPocketId"] as? String ?? IdentityContext.sharedInstance.currentUserID)
             }
             self.fetchAndStoreRecursively(query, entityName: entityName, completionHandler: completionHandler)
             

@@ -17,7 +17,8 @@ class BasicProfileTableViewCell: PFTableViewCell {
     @IBOutlet weak var followButton: UIButton!
     
     var delegate : BasicProfileTableViewCellDelegate?
-    private (set) var user : PFUser?
+    private (set) var toUser : PFUser?
+    private (set) var fromUser : PFUser?
     
     @IBAction func touchUpInsideFollowButton(sender: UIButton) {
         self.shouldToggleFollowFriendForCell()
@@ -35,13 +36,14 @@ class BasicProfileTableViewCell: PFTableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(user : PFUser?) {
-        self.user = user
+    func configure(fromUser : PFUser?, toUser : PFUser?) {
+        self.fromUser = fromUser
+        self.toUser = toUser
         self.configureProfilePicture()
         self.configureFollowButton()
 
-        if self.user != nil {
-            self.idLabel.text = self.user?.username
+        if self.toUser != nil {
+            self.idLabel.text = self.toUser?.username
         }
         else{
             self.idLabel.text = "(No User Data)"
@@ -52,10 +54,11 @@ class BasicProfileTableViewCell: PFTableViewCell {
         self.followButton.setTitle("✔︎ Following", forState: UIControlState.Selected)
         self.followButton.setTitle("+ Follow", forState: UIControlState.Normal)
         
-        if let user = self.user, let currentUser = PFUser.currentUser() {
-            let query = PFQuery(className: "Activity")
-            query.whereKey("fromUser", equalTo: currentUser)
-            query.whereKey("toUser", equalTo: user)
+        if let toUser = self.toUser, let fromUser = self.fromUser {
+            let query = PFQuery(className: activityClassKey)
+            query.whereKey(activityTypeKey, equalTo: activityTypeFollow)
+            query.whereKey(activityFromUserKey, equalTo: fromUser)
+            query.whereKey(activityToUserKey, equalTo: toUser)
             query.findObjectsInBackgroundWithBlock({ (pfObjects, error) -> Void in
                 if pfObjects != nil && pfObjects!.count > 0 {
                     self.followButton.selected = true
@@ -68,11 +71,16 @@ class BasicProfileTableViewCell: PFTableViewCell {
         else{
             self.followButton.enabled = false
         }
+        
+        // fromUserが自分の場合のときのみ編集可能
+        if self.fromUser?.username != PFUser.currentUser()?.username {
+            self.followButton.enabled = false
+        }
     }
     
     private func configureProfilePicture() {
-        if let user = self.user {
-            self.profilePictureImageView.file = user["profilePicture"] as? PFFile
+        if let user = self.toUser {
+            self.profilePictureImageView.file = user[userProfilePictureKey] as? PFFile
             self.profilePictureImageView.loadInBackground({ (profilePictureImage, error) -> Void in
                 if profilePictureImage == nil {
                     self.profilePictureImageView.backgroundColor = UIColor.lightGrayColor()
@@ -88,7 +96,7 @@ class BasicProfileTableViewCell: PFTableViewCell {
     }
     
     private func shouldToggleFollowFriendForCell(){
-        if let cellUser = self.user {
+        if let cellUser = self.toUser {
             if self.followButton.selected {
                 // Unfollow
                 self.followButton.selected = false

@@ -12,7 +12,7 @@ class ParseMenuManager: MenuManager {
 
     // TODO: 要実装
     override func updateProductLocalDb(productCategory: String, completionHandler: ((NSError?) -> Void)) {
-        ContentsManager.instance.fetchContentsFromWebAndStoreLocalDb(productCategory, isRefresh: true, completionHandler: {
+        ContentsManager.instance.fetchContentsFromWebAndStoreLocalDb(productCategory, variables: [:], isRefresh: true, completionHandler: {
             completionHandler(nil)
         })
     }

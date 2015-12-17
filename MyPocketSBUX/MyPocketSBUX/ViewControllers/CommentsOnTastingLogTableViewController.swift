@@ -1,28 +1,19 @@
 //
-//  SettingsTableViewController.swift
+//  CommentsOnTastingLogTableViewController.swift
 //  MyPocketSBUX
 //
-//  Created by takashi on 2015/05/08.
-//  Copyright (c) 2015年 Takashi Ikeda. All rights reserved.
+//  Created by takashi on 2015/12/13.
+//  Copyright © 2015年 Takashi Ikeda. All rights reserved.
 //
 
 import UIKit
+import Parse
+import ParseUI
 
-class SettingsTableViewController: UITableViewController {
+class CommentsOnTastingLogTableViewController: PFQueryTableViewController {
+    
+    var commentsTableDelegate : CommentsOnTastingLogTableViewDelegate?
 
-    @IBOutlet weak var siteForPlayingTunesSegmentedControl: UISegmentedControl!
-    @IBOutlet weak var privateAccountSwitch: UISwitch!
-    
-    @IBAction func valueChangedPrivateAccountSwitch(sender: UISwitch) {
-        AccountManager.instance.privateAccount = sender.on
-    }
-    
-    @IBAction func valueChangedSitePlayingTunesSegment(sender: UISegmentedControl) {
-        if let selected = sender.titleForSegmentAtIndex(sender.selectedSegmentIndex) {
-            SettingsManager.instance.siteForPlayingTunes = selected
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,54 +22,60 @@ class SettingsTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
-        self.configureSettingsItems()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    func configureSettingsItems() {
-        // TODO: 完全に動的に作成するのは必要になったら
-        // 外観は元のオブジェクトの情報を使用し、別途インスタンスを生成、addSubViewする必要あり
-        // イベントの取得も必要なため、addTargetも必要になる
-        for index in 0..<SettingsManager.Defs.SiteForPlayingTunes.codes.count {
-            self.siteForPlayingTunesSegmentedControl.setTitle(SettingsManager.Defs.SiteForPlayingTunes.codes[index], forSegmentAtIndex: index)
-        }
+
+    override func queryForTable() -> PFQuery {
+        let tastingLogQuery = PFQuery(className: tastingLogClassKey)
+        tastingLogQuery.whereKey(tastingLogIdKey, equalTo: self.commentsTableDelegate?.idOfTastingLog() ?? 0)
         
-        self.privateAccountSwitch.on = AccountManager.instance.privateAccount
+        let activityQuery = PFQuery(className: activityClassKey)
+        activityQuery.whereKey(activityTypeKey, equalTo: activityTypeComment)
+        activityQuery.whereKey(activityTastingLogKey, matchesQuery: tastingLogQuery)
+        activityQuery.includeKey(activityFromUserKey)
+        
+        return activityQuery
+    }
+    
+    override func didMoveToParentViewController(parent: UIViewController?) {
+        self.commentsTableDelegate = parent as? CommentsOnTastingLogTableViewDelegate
+        self.loadObjects()
     }
 
     // MARK: - Table view data source
 
 //    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        // #warning Potentially incomplete method implementation.
-//        // Return the number of sections.
+//        // #warning Incomplete implementation, return the number of sections
 //        return 0
 //    }
 //
 //    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete method implementation.
-//        // Return the number of rows in the section.
+//        // #warning Incomplete implementation, return the number of rows
 //        return 0
 //    }
 
-    /*
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("defaultCommentsOnTastingLogTableViewCell", forIndexPath: indexPath)
 
         // Configure the cell...
+        if let pfObject = self.objects?[indexPath.row] as? PFObject {
+            cell.textLabel?.text = (pfObject[activityFromUserKey] as? PFUser)?.username
+            cell.detailTextLabel?.text = (pfObject[activityContentKey] as? String)
+        }
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
+        // Return false if you do not want the specified item to be editable.
         return true
     }
     */
@@ -105,7 +102,7 @@ class SettingsTableViewController: UITableViewController {
     /*
     // Override to support conditional rearranging of the table view.
     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
+        // Return false if you do not want the item to be re-orderable.
         return true
     }
     */
@@ -115,9 +112,13 @@ class SettingsTableViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
+        // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
     */
 
+}
+
+protocol CommentsOnTastingLogTableViewDelegate {
+    func idOfTastingLog() -> Int
 }

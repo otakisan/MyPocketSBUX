@@ -54,4 +54,16 @@ class TastingLogs: DbContextBase {
         }
     }
 
+    override func countByFetchRequestTemplate(variables: [String : AnyObject]) -> Int {
+        
+        var count = 0
+        
+        if let fetchRequest = DbContextBase.getFetchRequestTemplate(self.templateNameFetchAll(), variables: variables, sortDescriptors: nil, limit: 0){
+            
+            DbContextBase.addAndPredicatesFilteringByEqual(fetchRequest, variables: variables)
+            count = DbContextBase.getManagedObjectContext().countForFetchRequest(fetchRequest, error: nil)
+        }
+        
+        return count
+    }
 }

@@ -21,6 +21,8 @@ class FollowingTableViewController: PFQueryTableViewController, BasicProfileTabl
             static let identifier = "basicProfileTableViewCellIdentifier"
         }
     }
+    
+    var user : PFUser?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +39,11 @@ class FollowingTableViewController: PFQueryTableViewController, BasicProfileTabl
         tableView.registerNib(nib, forCellReuseIdentifier: Constants.TableViewCell.identifier)
         
         self.navigationItem.title = "Following"
+        
+        // TODO: 一旦、未指定時のデフォルトをログインユーザーとする
+        if self.user == nil {
+            self.user = PFUser.currentUser()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -63,25 +70,59 @@ class FollowingTableViewController: PFQueryTableViewController, BasicProfileTabl
     }
     
     override func queryForTable() -> PFQuery {
-        let query = PFQuery(className: "Activity")
-        query.includeKey("toUser")
-        query.includeKey("fromUser")
-        query.whereKey("fromUser", equalTo: PFUser.currentUser() ?? PFUser())
-        query.whereKey("type", equalTo: "follow")
         
+        // 公開と非公開でor検索
+        // 公開ユーザー
+        let publicToUserQuery = PFQuery(className: activityClassKey)
+        publicToUserQuery.whereKey(activityFromUserKey, equalTo: self.user ?? PFUser())
+        publicToUserQuery.whereKey(activityTypeKey, equalTo: activityTypeFollow)
+        
+        let publicUser = PFUser.query()!
+        publicUser.whereKey(userUsernameKey, notEqualTo: self.user?.username ?? "")
+        publicUser.whereKey(userIsPrivateAccountKey, equalTo: false)
+        publicToUserQuery.whereKey(activityToUserKey, matchesQuery: publicUser)
+
+        // 非公開ユーザー
+        let privateToUserQuery = PFQuery(className: activityClassKey)
+        privateToUserQuery.whereKey(activityFromUserKey, equalTo: self.user ?? PFUser())
+        privateToUserQuery.whereKey(activityTypeKey, equalTo: activityTypeFollow)
+        
+        let approveQuery = PFQuery(className: activityClassKey)
+        approveQuery.whereKey(activityToUserKey, equalTo: self.user ?? PFUser())
+        approveQuery.whereKey(activityTypeKey, equalTo: activityTypeApprove)
+        privateToUserQuery.whereKey(activityToUserKey, matchesKey: activityFromUserKey, inQuery: approveQuery)
+        
+        let privateUser = PFUser.query()!
+        privateUser.whereKey(userUsernameKey, notEqualTo: self.user?.username ?? "")
+        privateUser.whereKey(userIsPrivateAccountKey, equalTo: true)
+        privateToUserQuery.whereKey(activityToUserKey, matchesQuery: privateUser)
+        
+        // or検索
+        let query = PFQuery.orQueryWithSubqueries([publicToUserQuery, privateToUserQuery])
+        query.includeKey(activityToUserKey)
+        query.includeKey(activityFromUserKey)
+
         return query
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) as! BasicProfileTableViewCell
         
-        cell.configure(object?["toUser"] as? PFUser)
+        cell.configure(self.user, toUser: object?[activityToUserKey] as? PFUser)
         cell.delegate = self
         
         return cell
     }
     
     func touchUpInsideFollowButton(cell: BasicProfileTableViewCell) {
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if let selectedPFObject = self.objectAtIndexPath(indexPath), let toUser = selectedPFObject[activityToUserKey] as? PFUser {
+            let detailViewController = ProfileTableViewController.forUser(toUser)
+            self.navigationController?.pushViewController(detailViewController, animated: true)
+        }
     }
     
     /*

@@ -22,6 +22,8 @@ class FollowersTableViewController: PFQueryTableViewController, BasicProfileTabl
         }
     }
 
+    var user : PFUser?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -36,6 +38,11 @@ class FollowersTableViewController: PFQueryTableViewController, BasicProfileTabl
         tableView.registerNib(nib, forCellReuseIdentifier: Constants.TableViewCell.identifier)
         
         self.navigationItem.title = "Followers"
+        
+        // TODO: 一旦、未指定時のデフォルトをログインユーザーとする
+        if self.user == nil {
+            self.user = PFUser.currentUser()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,24 +69,26 @@ class FollowersTableViewController: PFQueryTableViewController, BasicProfileTabl
     }
     
     override func queryForTable() -> PFQuery {
-        let query = PFQuery(className: "Activity")
-        query.includeKey("toUser")
-        query.includeKey("fromUser")
-        query.whereKey("toUser", equalTo: PFUser.currentUser() ?? PFUser())
-        query.whereKey("type", equalTo: "follow")
+        let query = PFQuery(className: activityClassKey)
+        query.includeKey(activityToUserKey)
+        query.includeKey(activityFromUserKey)
+        query.whereKey(activityToUserKey, equalTo: self.user ?? PFUser())
+        query.whereKey(activityTypeKey, equalTo: activityTypeFollow)
+        
+        if true == self.user?[userIsPrivateAccountKey] as? Bool {
+            let approveQuery = PFQuery(className: activityClassKey)
+            approveQuery.whereKey(activityFromUserKey, equalTo: self.user ?? PFUser())
+            approveQuery.whereKey(activityTypeKey, equalTo: activityTypeApprove)
+            query.whereKey(activityFromUserKey, matchesKey: activityToUserKey, inQuery: approveQuery)
+        }
         
         return query
-        // ユーザーを一発で取るクエリの書き方がわからないので、Activityで取得する
-//        let userQuery = PFUser.query()!
-//        //userQuery.whereKey("objectId", matchesKey: "fromUser", inQuery: query)
-//        userQuery.whereKey("fromUser", matchesQuery: query)
-//        return userQuery
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath) as! BasicProfileTableViewCell
         
-        cell.configure(object?["fromUser"] as? PFUser)
+        cell.configure(self.user, toUser: object?[activityFromUserKey] as? PFUser)
         cell.delegate = self
         
         return cell
@@ -88,6 +97,14 @@ class FollowersTableViewController: PFQueryTableViewController, BasicProfileTabl
     func touchUpInsideFollowButton(cell: BasicProfileTableViewCell) {
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if let selectedPFObject = self.objectAtIndexPath(indexPath), let toUser = selectedPFObject[activityFromUserKey] as? PFUser {
+            let detailViewController = ProfileTableViewController.forUser(toUser)
+            self.navigationController?.pushViewController(detailViewController, animated: true)
+        }
+    }
+
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
