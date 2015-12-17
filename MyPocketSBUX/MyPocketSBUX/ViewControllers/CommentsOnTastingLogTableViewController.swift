@@ -37,6 +37,7 @@ class CommentsOnTastingLogTableViewController: PFQueryTableViewController {
         activityQuery.whereKey(activityTypeKey, equalTo: activityTypeComment)
         activityQuery.whereKey(activityTastingLogKey, matchesQuery: tastingLogQuery)
         activityQuery.includeKey(activityFromUserKey)
+        activityQuery.includeKey(activityToUserKey)
         
         return activityQuery
     }
@@ -45,19 +46,6 @@ class CommentsOnTastingLogTableViewController: PFQueryTableViewController {
         self.commentsTableDelegate = parent as? CommentsOnTastingLogTableViewDelegate
         self.loadObjects()
     }
-
-    // MARK: - Table view data source
-
-//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 0
-//    }
-//
-//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete implementation, return the number of rows
-//        return 0
-//    }
-
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("defaultCommentsOnTastingLogTableViewCell", forIndexPath: indexPath)
@@ -71,26 +59,46 @@ class CommentsOnTastingLogTableViewController: PFQueryTableViewController {
         return cell
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+        var editable = false
+        if let pfObject = self.objects?[indexPath.row] as? PFObject, let currentUser = PFUser.currentUser() {
+            editable = (pfObject[activityFromUserKey] as? PFUser)?.username == currentUser.username || (pfObject[activityToUserKey] as? PFUser)?.username == currentUser.username
+        }
+        return editable
     }
-    */
-
-    /*
-    // Override to support editing the table view.
+    
+    // スワイプのため、空の実装が必要
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
     }
-    */
+    
+    // スワイプ時に表示する項目
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        
+        let deleteAction = UITableViewRowAction(style: .Default, title: "Delete") {(action, indexPath) in
+            self.showAlertThenDeleteComment(indexPath)
+        }
+        deleteAction.backgroundColor = UIColor.redColor()
+        
+        return [deleteAction]
+    }
+
+    func showAlertThenDeleteComment(indexPath : NSIndexPath) {
+        let alertController = UIAlertController(title: "Delete ?", message: "", preferredStyle: .Alert)
+        let okAction = UIAlertAction(title: "OK", style: .Default) {
+            action in self.deleteComment(indexPath)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) {
+            action in
+        }
+        
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func deleteComment(indexPath : NSIndexPath) {
+        self.removeObjectAtIndexPath(indexPath, animated: true)
+    }
 
     /*
     // Override to support rearranging the table view.

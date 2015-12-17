@@ -465,10 +465,10 @@
 			isa = PBXGroup;
 			children = (
 				164BFDCA1AC67D9C003BF77B /* DateUtility.swift */,
+				16EE33251C02F97E0026A926 /* ImageUtility.swift */,
+				16A51AE51B22CDEE001933AB /* JSONUtility.swift */,
 				164BFDCC1AC67DF5003BF77B /* StringExtension.swift */,
 				164BFDD91ACFBEF3003BF77B /* UITableViewControllerExtension.swift */,
-				16A51AE51B22CDEE001933AB /* JSONUtility.swift */,
-				16EE33251C02F97E0026A926 /* ImageUtility.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -476,36 +476,36 @@
 		164BFDCE1ACF88D9003BF77B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				16C3965F1C0281A900903113 /* BasicProfileTableViewCell.swift */,
+				16C396601C0281A900903113 /* BasicProfileTableViewCell.xib */,
+				16B600601AE7CD8C000ECB7E /* CustomItemsTableViewCell.swift */,
+				16CAF7951AE3757300318AE5 /* CustomizingOrderTableViewCell.swift */,
+				16F21E511ADA30A30052AD2A /* DrinkMenuListItemTableViewCell.swift */,
+				16CAF78F1AE28CE000318AE5 /* DrinkOrderTableViewCell.swift */,
+				16253F181BF8226600A68FB8 /* FindFriendsTableViewCell.swift */,
+				16253F191BF8226600A68FB8 /* FindFriendsTableViewCell.xib */,
+				163695D61C1C1A3200C7293E /* FollowRequestsTableViewCell.swift */,
+				163695D71C1C1A3200C7293E /* FollowRequestsTableViewCell.xib */,
+				16F21E571ADA45360052AD2A /* FoodMenuListItemTableViewCell.swift */,
+				16CAF7931AE2ABA900318AE5 /* FoodOrderTableViewCell.swift */,
+				16F21E4F1ADA2FE20052AD2A /* MenuListItemTableViewCell.swift */,
+				16E442CA1AD8EE7A003C3AA2 /* NewsTableViewCell.swift */,
+				162CE3E71B00E90B009D3C6C /* NewsTableViewCell.xib */,
+				16F21E591ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift */,
+				16A51AE11B1AF738001933AB /* OrdersTableViewCell.swift */,
+				16A51AE21B1AF738001933AB /* OrdersTableViewCell.xib */,
+				1683F0B01ADC80270034C7CB /* OrderTableViewCell.swift */,
+				1682F7E81AFE469100FD630D /* ProductImagesCollectionViewCell.swift */,
+				1682F7D61AFC791B00FD630D /* ProductsForSaleTableViewCell.swift */,
 				164BFDCF1ACF89D1003BF77B /* SeminarsTableViewCell.swift */,
 				164BFDD01ACF89D1003BF77B /* SeminarsTableViewCell.xib */,
 				164BFDE51AD021E7003BF77B /* StoresTableViewCell.swift */,
 				164BFDE61AD021E7003BF77B /* StoresTableViewCell.xib */,
-				16E442CA1AD8EE7A003C3AA2 /* NewsTableViewCell.swift */,
-				162CE3E71B00E90B009D3C6C /* NewsTableViewCell.xib */,
-				16F21E4F1ADA2FE20052AD2A /* MenuListItemTableViewCell.swift */,
-				16F21E511ADA30A30052AD2A /* DrinkMenuListItemTableViewCell.swift */,
-				16F21E571ADA45360052AD2A /* FoodMenuListItemTableViewCell.swift */,
-				16F21E591ADA45AA0052AD2A /* OrderMenuListItemTableViewCell.swift */,
-				1683F0B01ADC80270034C7CB /* OrderTableViewCell.swift */,
-				16CAF78F1AE28CE000318AE5 /* DrinkOrderTableViewCell.swift */,
-				16CAF7931AE2ABA900318AE5 /* FoodOrderTableViewCell.swift */,
-				16CAF7951AE3757300318AE5 /* CustomizingOrderTableViewCell.swift */,
-				16B600601AE7CD8C000ECB7E /* CustomItemsTableViewCell.swift */,
 				16757DED1AF97CCE00925C50 /* TastingLogEditorTableViewCell.swift */,
-				1682F7D61AFC791B00FD630D /* ProductsForSaleTableViewCell.swift */,
-				1682F7E81AFE469100FD630D /* ProductImagesCollectionViewCell.swift */,
-				16A74F311B08221D0078BCC9 /* TastingLogsTableViewCell.swift */,
-				16A74F321B08221D0078BCC9 /* TastingLogsTableViewCell.xib */,
-				16A51AE11B1AF738001933AB /* OrdersTableViewCell.swift */,
-				16A51AE21B1AF738001933AB /* OrdersTableViewCell.xib */,
-				16253F181BF8226600A68FB8 /* FindFriendsTableViewCell.swift */,
-				16253F191BF8226600A68FB8 /* FindFriendsTableViewCell.xib */,
 				16C396591C01D36C00903113 /* TastingLogsCollectionViewCell.swift */,
 				16C3965A1C01D36C00903113 /* TastingLogsCollectionViewCell.xib */,
-				16C3965F1C0281A900903113 /* BasicProfileTableViewCell.swift */,
-				16C396601C0281A900903113 /* BasicProfileTableViewCell.xib */,
-				163695D61C1C1A3200C7293E /* FollowRequestsTableViewCell.swift */,
-				163695D71C1C1A3200C7293E /* FollowRequestsTableViewCell.xib */,
+				16A74F311B08221D0078BCC9 /* TastingLogsTableViewCell.swift */,
+				16A74F321B08221D0078BCC9 /* TastingLogsTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -648,8 +648,8 @@
 		16B1F28D1ADAAE830026E377 /* Context */ = {
 			isa = PBXGroup;
 			children = (
-				16B1F28E1ADAAF1B0026E377 /* ResourceContext.swift */,
 				16A51AE71B22E5B1001933AB /* IdentityContext.swift */,
+				16B1F28E1ADAAF1B0026E377 /* ResourceContext.swift */,
 			);
 			path = Context;
 			sourceTree = "<group>";
@@ -657,21 +657,21 @@
 		16B6005D1AE79316000ECB7E /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				16B6005E1AE79407000ECB7E /* IngredientManager.swift */,
-				16F6B0C41AEB9358007F7E51 /* PriceCalculator.swift */,
-				16F6B0C81AECF39C007F7E51 /* OrderManager.swift */,
-				16757DC91AF6FAF100925C50 /* MakingCoffeeContentsManager.swift */,
-				16757DD11AF76AEA00925C50 /* ContentsManager.swift */,
-				16757DDF1AF84D3D00925C50 /* PairingManager.swift */,
-				16D3B3691AF9A0F600F5E67B /* TastingLogManager.swift */,
-				165F3F831AFA32E700BCF1BB /* Recommender.swift */,
-				1682F7CE1AFB48CB00FD630D /* TuneManager.swift */,
-				1682F7D21AFC3FBC00FD630D /* SettingsManager.swift */,
-				1682F7DC1AFCA05600FD630D /* BeansCardManager.swift */,
 				16DF6D4D1B21C36F00BD079A /* AccountManager.swift */,
-				16F9229B1BB268440000B26E /* PressReleaseManager.swift */,
-				16F9229F1BB2B48A0000B26E /* StoreManager.swift */,
+				1682F7DC1AFCA05600FD630D /* BeansCardManager.swift */,
+				16757DD11AF76AEA00925C50 /* ContentsManager.swift */,
+				16B6005E1AE79407000ECB7E /* IngredientManager.swift */,
+				16757DC91AF6FAF100925C50 /* MakingCoffeeContentsManager.swift */,
 				16F922A51BB6B0670000B26E /* MenuManager.swift */,
+				16F6B0C81AECF39C007F7E51 /* OrderManager.swift */,
+				16757DDF1AF84D3D00925C50 /* PairingManager.swift */,
+				16F9229B1BB268440000B26E /* PressReleaseManager.swift */,
+				16F6B0C41AEB9358007F7E51 /* PriceCalculator.swift */,
+				165F3F831AFA32E700BCF1BB /* Recommender.swift */,
+				1682F7D21AFC3FBC00FD630D /* SettingsManager.swift */,
+				16F9229F1BB2B48A0000B26E /* StoreManager.swift */,
+				16D3B3691AF9A0F600F5E67B /* TastingLogManager.swift */,
+				1682F7CE1AFB48CB00FD630D /* TuneManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -726,13 +726,13 @@
 			isa = PBXGroup;
 			children = (
 				16F922921BB22CD20000B26E /* ParseAccountManager.swift */,
-				16F922971BB234D20000B26E /* ParseFactory.swift */,
 				16F922991BB250810000B26E /* ParseAppDelegete.swift */,
-				16F9229D1BB2894D0000B26E /* ParsePressReleaseManager.swift */,
-				16F922A11BB2BD4E0000B26E /* ParseStoreManager.swift */,
 				16F922A31BB66C2D0000B26E /* ParseContentsManager.swift */,
+				16F922971BB234D20000B26E /* ParseFactory.swift */,
 				16F922A71BB6BAF10000B26E /* ParseMenuManager.swift */,
 				16F922A91BB7B2FD0000B26E /* ParseOrderManager.swift */,
+				16F9229D1BB2894D0000B26E /* ParsePressReleaseManager.swift */,
+				16F922A11BB2BD4E0000B26E /* ParseStoreManager.swift */,
 				16253F1E1BF87B0300A68FB8 /* ParseUtility.swift */,
 			);
 			path = Parse;
