@@ -73,14 +73,7 @@ class TastingLogsCollectionViewController: PFQueryCollectionViewController {
     }
 
     override func queryForCollection() -> PFQuery {
-        // TODO: TastingLogにUserカラムを追加、条件で指定してその人の投稿を拾うようにする
-        // フォロー状態を見なくても、ACLの設定で自動でフィルタリングされるはず
-        let query = PFQuery(className: "TastingLog")
-        query.includeKey("orderObjectId")
-        query.includeKey("storeObjectId")
-        query.whereKey("myPocketId", equalTo: user?.username ?? "")
-        
-        return query
+        return ParseUtility.instance.queryForTastingLog(self.user)
     }
     /*
     // MARK: - Navigation

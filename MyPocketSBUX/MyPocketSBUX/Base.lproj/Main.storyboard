@@ -3897,10 +3897,10 @@
                                         <rect key="frame" x="0.0" y="44" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nPM-Ke-iDN" id="hsx-Jb-O6R">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="your description ..." minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="et3-zo-2ge">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="your description ..." minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="et3-zo-2ge">
                                                     <rect key="frame" x="8" y="7" width="584" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -3911,10 +3911,10 @@
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="et3-zo-2ge" firstAttribute="top" secondItem="hsx-Jb-O6R" secondAttribute="topMargin" constant="-1" id="6Gm-kO-svN"/>
-                                                <constraint firstItem="et3-zo-2ge" firstAttribute="centerX" secondItem="hsx-Jb-O6R" secondAttribute="centerX" id="bwH-Rr-5a0"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="et3-zo-2ge" secondAttribute="bottom" constant="-2" id="fSY-Q4-CxQ"/>
-                                                <constraint firstItem="et3-zo-2ge" firstAttribute="leading" secondItem="hsx-Jb-O6R" secondAttribute="leadingMargin" constant="-7" id="j9q-zK-81n"/>
+                                                <constraint firstItem="et3-zo-2ge" firstAttribute="top" secondItem="hsx-Jb-O6R" secondAttribute="topMargin" constant="-1" id="GqO-N2-V9K"/>
+                                                <constraint firstItem="et3-zo-2ge" firstAttribute="trailing" secondItem="hsx-Jb-O6R" secondAttribute="trailingMargin" id="MBA-h1-UhP"/>
+                                                <constraint firstItem="et3-zo-2ge" firstAttribute="leading" secondItem="hsx-Jb-O6R" secondAttribute="leadingMargin" id="okK-rQ-6tR"/>
+                                                <constraint firstItem="et3-zo-2ge" firstAttribute="centerY" secondItem="hsx-Jb-O6R" secondAttribute="centerY" id="pjP-Ov-DVM"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -4532,6 +4532,11 @@
                             <outlet property="delegate" destination="Hwo-rh-hpu" id="gsk-FX-g5K"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="followerCountLabel" destination="71g-Po-9cs" id="Gtp-3O-L7B"/>
+                        <outlet property="followingCountLabel" destination="8m9-Vv-ji9" id="8LL-Ty-MYs"/>
+                        <outlet property="logCountLabel" destination="Tbc-6C-DBe" id="ue9-G5-aPr"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YFI-1h-Bw2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

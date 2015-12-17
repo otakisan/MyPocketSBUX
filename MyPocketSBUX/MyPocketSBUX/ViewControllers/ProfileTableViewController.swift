@@ -11,6 +11,10 @@ import Parse
 
 class ProfileTableViewController: UITableViewController {
     
+    @IBOutlet weak var logCountLabel: UILabel!
+    @IBOutlet weak var followerCountLabel: UILabel!
+    @IBOutlet weak var followingCountLabel: UILabel!
+    
     var user : PFUser?
     private(set) var isPrivateAccount = true
 
@@ -48,11 +52,25 @@ class ProfileTableViewController: UITableViewController {
         
         self.setIsPrivateAccount()
         //self.changeCellSelectionStyle()
+        
+        self.refreshCountLabel()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func refreshCountLabel() {
+        ParseUtility.instance.countTastingLogInBackgroundWithBlock(self.user) { (count, error) -> Void in
+            self.logCountLabel.text = "\(count)"
+        }
+        ParseUtility.instance.countFollowingInBackgroundWithBlock(self.user) { (count, error) -> Void in
+            self.followingCountLabel.text = "\(count)"
+        }
+        ParseUtility.instance.countFollowersInBackgroundWithBlock(self.user) { (count, error) -> Void in
+            self.followerCountLabel.text = "\(count)"
+        }
     }
 
     // MARK: - Table view data source

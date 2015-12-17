@@ -39,3 +39,5 @@ let tastingLogClassKey = "TastingLog"
 // Field keys
 let tastingLogIdKey = "id"
 let tastingLogMyPocketIdKey = "myPocketId"
+let tastingLogOrderObjectIdKey = "orderObjectId"
+let tastingLogStoreObjectIdKey = "storeObjectId"

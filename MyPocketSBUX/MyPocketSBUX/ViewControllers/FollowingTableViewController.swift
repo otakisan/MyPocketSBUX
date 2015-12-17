@@ -70,39 +70,7 @@ class FollowingTableViewController: PFQueryTableViewController, BasicProfileTabl
     }
     
     override func queryForTable() -> PFQuery {
-        
-        // 公開と非公開でor検索
-        // 公開ユーザー
-        let publicToUserQuery = PFQuery(className: activityClassKey)
-        publicToUserQuery.whereKey(activityFromUserKey, equalTo: self.user ?? PFUser())
-        publicToUserQuery.whereKey(activityTypeKey, equalTo: activityTypeFollow)
-        
-        let publicUser = PFUser.query()!
-        publicUser.whereKey(userUsernameKey, notEqualTo: self.user?.username ?? "")
-        publicUser.whereKey(userIsPrivateAccountKey, equalTo: false)
-        publicToUserQuery.whereKey(activityToUserKey, matchesQuery: publicUser)
-
-        // 非公開ユーザー
-        let privateToUserQuery = PFQuery(className: activityClassKey)
-        privateToUserQuery.whereKey(activityFromUserKey, equalTo: self.user ?? PFUser())
-        privateToUserQuery.whereKey(activityTypeKey, equalTo: activityTypeFollow)
-        
-        let approveQuery = PFQuery(className: activityClassKey)
-        approveQuery.whereKey(activityToUserKey, equalTo: self.user ?? PFUser())
-        approveQuery.whereKey(activityTypeKey, equalTo: activityTypeApprove)
-        privateToUserQuery.whereKey(activityToUserKey, matchesKey: activityFromUserKey, inQuery: approveQuery)
-        
-        let privateUser = PFUser.query()!
-        privateUser.whereKey(userUsernameKey, notEqualTo: self.user?.username ?? "")
-        privateUser.whereKey(userIsPrivateAccountKey, equalTo: true)
-        privateToUserQuery.whereKey(activityToUserKey, matchesQuery: privateUser)
-        
-        // or検索
-        let query = PFQuery.orQueryWithSubqueries([publicToUserQuery, privateToUserQuery])
-        query.includeKey(activityToUserKey)
-        query.includeKey(activityFromUserKey)
-
-        return query
+        return ParseUtility.instance.queryForFollowing(self.user)
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {

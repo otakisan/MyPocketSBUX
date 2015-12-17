@@ -68,21 +68,8 @@ class FollowersTableViewController: PFQueryTableViewController, BasicProfileTabl
         self.paginationEnabled = true
     }
     
-    override func queryForTable() -> PFQuery {
-        let query = PFQuery(className: activityClassKey)
-        query.includeKey(activityToUserKey)
-        query.includeKey(activityFromUserKey)
-        query.whereKey(activityToUserKey, equalTo: self.user ?? PFUser())
-        query.whereKey(activityTypeKey, equalTo: activityTypeFollow)
-        
-        if true == self.user?[userIsPrivateAccountKey] as? Bool {
-            let approveQuery = PFQuery(className: activityClassKey)
-            approveQuery.whereKey(activityFromUserKey, equalTo: self.user ?? PFUser())
-            approveQuery.whereKey(activityTypeKey, equalTo: activityTypeApprove)
-            query.whereKey(activityFromUserKey, matchesKey: activityToUserKey, inQuery: approveQuery)
-        }
-        
-        return query
+    override func queryForTable() -> PFQuery {        
+        return ParseUtility.instance.queryForFollowers(self.user)
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {

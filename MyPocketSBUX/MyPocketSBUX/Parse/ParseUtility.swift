@@ -102,6 +102,87 @@ class ParseUtility: NSObject {
         }
     }
     
+    func queryForFollowing(user : PFUser?) -> PFQuery {
+        // 公開と非公開でor検索
+        // 公開ユーザー
+        let publicToUserQuery = PFQuery(className: activityClassKey)
+        publicToUserQuery.whereKey(activityFromUserKey, equalTo: user ?? PFUser())
+        publicToUserQuery.whereKey(activityTypeKey, equalTo: activityTypeFollow)
+        
+        let publicUser = PFUser.query()!
+        publicUser.whereKey(userUsernameKey, notEqualTo: user?.username ?? "")
+        publicUser.whereKey(userIsPrivateAccountKey, equalTo: false)
+        publicToUserQuery.whereKey(activityToUserKey, matchesQuery: publicUser)
+        
+        // 非公開ユーザー
+        let privateToUserQuery = PFQuery(className: activityClassKey)
+        privateToUserQuery.whereKey(activityFromUserKey, equalTo: user ?? PFUser())
+        privateToUserQuery.whereKey(activityTypeKey, equalTo: activityTypeFollow)
+        
+        let approveQuery = PFQuery(className: activityClassKey)
+        approveQuery.whereKey(activityToUserKey, equalTo: user ?? PFUser())
+        approveQuery.whereKey(activityTypeKey, equalTo: activityTypeApprove)
+        privateToUserQuery.whereKey(activityToUserKey, matchesKey: activityFromUserKey, inQuery: approveQuery)
+        
+        let privateUser = PFUser.query()!
+        privateUser.whereKey(userUsernameKey, notEqualTo: user?.username ?? "")
+        privateUser.whereKey(userIsPrivateAccountKey, equalTo: true)
+        privateToUserQuery.whereKey(activityToUserKey, matchesQuery: privateUser)
+        
+        // or検索
+        let query = PFQuery.orQueryWithSubqueries([publicToUserQuery, privateToUserQuery])
+        query.includeKey(activityToUserKey)
+        query.includeKey(activityFromUserKey)
+        
+        return query
+    }
+    
+    func countFollowingInBackgroundWithBlock(user : PFUser?, block : (Int, NSError?) -> Void) {
+        queryForFollowing(user).countObjectsInBackgroundWithBlock { (count, error) -> Void in
+            block(Int(count), error)
+        }
+    }
+    
+    func queryForFollowers(user : PFUser?) -> PFQuery {
+        let query = PFQuery(className: activityClassKey)
+        query.includeKey(activityToUserKey)
+        query.includeKey(activityFromUserKey)
+        query.whereKey(activityToUserKey, equalTo: user ?? PFUser())
+        query.whereKey(activityTypeKey, equalTo: activityTypeFollow)
+        
+        if true == user?[userIsPrivateAccountKey] as? Bool {
+            let approveQuery = PFQuery(className: activityClassKey)
+            approveQuery.whereKey(activityFromUserKey, equalTo: user ?? PFUser())
+            approveQuery.whereKey(activityTypeKey, equalTo: activityTypeApprove)
+            query.whereKey(activityFromUserKey, matchesKey: activityToUserKey, inQuery: approveQuery)
+        }
+        
+        return query
+    }
+    
+    func countFollowersInBackgroundWithBlock(user : PFUser?, block : (Int, NSError?) -> Void) {
+        queryForFollowers(user).countObjectsInBackgroundWithBlock { (count, error) -> Void in
+            block(Int(count), error)
+        }
+    }
+
+    func queryForTastingLog(user : PFUser?) -> PFQuery {
+        // TODO: TastingLogにUserカラムを追加、条件で指定してその人の投稿を拾うようにする
+        // フォロー状態を見なくても、ACLの設定で自動でフィルタリングされるはず
+        let query = PFQuery(className: tastingLogClassKey)
+        query.includeKey(tastingLogOrderObjectIdKey)
+        query.includeKey(tastingLogStoreObjectIdKey)
+        query.whereKey(tastingLogMyPocketIdKey, equalTo: user?.username ?? "")
+        
+        return query
+    }
+    
+    func countTastingLogInBackgroundWithBlock(user : PFUser?, block : (Int, NSError?) -> Void) {
+        queryForTastingLog(user).countObjectsInBackgroundWithBlock { (count, error) -> Void in
+            block(Int(count), error)
+        }
+    }
+    
     private func countActivityForLogInBackgroundWithBlock(logId : Int, activityType : String, block : (Int, NSError?) -> Void) {
         let tastingLogQuery = PFQuery(className: tastingLogClassKey)
         tastingLogQuery.whereKey(tastingLogIdKey, equalTo: logId)
