@@ -97,7 +97,9 @@ class CommentsOnTastingLogTableViewController: PFQueryTableViewController {
     }
     
     func deleteComment(indexPath : NSIndexPath) {
+        let commentRemoved = self.objects?[indexPath.row][activityContentKey] as? String ?? ""
         self.removeObjectAtIndexPath(indexPath, animated: true)
+        self.commentsTableDelegate?.didDeleteComment(commentRemoved)
     }
 
     /*
@@ -129,4 +131,5 @@ class CommentsOnTastingLogTableViewController: PFQueryTableViewController {
 
 protocol CommentsOnTastingLogTableViewDelegate {
     func idOfTastingLog() -> Int
+    func didDeleteComment(comment : String)
 }

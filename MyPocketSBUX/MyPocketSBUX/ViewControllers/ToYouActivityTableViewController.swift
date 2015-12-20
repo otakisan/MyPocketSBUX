@@ -56,17 +56,20 @@ class ToYouActivityTableViewController: PFQueryTableViewController {
     }
     
     override func queryForTable() -> PFQuery {
-        let query = PFQuery(className: activityClassKey)
-        query.includeKey(activityToUserKey)
-        query.includeKey(activityFromUserKey)
-        query.whereKey(activityToUserKey, equalTo: PFUser.currentUser() ?? PFUser())
-        
-        // 非公開アカウントにしている場合は、承認したユーザーのアクティビティのみ表示
-        if let currentUser = PFUser.currentUser() where currentUser[userIsPrivateAccountKey] as? Bool == true {
-            let approvedQuery = PFQuery(className: activityClassKey)
-            approvedQuery.whereKey(activityTypeKey, equalTo: activityTypeApprove)
-            approvedQuery.whereKey(activityFromUserKey, equalTo: currentUser)
-            query.whereKey(activityFromUserKey, matchesKey: activityToUserKey, inQuery: approvedQuery)
+        var query = PFQuery()
+        if let currentUser = PFUser.currentUser() {
+            query = PFQuery(className: activityClassKey)
+            query.includeKey(activityToUserKey)
+            query.includeKey(activityFromUserKey)
+            query.whereKey(activityToUserKey, equalTo: currentUser)
+            
+            // 非公開アカウントにしている場合は、承認したユーザーのアクティビティのみ表示
+            if currentUser[userIsPrivateAccountKey] as? Bool == true {
+                let approvedQuery = PFQuery(className: activityClassKey)
+                approvedQuery.whereKey(activityTypeKey, equalTo: activityTypeApprove)
+                approvedQuery.whereKey(activityFromUserKey, equalTo: currentUser)
+                query.whereKey(activityFromUserKey, matchesKey: activityToUserKey, inQuery: approvedQuery)
+            }
         }
         
         return query

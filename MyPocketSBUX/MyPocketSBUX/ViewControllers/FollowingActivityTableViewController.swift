@@ -57,15 +57,18 @@ class FollowingActivityTableViewController: PFQueryTableViewController {
     
     override func queryForTable() -> PFQuery {
         
-        let followingActivitiesQuery = PFQuery(className: "Activity")
-        followingActivitiesQuery.whereKey("type", equalTo: "follow")
-        followingActivitiesQuery.whereKey("fromUser", equalTo: PFUser.currentUser() ?? PFUser())
-        
-        let query = PFQuery(className: "Activity")
-        query.includeKey("toUser")
-        query.includeKey("fromUser")
-        query.whereKey("fromUser", matchesKey: "toUser", inQuery: followingActivitiesQuery)
-        
+        var query = PFQuery()
+        if let currentUser = PFUser.currentUser() {
+            let followingActivitiesQuery = PFQuery(className: activityClassKey)
+            followingActivitiesQuery.whereKey(activityTypeKey, equalTo: activityTypeFollow)
+            followingActivitiesQuery.whereKey(activityFromUserKey, equalTo: currentUser)
+            
+            query = PFQuery(className: activityClassKey)
+            query.includeKey(activityToUserKey)
+            query.includeKey(activityFromUserKey)
+            query.whereKey(activityFromUserKey, matchesKey: activityToUserKey, inQuery: followingActivitiesQuery)
+        }
+       
         return query
     }
     
@@ -73,7 +76,7 @@ class FollowingActivityTableViewController: PFQueryTableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath)
 
         if let results = self.objects as? [PFObject] {
-            cell.textLabel?.text = "\((results[indexPath.row]["fromUser"] as? PFUser)?.username ?? "") \((results[indexPath.row]["type"] as? String ?? "")) \((results[indexPath.row]["toUser"] as? PFUser)?.username ?? "")"
+            cell.textLabel?.text = "\((results[indexPath.row][activityFromUserKey] as? PFUser)?.username ?? "") \((results[indexPath.row][activityTypeKey] as? String ?? "")) \((results[indexPath.row][activityToUserKey] as? PFUser)?.username ?? "")"
         }
 
         return cell

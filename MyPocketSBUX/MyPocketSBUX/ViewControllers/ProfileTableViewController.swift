@@ -15,6 +15,10 @@ class ProfileTableViewController: UITableViewController {
     @IBOutlet weak var followerCountLabel: UILabel!
     @IBOutlet weak var followingCountLabel: UILabel!
     
+    @IBOutlet weak var displayNameLable: UILabel!
+    @IBOutlet weak var bioLabel: UILabel!
+    @IBOutlet weak var isPrivateAccountLabel: UILabel!
+    
     var user : PFUser?
     private(set) var isPrivateAccount = true
 
@@ -54,6 +58,7 @@ class ProfileTableViewController: UITableViewController {
         //self.changeCellSelectionStyle()
         
         self.refreshCountLabel()
+        self.refreshProfileInfos()
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,15 +66,25 @@ class ProfileTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func refreshProfileInfos() {
+        if let user = self.user {
+            self.displayNameLable.text = user[userDisplayNameKey] as? String
+            self.bioLabel.text = user[userBioKey] as? String
+            self.isPrivateAccountLabel.text = "This user is \((user[userIsPrivateAccountKey] as? Bool ?? false) ? "Private" : "Public")"
+        }
+    }
+    
     func refreshCountLabel() {
-        ParseUtility.instance.countTastingLogInBackgroundWithBlock(self.user) { (count, error) -> Void in
-            self.logCountLabel.text = "\(count)"
-        }
-        ParseUtility.instance.countFollowingInBackgroundWithBlock(self.user) { (count, error) -> Void in
-            self.followingCountLabel.text = "\(count)"
-        }
-        ParseUtility.instance.countFollowersInBackgroundWithBlock(self.user) { (count, error) -> Void in
-            self.followerCountLabel.text = "\(count)"
+        if let user = self.user {
+            ParseUtility.instance.countTastingLogInBackgroundWithBlock(user) { (count, error) -> Void in
+                self.logCountLabel.text = "\(count)"
+            }
+            ParseUtility.instance.countFollowingInBackgroundWithBlock(user) { (count, error) -> Void in
+                self.followingCountLabel.text = "\(count)"
+            }
+            ParseUtility.instance.countFollowersInBackgroundWithBlock(user) { (count, error) -> Void in
+                self.followerCountLabel.text = "\(count)"
+            }
         }
     }
 
@@ -85,15 +100,16 @@ class ProfileTableViewController: UITableViewController {
 //        return 0
 //    }
 
-    /*
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        // Static Cells の場合は、親クラスからセルを取得する
+        let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
 
         // Configure the cell...
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.

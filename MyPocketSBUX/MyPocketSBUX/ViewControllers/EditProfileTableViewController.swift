@@ -46,10 +46,10 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
     internal func tapSaveBarButton(sender: UIButton){
         if let user = self.user {
             self.profilePictureImageView.file?.saveInBackground()
-            user["profilePicture"] = self.profilePictureImageView.file
-            user["displayName"] = self.nameTextField.text
-            user["bio"] = self.bioTextView.text
-            user["email"] = self.emailTextField.text
+            user[userProfilePictureKey] = self.profilePictureImageView.file ?? NSNull()
+            user[userDisplayNameKey] = self.nameTextField.text
+            user[userBioKey] = self.bioTextView.text
+            user[userEmailKey] = self.emailTextField.text
             
             user.saveInBackgroundWithBlock({ (isSuccess, error) -> Void in
                 if !isSuccess {

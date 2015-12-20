@@ -460,6 +460,10 @@ class CommentTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, Comm
         self.refreshCommentCount()
     }
     
+    func didDeleteComment(comment: String) {
+        self.refreshCommentCount()
+    }
+    
     private func refreshCommentCount() {
         ParseUtility.instance.countCommentForLogInBackgroundWithBlock(self.tastingLogId as Int) { (count, error) -> Void in
             self.detailTextLabel?.text = "(\(count))"

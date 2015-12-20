@@ -12,6 +12,8 @@ let userUsernameKey         = "username"
 let userProfilePictureKey   = "profilePicture"
 let userDisplayNameKey      = "displayName"
 let userIsPrivateAccountKey = "isPrivateAccount"
+let userBioKey              = "bio"
+let userEmailKey            = "email"
 
 // MARK:- Activity Class
 // Class key
@@ -37,7 +39,7 @@ let activityTypeDeny       = "deny"
 let tastingLogClassKey = "TastingLog"
 
 // Field keys
-let tastingLogIdKey = "id"
-let tastingLogMyPocketIdKey = "myPocketId"
+let tastingLogIdKey            = "id"
+let tastingLogMyPocketIdKey    = "myPocketId"
 let tastingLogOrderObjectIdKey = "orderObjectId"
 let tastingLogStoreObjectIdKey = "storeObjectId"

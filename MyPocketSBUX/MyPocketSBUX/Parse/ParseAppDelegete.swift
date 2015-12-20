@@ -29,10 +29,7 @@ class ParseAppDelegete: NSObject, UIApplicationDelegate {
         Parse.setApplicationId(self.getParseAppId(), clientKey: self.getParseClientKey())
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
         
-        if (application.applicationIconBadgeNumber != 0) {
-            application.applicationIconBadgeNumber = 0;
-            PFInstallation.currentInstallation().saveInBackground()
-        }
+        self.clearBadge(application)
 
         // TODO: ACLの設定って必要？
 //        let defaultACL = PFACL()
@@ -54,26 +51,21 @@ class ParseAppDelegete: NSObject, UIApplicationDelegate {
     }
     
     func applicationDidBecomeActive(application: UIApplication) {
-        // 0クリアしないと、バッジの表示が残り続ける
+        // クリアしないと、バッジの表示が残り続ける
         // Clear badge and update installation, required for auto-incrementing badges.
-        if (application.applicationIconBadgeNumber != 0) {
-            application.applicationIconBadgeNumber = 0;
-            PFInstallation.currentInstallation().saveInBackground();
-        }
+        self.clearBadge(application)
         
         // 下記により、didRegisterForRemoteNotificationsWithDeviceTokenに制御が回るようになる？？
         // Clears out all notifications from Notification Center.
-        UIApplication.sharedApplication().cancelAllLocalNotifications();
-        application.applicationIconBadgeNumber = 1;
-        application.applicationIconBadgeNumber = 0;
+        UIApplication.sharedApplication().cancelAllLocalNotifications()
+        application.applicationIconBadgeNumber = 1
+        application.applicationIconBadgeNumber = 0
 
     }
 
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         // Store the deviceToken in the current installation and save it to Parse.
-        if (application.applicationIconBadgeNumber != 0) {
-            application.applicationIconBadgeNumber = 0;
-        }
+        self.clearBadge(application)
         
         let currentInstallation = PFInstallation.currentInstallation()
         currentInstallation.setDeviceTokenFromData(deviceToken)
@@ -125,4 +117,12 @@ class ParseAppDelegete: NSObject, UIApplicationDelegate {
         }
     }
     
+    private func clearBadge(application: UIApplication) {
+        // PFInstallationのbadgeを0にクリアしないと、次回通知を受けた時に残った値にインクリメントした値が表示されてしまう
+        if (application.applicationIconBadgeNumber != 0) {
+            application.applicationIconBadgeNumber = 0
+            PFInstallation.currentInstallation().badge = 0
+            PFInstallation.currentInstallation().saveInBackground();
+        }
+    }
 }

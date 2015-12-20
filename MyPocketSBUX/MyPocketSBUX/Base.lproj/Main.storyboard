@@ -213,15 +213,15 @@
                                             <segue destination="xkG-tP-0Pi" kind="show" id="xg0-9p-eft"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="OQO-wf-pu3" style="IBUITableViewCellStyleDefault" id="Zqj-63-Ara">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="OQO-wf-pu3" style="IBUITableViewCellStyleDefault" id="Zqj-63-Ara">
                                         <rect key="frame" x="0.0" y="440" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zqj-63-Ara" id="q5N-IN-LTR">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Activity" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OQO-wf-pu3">
-                                                    <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="550" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -3897,7 +3897,7 @@
                                         <rect key="frame" x="0.0" y="44" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nPM-Ke-iDN" id="hsx-Jb-O6R">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="your description ..." minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="et3-zo-2ge">
@@ -4473,21 +4473,36 @@
                                             <segue destination="e3x-RZ-CGw" kind="show" identifier="editProfileTableViewControllerSegue" id="kR5-ca-4br"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="S2a-ED-4cX" style="IBUITableViewCellStyleDefault" id="zPH-go-whQ">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="zPH-go-whQ">
                                         <rect key="frame" x="0.0" y="240" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zPH-go-whQ" id="0NE-ml-J1d">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Follow" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="S2a-ED-4cX">
-                                                    <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="deo-eB-EFu" customClass="FollowButton" customModule="MyPocketSBUX" customModuleProvider="target">
+                                                    <rect key="frame" x="485" y="7" width="100" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="R2x-Zm-DYn"/>
+                                                    </constraints>
+                                                    <state key="normal" title="+ Follow"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" red="0.022803407904203099" green="0.49511952568774242" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="deo-eB-EFu" firstAttribute="centerY" secondItem="0NE-ml-J1d" secondAttribute="centerY" id="doE-Bg-c5S"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="deo-eB-EFu" secondAttribute="trailing" constant="7" id="vJx-bc-Rw0"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="6rB-VF-yDD" style="IBUITableViewCellStyleDefault" id="Lyc-D3-aRu">
@@ -4524,6 +4539,23 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="6qd-jl-cOW" style="IBUITableViewCellStyleDefault" id="baz-1h-4gD">
+                                        <rect key="frame" x="0.0" y="372" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="baz-1h-4gD" id="6kV-LC-qWR">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="(private settings)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6qd-jl-cOW">
+                                                    <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -4533,8 +4565,11 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="bioLabel" destination="9Qi-uy-vfo" id="4mV-Re-LeF"/>
+                        <outlet property="displayNameLable" destination="6rB-VF-yDD" id="Yls-DX-DkL"/>
                         <outlet property="followerCountLabel" destination="71g-Po-9cs" id="Gtp-3O-L7B"/>
                         <outlet property="followingCountLabel" destination="8m9-Vv-ji9" id="8LL-Ty-MYs"/>
+                        <outlet property="isPrivateAccountLabel" destination="6qd-jl-cOW" id="llq-mU-3Ya"/>
                         <outlet property="logCountLabel" destination="Tbc-6C-DBe" id="ue9-G5-aPr"/>
                     </connections>
                 </tableViewController>
@@ -4574,6 +4609,10 @@
         <scene sceneID="h1V-bm-cMb">
             <objects>
                 <viewController id="nmz-bt-k1o" customClass="SendCommentOnTastingLogViewController" customModule="MyPocketSBUX" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dhV-aP-uSm"/>
+                        <viewControllerLayoutGuide type="bottom" id="oDN-lq-5H8"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="pVD-uK-qsK">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="70"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

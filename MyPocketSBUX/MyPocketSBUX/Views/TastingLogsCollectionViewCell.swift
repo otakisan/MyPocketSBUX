@@ -23,6 +23,7 @@ class TastingLogsCollectionViewCell: UICollectionViewCell {
             self.photoImageView.image = photoImage
             self.titleLabel.text = ""
         }else{
+            self.photoImageView.image = nil
             self.titleLabel.text = title
         }
     }

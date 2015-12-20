@@ -15,6 +15,11 @@ class ParseAccountManager: AccountManager {
         // 後々は非同期対応にする
         var user : User? = nil
         if let pfUser = try? PFUser.logInWithUsername(myPocketID, password: password) {
+            PFUser.enableRevocableSessionInBackgroundWithBlock({ (error) -> Void in
+                if let err = error {
+                    print("enableRevocable err : \(err)")
+                }
+            })
             user = self.createUser(pfUser)
             IdentityContext.sharedInstance.currentUserID = user!.myPocketId
             

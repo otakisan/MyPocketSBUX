@@ -14,6 +14,7 @@
 		160707CA1C1D4DBE0047F433 /* CommentsOnTastingLogTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160707C91C1D4DBE0047F433 /* CommentsOnTastingLogTableViewController.swift */; };
 		160707CC1C1D7FA70047F433 /* CommentsOnTastingLogContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160707CB1C1D7FA70047F433 /* CommentsOnTastingLogContainerViewController.swift */; };
 		160707CE1C1D84C50047F433 /* SendCommentOnTastingLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160707CD1C1D84C50047F433 /* SendCommentOnTastingLogViewController.swift */; };
+		160707D01C250DFF0047F433 /* FollowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160707CF1C250DFF0047F433 /* FollowButton.swift */; };
 		16216E971B000FB700DB6C0B /* NewsBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16216E961B000FB700DB6C0B /* NewsBaseTableViewController.swift */; };
 		16253F171BF80E2F00A68FB8 /* FindFriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16253F161BF80E2F00A68FB8 /* FindFriendsTableViewController.swift */; };
 		16253F1A1BF8226600A68FB8 /* FindFriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16253F181BF8226600A68FB8 /* FindFriendsTableViewCell.swift */; };
@@ -209,6 +210,7 @@
 		160707C91C1D4DBE0047F433 /* CommentsOnTastingLogTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsOnTastingLogTableViewController.swift; sourceTree = "<group>"; };
 		160707CB1C1D7FA70047F433 /* CommentsOnTastingLogContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsOnTastingLogContainerViewController.swift; sourceTree = "<group>"; };
 		160707CD1C1D84C50047F433 /* SendCommentOnTastingLogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendCommentOnTastingLogViewController.swift; sourceTree = "<group>"; };
+		160707CF1C250DFF0047F433 /* FollowButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowButton.swift; sourceTree = "<group>"; };
 		16216E961B000FB700DB6C0B /* NewsBaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsBaseTableViewController.swift; sourceTree = "<group>"; };
 		16253F161BF80E2F00A68FB8 /* FindFriendsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindFriendsTableViewController.swift; sourceTree = "<group>"; };
 		16253F181BF8226600A68FB8 /* FindFriendsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindFriendsTableViewCell.swift; sourceTree = "<group>"; };
@@ -506,6 +508,7 @@
 				16C3965A1C01D36C00903113 /* TastingLogsCollectionViewCell.xib */,
 				16A74F311B08221D0078BCC9 /* TastingLogsTableViewCell.swift */,
 				16A74F321B08221D0078BCC9 /* TastingLogsTableViewCell.xib */,
+				160707CF1C250DFF0047F433 /* FollowButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -859,6 +862,7 @@
 			files = (
 				16757DD01AF766EA00925C50 /* ProductsForSaleTableViewController.swift in Sources */,
 				16C979E21AD5E50400543120 /* StoreAnnotation.swift in Sources */,
+				160707D01C250DFF0047F433 /* FollowButton.swift in Sources */,
 				1683F0AF1ADBDE4E0034C7CB /* OrderListItem.swift in Sources */,
 				1682F7D91AFC910300FD630D /* ProductsForSaleListItem.swift in Sources */,
 				164BFDD11ACF89D1003BF77B /* SeminarsTableViewCell.swift in Sources */,

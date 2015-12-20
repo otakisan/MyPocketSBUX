@@ -51,6 +51,10 @@ class CommentsOnTastingLogContainerViewController: UIViewController, SendComment
         return self.tastingLogId
     }
     
+    func didDeleteComment(comment : String){
+        self.delegate?.didDeleteComment(comment)
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -65,4 +69,5 @@ class CommentsOnTastingLogContainerViewController: UIViewController, SendComment
 
 protocol CommentsOnTastingLogContainerViewDelegate {
     func didSendComment(comment : String)
+    func didDeleteComment(comment : String)
 }
