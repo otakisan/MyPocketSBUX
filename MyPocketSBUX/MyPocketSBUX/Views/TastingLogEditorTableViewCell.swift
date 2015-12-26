@@ -59,7 +59,7 @@ class TastingLogEditorTableViewCell: UITableViewCell {
 }
 
 protocol TastingLogEditorTableViewCellDelegate {
-    
+    func presentViewController(viewController : UIViewController)
 }
 
 class TitleTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, UITextFieldDelegate {
@@ -316,23 +316,33 @@ protocol OrderTastingLogEditorTableViewCellDelegate : TastingLogEditorTableViewC
 }
 
 class PhotoTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
+
+    //private(set) var tastingLogId = 0
+
     @IBOutlet weak var photoView: UIImageView!
+
+    @IBAction func touchUpInsideAddImageButton(sender: UIButton) {
+        self.showMultimediaActionSheet()
+    }
 
     override func configure(tastingLog: TastingLog) {
         super.configure(tastingLog)
+        self.detailViewModally = false
+        (self.detailViewController as? TastingLogImageViewController)?.tastingLogId = Int(tastingLog.id)
         
         // TODO: イメージの設定
         if let photoData = tastingLog.photo, let photoImage = UIImage(data: photoData) {
             self.photoView.image = ImageUtility.photoThumbnail(photoImage)
+            (self.detailViewController as? TastingLogImageViewController)?.imageData = photoData
+        }
+        else if let thumbnailData = tastingLog.thumbnail {
+            self.photoView.image = UIImage(data: thumbnailData)
         }
     }
     
     override func detailView() -> UIViewController? {
-        let detailView = UIImagePickerController()
-        detailView.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        detailView.delegate = self
-        
+        let detailView : TastingLogImageViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("TastingLogImageViewController") as!TastingLogImageViewController
+
         return detailView
     }
     
@@ -343,10 +353,39 @@ class PhotoTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, UIImag
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]){
         picker.dismissViewControllerAnimated(true, completion: nil)
         
+        // TODO: 動画の場合は、サイズチェック、静止画表示、データは別途保持する
         if let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             self.photoView.image = ImageUtility.photoThumbnail(selectedImage)
+            (self.detailViewController as? TastingLogImageViewController)?.imageData = UIImageJPEGRepresentation(selectedImage, 1.0)
             (self.delegate as? PhotoTastingLogEditorTableViewCellDelegate)?.valueChangedPhoto(selectedImage)
         }
+    }
+    
+    private func showImagePickerViewController(sourceType : UIImagePickerControllerSourceType) {
+        let imageViewController = UIImagePickerController()
+        imageViewController.sourceType = sourceType
+        imageViewController.delegate = self
+        
+        self.delegate?.presentViewController(imageViewController)
+    }
+    
+    private func showMultimediaActionSheet() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) {
+            action in
+        }
+        let photoLibraryAction = UIAlertAction(title: "Photo Library", style: .Default) {
+            action in self.showImagePickerViewController(.PhotoLibrary)
+        }
+        let takePhotoOrVideoAction = UIAlertAction(title: "Take Photo or Video", style: .Default) {
+            action in self.showImagePickerViewController(.Camera)
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(photoLibraryAction)
+        alertController.addAction(takePhotoOrVideoAction)
+        self.delegate?.presentViewController(alertController)
     }
 }
 

@@ -9,7 +9,7 @@
 import UIKit
 
 class TastingLogManager: NSObject {
-    static let instance = TastingLogManager()
+    static let instance = BaseFactory.instance.createTastingLogManager()
     
     func entityResourceName() -> String {
         return "tasting_log"
@@ -37,6 +37,11 @@ class TastingLogManager: NSObject {
     func saveTastingLog(tastingLog: TastingLog, newTastingLog: Bool) {
         tastingLog.updatedAt = NSDate()
         tastingLog.myPocketId = IdentityContext.sharedInstance.currentUserIDCorrespondingToSignIn()
+        
+        // 通常サイズの画像のみを登録していたログの移行用なので不要になったら消す
+        if tastingLog.thumbnail == nil, let photo = tastingLog.photo, let photoImage = UIImage(data: photo) {
+            tastingLog.thumbnail = UIImageJPEGRepresentation(ImageUtility.photoThumbnail(photoImage), 1.0)
+        }
         
         if newTastingLog {
             tastingLog.createdAt = NSDate()
@@ -113,5 +118,9 @@ class TastingLogManager: NSObject {
         }
         
         SyncRequests.deleteEntities(syncedList)
+    }
+    
+    func fetchFullSizeImage(id : Int, completion : ((Bool, NSData?) -> Void)?) {
+        completion?(true, NSData())
     }
 }

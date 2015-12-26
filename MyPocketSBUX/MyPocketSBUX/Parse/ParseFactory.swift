@@ -36,4 +36,8 @@ class ParseFactory: BaseFactory {
     override func createOrderManager() -> OrderManager {
         return ParseOrderManager()
     }
+    
+    override func createTastingLogManager() -> TastingLogManager {
+        return ParseTastingLogManager()
+    }
 }

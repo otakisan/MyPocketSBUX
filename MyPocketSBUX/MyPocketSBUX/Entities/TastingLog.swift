@@ -22,4 +22,5 @@ class TastingLog: NSManagedObject {
     @NSManaged var store: Store?
     @NSManaged var order: Order?
     @NSManaged var photo: NSData?
+    @NSManaged var thumbnail: NSData?
 }

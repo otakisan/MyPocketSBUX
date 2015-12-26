@@ -12,7 +12,7 @@ import ParseUI
 
 //private let reuseIdentifier = "tastingLogsCollectionViewCellIdentifier"
 
-class TastingLogsCollectionViewController: PFQueryCollectionViewController {
+class TastingLogsCollectionViewController: PFQueryCollectionViewController, TastingLogEditorTableViewControllerDelegate {
     
     struct Constants {
         struct Nib {
@@ -73,7 +73,10 @@ class TastingLogsCollectionViewController: PFQueryCollectionViewController {
     }
 
     override func queryForCollection() -> PFQuery {
-        return ParseUtility.instance.queryForTastingLog(self.user)
+        let query = ParseUtility.instance.queryForTastingLog(self.user)
+        query.orderByDescending(tastingLogUpdatedAtKey)
+        
+        return query
     }
     /*
     // MARK: - Navigation
@@ -88,8 +91,8 @@ class TastingLogsCollectionViewController: PFQueryCollectionViewController {
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(Constants.CollectionViewCell.identifier, forIndexPath: indexPath) as! TastingLogsCollectionViewCell
         
-        let title = self.objects[indexPath.row]["title"] as? String ?? ""
-        if let photoFile = self.objects[indexPath.row]["photo"] as? PFFile {
+        let title = self.objects[indexPath.row][tastingLogTitleKey] as? String ?? ""
+        if let photoFile = self.objects[indexPath.row][tastingLogThumbnailKey] as? PFFile {
             photoFile.getDataInBackgroundWithBlock({ (photoData, error) -> Void in
                 if let photoDataFetched = photoData {
                     cell.configure(UIImage(data: photoDataFetched), title: title)
@@ -125,7 +128,7 @@ class TastingLogsCollectionViewController: PFQueryCollectionViewController {
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         // TODO: あらかじめローカルDBに格納しておかないとヒットしない
-        if let tastingLog : TastingLog = TastingLogs.instance().findById(self.objects[indexPath.row]["id"] as? Int ?? 0){
+        if let tastingLog : TastingLog = TastingLogs.instance().findById(self.objects[indexPath.row][tastingLogIdKey] as? Int ?? 0){
             self.presentTastingLogEditor(tastingLog)
         }
     }
@@ -133,7 +136,7 @@ class TastingLogsCollectionViewController: PFQueryCollectionViewController {
     private func presentTastingLogEditor(tastingLog: TastingLog) {
         // Set up the detail view controller to show.
         let detailViewController = TastingLogEditorTableViewController.forTastingLog(tastingLog)
-        //detailViewController.delegate = self
+        detailViewController.delegate = self
         
         // Note: Should not be necessary but current iOS 8.0 bug requires it.
         //self.tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow!, animated: false)
@@ -155,6 +158,15 @@ class TastingLogsCollectionViewController: PFQueryCollectionViewController {
         self.loadObjects()
     }
     
+    func didSaveTastingLog(tastingLog: TastingLog){
+        // TODO: このタイミングでロードしても、リモートのデータはまだ更新されていない
+        // self.loadObjects()
+    }
+    
+    func didCancelTastingLog(tastingLog: TastingLog){
+        
+    }
+
     /*
     // Uncomment this method to specify if the specified item should be highlighted during tracking
     override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {

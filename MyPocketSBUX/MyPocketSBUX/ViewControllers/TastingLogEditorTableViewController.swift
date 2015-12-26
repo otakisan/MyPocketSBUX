@@ -212,11 +212,16 @@ class TastingLogEditorTableViewController: UITableViewController, TitleTastingLo
         // 容量は大きくてもユーザーの端末なので大丈夫
         // TODO: 画像のサイズから圧縮率を決める
         self.tastingLog.photo = UIImageJPEGRepresentation(photo, 0.5)
+        self.tastingLog.thumbnail = UIImageJPEGRepresentation(ImageUtility.photoThumbnail(photo), 0.5)
     }
     
     func deselectSelectedCell() {
         // Note: Should not be necessary but current iOS 8.0 bug requires it.
         self.tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow!, animated: false)
+    }
+    
+    func presentViewController(viewController : UIViewController){
+        self.presentViewController(viewController, animated: true, completion: nil)
     }
 }
 

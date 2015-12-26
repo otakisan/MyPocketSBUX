@@ -4037,17 +4037,33 @@
                                             <outlet property="orderLabel" destination="jBJ-wO-4Xa" id="9Kj-5J-Aff"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="6Yt-Q1-GMN" customClass="PhotoTastingLogEditorTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="6Yt-Q1-GMN" customClass="PhotoTastingLogEditorTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="308" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Yt-Q1-GMN" id="qCi-QH-ada">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ya3-2p-fx9">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ya3-2p-fx9">
                                                     <rect key="frame" x="8" y="8" width="32" height="32"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="32" id="Ahw-3T-huU"/>
+                                                    </constraints>
                                                 </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8HH-xP-bmW">
+                                                    <rect key="frame" x="537" y="11" width="22" height="22"/>
+                                                    <connections>
+                                                        <action selector="touchUpInsideAddImageButton:" destination="6Yt-Q1-GMN" eventType="touchUpInside" id="QT1-we-Dox"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="8HH-xP-bmW" firstAttribute="centerY" secondItem="qCi-QH-ada" secondAttribute="centerY" id="Pen-ZT-uHQ"/>
+                                                <constraint firstItem="8HH-xP-bmW" firstAttribute="trailing" secondItem="qCi-QH-ada" secondAttribute="trailingMargin" id="UT1-g2-l5C"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ya3-2p-fx9" secondAttribute="bottom" constant="-4.5" id="oB1-jQ-2hc"/>
+                                                <constraint firstItem="ya3-2p-fx9" firstAttribute="top" secondItem="qCi-QH-ada" secondAttribute="topMargin" id="oEH-Af-E4S"/>
+                                                <constraint firstItem="ya3-2p-fx9" firstAttribute="leading" secondItem="qCi-QH-ada" secondAttribute="leadingMargin" id="xGJ-DS-SI7"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="photoView" destination="ya3-2p-fx9" id="FFO-h8-BfW"/>
@@ -4125,6 +4141,53 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VJQ-oK-f0F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2298" y="7960"/>
+        </scene>
+        <!--Tasting Log Image View Controller-->
+        <scene sceneID="hVf-75-cGZ">
+            <objects>
+                <viewController storyboardIdentifier="TastingLogImageViewController" id="rTE-mk-y4e" customClass="TastingLogImageViewController" customModule="MyPocketSBUX" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GJH-lP-yXl"/>
+                        <viewControllerLayoutGuide type="bottom" id="Sgb-Kx-glQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7w7-hY-o2c">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eto-7J-ywK">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7DX-g9-gmr">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="7DX-g9-gmr" firstAttribute="centerX" secondItem="eto-7J-ywK" secondAttribute="centerX" id="8yF-Np-gRb"/>
+                                    <constraint firstItem="7DX-g9-gmr" firstAttribute="top" secondItem="eto-7J-ywK" secondAttribute="top" id="F1h-NT-JuU"/>
+                                    <constraint firstAttribute="bottom" secondItem="7DX-g9-gmr" secondAttribute="bottom" id="Pmd-AM-9rn"/>
+                                    <constraint firstItem="7DX-g9-gmr" firstAttribute="leading" secondItem="eto-7J-ywK" secondAttribute="leading" id="jLe-7i-P4U"/>
+                                    <constraint firstAttribute="trailing" secondItem="7DX-g9-gmr" secondAttribute="trailing" id="n71-dh-BA5"/>
+                                    <constraint firstItem="7DX-g9-gmr" firstAttribute="centerY" secondItem="eto-7J-ywK" secondAttribute="centerY" id="qvB-Ch-T40"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="eto-7J-ywK" firstAttribute="leading" secondItem="7w7-hY-o2c" secondAttribute="leading" id="ENK-cW-WPV"/>
+                            <constraint firstItem="eto-7J-ywK" firstAttribute="bottom" secondItem="Sgb-Kx-glQ" secondAttribute="top" id="S8z-LD-VbW"/>
+                            <constraint firstAttribute="trailing" secondItem="eto-7J-ywK" secondAttribute="trailing" id="YdG-Dc-Nzy"/>
+                            <constraint firstItem="eto-7J-ywK" firstAttribute="top" secondItem="7w7-hY-o2c" secondAttribute="top" id="qjV-sN-n6f"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <connections>
+                        <outlet property="tastingLogImageView" destination="7DX-g9-gmr" id="WwT-OJ-d1R"/>
+                        <outlet property="tastingLogScrollView" destination="eto-7J-ywK" id="prb-Ik-iFo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SRZ-mt-YDe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3026" y="7213"/>
         </scene>
         <!--Date Picker View Controller-->
         <scene sceneID="WFA-UO-FOX">
@@ -4477,7 +4540,7 @@
                                         <rect key="frame" x="0.0" y="240" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zPH-go-whQ" id="0NE-ml-J1d">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="deo-eB-EFu" customClass="FollowButton" customModule="MyPocketSBUX" customModuleProvider="target">

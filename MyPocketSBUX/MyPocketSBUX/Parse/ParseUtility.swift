@@ -177,6 +177,21 @@ class ParseUtility: NSObject {
         return query
     }
     
+    func queryForTastingLogById(id : Int) -> PFQuery {
+        let query = PFQuery(className: tastingLogClassKey)
+        query.includeKey(tastingLogOrderObjectIdKey)
+        query.includeKey(tastingLogStoreObjectIdKey)
+        query.whereKey(tastingLogIdKey, equalTo: id)
+        
+        return query
+    }
+    
+    func fetchTastingLogInBackgroundWithBlock(id :Int, block : (PFObject?, NSError?) -> Void) {
+        self.queryForTastingLogById(id).getFirstObjectInBackgroundWithBlock { (pfObject, error) -> Void in
+            block(pfObject, error)
+        }
+    }
+    
     func countTastingLogInBackgroundWithBlock(user : PFUser?, block : (Int, NSError?) -> Void) {
         queryForTastingLog(user).countObjectsInBackgroundWithBlock { (count, error) -> Void in
             block(Int(count), error)

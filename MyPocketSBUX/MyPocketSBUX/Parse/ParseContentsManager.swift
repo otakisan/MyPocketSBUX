@@ -427,7 +427,8 @@ class ParseContentsManager: ContentsManager {
                     )
                     
                     for propName in propNames! {
-                        if [/*"id", */"createdAt", "updatedAt"].contains({el in el == propName}) {
+                        // TODO: 暫定的に、一部項目（photo）を特別扱い
+                        if [/*"id", */"createdAt", "updatedAt", "photo"].contains({el in el == propName}) {
                             continue
                         }
                         

@@ -53,6 +53,10 @@ class BaseFactory: NSObject {
         return OrderManager()
     }
 
+    func createTastingLogManager() -> TastingLogManager {
+        return TastingLogManager()
+    }
+    
 }
 
 enum Backend {
