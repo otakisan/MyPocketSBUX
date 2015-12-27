@@ -25,6 +25,23 @@ class OrderListItem: NSObject {
     
     // TODO: One More Coffeeをカスタムにするかメニューにするか
     var oneMoreCoffee : Bool = false
+    
+    func copyWithZone(zone: NSZone) -> AnyObject {
+        let newOrderListItem = OrderListItem()
+        newOrderListItem.on = self.on
+        newOrderListItem.productEntity = self.productEntity // マスタデータなので、あえて参照コピー
+        newOrderListItem.customizationItems = self.customizationItems?.copyWithZone(zone) as? IngredientCollection
+        newOrderListItem.originalItems = self.originalItems?.copyWithZone(zone) as? IngredientCollection
+        newOrderListItem.nutritionEntities = self.nutritionEntities
+        newOrderListItem.totalPrice = self.totalPrice
+        newOrderListItem.customPrice = self.customPrice
+        newOrderListItem.size = self.size
+        newOrderListItem.hotOrIce = self.hotOrIce
+        newOrderListItem.reusableCup = self.reusableCup
+        newOrderListItem.oneMoreCoffee = self.oneMoreCoffee
+        
+        return newOrderListItem
+    }
 }
 
 class OrderHeader: NSObject {

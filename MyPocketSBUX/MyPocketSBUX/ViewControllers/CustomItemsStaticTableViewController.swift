@@ -178,6 +178,12 @@ class IngredientCollection {
     func categorized(type : CustomizationIngredientype) -> [Ingredient] {
         return self.ingredients.filter({$0.type == type})
     }
+    
+    func copyWithZone(zone: NSZone) -> AnyObject {
+        let newIngredientCollection = IngredientCollection()
+        newIngredientCollection.ingredients = self.ingredients.map {$0.clone()}
+        return newIngredientCollection
+    }
 }
 
 // TODO: データクラスは、コンストラクタ定義まで含め、自動生成したいところ

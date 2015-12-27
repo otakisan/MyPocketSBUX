@@ -138,6 +138,41 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
         return indexPath.section == 0 ? CGFloat(44) : CGFloat(100)
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == productSection {
+            self.showOrderProductActionSheet(indexPath)
+        }
+        
+        self.tableView.deselectRowAtIndexPath(indexPath, animated: false)
+    }
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return indexPath.section == productSection
+    }
+    
+    // スワイプのため、空の実装が必要
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    }
+    
+    // スワイプ時に表示する項目
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        
+        let copyAction = UITableViewRowAction(style: .Default, title: "Copy") {(action, indexPath) in
+            self.copyProductCell(indexPath)
+            self.tableView.setEditing(false, animated: true)
+        }
+        let editAction = UITableViewRowAction(style: .Default, title: "Edit") {(action, indexPath) in
+            if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? OrderTableViewCell {
+                self.touchUpInsideOrderEdit(cell)
+            }
+            self.tableView.setEditing(false, animated: true)
+        }
+        copyAction.backgroundColor = UIColor.blueColor()
+        editAction.backgroundColor = UIColor.greenColor()
+        
+        return [editAction, copyAction]
+    }
+
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -248,4 +283,37 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
             cell.storeNameLabel.text = self.orderHeader.store?.name
         }
     }
+    
+    private func showOrderProductActionSheet(indexPath : NSIndexPath) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) {
+            action in
+        }
+        let copyAction = UIAlertAction(title: "Copy", style: .Default) {
+            action in self.copyProductCell(indexPath)
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(copyAction)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    private func copyProductCell(indexPath : NSIndexPath) {
+        if indexPath.section == productSection {
+            // コピーしたものを、コピー元の位置に挿入する形とするが、要望があれば下に追加する形とする
+            // データの複製
+            self.orderItems.insert(self.copyProductItem(indexPath.row), atIndex: indexPath.row)
+            
+            // セルのインサート
+            self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        }
+    }
+    
+    private func copyProductItem(index : Int) -> OrderListItem {
+        // TODO: カスタマイズなしでのコピーは、要望があれば対応する
+        return self.orderItems[index].copy() as! OrderListItem
+    }
+
 }
