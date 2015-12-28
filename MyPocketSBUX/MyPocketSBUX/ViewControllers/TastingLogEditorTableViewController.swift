@@ -85,21 +85,6 @@ class TastingLogEditorTableViewController: UITableViewController, TitleTastingLo
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    // MARK: - Table view data source
-
-//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        // #warning Potentially incomplete method implementation.
-//        // Return the number of sections.
-//        return 0
-//    }
-//
-//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete method implementation.
-//        // Return the number of rows in the section.
-//        return 0
-//    }
-
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 //        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
@@ -118,25 +103,27 @@ class TastingLogEditorTableViewController: UITableViewController, TitleTastingLo
         }
     }
 
-    /*
-    // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
+        return indexPath.row < 7
     }
-    */
-
-    /*
-    // Override to support editing the table view.
+    
+    // スワイプのため、空の実装が必要
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
     }
-    */
+    
+    // スワイプ時に表示する項目
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        
+        let clearAction = UITableViewRowAction(style: .Default, title: "Clear") {(action, indexPath) in
+            if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? TastingLogEditorTableViewCell {
+                cell.clear()
+            }
+            self.tableView.setEditing(false, animated: true)
+        }
+        clearAction.backgroundColor = UIColor.grayColor()
+        
+        return [clearAction]
+    }
 
     /*
     // Override to support rearranging the table view.
@@ -196,7 +183,7 @@ class TastingLogEditorTableViewController: UITableViewController, TitleTastingLo
         self.tastingLog.tastingAt = date
     }
     
-    func valueChangedStore(store : Store){
+    func valueChangedStore(store : Store?){
         self.tastingLog.store = store
     }
     
@@ -204,15 +191,20 @@ class TastingLogEditorTableViewController: UITableViewController, TitleTastingLo
         self.tastingLog.detail = detail
     }
     
-    func valueChangedOrder(order : Order){
+    func valueChangedOrder(order : Order?){
         self.tastingLog.order = order
     }
     
-    func valueChangedPhoto(photo: UIImage) {
+    func valueChangedPhoto(photo: UIImage?) {
         // 容量は大きくてもユーザーの端末なので大丈夫
         // TODO: 画像のサイズから圧縮率を決める
-        self.tastingLog.photo = UIImageJPEGRepresentation(photo, 0.5)
-        self.tastingLog.thumbnail = UIImageJPEGRepresentation(ImageUtility.photoThumbnail(photo), 0.5)
+        if let photo = photo {
+            self.tastingLog.photo = UIImageJPEGRepresentation(photo, 0.5)
+            self.tastingLog.thumbnail = UIImageJPEGRepresentation(ImageUtility.photoThumbnail(photo), 0.5)
+        } else {
+            self.tastingLog.photo = nil
+            self.tastingLog.thumbnail = nil
+        }
     }
     
     func deselectSelectedCell() {

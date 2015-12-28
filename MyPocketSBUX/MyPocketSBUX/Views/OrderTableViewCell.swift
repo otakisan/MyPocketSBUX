@@ -61,6 +61,11 @@ class OrderHeaderTableViewCell: UITableViewCell {
     func configure(orderHeader : OrderHeader) {
         self.orderHeader = orderHeader
     }
+    
+    func clear() {
+        self.orderHeader?.store = nil
+        self.orderHeader?.notes = ""
+    }
 }
 
 protocol OrderHeaderTableViewCellDelegate : NSObjectProtocol {
@@ -73,6 +78,12 @@ class StoreOrderTableViewCell : OrderHeaderTableViewCell {
         super.configure(orderHeader)
         
         self.storeNameLabel.text = self.orderHeader?.store?.name
+    }
+    
+    override func clear() {
+        super.clear()
+        
+        self.storeNameLabel.text = ""
     }
 }
 
@@ -97,6 +108,12 @@ class NotesOrderTableViewCell : OrderHeaderTableViewCell, UITextFieldDelegate {
         return true
     }
 
+    override func clear() {
+        super.clear()
+        
+        self.notesTextField.text = ""
+        self.editingDidEndNotesTextField(self.notesTextField)
+    }
 }
 
 protocol NotesOrderTableViewCellDelegate : OrderHeaderTableViewCellDelegate {

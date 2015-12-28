@@ -56,6 +56,10 @@ class TastingLogEditorTableViewCell: UITableViewCell {
     func didPresentDetailView(){
         
     }
+    
+    func clear() {
+        
+    }
 }
 
 protocol TastingLogEditorTableViewCellDelegate {
@@ -80,6 +84,11 @@ class TitleTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, UIText
         super.configure(tastingLog)
         
         self.titleTextField.text = tastingLog.title
+    }
+    
+    override func clear() {
+        self.titleTextField.text = ""
+        self.editingDidEndTitleTextField(self.titleTextField)
     }
 }
 
@@ -106,6 +115,11 @@ class TagTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, UITextFi
         super.configure(tastingLog)
         
         self.tagTextField.text = tastingLog.tag
+    }
+    
+    override func clear() {
+        self.tagTextField.text = ""
+        self.editingDidEndTagTextField(self.tagTextField)
     }
 }
 
@@ -158,6 +172,10 @@ class TastingAtTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, Da
             self.tasitingDateLabel.textColor = UIColor.blackColor()
         }
     }
+    
+    override func clear() {
+        self.didOkDatePicker(DateUtility.minimumDate())
+    }
 }
 
 protocol TastingTastingLogEditorTableViewCellDelegate : TastingLogEditorTableViewCellDelegate {
@@ -208,10 +226,15 @@ class StoreTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, Stores
             self.storeLabel.textColor = UIColor.blackColor()
         }
     }
+    
+    override func clear() {
+        self.reloadLabel("")
+        (self.delegate as? StoreTastingLogEditorTableViewCellDelegate)?.valueChangedStore(nil)
+    }
 }
 
 protocol StoreTastingLogEditorTableViewCellDelegate : TastingLogEditorTableViewCellDelegate {
-    func valueChangedStore(store : Store)
+    func valueChangedStore(store : Store?)
 }
 
 class DetailTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, TextViewControllerDelegate {
@@ -262,6 +285,10 @@ class DetailTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, TextV
     override func didPresentDetailView() {
         (self.detailViewController as? TextViewController)?.textView.text = self.detailText
     }
+    
+    override func clear() {
+        self.didOkTextView("")
+    }
 }
 
 protocol DetailTastingLogEditorTableViewCellDelegate : TastingLogEditorTableViewCellDelegate {
@@ -309,10 +336,15 @@ class OrderTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, Orders
             self.orderLabel.textColor = UIColor.blackColor()
         }
     }
+    
+    override func clear() {
+        self.reloadLabel("")
+        (self.delegate as? OrderTastingLogEditorTableViewCellDelegate)?.valueChangedOrder(nil)
+    }
 }
 
 protocol OrderTastingLogEditorTableViewCellDelegate : TastingLogEditorTableViewCellDelegate {
-    func valueChangedOrder(order : Order)
+    func valueChangedOrder(order : Order?)
 }
 
 class PhotoTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -387,10 +419,16 @@ class PhotoTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, UIImag
         alertController.addAction(takePhotoOrVideoAction)
         self.delegate?.presentViewController(alertController)
     }
+    
+    override func clear() {
+        self.photoView.image = nil
+        (self.detailViewController as? TastingLogImageViewController)?.imageData = nil
+        (self.delegate as? PhotoTastingLogEditorTableViewCellDelegate)?.valueChangedPhoto(nil)
+    }
 }
 
 protocol PhotoTastingLogEditorTableViewCellDelegate : TastingLogEditorTableViewCellDelegate {
-    func valueChangedPhoto(photo: UIImage)
+    func valueChangedPhoto(photo: UIImage?)
     func deselectSelectedCell()
 }
 

@@ -23,7 +23,7 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
     var user : PFUser?
     
     @IBAction func touchUpInsideProfilePictureEditButton(sender: UIButton) {
-        self.presentImagePickerController()
+        self.presentImagePickerController(.PhotoLibrary)
     }
     
     override func viewDidLoad() {
@@ -45,6 +45,7 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
     
     internal func tapSaveBarButton(sender: UIButton){
         if let user = self.user {
+            // TODO: 一度アップしたファイルを削除する場合は、NSNullセットし保存すればOK？
             self.profilePictureImageView.file?.saveInBackground()
             user[userProfilePictureKey] = self.profilePictureImageView.file ?? NSNull()
             user[userDisplayNameKey] = self.nameTextField.text
@@ -59,9 +60,9 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
         }
     }
     
-    private func presentImagePickerController() {
+    private func presentImagePickerController(sourceType : UIImagePickerControllerSourceType) {
         let detailView = UIImagePickerController()
-        detailView.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        detailView.sourceType = sourceType
         detailView.delegate = self
         
         self.presentViewController(detailView, animated: true, completion: nil)
@@ -104,19 +105,40 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
             self.emailTextField.text = user["email"] as? String
         }
     }
+    
+    private func showProfilePictureActionSheet() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) {
+            action in
+        }
+        let deleteAction = UIAlertAction(title: "Remove current picture", style: .Default) {
+            action in
+            self.profilePictureImageView.file = nil
+            self.profilePictureImageView.image = nil
+        }
+        let photoLibraryAction = UIAlertAction(title: "Choose from Library", style: .Default) {
+            action in self.presentImagePickerController(.PhotoLibrary)
+        }
+        let takePhotoOrVideoAction = UIAlertAction(title: "Take picture", style: .Default) {
+            action in self.presentImagePickerController(.Camera)
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(deleteAction)
+        alertController.addAction(photoLibraryAction)
+        alertController.addAction(takePhotoOrVideoAction)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
 
-    // MARK: - Table view data source
-
-//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 0
-//    }
-//
-//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete implementation, return the number of rows
-//        return 0
-//    }
-
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 0 && indexPath.row == 0 {
+            self.showProfilePictureActionSheet()
+            self.tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        }
+    }
+    
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)

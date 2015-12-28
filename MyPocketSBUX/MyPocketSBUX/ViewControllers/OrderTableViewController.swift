@@ -147,7 +147,7 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
     }
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return indexPath.section == productSection
+        return true
     }
     
     // スワイプのため、空の実装が必要
@@ -156,42 +156,47 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
     
     // スワイプ時に表示する項目
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        return self.tableViewRowAction(indexPath.section)
+    }
+    
+    private func tableViewRowAction(section : Int) -> [UITableViewRowAction]? {
         
-        let copyAction = UITableViewRowAction(style: .Default, title: "Copy") {(action, indexPath) in
-            self.copyProductCell(indexPath)
-            self.tableView.setEditing(false, animated: true)
-        }
-        let editAction = UITableViewRowAction(style: .Default, title: "Edit") {(action, indexPath) in
-            if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? OrderTableViewCell {
-                self.touchUpInsideOrderEdit(cell)
+        var rowActions : [UITableViewRowAction]? = nil
+        
+        switch(section) {
+        case headerSection:
+            let clearAction = UITableViewRowAction(style: .Default, title: "Clear") {(action, indexPath) in
+                if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? OrderHeaderTableViewCell {
+                    cell.clear()
+                }
+                self.tableView.setEditing(false, animated: true)
             }
-            self.tableView.setEditing(false, animated: true)
+            clearAction.backgroundColor = UIColor.grayColor()
+            
+            rowActions = [clearAction]
+            break
+        case productSection:
+            let copyAction = UITableViewRowAction(style: .Default, title: "Copy") {(action, indexPath) in
+                self.copyProductCell(indexPath)
+                self.tableView.setEditing(false, animated: true)
+            }
+            let editAction = UITableViewRowAction(style: .Default, title: "Edit") {(action, indexPath) in
+                if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? OrderTableViewCell {
+                    self.touchUpInsideOrderEdit(cell)
+                }
+                self.tableView.setEditing(false, animated: true)
+            }
+            copyAction.backgroundColor = UIColor.blueColor()
+            editAction.backgroundColor = UIColor.greenColor()
+            
+            rowActions = [editAction, copyAction]
+            break
+        default:
+            break
         }
-        copyAction.backgroundColor = UIColor.blueColor()
-        editAction.backgroundColor = UIColor.greenColor()
         
-        return [editAction, copyAction]
+        return rowActions
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
 
     /*
     // Override to support rearranging the table view.

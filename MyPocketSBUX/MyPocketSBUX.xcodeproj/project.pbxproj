@@ -136,6 +136,7 @@
 		16D3B36C1AF9F19E00F5E67B /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D3B36B1AF9F19E00F5E67B /* TextViewController.swift */; };
 		16D41F861C2A5749003D187E /* TastingLogImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D41F851C2A5749003D187E /* TastingLogImageViewController.swift */; };
 		16D41F881C2A58EB003D187E /* ParseTastingLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D41F871C2A58EB003D187E /* ParseTastingLogManager.swift */; };
+		16D41F8A1C30F263003D187E /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D41F891C30F263003D187E /* NSObjectExtension.swift */; };
 		16DF6D461B188EE000BD079A /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DF6D451B188EE000BD079A /* Order.swift */; };
 		16DF6D481B188EE100BD079A /* OrderDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DF6D471B188EE100BD079A /* OrderDetail.swift */; };
 		16DF6D4A1B188EE100BD079A /* ProductIngredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DF6D491B188EE100BD079A /* ProductIngredient.swift */; };
@@ -338,6 +339,7 @@
 		16D3B36B1AF9F19E00F5E67B /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		16D41F851C2A5749003D187E /* TastingLogImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TastingLogImageViewController.swift; sourceTree = "<group>"; };
 		16D41F871C2A58EB003D187E /* ParseTastingLogManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseTastingLogManager.swift; sourceTree = "<group>"; };
+		16D41F891C30F263003D187E /* NSObjectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
 		16DF6D451B188EE000BD079A /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		16DF6D471B188EE100BD079A /* OrderDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetail.swift; sourceTree = "<group>"; };
 		16DF6D491B188EE100BD079A /* ProductIngredient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductIngredient.swift; sourceTree = "<group>"; };
@@ -473,6 +475,7 @@
 				164BFDCA1AC67D9C003BF77B /* DateUtility.swift */,
 				16EE33251C02F97E0026A926 /* ImageUtility.swift */,
 				16A51AE51B22CDEE001933AB /* JSONUtility.swift */,
+				16D41F891C30F263003D187E /* NSObjectExtension.swift */,
 				164BFDCC1AC67DF5003BF77B /* StringExtension.swift */,
 				164BFDD91ACFBEF3003BF77B /* UITableViewControllerExtension.swift */,
 			);
@@ -962,6 +965,7 @@
 				16F922A61BB6B0670000B26E /* MenuManager.swift in Sources */,
 				16C396611C0281A900903113 /* BasicProfileTableViewCell.swift in Sources */,
 				16CAF7941AE2ABA900318AE5 /* FoodOrderTableViewCell.swift in Sources */,
+				16D41F8A1C30F263003D187E /* NSObjectExtension.swift in Sources */,
 				16757DCE1AF7166300925C50 /* MakingCoffeeTableViewController.swift in Sources */,
 				16AE14361ABEDDEE00370062 /* SBUXTableViewController.swift in Sources */,
 				16253F271C00693B00A68FB8 /* ToYouActivityTableViewController.swift in Sources */,

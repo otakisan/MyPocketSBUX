@@ -54,6 +54,8 @@ class ParseContentsManager: ContentsManager {
     override func postJsonContentsToWeb(dataObject: NSManagedObject, entityName: String) -> Bool {
         let propertyNames = dataObject.propertyNames()
         var pfObjectData : [NSObject:AnyObject] = [:]
+        var deleteValuePropNames : [String] = []
+        
         for propName in propertyNames {
             
             if ["createdAt", "updatedAt"].contains({el in el == propName}) {
@@ -84,6 +86,13 @@ class ParseContentsManager: ContentsManager {
                 }else{
                     pfObjectData[propName] = propValue
                 }
+            } else {
+                if dataObject.isPropertyTypeNSManagedObject(propName) {
+                    deleteValuePropNames.append("\(propName)ObjectId")
+                    deleteValuePropNames.append("\(propName)Id")
+                } else {
+                    deleteValuePropNames.append(propName)
+                }
             }
         }
         
@@ -97,6 +106,10 @@ class ParseContentsManager: ContentsManager {
                     for (key, value) in pfObjectData {
                         resultObj[key as! String] = value
                     }
+                    
+                    // 値をundefinedにする
+                    deleteValuePropNames.forEach{resultObj.removeObjectForKey($0)}
+                    
                     try resultObj.save()
                 }else{
                     try PFObject(className: className, dictionary: pfObjectData).save()

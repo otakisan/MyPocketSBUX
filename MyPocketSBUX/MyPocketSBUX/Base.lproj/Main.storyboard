@@ -967,7 +967,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eWP-dZ-MNn">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="eWP-dZ-MNn">
                                                     <rect key="frame" x="8" y="7" width="584" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -1036,7 +1036,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fcI-cA-705">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fcI-cA-705">
                                                     <rect key="frame" x="8" y="7" width="584" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -2337,10 +2337,10 @@
                                 <rect key="frame" x="0.0" y="330" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g1w-Yn-qxB" id="QU8-sG-r28">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Input your notes" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="p8h-Tb-awr">
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Input your notes" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="p8h-Tb-awr">
                                             <rect key="frame" x="8" y="7" width="584" height="30"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
@@ -2350,10 +2350,10 @@
                                         </textField>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="p8h-Tb-awr" firstAttribute="centerX" secondItem="QU8-sG-r28" secondAttribute="centerX" id="1PC-qL-AUW"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="p8h-Tb-awr" secondAttribute="bottom" constant="-2" id="ESU-wT-7MC"/>
-                                        <constraint firstItem="p8h-Tb-awr" firstAttribute="leading" secondItem="QU8-sG-r28" secondAttribute="leadingMargin" constant="-7" id="Fqu-ci-qMb"/>
-                                        <constraint firstItem="p8h-Tb-awr" firstAttribute="top" secondItem="QU8-sG-r28" secondAttribute="topMargin" constant="-1" id="zfZ-ND-Z9m"/>
+                                        <constraint firstItem="p8h-Tb-awr" firstAttribute="leading" secondItem="QU8-sG-r28" secondAttribute="leadingMargin" id="Fr6-Sr-Vg9"/>
+                                        <constraint firstItem="p8h-Tb-awr" firstAttribute="trailing" secondItem="QU8-sG-r28" secondAttribute="trailingMargin" id="cMo-cU-VSs"/>
+                                        <constraint firstItem="p8h-Tb-awr" firstAttribute="centerY" secondItem="QU8-sG-r28" secondAttribute="centerY" id="ohk-qQ-6mf"/>
+                                        <constraint firstItem="p8h-Tb-awr" firstAttribute="top" secondItem="QU8-sG-r28" secondAttribute="topMargin" constant="-1" id="tqI-Ng-Nn0"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
