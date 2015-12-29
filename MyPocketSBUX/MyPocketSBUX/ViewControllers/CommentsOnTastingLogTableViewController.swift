@@ -51,7 +51,7 @@ class CommentsOnTastingLogTableViewController: PFQueryTableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("defaultCommentsOnTastingLogTableViewCell", forIndexPath: indexPath)
 
         // Configure the cell...
-        if let pfObject = self.objects?[indexPath.row] as? PFObject {
+        if let pfObject = self.objects?[indexPath.row] {
             cell.textLabel?.text = (pfObject[activityFromUserKey] as? PFUser)?.username
             cell.detailTextLabel?.text = (pfObject[activityContentKey] as? String)
         }
@@ -61,7 +61,7 @@ class CommentsOnTastingLogTableViewController: PFQueryTableViewController {
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         var editable = false
-        if let pfObject = self.objects?[indexPath.row] as? PFObject, let currentUser = PFUser.currentUser() {
+        if let pfObject = self.objects?[indexPath.row], let currentUser = PFUser.currentUser() {
             editable = (pfObject[activityFromUserKey] as? PFUser)?.username == currentUser.username || (pfObject[activityToUserKey] as? PFUser)?.username == currentUser.username
         }
         return editable

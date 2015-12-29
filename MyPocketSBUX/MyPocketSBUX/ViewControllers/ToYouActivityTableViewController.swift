@@ -78,7 +78,7 @@ class ToYouActivityTableViewController: PFQueryTableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.TableViewCell.identifier, forIndexPath: indexPath)
         
-        if let results = self.objects as? [PFObject] {
+        if let results = self.objects {
             cell.textLabel?.text = "\((results[indexPath.row][activityFromUserKey] as? PFUser)?.username ?? "") \((results[indexPath.row][activityTypeKey] as? String ?? "")) your log."
         }
         

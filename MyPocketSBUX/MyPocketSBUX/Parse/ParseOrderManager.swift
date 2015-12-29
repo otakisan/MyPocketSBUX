@@ -23,8 +23,9 @@ class ParseOrderManager: OrderManager {
                 pfOrder["remarks"] = order.remarks
                 pfOrder["notes"] = order.notes
                 pfOrder["myPocketId"] = order.myPocketId
-                //try pfOrder.save() // 一旦saveする必要があるらしい
-                pfOrder.saveEventually()
+                try pfOrder.save() // 一旦saveする必要があるらしい。
+                // PFRelation.addObject時に実際に保存されている必要があり、saveEventuallyだとうまく動作しない。
+                //pfOrder.saveEventually()
                 
                 let orderDetailsRelation = pfOrder.relationForKey("orderDetails")
                 try order.orderDetails.forEach({ (element) -> () in
@@ -41,8 +42,8 @@ class ParseOrderManager: OrderManager {
                         pfOrderDetail["totalCalorie"] = orderdetail.totalCalorie
                         pfOrderDetail["customCalorie"] = orderdetail.customCalorie
                         pfOrderDetail["remarks"] = orderdetail.remarks
-                        //try pfOrderDetail.save()
-                        pfOrderDetail.saveEventually()
+                        try pfOrderDetail.save()
+                        //pfOrderDetail.saveEventually()
                         
                         pfOrderDetail["orderObjectId"] = pfOrder
                         orderDetailsRelation.addObject(pfOrderDetail)
@@ -60,21 +61,21 @@ class ParseOrderManager: OrderManager {
                                 pfProductIngredient["enabled"] = productIngredient.enabled
                                 pfProductIngredient["quantityType"] = productIngredient.quantityType
                                 pfProductIngredient["remarks"] = productIngredient.remarks
-                                //try pfProductIngredient.save()
-                                pfProductIngredient.saveEventually()
+                                try pfProductIngredient.save()
+                                //pfProductIngredient.saveEventually()
                                 
                                 pfProductIngredient["orderDetailObjectId"] = pfOrderDetail
                                 productIngredientsRelation.addObject(pfProductIngredient)
                             }
                         })
                         
-                        //try pfOrderDetail.save()
-                        pfOrderDetail.saveEventually()
+                        try pfOrderDetail.save()
+                        //pfOrderDetail.saveEventually()
                     }
                 })
                 
-                //try pfOrder.save()
-                pfOrder.saveEventually()
+                try pfOrder.save()
+                //pfOrder.saveEventually()
                 
             }catch{
                 return false

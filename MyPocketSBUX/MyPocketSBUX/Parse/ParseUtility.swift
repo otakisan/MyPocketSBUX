@@ -39,7 +39,7 @@ class ParseUtility: NSObject {
             followActivity.setObject(activityTypeFollow, forKey: activityTypeKey)
                 
             let followACL = PFACL(user: currentUser)
-            followACL.setPublicReadAccess(true)
+            followACL.publicReadAccess = true
             followActivity.ACL = followACL
                 
             followActivity.saveEventually(completionBlock)
@@ -76,7 +76,7 @@ class ParseUtility: NSObject {
             approveActivity.setObject(activityTypeApprove, forKey:activityTypeKey)
             
             let approveACL = PFACL(user: currentUser)
-            approveACL.setPublicReadAccess(true)
+            approveACL.publicReadAccess = true
             approveActivity.ACL = approveACL
             
             approveActivity.saveInBackgroundWithBlock(block)
@@ -95,7 +95,7 @@ class ParseUtility: NSObject {
             approveActivity.setObject(activityTypeDeny, forKey:activityTypeKey)
             
             let approveACL = PFACL(user: currentUser)
-            approveACL.setPublicReadAccess(true)
+            approveACL.publicReadAccess = true
             approveActivity.ACL = approveACL
             
             approveActivity.saveInBackgroundWithBlock(block)
@@ -244,7 +244,7 @@ class ParseUtility: NSObject {
                             followActivity.setObject(tastingLog, forKey: activityTastingLogKey)
                             
                             let followACL = PFACL(user: currentUser)
-                            followACL.setPublicReadAccess(true)
+                            followACL.publicReadAccess = true
                             followActivity.ACL = followACL
                             
                             followActivity.saveInBackgroundWithBlock(block)
@@ -321,7 +321,7 @@ class ParseUtility: NSObject {
                             followActivity.setObject(comment, forKey: activityContentKey)
                             
                             let followACL = PFACL(user: currentUser)
-                            followACL.setPublicReadAccess(true)
+                            followACL.publicReadAccess = true
                             followActivity.ACL = followACL
                             
                             followActivity.saveInBackgroundWithBlock(block)

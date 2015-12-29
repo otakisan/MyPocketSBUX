@@ -53,7 +53,7 @@ class ParseContentsManager: ContentsManager {
     
     override func postJsonContentsToWeb(dataObject: NSManagedObject, entityName: String) -> Bool {
         let propertyNames = dataObject.propertyNames()
-        var pfObjectData : [NSObject:AnyObject] = [:]
+        var pfObjectData : [String:AnyObject] = [:]
         var deleteValuePropNames : [String] = []
         
         for propName in propertyNames {
@@ -79,9 +79,10 @@ class ParseContentsManager: ContentsManager {
                     pfObjectData[propName] = DateUtility.utcDateStringFromDate(propValue as! NSDate)
                 }
                 else if propValue is NSData {
-                    let photoFile = PFFile(data: propValue as! NSData)
-                    if ((try? photoFile.save()) != nil) {
-                        pfObjectData[propName] = photoFile
+                    if let photoFile = PFFile(data: propValue as! NSData) {
+                        if ((try? photoFile.save()) != nil) {
+                            pfObjectData[propName] = photoFile
+                        }
                     }
                 }else{
                     pfObjectData[propName] = propValue
@@ -104,7 +105,7 @@ class ParseContentsManager: ContentsManager {
                 query.whereKey("id", equalTo: id)
                 if let results = try? query.findObjects(), let resultObj = results.first {
                     for (key, value) in pfObjectData {
-                        resultObj[key as! String] = value
+                        resultObj[key] = value
                     }
                     
                     // 値をundefinedにする
@@ -489,9 +490,9 @@ class ParseContentsManager: ContentsManager {
                     query.skip += query.limit
                     self.fetchAndStoreRecursively(query, entityName: entityName, completionHandler: completionHandler)
                 }
+            } else {
+                completionHandler?()
             }
-            
-            completionHandler?()
         })
     }
     
