@@ -70,6 +70,9 @@ class TastingLogsCollectionViewController: PFQueryCollectionViewController, Tast
         
         // trueにすると、一覧の最下セルにLoad moreが出る（日本語設定でも英語のまま）
         self.paginationEnabled = true
+        
+        // ３列表示のため、３の倍数とする
+        self.objectsPerPage = 30
     }
 
     override func queryForCollection() -> PFQuery {
@@ -159,10 +162,17 @@ class TastingLogsCollectionViewController: PFQueryCollectionViewController, Tast
     }
     
     func didSaveTastingLog(tastingLog: TastingLog){
-        // TODO: このタイミングでロードしても、リモートのデータはまだ更新されていない
-        // self.loadObjects()
+        // TODO: 保存完了イベント後、同期的にこのタイミングでロードしても、リモートのデータはまだ更新されていない
+        // 更新されるタイミングは不明なので、ローカルでサムネイルを差し替える
+        if let indexPath = self.collectionView?.indexPathsForSelectedItems()?.first, let cell = self.collectionView?.cellForItemAtIndexPath(indexPath) as? TastingLogsCollectionViewCell {
+            if let thum = tastingLog.thumbnail {
+                cell.photoImageView.image = UIImage(data: thum)
+            } else {
+                cell.photoImageView.image = nil
+            }
+        }
     }
-    
+
     func didCancelTastingLog(tastingLog: TastingLog){
         
     }

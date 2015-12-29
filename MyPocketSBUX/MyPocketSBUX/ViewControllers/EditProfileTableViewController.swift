@@ -64,6 +64,7 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
         let detailView = UIImagePickerController()
         detailView.sourceType = sourceType
         detailView.delegate = self
+        detailView.allowsEditing = true
         
         self.presentViewController(detailView, animated: true, completion: nil)
     }
@@ -71,7 +72,7 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]){
         picker.dismissViewControllerAnimated(true, completion: nil)
         
-        if let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+        if let selectedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
             let profilePictureImage = ImageUtility.convertProfilePictureImage(selectedImage)
             self.profilePictureImageView.image = profilePictureImage
             if let profilePictureData = UIImageJPEGRepresentation(profilePictureImage, 0.5) {

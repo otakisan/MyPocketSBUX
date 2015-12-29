@@ -386,7 +386,7 @@ class PhotoTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, UIImag
         picker.dismissViewControllerAnimated(true, completion: nil)
         
         // TODO: 動画の場合は、サイズチェック、静止画表示、データは別途保持する
-        if let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+        if let selectedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
             self.photoView.image = ImageUtility.photoThumbnail(selectedImage)
             (self.detailViewController as? TastingLogImageViewController)?.imageData = UIImageJPEGRepresentation(selectedImage, 1.0)
             (self.delegate as? PhotoTastingLogEditorTableViewCellDelegate)?.valueChangedPhoto(selectedImage)
@@ -397,6 +397,7 @@ class PhotoTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, UIImag
         let imageViewController = UIImagePickerController()
         imageViewController.sourceType = sourceType
         imageViewController.delegate = self
+        imageViewController.allowsEditing = true
         
         self.delegate?.presentViewController(imageViewController)
     }

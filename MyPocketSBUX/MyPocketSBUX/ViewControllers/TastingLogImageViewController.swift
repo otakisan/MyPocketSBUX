@@ -42,6 +42,9 @@ class TastingLogImageViewController: UIViewController, UIScrollViewDelegate {
         self.tastingLogImageView.addGestureRecognizer(doubleTapGesture)
         
         self.addCancelButtonIfNeeded()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
         self.refreshImage()
     }
     
