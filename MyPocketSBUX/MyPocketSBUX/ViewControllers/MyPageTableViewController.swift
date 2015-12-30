@@ -27,11 +27,11 @@ class MyPageTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    override func viewWillAppear(animated: Bool) {
-        self.loginView()
+    override func viewDidAppear(animated: Bool) {
+        self.loginViewOrAnonymous()
     }
     
-    private func didLoginUser(user: PFUser) {
+    private func didLogInUser(user: PFUser) {
         IdentityContext.sharedInstance.currentUserID = user.username ?? ""
         
         // ログイン後、通知許可を求める
@@ -39,6 +39,25 @@ class MyPageTableViewController: UITableViewController {
 
         // プッシュ通知
         NotificationUtility.instance.pushNotificationUserDidLogIn()
+    }
+    
+    private func didCancelLogIn(viewController : UIViewController) {
+    }
+    
+    private func loginViewOrAnonymous() {
+        if !IdentityContext.sharedInstance.signedIn() {
+            let alert = UIAlertController(title: "Please log in or sign up.", message: nil, preferredStyle: .Alert)
+            let yesAction = UIAlertAction(title: "Yes", style: .Default) { (action) -> Void in
+                self.loginView()
+            }
+            let noAction = UIAlertAction(title: "No", style: .Default) { (action) -> Void in
+                (self.parentViewController?.parentViewController as? UITabBarController)?.selectedIndex = 1
+            }
+            
+            alert.addAction(yesAction)
+            alert.addAction(noAction)
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -138,7 +157,7 @@ extension MyPageTableViewController: PFLogInViewControllerDelegate {
     }
     
     func logInViewController(logInController: PFLogInViewController, didLogInUser user: PFUser) {
-        self.didLoginUser(user)
+        self.didLogInUser(user)
 
         logInController.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -151,8 +170,7 @@ extension MyPageTableViewController: PFLogInViewControllerDelegate {
     }
     
     func logInViewControllerDidCancelLogIn(logInController: PFLogInViewController) {
-        // 何も処理をせず、再度viewDidAppearのときにログイン画面を表示する
-        // 仮に、ナビゲーションで遷移してきた画面の上にログイン画面を出しているとしたら、ここで、ナビゲーション的に戻る操作をする
+        self.didCancelLogIn(logInController)
     }
 }
 
@@ -180,7 +198,7 @@ extension MyPageTableViewController: PFSignUpViewControllerDelegate {
     }
     
     func signUpViewController(signUpController: PFSignUpViewController, didSignUpUser user: PFUser) {
-        self.didLoginUser(user)
+        self.didLogInUser(user)
         
         signUpController.dismissViewControllerAnimated(true, completion: nil)
         signUpController.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
@@ -194,6 +212,6 @@ extension MyPageTableViewController: PFSignUpViewControllerDelegate {
     }
     
     func signUpViewControllerDidCancelSignUp(signUpController: PFSignUpViewController) {
-        // 何も処理をせず、戻る
+        self.didCancelLogIn(signUpController)
     }
 }
