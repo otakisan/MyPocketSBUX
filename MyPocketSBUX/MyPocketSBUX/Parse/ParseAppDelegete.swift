@@ -96,6 +96,10 @@ class ParseAppDelegete: NSObject, UIApplicationDelegate {
         }
     }
 
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        print("local notification : \(notification.alertBody)")
+    }
+
     private func prepareForPushNotification(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) {
         
         // Push通知

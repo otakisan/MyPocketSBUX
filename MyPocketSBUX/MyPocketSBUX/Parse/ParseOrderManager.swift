@@ -14,71 +14,75 @@ class ParseOrderManager: OrderManager {
     override func postJsonContentsToWeb(order: Order) -> Bool {
         if IdentityContext.sharedInstance.signedIn() {
             
-            do {
-                let pfOrder = PFObject(className: "Order")
-                pfOrder["id"] = order.id
-                pfOrder["storeId"] = order.storeId
-                pfOrder["taxExcludedTotalPrice"] = order.taxExcludedTotalPrice
-                pfOrder["taxIncludedTotalPrice"] = order.taxIncludedTotalPrice
-                pfOrder["remarks"] = order.remarks
-                pfOrder["notes"] = order.notes
-                pfOrder["myPocketId"] = order.myPocketId
-                try pfOrder.save() // 一旦saveする必要があるらしい。
-                // PFRelation.addObject時に実際に保存されている必要があり、saveEventuallyだとうまく動作しない。
-                //pfOrder.saveEventually()
-                
-                let orderDetailsRelation = pfOrder.relationForKey("orderDetails")
-                try order.orderDetails.forEach({ (element) -> () in
-                    if let orderdetail = element as? OrderDetail {
-                        let pfOrderDetail = PFObject(className: "OrderDetail")
-                        pfOrderDetail["productJanCode"] = orderdetail.productJanCode
-                        pfOrderDetail["productName"] = orderdetail.productName
-                        pfOrderDetail["size"] = orderdetail.size
-                        pfOrderDetail["hotOrIced"] = orderdetail.hotOrIced
-                        pfOrderDetail["reusableCup"] = orderdetail.reusableCup
-                        pfOrderDetail["ticket"] = orderdetail.ticket
-                        pfOrderDetail["taxExcludeTotalPrice"] = orderdetail.taxExcludeTotalPrice
-                        pfOrderDetail["taxExcludeCustomPrice"] = orderdetail.taxExcludeCustomPrice
-                        pfOrderDetail["totalCalorie"] = orderdetail.totalCalorie
-                        pfOrderDetail["customCalorie"] = orderdetail.customCalorie
-                        pfOrderDetail["remarks"] = orderdetail.remarks
-                        try pfOrderDetail.save()
-                        //pfOrderDetail.saveEventually()
-                        
-                        pfOrderDetail["orderObjectId"] = pfOrder
-                        orderDetailsRelation.addObject(pfOrderDetail)
-                        
-                        let productIngredientsRelation = pfOrderDetail.relationForKey("productIngredients")
-                        try orderdetail.productIngredients.forEach({ (elementPI) -> () in
-                            if let productIngredient = elementPI as? ProductIngredient {
-                                let pfProductIngredient = PFObject(className: "ProductIngredient")
-                                pfProductIngredient["isCustom"] = productIngredient.isCustom
-                                pfProductIngredient["name"] = productIngredient.name
-                                pfProductIngredient["milkType"] = productIngredient.milkType
-                                pfProductIngredient["unitCalorie"] = productIngredient.unitCalorie
-                                pfProductIngredient["unitPrice"] = productIngredient.unitPrice
-                                pfProductIngredient["quantity"] = productIngredient.quantity
-                                pfProductIngredient["enabled"] = productIngredient.enabled
-                                pfProductIngredient["quantityType"] = productIngredient.quantityType
-                                pfProductIngredient["remarks"] = productIngredient.remarks
-                                try pfProductIngredient.save()
-                                //pfProductIngredient.saveEventually()
-                                
-                                pfProductIngredient["orderDetailObjectId"] = pfOrderDetail
-                                productIngredientsRelation.addObject(pfProductIngredient)
-                            }
-                        })
-                        
-                        try pfOrderDetail.save()
-                        //pfOrderDetail.saveEventually()
-                    }
-                })
-                
-                try pfOrder.save()
-                //pfOrder.saveEventually()
-                
-            }catch{
-                return false
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
+                do {
+                    let pfOrder = PFObject(className: orderClassKey)
+                    pfOrder[orderIdKey] = order.id
+                    pfOrder[orderStoreIdKey] = order.storeId
+                    pfOrder[orderTaxExcludedTotalPriceKey] = order.taxExcludedTotalPrice
+                    pfOrder[orderTaxIncludedTotalPriceKey] = order.taxIncludedTotalPrice
+                    pfOrder[orderRemarksKey] = order.remarks
+                    pfOrder[orderNotesKey] = order.notes
+                    pfOrder[orderMyPocketIdKey] = order.myPocketId
+                    try pfOrder.save() // 一旦saveする必要があるらしい。
+                    // PFRelation.addObject時に実際に保存されている必要があり、saveEventuallyだとうまく動作しない。
+                    //pfOrder.saveEventually()
+                    
+                    let orderDetailsRelation = pfOrder.relationForKey(orderOrderDetailsKey)
+                    try order.orderDetails.forEach({ (element) -> () in
+                        if let orderdetail = element as? OrderDetail {
+                            let pfOrderDetail = PFObject(className: orderDetailClassKey)
+                            pfOrderDetail[orderDetailProductJanCodeKey] = orderdetail.productJanCode
+                            pfOrderDetail[orderDetailProductNameKey] = orderdetail.productName
+                            pfOrderDetail[orderDetailSizeKey] = orderdetail.size
+                            pfOrderDetail[orderDetailHotOrIcedKey] = orderdetail.hotOrIced
+                            pfOrderDetail[orderDetailReusableCupKey] = orderdetail.reusableCup
+                            pfOrderDetail[orderDetailTicketKey] = orderdetail.ticket
+                            pfOrderDetail[orderDetailTaxExcludeTotalPriceKey] = orderdetail.taxExcludeTotalPrice
+                            pfOrderDetail[orderDetailTaxExcludeCustomPriceKey] = orderdetail.taxExcludeCustomPrice
+                            pfOrderDetail[orderDetailTotalCalorieKey] = orderdetail.totalCalorie
+                            pfOrderDetail[orderDetailCustomCalorieKey] = orderdetail.customCalorie
+                            pfOrderDetail[orderDetailRemarksKey] = orderdetail.remarks
+                            try pfOrderDetail.save()
+                            //pfOrderDetail.saveEventually()
+                            
+                            pfOrderDetail[orderDetailOrderObjectIdKey] = pfOrder
+                            orderDetailsRelation.addObject(pfOrderDetail)
+                            
+                            let productIngredientsRelation = pfOrderDetail.relationForKey(orderDetailProductIngredientsKey)
+                            try orderdetail.productIngredients.forEach({ (elementPI) -> () in
+                                if let productIngredient = elementPI as? ProductIngredient {
+                                    let pfProductIngredient = PFObject(className: productIngredientClassKey)
+                                    pfProductIngredient[productIngredientIsCustomKey] = productIngredient.isCustom
+                                    pfProductIngredient[productIngredientNameKey] = productIngredient.name
+                                    pfProductIngredient[productIngredientMilkTypeKey] = productIngredient.milkType
+                                    pfProductIngredient[productIngredientUnitCalorieKey] = productIngredient.unitCalorie
+                                    pfProductIngredient[productIngredientUnitPriceKey] = productIngredient.unitPrice
+                                    pfProductIngredient[productIngredientQuantityKey] = productIngredient.quantity
+                                    pfProductIngredient[productIngredientEnabledKey] = productIngredient.enabled
+                                    pfProductIngredient[productIngredientQuantityTypeKey] = productIngredient.quantityType
+                                    pfProductIngredient[productIngredientRemarksKey] = productIngredient.remarks
+                                    try pfProductIngredient.save() // Pointerを設定する前に保存する必要がある
+                                    //pfProductIngredient.saveEventually()
+                                    
+                                    pfProductIngredient[productIngredientOrderDetailObjectIdKey] = pfOrderDetail
+                                    try pfProductIngredient.save() // 値の設定を完了したので保存
+                                    productIngredientsRelation.addObject(pfProductIngredient)
+                                }
+                            })
+                            
+                            try pfOrderDetail.save()
+                            //pfOrderDetail.saveEventually()
+                        }
+                    })
+                    
+                    try pfOrder.save()
+                    //pfOrder.saveEventually()
+                    
+                }catch{
+                    
+                    NotificationUtility.instance.localNotificationNow("save again order. : \(order.notes)")
+                }
             }
             
             return true
@@ -86,7 +90,7 @@ class ParseOrderManager: OrderManager {
             return false
         }
     }
-    
+        
     override func nextOrderId() -> Int {
         return ContentsManager.instance.nextId(Orders.instance().entityName())
     }

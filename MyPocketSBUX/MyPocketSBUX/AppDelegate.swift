@@ -63,6 +63,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
         self.appDelegateBackend?.application?(application, didFailToRegisterForRemoteNotificationsWithError: error)
     }
+    
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        self.appDelegateBackend?.application?(application, didReceiveLocalNotification: notification)
+    }
 
     // MARK: - Core Data stack
 
