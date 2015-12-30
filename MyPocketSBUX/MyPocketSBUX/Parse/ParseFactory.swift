@@ -40,4 +40,8 @@ class ParseFactory: BaseFactory {
     override func createTastingLogManager() -> TastingLogManager {
         return ParseTastingLogManager()
     }
+    
+    override func createNotificationUtility() -> NotificationUtility {
+        return ParseNotificationUtility()
+    }
 }

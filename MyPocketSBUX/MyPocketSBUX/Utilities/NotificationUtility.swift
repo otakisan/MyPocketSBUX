@@ -10,7 +10,7 @@ import UIKit
 
 class NotificationUtility: NSObject {
 
-    static let instance = NotificationUtility()
+    static let instance = BaseFactory.instance.createNotificationUtility()
     
     func localNotificationNow(message : String) {
         // 通知の許可を得ている前提
@@ -25,5 +25,8 @@ class NotificationUtility: NSObject {
         localNotification.timeZone = NSTimeZone.localTimeZone()
         localNotification.soundName = UILocalNotificationDefaultSoundName
         UIApplication.sharedApplication().presentLocalNotificationNow(localNotification)
+    }
+    
+    func pushNotificationUserDidLogIn() {
     }
 }

@@ -57,6 +57,9 @@ class BaseFactory: NSObject {
         return TastingLogManager()
     }
     
+    func createNotificationUtility() -> NotificationUtility {
+        return NotificationUtility()
+    }
 }
 
 enum Backend {

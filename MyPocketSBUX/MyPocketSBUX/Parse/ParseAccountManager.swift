@@ -23,16 +23,7 @@ class ParseAccountManager: AccountManager {
             user = self.createUser(pfUser)
             IdentityContext.sharedInstance.currentUserID = user!.myPocketId
             
-            PFInstallation.currentInstallation().saveInBackgroundWithBlock({ (succeeded, error) -> Void in
-                if let query = PFInstallation.query(), let currentUser = PFUser.currentUser() {
-                    let push = PFPush()
-                    // TODO: カレントユーザーと関係のあるユーザーにのみ通知するようにする
-                    query.whereKey("user", notEqualTo: currentUser)
-                    push.setQuery(query)
-                    push.setMessage("\(IdentityContext.sharedInstance.currentUserID) signed in!")
-                    push.sendPushInBackground()
-                }
-            })
+            NotificationUtility.instance.pushNotificationUserDidLogIn()
         }
         
         return user
