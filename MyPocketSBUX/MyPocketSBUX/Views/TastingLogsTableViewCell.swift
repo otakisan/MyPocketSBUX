@@ -25,7 +25,10 @@ class TastingLogsTableViewCell: UITableViewCell {
         super.layoutSubviews()
         
         // imageViewを正方形にする。ラベルの位置も合わせて補正する。
-        let originalMargin = (self.textLabel?.frame.origin.x ?? 0) - ((self.imageView?.frame.origin.x ?? 0) + (self.imageView?.frame.size.width ?? 0))
+        self.imageView?.clipsToBounds = true
+        self.imageView?.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.FlexibleHeight.rawValue | UIViewAutoresizing.FlexibleWidth.rawValue)
+        self.imageView?.contentMode = .ScaleAspectFill
+
         self.imageView?.frame = CGRectMake(
             self.imageView?.frame.origin.x ?? 0,
             self.imageView?.frame.origin.y ?? 0,
@@ -33,7 +36,7 @@ class TastingLogsTableViewCell: UITableViewCell {
             self.imageView?.frame.size.height ?? 0
         )
         self.textLabel?.frame = CGRectMake(
-            (self.imageView?.frame.origin.x ?? 0) + (self.imageView?.frame.size.width ?? 0) + originalMargin,
+            (self.imageView?.frame.origin.x ?? 0) + (self.imageView?.frame.size.width ?? 0) + 15,
             self.textLabel?.frame.origin.y ?? 0,
             self.textLabel?.frame.size.width ?? 0,
             self.textLabel?.frame.size.height ?? 0

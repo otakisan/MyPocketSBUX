@@ -3859,8 +3859,40 @@
                         <sections>
                             <tableViewSection id="pUW-26-hGZ">
                                 <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="232" id="6Yt-Q1-GMN" customClass="PhotoTastingLogEditorTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44" width="600" height="232"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Yt-Q1-GMN" id="qCi-QH-ada">
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="232"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ya3-2p-fx9">
+                                                    <rect key="frame" x="176" y="8" width="216" height="216"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="216" id="zcO-Hw-0Ev"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8HH-xP-bmW">
+                                                    <rect key="frame" x="537" y="105" width="22" height="22"/>
+                                                    <connections>
+                                                        <action selector="touchUpInsideAddImageButton:" destination="6Yt-Q1-GMN" eventType="touchUpInside" id="QT1-we-Dox"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="8HH-xP-bmW" firstAttribute="trailing" secondItem="qCi-QH-ada" secondAttribute="trailingMargin" id="16X-Ds-PO6"/>
+                                                <constraint firstItem="8HH-xP-bmW" firstAttribute="centerY" secondItem="ya3-2p-fx9" secondAttribute="centerY" id="BIa-tY-wdv"/>
+                                                <constraint firstItem="ya3-2p-fx9" firstAttribute="centerX" secondItem="qCi-QH-ada" secondAttribute="centerX" id="L7B-3Z-pI2"/>
+                                                <constraint firstItem="ya3-2p-fx9" firstAttribute="top" secondItem="qCi-QH-ada" secondAttribute="topMargin" id="X1g-IJ-ctg"/>
+                                                <constraint firstItem="8HH-xP-bmW" firstAttribute="centerY" secondItem="qCi-QH-ada" secondAttribute="centerY" id="kUI-nn-Sfu"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="photoView" destination="ya3-2p-fx9" id="FFO-h8-BfW"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="titleTastingLogEditorTableViewCell" id="nPM-Ke-iDN" customClass="TitleTastingLogEditorTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="276" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nPM-Ke-iDN" id="hsx-Jb-O6R">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -3888,7 +3920,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="mF8-u1-7rw" customClass="TagTastingLogEditorTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="88" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="320" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mF8-u1-7rw" id="Nn3-Gr-aaM">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -3910,7 +3942,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="Hf4-8N-sia" customClass="TastingAtTastingLogEditorTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="132" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="364" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hf4-8N-sia" id="eEB-Vm-L8I">
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
@@ -3935,7 +3967,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="SdH-cF-F8R" customClass="StoreTastingLogEditorTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="176" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="408" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SdH-cF-F8R" id="iuN-EX-Set">
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
@@ -3960,7 +3992,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="1YV-Rv-JLm" customClass="DetailTastingLogEditorTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="220" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="452" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1YV-Rv-JLm" id="MmJ-VL-O8D">
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
@@ -3979,7 +4011,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="bEO-Ci-kC8" customClass="OrderTastingLogEditorTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="264" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="496" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bEO-Ci-kC8" id="A1c-TG-Rb6">
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
@@ -4003,40 +4035,8 @@
                                             <outlet property="orderLabel" destination="jBJ-wO-4Xa" id="9Kj-5J-Aff"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="6Yt-Q1-GMN" customClass="PhotoTastingLogEditorTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="308" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Yt-Q1-GMN" id="qCi-QH-ada">
-                                            <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ya3-2p-fx9">
-                                                    <rect key="frame" x="8" y="8" width="32" height="32"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="32" id="Ahw-3T-huU"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8HH-xP-bmW">
-                                                    <rect key="frame" x="537" y="11" width="22" height="22"/>
-                                                    <connections>
-                                                        <action selector="touchUpInsideAddImageButton:" destination="6Yt-Q1-GMN" eventType="touchUpInside" id="QT1-we-Dox"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="8HH-xP-bmW" firstAttribute="centerY" secondItem="qCi-QH-ada" secondAttribute="centerY" id="Pen-ZT-uHQ"/>
-                                                <constraint firstItem="8HH-xP-bmW" firstAttribute="trailing" secondItem="qCi-QH-ada" secondAttribute="trailingMargin" id="UT1-g2-l5C"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="ya3-2p-fx9" secondAttribute="bottom" constant="-4.5" id="oB1-jQ-2hc"/>
-                                                <constraint firstItem="ya3-2p-fx9" firstAttribute="top" secondItem="qCi-QH-ada" secondAttribute="topMargin" id="oEH-Af-E4S"/>
-                                                <constraint firstItem="ya3-2p-fx9" firstAttribute="leading" secondItem="qCi-QH-ada" secondAttribute="leadingMargin" id="xGJ-DS-SI7"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="photoView" destination="ya3-2p-fx9" id="FFO-h8-BfW"/>
-                                        </connections>
-                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="FHr-AS-wSH" detailTextLabel="3gO-hN-NCh" style="IBUITableViewCellStyleValue1" id="nrE-Hh-KX0" customClass="LikeTastingLogEditorTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="352" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="540" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nrE-Hh-KX0" id="QtR-CV-hXc">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -4060,7 +4060,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="n3I-Vz-2NM" detailTextLabel="l8G-SX-yG4" style="IBUITableViewCellStyleValue1" id="NFU-HZ-gYL" customClass="CommentTastingLogEditorTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="396" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="584" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NFU-HZ-gYL" id="Odf-em-Eav">
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
@@ -4084,7 +4084,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="4W9-Cj-zg2" customClass="TastingLogEditorTableViewCell" customModule="MyPocketSBUX" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="440" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="628" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4W9-Cj-zg2" id="YEE-n2-jul">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>

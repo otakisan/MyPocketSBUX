@@ -44,7 +44,15 @@ class TastingLogsBaseTableViewController: UITableViewController, TastingLogEdito
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if let firstCell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)), let firstCellTextLabel = firstCell.textLabel {
+            self.tableView.separatorInset = UIEdgeInsetsMake(self.tableView.separatorInset.top, firstCellTextLabel.frame.origin.x, self.tableView.separatorInset.right, self.tableView.separatorInset.bottom)
+        }
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -67,7 +75,11 @@ class TastingLogsBaseTableViewController: UITableViewController, TastingLogEdito
         cell.detailTextLabel?.text = "\(DateUtility.localDateString(self.tastingLogs[indexPath.row].tastingAt))@\(self.tastingLogs[indexPath.row].store?.name ?? String())"
         if let thumbnailData = self.tastingLogs[indexPath.row].thumbnail, let image = UIImage(data: thumbnailData) {
             cell.imageView?.image = image
+        } else {
+            cell.imageView?.image = ImageUtility.blankImage(CGSizeMake(cell.frame.height, cell.frame.height))
         }
+        cell.imageView?.layer.borderWidth = 0.5
+        cell.imageView?.layer.borderColor = UIColor(white: 0.8, alpha: 0.5).CGColor
         
         return cell
     }

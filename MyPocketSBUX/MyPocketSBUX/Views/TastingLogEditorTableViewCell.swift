@@ -362,7 +362,9 @@ class PhotoTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, UIImag
         self.detailViewModally = false
         (self.detailViewController as? TastingLogImageViewController)?.tastingLogId = Int(tastingLog.id)
         
-        // TODO: イメージの設定
+        // イメージの設定
+        self.photoView.layer.borderWidth = 0.5
+        self.photoView.layer.borderColor = UIColor(white: 0.8, alpha: 0.5).CGColor
         if let photoData = tastingLog.photo, let photoImage = UIImage(data: photoData) {
             self.photoView.image = ImageUtility.photoThumbnail(photoImage)
             (self.detailViewController as? TastingLogImageViewController)?.imageData = photoData

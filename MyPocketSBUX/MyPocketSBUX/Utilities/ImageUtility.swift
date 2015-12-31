@@ -36,4 +36,11 @@ class ImageUtility: NSObject {
         return resizedImage
     }
 
+    static func blankImage(size : CGSize) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        let blank  = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return blank
+    }
 }
