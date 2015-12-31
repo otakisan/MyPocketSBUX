@@ -176,6 +176,10 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
             rowActions = [clearAction]
             break
         case productSection:
+            let detailAction = UITableViewRowAction(style: .Default, title: "Details") {(action, indexPath) in
+                self.showProductDetail(self.orderItems[indexPath.row].productEntity as? NSObject)
+                self.tableView.setEditing(false, animated: true)
+            }
             let copyAction = UITableViewRowAction(style: .Default, title: "Copy") {(action, indexPath) in
                 self.copyProductCell(indexPath)
                 self.tableView.setEditing(false, animated: true)
@@ -186,10 +190,11 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
                 }
                 self.tableView.setEditing(false, animated: true)
             }
+            detailAction.backgroundColor = UIColor.grayColor()
             copyAction.backgroundColor = UIColor.blueColor()
             editAction.backgroundColor = UIColor.greenColor()
             
-            rowActions = [editAction, copyAction]
+            rowActions = [editAction, copyAction, detailAction]
             break
         default:
             break
@@ -298,11 +303,19 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
         let copyAction = UIAlertAction(title: "Copy", style: .Default) {
             action in self.copyProductCell(indexPath)
         }
+        let detailAction = UIAlertAction(title: "View details", style: .Default) {
+            action in self.showProductDetail(self.orderItems[indexPath.row].productEntity as? NSObject)
+        }
         
-        alertController.addAction(cancelAction)
+        alertController.addAction(detailAction)
         alertController.addAction(copyAction)
+        alertController.addAction(cancelAction)
         
         self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    private func showProductDetail(product : NSObject?) {
+        self.navigationController?.pushViewController(ProductDetailTableViewController.forProduct(product), animated: true)
     }
     
     private func copyProductCell(indexPath : NSIndexPath) {

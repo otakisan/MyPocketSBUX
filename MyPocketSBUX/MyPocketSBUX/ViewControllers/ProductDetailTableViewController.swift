@@ -10,9 +10,24 @@ import UIKit
 
 class ProductDetailTableViewController: UITableViewController {
     
+    struct StoryboardConstants {
+        static let storyboardName = "Main"
+        static let viewControllerIdentifier = "ProductDetailTableViewController"
+    }
+
     var product: NSObject?
     var productPropertyNames: [String] = []
     var nutritions: [Nutrition] = []
+
+    class func forProduct(product : NSObject?) -> ProductDetailTableViewController {
+        let storyboard = UIStoryboard(name: StoryboardConstants.storyboardName, bundle: nil)
+        
+        let viewController = storyboard.instantiateViewControllerWithIdentifier(StoryboardConstants.viewControllerIdentifier) as! ProductDetailTableViewController
+        
+        viewController.product = product
+        
+        return viewController
+    }
 
     func initialize(){
         // 不要なもの（id等）もあり、結局指定する必要がある

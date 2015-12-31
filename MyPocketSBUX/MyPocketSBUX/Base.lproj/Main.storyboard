@@ -1844,7 +1844,7 @@
                                 <rect key="frame" x="0.0" y="66" width="600" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AvI-Xr-x08" id="Ygv-zW-UiD">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="65"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="64.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7KE-lK-8Bc">
@@ -2016,7 +2016,7 @@
         <!--Product Detail Table View Controller-->
         <scene sceneID="t2G-Gm-SMB">
             <objects>
-                <tableViewController id="bw6-o5-pwR" customClass="ProductDetailTableViewController" customModule="MyPocketSBUX" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ProductDetailTableViewController" id="bw6-o5-pwR" customClass="ProductDetailTableViewController" customModule="MyPocketSBUX" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="BAS-41-8CH">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
