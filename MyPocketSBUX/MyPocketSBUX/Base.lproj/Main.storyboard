@@ -2420,7 +2420,7 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Order" id="cLj-hi-PX3">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="d9N-sg-X67">
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="d9N-sg-X67">
                             <connections>
                                 <segue destination="pUx-nH-rY1" kind="show" id="xwl-Ng-62g"/>
                             </connections>
