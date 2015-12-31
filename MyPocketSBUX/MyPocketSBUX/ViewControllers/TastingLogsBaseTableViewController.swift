@@ -65,6 +65,9 @@ class TastingLogsBaseTableViewController: UITableViewController, TastingLogEdito
         // Configure the cell...
         cell.textLabel?.text = self.tastingLogs[indexPath.row].title
         cell.detailTextLabel?.text = "\(DateUtility.localDateString(self.tastingLogs[indexPath.row].tastingAt))@\(self.tastingLogs[indexPath.row].store?.name ?? String())"
+        if let thumbnailData = self.tastingLogs[indexPath.row].thumbnail, let image = UIImage(data: thumbnailData) {
+            cell.imageView?.image = image
+        }
         
         return cell
     }

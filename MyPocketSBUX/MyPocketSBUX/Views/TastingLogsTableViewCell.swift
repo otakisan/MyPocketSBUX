@@ -21,4 +21,28 @@ class TastingLogsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        // imageViewを正方形にする。ラベルの位置も合わせて補正する。
+        let originalMargin = (self.textLabel?.frame.origin.x ?? 0) - ((self.imageView?.frame.origin.x ?? 0) + (self.imageView?.frame.size.width ?? 0))
+        self.imageView?.frame = CGRectMake(
+            self.imageView?.frame.origin.x ?? 0,
+            self.imageView?.frame.origin.y ?? 0,
+            self.imageView?.frame.size.height ?? 0,
+            self.imageView?.frame.size.height ?? 0
+        )
+        self.textLabel?.frame = CGRectMake(
+            (self.imageView?.frame.origin.x ?? 0) + (self.imageView?.frame.size.width ?? 0) + originalMargin,
+            self.textLabel?.frame.origin.y ?? 0,
+            self.textLabel?.frame.size.width ?? 0,
+            self.textLabel?.frame.size.height ?? 0
+        )
+        self.detailTextLabel?.frame = CGRectMake(
+            self.textLabel?.frame.origin.x ?? 0,
+            self.detailTextLabel?.frame.origin.y ?? 0,
+            self.detailTextLabel?.frame.size.width ?? 0,
+            self.detailTextLabel?.frame.size.height ?? 0
+        )
+    }
 }
