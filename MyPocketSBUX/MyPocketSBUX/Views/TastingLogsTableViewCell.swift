@@ -29,22 +29,26 @@ class TastingLogsTableViewCell: UITableViewCell {
         self.imageView?.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.FlexibleHeight.rawValue | UIViewAutoresizing.FlexibleWidth.rawValue)
         self.imageView?.contentMode = .ScaleAspectFill
 
+        let imageViewX = self.imageView?.frame.origin.x ?? 0
         self.imageView?.frame = CGRectMake(
-            self.imageView?.frame.origin.x ?? 0,
+            imageViewX,
             self.imageView?.frame.origin.y ?? 0,
             self.imageView?.frame.size.height ?? 0,
             self.imageView?.frame.size.height ?? 0
         )
+        
+        let textLabelX = imageViewX + (self.imageView?.frame.size.width ?? 0) + 15
+        let textLabelWidth = self.frame.size.width - (textLabelX + imageViewX)
         self.textLabel?.frame = CGRectMake(
-            (self.imageView?.frame.origin.x ?? 0) + (self.imageView?.frame.size.width ?? 0) + 15,
+            textLabelX,
             self.textLabel?.frame.origin.y ?? 0,
-            self.textLabel?.frame.size.width ?? 0,
+            textLabelWidth,
             self.textLabel?.frame.size.height ?? 0
         )
         self.detailTextLabel?.frame = CGRectMake(
-            self.textLabel?.frame.origin.x ?? 0,
+            textLabelX,
             self.detailTextLabel?.frame.origin.y ?? 0,
-            self.detailTextLabel?.frame.size.width ?? 0,
+            textLabelWidth,
             self.detailTextLabel?.frame.size.height ?? 0
         )
     }
