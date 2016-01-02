@@ -153,7 +153,10 @@ class CustomizingOrderTableViewController: UITableViewController,
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.nameMappings[section].section
     }
-    
+
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.tableView.deselectRowAtIndexPath(indexPath, animated: false)
+    }
 
     /*
     // Override to support conditional editing of the table view.

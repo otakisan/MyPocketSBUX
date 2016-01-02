@@ -129,6 +129,9 @@ class CustomItemsTableViewController: UITableViewController, SyrupCustomItemsTab
         return cell
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.tableView.deselectRowAtIndexPath(indexPath, animated: false)
+    }
 
     /*
     // Override to support conditional editing of the table view.
