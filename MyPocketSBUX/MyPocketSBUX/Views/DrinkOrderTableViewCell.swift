@@ -10,7 +10,9 @@ import UIKit
 
 class DrinkOrderTableViewCell: OrderTableViewCell {
 
-    @IBOutlet weak var customizationLabel: UILabel!
+    @IBOutlet weak var ingredientsCollectionView: UICollectionView!
+    @IBOutlet weak var miscLabel: UILabel!
+    @IBOutlet weak var sizeLabel: UILabel!
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var orderSwitch: UISwitch!
@@ -19,10 +21,6 @@ class DrinkOrderTableViewCell: OrderTableViewCell {
     
     @IBAction override func valueChangedOrderSwitch(sender: UISwitch) {
         super.valueChangedOrderSwitch(sender)
-    }
-    
-    @IBAction func touchUpInsideEditButton(sender: UIButton) {
-        super.touchUpInsideOrderEdit(self)
     }
     
     override func awakeFromNib() {
@@ -50,8 +48,8 @@ class DrinkOrderTableViewCell: OrderTableViewCell {
             
             self.calorieLabel.text = "\(self.calorieForOrder()) kcal"
             
-            // TODO: オリジナル材料のカスタマイズも表示する
-            self.customizationLabel.text = self.orderListItem?.customizationItems?.ingredients.reduce("", combine: {$0! + ($0 != "" ? ", " : "") + ($1.name ?? "")})
+            // TODO: 初回だけ、二重処理になってしまう
+            self.ingredientsCollectionView.reloadData()
         }
     }
     
@@ -68,4 +66,31 @@ class DrinkOrderTableViewCell: OrderTableViewCell {
         
         return calorie
     }
+}
+
+extension DrinkOrderTableViewCell : UICollectionViewDataSource {
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        // オリジナルとカスタマイズで分ける
+        return 2
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
+        // 商品要素の数を返却する
+        return section == 0 ? (self.orderListItem?.originalItems?.ingredients.count ?? 0) : (section == 1 ? self.orderListItem?.customizationItems?.ingredients.count ?? 0 : 0 )
+    }
+    
+    // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell{
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ingredientCollectionViewCell", forIndexPath: indexPath) as! IngredientCollectionViewCell
+        if indexPath.section < 2, let ingredient = (indexPath.section == 0 ? self.orderListItem?.originalItems?.ingredients[indexPath.row] : self.orderListItem?.customizationItems?.ingredients[indexPath.row]) {
+            cell.configure(ingredient)
+        }
+        
+        return cell
+    }
+}
+
+extension DrinkOrderTableViewCell : UICollectionViewDelegate {
+    
 }

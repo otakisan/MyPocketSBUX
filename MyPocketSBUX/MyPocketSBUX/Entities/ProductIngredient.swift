@@ -23,6 +23,7 @@ class ProductIngredient: NSManagedObject {
     @NSManaged var enabled: NSNumber
     @NSManaged var quantityType: NSNumber
     @NSManaged var remarks: String
+    @NSManaged var icon: NSData?
     @NSManaged var createdAt: NSDate
     @NSManaged var updatedAt: NSDate
     @NSManaged var orderDetail: OrderDetail?

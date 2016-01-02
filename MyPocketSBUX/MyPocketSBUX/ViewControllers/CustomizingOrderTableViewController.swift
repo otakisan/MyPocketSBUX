@@ -281,6 +281,7 @@ class CustomizingOrderTableViewController: UITableViewController,
                         current.name = customItemListViewController.editResults.first?.name ?? ""
                         current.enable = customItemListViewController.editResults.first?.enable ?? false
                         current.quantityType = customItemListViewController.editResults.first?.quantityType ?? .Normal
+                        current.icon = customItemListViewController.editResults.first?.icon
                         
                         // 総額を更新
                         self.updateTotalPrice()

@@ -194,6 +194,11 @@ class ParseContentsManager: ContentsManager {
                                     productIngredientEntity.enabled = productIngredient["enabled"] as? NSNumber ?? 0
                                     productIngredientEntity.quantityType = productIngredient["quantityType"] as? NSNumber ?? 0
                                     productIngredientEntity.remarks = productIngredient["remarks"] as? String ?? ""
+                                    
+                                    if let iconDataFile = productIngredient["icon"] as? PFFile, let iconData = try? iconDataFile.getData() {
+                                        productIngredientEntity.icon = iconData
+                                    }
+                                    
                                     productIngredientEntity.createdAt = productIngredient.createdAt ?? DateUtility.minimumDate()
                                     productIngredientEntity.updatedAt = productIngredient.updatedAt ?? DateUtility.minimumDate()
                                     

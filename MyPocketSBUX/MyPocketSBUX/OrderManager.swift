@@ -33,6 +33,7 @@ class OrderManager: NSObject {
             ingredientEntity.enabled = ingredient.enable
             ingredientEntity.quantityType = ingredient.quantityType.hashValue
             ingredientEntity.remarks = ""
+            ingredientEntity.icon = ingredient.icon
             ingredientEntity.createdAt = now
             ingredientEntity.updatedAt = now
             ingredientEntity.orderDetail = orderDetail
@@ -137,6 +138,7 @@ class OrderManager: NSObject {
         ingredient.enable = Bool(productIngredient.enabled)
         ingredient.quantityType = QuantityType.fromNumeric(Int(productIngredient.quantityType))
         ingredient.isPartOfOriginalIngredients = !Bool(productIngredient.isCustom)
+        ingredient.icon = productIngredient.icon
         
         return ingredient
     }

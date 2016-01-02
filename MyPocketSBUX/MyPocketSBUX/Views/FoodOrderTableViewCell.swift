@@ -10,16 +10,12 @@ import UIKit
 
 class FoodOrderTableViewCell: OrderTableViewCell {
 
-    @IBOutlet weak var customizationLabel: UILabel!
+    @IBOutlet weak var ingredientsCollectionView: UICollectionView!
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var orderSwitch: UISwitch!
     
     @IBOutlet weak var calorieLabel: UILabel!
-    
-    @IBAction func touchUpInsideEditButton(sender: UIButton) {
-        super.touchUpInsideOrderEdit(self)
-    }
     
     @IBAction override func valueChangedOrderSwitch(sender: UISwitch) {
         super.valueChangedOrderSwitch(sender)
@@ -49,8 +45,7 @@ class FoodOrderTableViewCell: OrderTableViewCell {
             self.orderSwitch.on = orderListItem.on
 
             self.calorieLabel.text = "\(self.calorieForOrder())"
-            
-            self.customizationLabel.text = self.orderListItem?.customizationItems?.ingredients.reduce("", combine: {$0! + ($0 != "" ? ", " : "") + ($1.name ?? "")})
+            self.ingredientsCollectionView.reloadData()
         }
     }
     

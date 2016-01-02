@@ -62,6 +62,12 @@ class ParseOrderManager: OrderManager {
                                     pfProductIngredient[productIngredientEnabledKey] = productIngredient.enabled
                                     pfProductIngredient[productIngredientQuantityTypeKey] = productIngredient.quantityType
                                     pfProductIngredient[productIngredientRemarksKey] = productIngredient.remarks
+                                    
+                                    if let iconData = productIngredient.icon, let pffileIcon = PFFile(data: iconData) {
+                                        try pffileIcon.save()
+                                        pfProductIngredient["icon"] = pffileIcon
+                                    }
+                                    
                                     try pfProductIngredient.save() // Pointerを設定する前に保存する必要がある
                                     //pfProductIngredient.saveEventually()
                                     

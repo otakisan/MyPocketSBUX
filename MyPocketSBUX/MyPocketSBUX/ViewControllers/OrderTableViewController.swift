@@ -135,7 +135,7 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return indexPath.section == 0 ? CGFloat(44) : CGFloat(100)
+        return indexPath.section == 0 ? CGFloat(44) : CGFloat(72)
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

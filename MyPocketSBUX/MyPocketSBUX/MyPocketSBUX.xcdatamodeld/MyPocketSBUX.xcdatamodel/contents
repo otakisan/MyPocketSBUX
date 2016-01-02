@@ -106,6 +106,7 @@
     <entity name="ProductIngredient" representedClassName="MyPocketSBUX.ProductIngredient" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="enabled" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="icon" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="isCustom" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="milkType" optional="YES" attributeType="String" syncable="YES"/>
@@ -249,7 +250,7 @@
         <element name="OrderDetail" positionX="-45" positionY="144" width="128" height="300"/>
         <element name="Pairing" positionX="286" positionY="99" width="128" height="148"/>
         <element name="PressRelease" positionX="-63" positionY="-18" width="128" height="150"/>
-        <element name="ProductIngredient" positionX="-36" positionY="153" width="128" height="255"/>
+        <element name="ProductIngredient" positionX="-36" positionY="153" width="128" height="270"/>
         <element name="Seminar" positionX="108" positionY="135" width="128" height="225"/>
         <element name="Store" positionX="-54" positionY="36" width="128" height="328"/>
         <element name="SyncRequest" positionX="108" positionY="135" width="128" height="105"/>

@@ -198,12 +198,13 @@ class Ingredient : Equatable {
     var enable : Bool = false
     var quantityType : QuantityType = .Normal
     var isPartOfOriginalIngredients : Bool = false
+    var icon : NSData?
     
     init(){
         
     }
     
-    init(type : CustomizationIngredientype, name : String, unitCalorie : Int, unitPrice : Int, quantity : Int, enable : Bool, quantityType : QuantityType, isPartOfOriginalIngredients : Bool){
+    init(type : CustomizationIngredientype, name : String, unitCalorie : Int, unitPrice : Int, quantity : Int, enable : Bool, quantityType : QuantityType, isPartOfOriginalIngredients : Bool, icon : NSData?){
         self.type = type
         self.name = name
         self.unitCalorie = unitCalorie
@@ -212,10 +213,11 @@ class Ingredient : Equatable {
         self.enable = enable
         self.quantityType = quantityType
         self.isPartOfOriginalIngredients = isPartOfOriginalIngredients
+        self.icon = icon != nil ? NSData(data: icon!) : nil
     }
     
     convenience init(srcIngredient : Ingredient) {
-        self.init(type: srcIngredient.type, name: srcIngredient.name, unitCalorie: srcIngredient.unitCalorie, unitPrice: srcIngredient.unitPrice, quantity: srcIngredient.quantity, enable: srcIngredient.enable, quantityType: srcIngredient.quantityType, isPartOfOriginalIngredients: srcIngredient.isPartOfOriginalIngredients)
+        self.init(type: srcIngredient.type, name: srcIngredient.name, unitCalorie: srcIngredient.unitCalorie, unitPrice: srcIngredient.unitPrice, quantity: srcIngredient.quantity, enable: srcIngredient.enable, quantityType: srcIngredient.quantityType, isPartOfOriginalIngredients: srcIngredient.isPartOfOriginalIngredients, icon : srcIngredient.icon)
     }
     
     func overrideQuantity(newQuantity : Int) -> Ingredient {
