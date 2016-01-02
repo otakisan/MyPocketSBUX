@@ -191,7 +191,7 @@ class HotOrIcedCustomizingOrderTableViewCell : CustomizingOrderTableViewCell {
         // TODO: 暫定処理
         if let category = self.orderListItem?.productEntity?.valueForKey("category") as? String {
             self.hotOrIcedSegment.enabled = (category != "frappuccino")
-            self.orderListItem?.hotOrIce = orderListItem.hotOrIce
+            self.orderListItem?.hotOrIce = (category == "frappuccino") ? "Iced" : orderListItem.hotOrIce
             self.hotOrIcedSegment.selectedSegmentIndex = -1
         }
         

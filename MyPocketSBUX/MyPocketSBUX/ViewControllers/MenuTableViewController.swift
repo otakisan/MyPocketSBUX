@@ -361,7 +361,7 @@ class MenuTableViewController: UITableViewController, MenuListItemTableViewCellD
                 orderListItem.totalPrice = (orderListItem.productEntity?.valueForKey("price") as? NSNumber ?? NSNumber(integer: 0)).integerValue
                 orderListItem.on = m.isOnOrderList
                 orderListItem.size = .Tall
-                orderListItem.hotOrIce = "Hot"
+                orderListItem.hotOrIce = (orderListItem.productEntity?.valueForKey("category") as? String == "frappuccino") ? "Iced" : "Hot"
                 orderListItem.originalItems = IngredientCollection()
                 orderListItem.originalItems?.ingredients = IngredientManager.instance.getAvailableCustomizationChoices(orderListItem.productEntity?.valueForKey("janCode") as? String ?? "").originals
                 orderListItem.nutritionEntities = m.nutritionEntities

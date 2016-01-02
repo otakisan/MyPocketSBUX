@@ -47,6 +47,8 @@ class DrinkOrderTableViewCell: OrderTableViewCell {
             self.orderSwitch.on = orderListItem.on
             
             self.calorieLabel.text = "\(self.calorieForOrder()) kcal"
+            self.sizeLabel.text = self.orderListItem?.size.name()
+            self.miscLabel.text = (self.orderListItem?.oneMoreCoffee ?? false) ? "1 more" : ""
             
             // TODO: 初回だけ、二重処理になってしまう
             self.ingredientsCollectionView.reloadData()

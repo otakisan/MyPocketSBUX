@@ -281,6 +281,15 @@ class CustomizingOrderTableViewController: UITableViewController,
 //                else {
                     if let current = self.orderItem?.originalItems?.ingredients.filter( { $0.name == customItemListViewController.customItemForEdit!.name }).first {
                         
+                        // TODO: Soyの+50円はひとまずここで対応
+                        if customItemListViewController.editResults.first?.name == IngredientNames.soyMilk {
+                            current.quantity = 1
+                            current.unitPrice = 50
+                        } else {
+                            current.quantity = 0
+                            current.unitPrice = 0
+                        }
+                        
                         current.name = customItemListViewController.editResults.first?.name ?? ""
                         current.enable = customItemListViewController.editResults.first?.enable ?? false
                         current.quantityType = customItemListViewController.editResults.first?.quantityType ?? .Normal
