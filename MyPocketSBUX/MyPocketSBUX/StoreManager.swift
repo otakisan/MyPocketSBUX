@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class StoreManager: NSObject {
     static var instance: StoreManager = BaseFactory.instance.createStoreManager()
@@ -69,6 +70,71 @@ class StoreManager: NSObject {
             
             Stores.insertEntity(entity)
         }
+    }
+    
+    func storesFromHereWithin(distance : Double, stores : [Store], completion : ([Store], [NSError]?) -> Void) -> Bool {
+        
+        var hasHereInfo = false
+        if let hereCoordinate = LocationContext.current.coordinate {
+            hasHereInfo = true
+            
+            self.storesWithin((hereCoordinate.latitude, hereCoordinate.longitude), distance: distance, stores: stores, completion: completion)
+        }
+        
+        return hasHereInfo
+    }
+    
+    // distanceはメートル
+    func storesWithin(fromCoordinate : (latitude : Double, longitude : Double), distance : Double, stores : [Store], completion : ([Store], [NSError]?) -> Void) {
+        
+        // ワーカースレッドに移行し、そこで距離によるフィルタを行う
+        // 全件完了するまで待機し、完了後、コールバックする
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
+            // １次フィルタ（直線距離）
+            let storesFilteredStep1 = stores.filter({ (store) -> Bool in
+                return LocationCalculator.instance.locationDistance(
+                    CLLocationCoordinate2D(latitude: fromCoordinate.latitude, longitude: fromCoordinate.longitude),
+                    loc2: CLLocationCoordinate2D(latitude: Double(store.latitude), longitude: Double(store.longitude))) < distance
+            })
+            
+            // ２次フィルタ（経路探索）
+            // 件数が多いと捌ききれないので一定数未満の場合のみ実施
+            // TODO: ２次フィルタの対象とする上限値は、様子を見て設定画面より変更可能とする
+            var storeFiltered : [Store] = []
+            var errors : [NSError]?
+            if storesFilteredStep1.count < 25 {
+                let locationDistanceQueue = NSOperationQueue()
+                let addStoreQueue = NSOperationQueue()
+                addStoreQueue.maxConcurrentOperationCount = 1
+                
+                for storeFilteredStep1 in storesFilteredStep1 {
+                    locationDistanceQueue.addOperationWithBlock({ () -> Void in
+                        let result = LocationCalculator.instance.locationDistanceRouteSync(CLLocationCoordinate2D(latitude: fromCoordinate.latitude, longitude: fromCoordinate.longitude), toCoordinate: CLLocationCoordinate2D(latitude: Double(storeFilteredStep1.latitude), longitude: Double(storeFilteredStep1.longitude)))
+                        
+                        if let errorInfo = result.error {
+                            addStoreQueue.addOperationWithBlock({ () -> Void in
+                                errors = errors ?? [NSError]()
+                                errors?.append(errorInfo)
+                            })
+                        }
+                        else if result.error == nil && result.distance < distance {
+                            addStoreQueue.addOperationWithBlock({ () -> Void in
+                                storeFiltered.append(storeFilteredStep1)
+                            })
+                        }
+                    })
+                }
+                
+                locationDistanceQueue.waitUntilAllOperationsAreFinished()
+                addStoreQueue.waitUntilAllOperationsAreFinished()
+            }
+            else{
+                storeFiltered = storesFilteredStep1
+            }
+            
+            completion(storeFiltered, errors)
+        }
+        
     }
 
 }

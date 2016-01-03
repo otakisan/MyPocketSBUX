@@ -22,10 +22,18 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         var wasActive = false
         var wasFirstResponder = false
     }
+    
+    let distanceSegments = [
+        (name : "All", distance : 0),
+        (name : "1km", distance : 1),
+        (name : "2km", distance : 2),
+        (name : "5km", distance : 5),
+        (name : "10km", distance : 10)
+    ]
+    var distanceSegment : UISegmentedControl!
 
     var storeEntities : [Store] = []
     var storesData : [[String:AnyObject]]?
-    var groupKeyToIndex : [Int:Int] = [:]
     var storeAnnotations : [(coordinate : (latitude : Double, longitude : Double), title : String, subStitle : String, store : Store?)] = []
 
     // Search controller to help us with filtering.
@@ -82,16 +90,17 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         
         // グループが配下に項目を管理
         var results : [[String:AnyObject]] = []
+        var groupKeyToIndex : [Int:Int] = [:]
         
         for entity in entities {
             
             let prefId = Int(entity.prefId)
         
-            if self.groupKeyToIndex[prefId] == nil {
-                self.groupKeyToIndex[prefId] = self.groupKeyToIndex.count
+            if groupKeyToIndex[prefId] == nil {
+                groupKeyToIndex[prefId] = groupKeyToIndex.count
             }
             
-            if let appendIndex = self.groupKeyToIndex[prefId] {
+            if let appendIndex = groupKeyToIndex[prefId] {
                 if results.count <= appendIndex {
                     results.append([String:AnyObject]())
                 }
@@ -143,14 +152,16 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         // セグメントフィルタ
         let paddingHeight = CGFloat(5.0)
         
-        let segmentedGPS = UISegmentedControl(items: ["All", "Nearby"])
-        segmentedGPS.frame = CGRectMake((searchController.searchBar.frame.width - segmentedGPS.frame.width) / 2.0, searchController.searchBar.frame.height + paddingHeight, segmentedGPS.frame.width, segmentedGPS.frame.height)
+        self.distanceSegment = UISegmentedControl(items: self.distanceSegments.map{$0.name})
+        self.distanceSegment.frame = CGRectMake((searchController.searchBar.frame.width - self.distanceSegment.frame.width) / 2.0, searchController.searchBar.frame.height + paddingHeight, self.distanceSegment.frame.width, self.distanceSegment.frame.height)
+        self.distanceSegment.selectedSegmentIndex = 0
+        self.distanceSegment.addTarget(self, action: "valueChangedDistanceSegment:", forControlEvents: .ValueChanged)
         
         // _______________
         // 親ビュー
-        let superView = UIView(frame: CGRectMake(0, 0, searchController.searchBar.frame.width, searchController.searchBar.frame.height + segmentedGPS.frame.height + paddingHeight * 2))
+        let superView = UIView(frame: CGRectMake(0, 0, searchController.searchBar.frame.width, searchController.searchBar.frame.height + self.distanceSegment.frame.height + paddingHeight * 2))
         superView.addSubview(searchController.searchBar)
-        superView.addSubview(segmentedGPS)
+        superView.addSubview(self.distanceSegment)
         superView.backgroundColor = UIColor.whiteColor()
         
         self.tableView.tableHeaderView = superView
@@ -358,6 +369,17 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         _ = LocationContext.current.coordinate
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        // TODO: 本来はAutoLayoutで行うべき？
+        if storesData != nil {
+            self.searchController.searchBar.sizeToFit()
+            let paddingHeight = CGFloat(5.0)
+            self.distanceSegment.frame = CGRectMake((searchController.searchBar.frame.width - self.distanceSegment.frame.width) / 2.0, searchController.searchBar.frame.height + paddingHeight, self.distanceSegment.frame.width, self.distanceSegment.frame.height)
+        }
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -494,6 +516,56 @@ class StoresTableViewController: StoresBaseTableViewController, UISearchBarDeleg
         self.dismissViewControllerAnimated(true, completion: {})
     }
 
+    func didDismissSearchController(searchController: UISearchController){
+        // サーチコントローラー表示後に画面の向きが変わっている場合への対応
+        self.view.setNeedsLayout()
+    }
+    
+    func valueChangedDistanceSegment(distanceSegment : UISegmentedControl) {
+        print("segindex : \(distanceSegment.selectedSegmentIndex) name : \(self.distanceSegments[distanceSegment.selectedSegmentIndex].name) distance : \(self.distanceSegments[distanceSegment.selectedSegmentIndex].distance)")
+        
+        self.distanceSegment.enabled = false
+        if self.distanceSegments[distanceSegment.selectedSegmentIndex].name == "All" {
+            self.storesData = self.convertGroupedArray(self.storeEntities)
+            self.enableDistanceSegmentAfterReloadData()
+        } else {
+            // メートルに変換
+            let distanceMeter = Double(self.distanceSegments[distanceSegment.selectedSegmentIndex].distance) * 1000.0
+            
+            let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+            activityIndicator.hidesWhenStopped = true
+            activityIndicator.center = self.view.center
+            self.view.addSubview(activityIndicator)
+            activityIndicator.startAnimating()
+
+            let hasHereInfo = StoreManager.instance.storesFromHereWithin(distanceMeter, stores: self.storeEntities) { (storesFiltered, error) -> Void in
+
+                let grouped = self.convertGroupedArray(storesFiltered)
+                self.dispatch_async_main({ () -> () in
+                    activityIndicator.stopAnimating()
+                    self.storesData = grouped
+                    self.enableDistanceSegmentAfterReloadData()
+                })
+            }
+            
+            if !hasHereInfo {
+                activityIndicator.stopAnimating()
+                
+                let alertController = UIAlertController(title: "Unable to get your current location.", message: "Please turn on location services", preferredStyle: UIAlertControllerStyle.Alert)
+                let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                alertController.addAction(okAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
+                self.distanceSegment.enabled = true
+            }
+        }
+    }
+    
+    private func enableDistanceSegmentAfterReloadData() {
+        self.reloadData()
+        self.dispatch_async_main { () -> () in
+            self.distanceSegment.enabled = true
+        }
+    }
 }
 
 protocol StoresTableViewDelegate {

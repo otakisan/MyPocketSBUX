@@ -141,6 +141,7 @@
 		16D41F8E1C33B0CE003D187E /* MyPageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D41F8D1C33B0CE003D187E /* MyPageTableViewController.swift */; };
 		16D41F901C33C015003D187E /* ParseNotificationUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D41F8F1C33C015003D187E /* ParseNotificationUtility.swift */; };
 		16DD37A11C365B0500E021C5 /* IngredientCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DD37A01C365B0500E021C5 /* IngredientCollectionViewCell.swift */; };
+		16DD37A51C39032800E021C5 /* LocationCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DD37A41C39032800E021C5 /* LocationCalculator.swift */; };
 		16DF6D461B188EE000BD079A /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DF6D451B188EE000BD079A /* Order.swift */; };
 		16DF6D481B188EE100BD079A /* OrderDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DF6D471B188EE100BD079A /* OrderDetail.swift */; };
 		16DF6D4A1B188EE100BD079A /* ProductIngredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DF6D491B188EE100BD079A /* ProductIngredient.swift */; };
@@ -348,6 +349,7 @@
 		16D41F8D1C33B0CE003D187E /* MyPageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageTableViewController.swift; sourceTree = "<group>"; };
 		16D41F8F1C33C015003D187E /* ParseNotificationUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseNotificationUtility.swift; sourceTree = "<group>"; };
 		16DD37A01C365B0500E021C5 /* IngredientCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientCollectionViewCell.swift; sourceTree = "<group>"; };
+		16DD37A41C39032800E021C5 /* LocationCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCalculator.swift; sourceTree = "<group>"; };
 		16DF6D451B188EE000BD079A /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		16DF6D471B188EE100BD079A /* OrderDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetail.swift; sourceTree = "<group>"; };
 		16DF6D491B188EE100BD079A /* ProductIngredient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductIngredient.swift; sourceTree = "<group>"; };
@@ -703,6 +705,7 @@
 			children = (
 				16C979DF1AD2C88F00543120 /* LocationContext.swift */,
 				16C979E11AD5E50400543120 /* StoreAnnotation.swift */,
+				16DD37A41C39032800E021C5 /* LocationCalculator.swift */,
 			);
 			path = Location;
 			sourceTree = "<group>";
@@ -942,6 +945,7 @@
 				16253F171BF80E2F00A68FB8 /* FindFriendsTableViewController.swift in Sources */,
 				16F21E4A1ADA0A6C0052AD2A /* Food.swift in Sources */,
 				16CAF7901AE28CE000318AE5 /* DrinkOrderTableViewCell.swift in Sources */,
+				16DD37A51C39032800E021C5 /* LocationCalculator.swift in Sources */,
 				16253F291C01515A00A68FB8 /* TastingLogsCollectionViewController.swift in Sources */,
 				16757DCA1AF6FAF100925C50 /* MakingCoffeeContentsManager.swift in Sources */,
 				16DF6D4C1B1FBC1200BD079A /* AccountSettingsViewController.swift in Sources */,
