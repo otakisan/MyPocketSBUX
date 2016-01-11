@@ -20,6 +20,7 @@ class VisitsTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.navigationItem.title = "Visits".localized()
         
         self.fetchRecentOrders()
     }

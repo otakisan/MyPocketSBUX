@@ -1,0 +1,78 @@
+/* 
+  Localizable.strings
+  MyPocketSBUX
+
+  Created by takashi on 2016/01/09.
+  Copyright © 2016年 Takashi Ikeda. All rights reserved.
+*/
+"CustomizingOrder" = "カスタマイズオーダー";
+"MyPage" = "My Page";
+"Detail" = "詳細";
+"Details" = "詳細";
+"Copy" = "コピー";
+"Edit" = "編集";
+"Cancel" = "キャンセル";
+"ViewDetails" = "詳細を参照";
+"Settings" = "設定";
+"Followers" = "フォロワー";
+"Following" = "フォロー中";
+"EditProfile" = "プロフィールを編集";
+"Close." = "閉じる";
+"Close" = "閉じる";
+"FailedCreateAccount" = "アカウントの作成に失敗しました";
+"MakeSureYourInput" = "入力を確認してください";
+"DifferentPasswords" = "パスワードが異なっています";
+"You" = "あなた";
+"Comments" = "コメント";
+"Delete" = "削除";
+"DeleteConfirmation" = "削除しますか？";
+"General" = "";
+"Original" = "オリジナル";
+"Custom" = "カスタム";
+"bio." = "自己紹介";
+"RemoveCurrentPicture" = "現在の写真を削除";
+"ChooseFromLibrary" = "フォトライブラリーから選択";
+"TakePicture" = "写真を撮る";
+"FollowRequests" = "フォローリクエスト";
+"PleaseLogInOrSignUp" = "ログインするか、アカウントを登録してください";
+"YesIWillDo" = "はい、そうします";
+"NoIWillSkip" = "いいえ、スキップします";
+"InsufficientInput" = "入力不足です";
+"PromptInputUsernamePassword" = "username, passwordの両方を入力してください。";
+"FailedToSignIn" = "ログインに失敗しました。";
+"FailedToRegisterAccount" = "登録に失敗しました。";
+"PleaseSignIn" = "ログインしてください";
+"OrderComplete" = "オーダー完了";
+"Drink" = "ドリンク";
+"Food" = "フード";
+"Total" = "合計";
+"tax-excluded" = "税抜";
+"tax-included" = "税込";
+"Product" = "商品";
+"Products" = "商品";
+"Clear" = "クリア";
+"CoffeeAndFoodPairings" = "フードペアリング";
+"NutritionFactsCalories" = "栄養成分（カロリー）";
+"Succeeded" = "成功しました";
+"Failed" = "失敗しました";
+"SignedIn" = "ログインしました";
+"Select" = "選択";
+"TastingLogs" = "テイスティングログ";
+"Saved" = "保存しました";
+"SeatingCapacity" = "定員";
+"SeatAvailability" = "空席状況";
+"SeatAvailabilityAvailable" = "申込可";
+"SeatAvailabilityAlmostFull" = "残りわずか";
+"SeatAvailabilityFull" = "満席";
+"TastingDate" = "テイスティングした日";
+"Store" = "店舗";
+"PhotoLibrary" = "フォトライブラリー";
+"TakePhotoOrVideo" = "写真またはビデオを撮影する";
+"ProductDetails" = "商品詳細";
+"BeansCard" = "ビーンズカード";
+"Official" = "オフィシャル";
+"Music" = "音楽";
+"FindFriends" = "友達を検索";
+"Orders" = "オーダー";
+"Visits" = "来店";
+"PressReleases" = "Press Releases";

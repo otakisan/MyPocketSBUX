@@ -36,7 +36,7 @@ class FollowRequestsTableViewController: PFQueryTableViewController {
         // Required if our subclasses are to use: dequeueReusableCellWithIdentifier:forIndexPath:
         tableView.registerNib(nib, forCellReuseIdentifier: Constants.TableViewCell.identifier)
         
-        self.navigationItem.title = "Follow Requests"
+        self.navigationItem.title = "FollowRequests".localized()
     }
 
     override func didReceiveMemoryWarning() {

@@ -1,0 +1,642 @@
+
+/* Class = "UIButton"; normalTitle = "OK"; ObjectID = "02t-RW-DVy"; */
+"02t-RW-DVy.normalTitle" = "OK";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "08k-Zv-hqC"; */
+"08k-Zv-hqC.text" = "Subtitle";
+
+/* Class = "UILabel"; text = "My Pocket ID"; ObjectID = "0OG-27-6Mp"; */
+"0OG-27-6Mp.text" = "ユーザーID";
+
+/* Class = "UISegmentedControl"; 1LM-5U-QmV.segmentTitles[0] = "↓"; ObjectID = "1LM-5U-QmV"; */
+"1LM-5U-QmV.segmentTitles[0]" = "↓";
+
+/* Class = "UISegmentedControl"; 1LM-5U-QmV.segmentTitles[1] = "-"; ObjectID = "1LM-5U-QmV"; */
+"1LM-5U-QmV.segmentTitles[1]" = "-";
+
+/* Class = "UISegmentedControl"; 1LM-5U-QmV.segmentTitles[2] = "↑"; ObjectID = "1LM-5U-QmV"; */
+"1LM-5U-QmV.segmentTitles[2]" = "↑";
+
+/* Class = "UILabel"; text = "Content Title"; ObjectID = "1Tk-56-tz3"; */
+"1Tk-56-tz3.text" = "Content Title";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "1W3-VQ-bfP"; */
+"1W3-VQ-bfP.text" = "Label";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "1aw-CC-42W"; */
+"1aw-CC-42W.text" = "Title";
+
+/* Class = "UILabel"; text = "Password"; ObjectID = "1fx-y2-qfp"; */
+"1fx-y2-qfp.text" = "パスワード";
+
+/* Class = "UIButton"; normalTitle = "Add"; ObjectID = "1ni-ha-DYj"; */
+"1ni-ha-DYj.normalTitle" = "追加";
+
+/* Class = "UISegmentedControl"; 1ok-HF-aHD.segmentTitles[0] = "iTunes"; ObjectID = "1ok-HF-aHD"; */
+"1ok-HF-aHD.segmentTitles[0]" = "iTunes";
+
+/* Class = "UISegmentedControl"; 1ok-HF-aHD.segmentTitles[1] = "YouTube"; ObjectID = "1ok-HF-aHD"; */
+"1ok-HF-aHD.segmentTitles[1]" = "YouTube";
+
+/* Class = "UILabel"; text = "¥88888"; ObjectID = "1pU-5Z-j7M"; */
+"1pU-5Z-j7M.text" = "¥88888";
+
+/* Class = "UILabel"; text = "8888 kcal"; ObjectID = "3Ir-NB-ohm"; */
+"3Ir-NB-ohm.text" = "8888 kcal";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "3MC-GO-6B5"; */
+"3MC-GO-6B5.normalTitle" = "キャンセル";
+
+/* Class = "UILabel"; text = "Settings"; ObjectID = "3SW-b3-pb8"; */
+"3SW-b3-pb8.text" = "設定";
+
+/* Class = "UIBarButtonItem"; title = "Order"; ObjectID = "3Xo-d8-clV"; */
+"3Xo-d8-clV.title" = "オーダー";
+
+/* Class = "UILabel"; text = "(0)"; ObjectID = "3gO-hN-NCh"; */
+"3gO-hN-NCh.text" = "(0)";
+
+/* Class = "UILabel"; text = "Recent Visits"; ObjectID = "4GU-Li-LaP"; */
+"4GU-Li-LaP.text" = "来店履歴";
+
+/* Class = "UILabel"; text = "My Pocket ID"; ObjectID = "4Sm-2X-PL2"; */
+"4Sm-2X-PL2.text" = "ユーザーID";
+
+/* Class = "UINavigationItem"; title = "Custom Item List"; ObjectID = "4fa-vJ-0Mh"; */
+"4fa-vJ-0Mh.title" = "カスタマイズアイテム";
+
+/* Class = "UILabel"; text = "Following"; ObjectID = "4t0-cL-giw"; */
+"4t0-cL-giw.text" = "フォロー中";
+
+/* Class = "UIButton"; normalTitle = "OK"; ObjectID = "5vi-ro-wS3"; */
+"5vi-ro-wS3.normalTitle" = "OK";
+
+/* Class = "UILabel"; text = "¥8888"; ObjectID = "6Ah-p7-jKv"; */
+"6Ah-p7-jKv.text" = "¥8888";
+
+/* Class = "UILabel"; text = "issue date"; ObjectID = "6Yy-Ub-c8F"; */
+"6Yy-Ub-c8F.text" = "issue date";
+
+/* Class = "UITextField"; placeholder = "comment ..."; ObjectID = "6Z6-NU-h7W"; */
+"6Z6-NU-h7W.placeholder" = "コメント ...";
+
+/* Class = "UILabel"; text = "(private settings)"; ObjectID = "6qd-jl-cOW"; */
+"6qd-jl-cOW.text" = "(private settings)";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "6rB-VF-yDD"; */
+"6rB-VF-yDD.text" = "Name";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "71g-Po-9cs"; */
+"71g-Po-9cs.text" = "0";
+
+/* Class = "UILabel"; text = "grande"; ObjectID = "72h-Xd-Lsn"; */
+"72h-Xd-Lsn.text" = "grande";
+
+/* Class = "UILabel"; text = "Product Name"; ObjectID = "7Og-gj-MzP"; */
+"7Og-gj-MzP.text" = "Product Name";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "7jw-DJ-Wup"; */
+"7jw-DJ-Wup.text" = "Title";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "8m9-Vv-ji9"; */
+"8m9-Vv-ji9.text" = "0";
+
+/* Class = "UILabel"; text = "Password(Re:)"; ObjectID = "95w-PU-9fe"; */
+"95w-PU-9fe.text" = "パスワード(再:)";
+
+/* Class = "UILabel"; text = "Bio."; ObjectID = "9Qi-uy-vfo"; */
+"9Qi-uy-vfo.text" = "自己紹介";
+
+/* Class = "UILabel"; text = "Account"; ObjectID = "9oJ-4L-YZt"; */
+"9oJ-4L-YZt.text" = "アカウント";
+
+/* Class = "UILabel"; text = "8888 kcal"; ObjectID = "9wx-vu-ceF"; */
+"9wx-vu-ceF.text" = "8888 kcal";
+
+/* Class = "UILabel"; text = "Origami®"; ObjectID = "A54-aj-0it"; */
+"A54-aj-0it.text" = "Origami®";
+
+/* Class = "UILabel"; text = "Music"; ObjectID = "AMD-3l-xgi"; */
+"AMD-3l-xgi.text" = "音楽";
+
+/* Class = "UIButton"; normalTitle = "Edit"; ObjectID = "AUS-Su-gBZ"; */
+"AUS-Su-gBZ.normalTitle" = "編集";
+
+/* Class = "UILabel"; text = "Twitter"; ObjectID = "Aqj-2F-iuH"; */
+"Aqj-2F-iuH.text" = "Twitter";
+
+/* Class = "UILabel"; text = "Reusable Cup"; ObjectID = "B1j-Z2-uXS"; */
+"B1j-Z2-uXS.text" = "カップ値引き";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "BIR-Mw-xzl"; */
+"BIR-Mw-xzl.text" = "Title";
+
+/* Class = "UILabel"; text = "Pour Over"; ObjectID = "BdR-lV-dNj"; */
+"BdR-lV-dNj.text" = "ハンドドリップ";
+
+/* Class = "UINavigationItem"; title = "Beans & Goods"; ObjectID = "BnC-w1-cee"; */
+"BnC-w1-cee.title" = "コーヒー豆とグッズ";
+
+/* Class = "UILabel"; text = "Espresso"; ObjectID = "C5O-PM-7v2"; */
+"C5O-PM-7v2.text" = "エスプレッソ";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "C6N-Ma-Ulh"; */
+"C6N-Ma-Ulh.text" = "Title";
+
+/* Class = "UIBarButtonItem"; title = "Order"; ObjectID = "CIr-wn-AQd"; */
+"CIr-wn-AQd.title" = "オーダー";
+
+/* Class = "UISegmentedControl"; Cf7-ng-V8j.segmentTitles[0] = "light"; ObjectID = "Cf7-ng-V8j"; */
+"Cf7-ng-V8j.segmentTitles[0]" = "多";
+
+/* Class = "UISegmentedControl"; Cf7-ng-V8j.segmentTitles[1] = "normal"; ObjectID = "Cf7-ng-V8j"; */
+"Cf7-ng-V8j.segmentTitles[1]" = "標準";
+
+/* Class = "UISegmentedControl"; Cf7-ng-V8j.segmentTitles[2] = "extra"; ObjectID = "Cf7-ng-V8j"; */
+"Cf7-ng-V8j.segmentTitles[2]" = "少";
+
+/* Class = "UILabel"; text = "Espresso"; ObjectID = "DEZ-Cv-79W"; */
+"DEZ-Cv-79W.text" = "エスプレッソ";
+
+/* Class = "UILabel"; text = "(Tall) ¥8888"; ObjectID = "DPJ-zQ-NU0"; */
+"DPJ-zQ-NU0.text" = "(Tall) ¥8888";
+
+/* Class = "UILabel"; text = "detail ..."; ObjectID = "DQe-ku-nWa"; */
+"DQe-ku-nWa.text" = "詳細 ...";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "E4D-ef-hCr"; */
+"E4D-ef-hCr.text" = "Title";
+
+/* Class = "UILabel"; text = "ID"; ObjectID = "EUE-Ac-Ilp"; */
+"EUE-Ac-Ilp.text" = "ID";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "Eid-JP-4Tl"; */
+"Eid-JP-4Tl.text" = "Subtitle";
+
+/* Class = "UILabel"; text = "like"; ObjectID = "FHr-AS-wSH"; */
+"FHr-AS-wSH.text" = "いいね！";
+
+/* Class = "UILabel"; text = "¥8888"; ObjectID = "FZn-j7-gZT"; */
+"FZn-j7-gZT.text" = "¥8888";
+
+/* Class = "UILabel"; text = "Sauce Cell"; ObjectID = "GDO-uh-STl"; */
+"GDO-uh-STl.text" = "Sauce Cell";
+
+/* Class = "UIPageViewController"; title = "Making Coffee Page"; ObjectID = "GRG-ay-7f4"; */
+"GRG-ay-7f4.title" = "Making Coffee Page";
+
+/* Class = "UITabBarItem"; title = "SBUX"; ObjectID = "Gjs-13-Xcp"; */
+"Gjs-13-Xcp.title" = "SBUX";
+
+/* Class = "UILabel"; text = "8888 kcal"; ObjectID = "HbG-xl-Iug"; */
+"HbG-xl-Iug.text" = "8888 kcal";
+
+/* Class = "UILabel"; text = "VIA®"; ObjectID = "JCc-bA-KzC"; */
+"JCc-bA-KzC.text" = "VIA®";
+
+/* Class = "UILabel"; text = "Drink Name"; ObjectID = "KIw-MO-6La"; */
+"KIw-MO-6La.text" = "Drink Name";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "KRT-pc-aMf"; */
+"KRT-pc-aMf.text" = "Title";
+
+/* Class = "UILabel"; text = "Custom Item Name"; ObjectID = "KrX-hQ-FLD"; */
+"KrX-hQ-FLD.text" = "Custom Item Name";
+
+/* Class = "UILabel"; text = "Followers"; ObjectID = "MBf-OS-Iaj"; */
+"MBf-OS-Iaj.text" = "フォロワー";
+
+/* Class = "UITextView"; text = "Bio."; ObjectID = "MEK-2h-SsU"; */
+"MEK-2h-SsU.text" = "自己紹介";
+
+/* Class = "UILabel"; text = "Product Name"; ObjectID = "MsQ-dH-bpr"; */
+"MsQ-dH-bpr.text" = "商品名";
+
+/* Class = "UITabBarItem"; title = "MyPage"; ObjectID = "NSd-2s-Yhc"; */
+"NSd-2s-Yhc.title" = "マイページ";
+
+/* Class = "UILabel"; text = "ヘーゼルナッツ シロップ"; ObjectID = "NbZ-sm-rFv"; */
+"NbZ-sm-rFv.text" = "ヘーゼルナッツ シロップ";
+
+/* Class = "UILabel"; text = "8888 kcal"; ObjectID = "NwP-Da-IrH"; */
+"NwP-Da-IrH.text" = "8888 kcal";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "OFl-vc-PCh"; */
+"OFl-vc-PCh.text" = "Title";
+
+/* Class = "UISegmentedControl"; OHT-1i-hRf.segmentTitles[0] = "light"; ObjectID = "OHT-1i-hRf"; */
+"OHT-1i-hRf.segmentTitles[0]" = "少";
+
+/* Class = "UISegmentedControl"; OHT-1i-hRf.segmentTitles[1] = "normal"; ObjectID = "OHT-1i-hRf"; */
+"OHT-1i-hRf.segmentTitles[1]" = "標準";
+
+/* Class = "UISegmentedControl"; OHT-1i-hRf.segmentTitles[2] = "extra"; ObjectID = "OHT-1i-hRf"; */
+"OHT-1i-hRf.segmentTitles[2]" = "多";
+
+/* Class = "UITableViewSection"; headerTitle = "Private Information"; ObjectID = "OMP-DA-WTP"; */
+"OMP-DA-WTP.headerTitle" = "非公開情報";
+
+/* Class = "UILabel"; text = "Activity"; ObjectID = "OQO-wf-pu3"; */
+"OQO-wf-pu3.text" = "アクティビティ";
+
+/* Class = "UILabel"; text = "Vanilla Syrup"; ObjectID = "OZ9-G6-Yqa"; */
+"OZ9-G6-Yqa.text" = "Vanilla Syrup";
+
+/* Class = "UINavigationItem"; title = "Tasting Log"; ObjectID = "Oez-al-s53"; */
+"Oez-al-s53.title" = "テイスティングログ";
+
+/* Class = "UILabel"; text = "Private Account"; ObjectID = "PSO-Xu-kIL"; */
+"PSO-Xu-kIL.text" = "非公開アカウント";
+
+/* Class = "UILabel"; text = "Follow Requests"; ObjectID = "PeV-Eg-Bo5"; */
+"PeV-Eg-Bo5.text" = "フォローリクエスト";
+
+/* Class = "UITableViewController"; title = "Seminars"; ObjectID = "QKp-D5-Gni"; */
+"QKp-D5-Gni.title" = "コーヒーセミナー";
+
+/* Class = "UILabel"; text = "Tasting Logs"; ObjectID = "QaM-yT-CNP"; */
+"QaM-yT-CNP.text" = "テイスティングログ";
+
+/* Class = "UILabel"; text = "Official Contents"; ObjectID = "R1Q-4t-RTr"; */
+"R1Q-4t-RTr.text" = "公式コンテンツ";
+
+/* Class = "UILabel"; text = "store ..."; ObjectID = "R6C-2u-EXX"; */
+"R6C-2u-EXX.text" = "店舗 ...";
+
+/* Class = "UILabel"; text = "¥88,888"; ObjectID = "R8v-8X-vzJ"; */
+"R8v-8X-vzJ.text" = "¥88,888";
+
+/* Class = "UIButton"; normalTitle = "Edit"; ObjectID = "RaG-J0-Ot2"; */
+"RaG-J0-Ot2.normalTitle" = "編集";
+
+/* Class = "UINavigationItem"; title = "Recommendation Parameters"; ObjectID = "Raz-NN-9Ey"; */
+"Raz-NN-9Ey.title" = "Recommendation Parameters";
+
+/* Class = "UISegmentedControl"; SPb-FW-lag.segmentTitles[0] = "light"; ObjectID = "SPb-FW-lag"; */
+"SPb-FW-lag.segmentTitles[0]" = "少";
+
+/* Class = "UISegmentedControl"; SPb-FW-lag.segmentTitles[1] = "normal"; ObjectID = "SPb-FW-lag"; */
+"SPb-FW-lag.segmentTitles[1]" = "標準";
+
+/* Class = "UISegmentedControl"; SPb-FW-lag.segmentTitles[2] = "extra"; ObjectID = "SPb-FW-lag"; */
+"SPb-FW-lag.segmentTitles[2]" = "多";
+
+/* Class = "UILabel"; text = "Food Name"; ObjectID = "SZj-oD-rzY"; */
+"SZj-oD-rzY.text" = "Food Name";
+
+/* Class = "UINavigationItem"; title = "New Account"; ObjectID = "TH1-Wh-IVq"; */
+"TH1-Wh-IVq.title" = "新規アカウント";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "Tbc-6C-DBe"; */
+"Tbc-6C-DBe.text" = "0";
+
+/* Class = "UINavigationItem"; title = "Stores"; ObjectID = "TdS-y9-X6d"; */
+"TdS-y9-X6d.title" = "店舗";
+
+/* Class = "UILabel"; text = "Product Name"; ObjectID = "UJj-TF-Hj0"; */
+"UJj-TF-Hj0.text" = "商品名";
+
+/* Class = "UILabel"; text = "More"; ObjectID = "UNn-bC-3w3"; */
+"UNn-bC-3w3.text" = "More";
+
+/* Class = "UINavigationItem"; title = "Sign in"; ObjectID = "Uuw-fC-FFw"; */
+"Uuw-fC-FFw.title" = "ログイン";
+
+/* Class = "UILabel"; text = "1 more"; ObjectID = "VAS-Zc-eL0"; */
+"VAS-Zc-eL0.text" = "1 more";
+
+/* Class = "UILabel"; text = "Find Friends"; ObjectID = "VLQ-vR-ESu"; */
+"VLQ-vR-ESu.text" = "友達を検索";
+
+/* Class = "UITextField"; placeholder = "tag ..."; ObjectID = "VNu-J0-Hzg"; */
+"VNu-J0-Hzg.placeholder" = "タグ ...";
+
+/* Class = "UILabel"; text = "tasting date ..."; ObjectID = "Wcr-p8-mtT"; */
+"Wcr-p8-mtT.text" = "テイスティングした日 ...";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "WpP-eO-bKe"; */
+"WpP-eO-bKe.text" = "Title";
+
+/* Class = "UILabel"; text = "E-mail"; ObjectID = "Xag-Fc-W73"; */
+"Xag-Fc-W73.text" = "E-mail";
+
+/* Class = "UILabel"; text = "Coffee & Food Pairings"; ObjectID = "YLR-sb-7Zj"; */
+"YLR-sb-7Zj.text" = "フードペアリング";
+
+/* Class = "UILabel"; text = "Seminars"; ObjectID = "YZo-xX-RnU"; */
+"YZo-xX-RnU.text" = "コーヒーセミナー";
+
+/* Class = "UILabel"; text = "Whipped Cream"; ObjectID = "ZHC-MV-8cn"; */
+"ZHC-MV-8cn.text" = "ホイップクリーム";
+
+/* Class = "UILabel"; text = "Recent Orders"; ObjectID = "ZuJ-ZB-qfl"; */
+"ZuJ-ZB-qfl.text" = "オーダー履歴";
+
+/* Class = "UILabel"; text = "Blog"; ObjectID = "aiF-wS-bZy"; */
+"aiF-wS-bZy.text" = "Blog";
+
+/* Class = "UILabel"; text = "Beans Card"; ObjectID = "bUt-i8-Edf"; */
+"bUt-i8-Edf.text" = "ビーンズカード";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "bVP-mk-P1N"; */
+"bVP-mk-P1N.text" = "Title";
+
+/* Class = "UILabel"; text = "Add Store ..."; ObjectID = "brp-mx-L50"; */
+"brp-mx-L50.text" = "店舗を追加 ...";
+
+/* Class = "UILabel"; text = "One More Coffee"; ObjectID = "btL-2f-0YN"; */
+"btL-2f-0YN.text" = "ワンモアコーヒー";
+
+/* Class = "UINavigationItem"; title = "Order"; ObjectID = "cLj-hi-PX3"; */
+"cLj-hi-PX3.title" = "オーダー";
+
+/* Class = "UILabel"; text = "Official Website"; ObjectID = "cQy-Ii-FXa"; */
+"cQy-Ii-FXa.text" = "公式ウェブサイト";
+
+/* Class = "UITableViewController"; title = "Customizing Food Order"; ObjectID = "d0B-qP-yz9"; */
+"d0B-qP-yz9.title" = "Customizing Food Order";
+
+/* Class = "UIBarButtonItem"; title = "Next"; ObjectID = "d9N-sg-X67"; */
+"d9N-sg-X67.title" = "次へ";
+
+/* Class = "UITabBarItem"; title = "Stores"; ObjectID = "dHh-Cu-VNk"; */
+"dHh-Cu-VNk.title" = "店舗";
+
+/* Class = "UIButton"; normalTitle = "+ Follow"; ObjectID = "deo-eB-EFu"; */
+"deo-eB-EFu.normalTitle" = "+ Follow";
+
+/* Class = "UILabel"; text = "+9"; ObjectID = "dpw-CV-pal"; */
+"dpw-CV-pal.text" = "+9";
+
+/* Class = "UIViewController"; title = "Making Coffee Page Content"; ObjectID = "eF2-Eo-4As"; */
+"eF2-Eo-4As.title" = "Making Coffee Page Content";
+
+/* Class = "UILabel"; text = "¥8888"; ObjectID = "eN2-tm-mGY"; */
+"eN2-tm-mGY.text" = "¥8888";
+
+/* Class = "UITextField"; placeholder = "Name"; ObjectID = "eWP-dZ-MNn"; */
+"eWP-dZ-MNn.placeholder" = "名前";
+
+/* Class = "UIBarButtonItem"; title = "Maps"; ObjectID = "eZG-xy-k9w"; */
+"eZG-xy-k9w.title" = "地図";
+
+/* Class = "UILabel"; text = "French Press"; ObjectID = "ef6-Hd-aUs"; */
+"ef6-Hd-aUs.text" = "コーヒープレス";
+
+/* Class = "UITextField"; placeholder = "your description ..."; ObjectID = "et3-zo-2ge"; */
+"et3-zo-2ge.placeholder" = "気づいたこと ...";
+
+/* Class = "UILabel"; text = "Password"; ObjectID = "ey2-vc-UK0"; */
+"ey2-vc-UK0.text" = "パスワード";
+
+/* Class = "UISegmentedControl"; fO7-VY-4oM.segmentTitles[0] = "0"; ObjectID = "fO7-VY-4oM"; */
+"fO7-VY-4oM.segmentTitles[0]" = "0";
+
+/* Class = "UISegmentedControl"; fO7-VY-4oM.segmentTitles[1] = "1"; ObjectID = "fO7-VY-4oM"; */
+"fO7-VY-4oM.segmentTitles[1]" = "1";
+
+/* Class = "UISegmentedControl"; fO7-VY-4oM.segmentTitles[2] = "2"; ObjectID = "fO7-VY-4oM"; */
+"fO7-VY-4oM.segmentTitles[2]" = "2";
+
+/* Class = "UISegmentedControl"; fO7-VY-4oM.segmentTitles[3] = "3"; ObjectID = "fO7-VY-4oM"; */
+"fO7-VY-4oM.segmentTitles[3]" = "3";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "fcI-cA-705"; */
+"fcI-cA-705.placeholder" = "Email";
+
+/* Class = "UITabBarItem"; title = "Menu"; ObjectID = "fnB-Jp-iE9"; */
+"fnB-Jp-iE9.title" = "メニュー";
+
+/* Class = "UITableViewSection"; headerTitle = "Account"; ObjectID = "g1V-69-XVO"; */
+"g1V-69-XVO.headerTitle" = "アカウント";
+
+/* Class = "UILabel"; text = "Espresso Shot"; ObjectID = "g4A-ii-fNS"; */
+"g4A-ii-fNS.text" = "Espresso Shot";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "g4g-HC-TJj"; */
+"g4g-HC-TJj.text" = "Detail";
+
+/* Class = "UINavigationItem"; title = "Order Confirmation"; ObjectID = "h7x-jp-6SM"; */
+"h7x-jp-6SM.title" = "オーダー確認";
+
+/* Class = "UIButton"; normalTitle = "Sign out"; ObjectID = "hBc-pR-Vue"; */
+"hBc-pR-Vue.normalTitle" = "ログアウト";
+
+/* Class = "UISegmentedControl"; hKN-8Q-RUd.segmentTitles[0] = "-4"; ObjectID = "hKN-8Q-RUd"; */
+"hKN-8Q-RUd.segmentTitles[0]" = "-4";
+
+/* Class = "UISegmentedControl"; hKN-8Q-RUd.segmentTitles[1] = "-3"; ObjectID = "hKN-8Q-RUd"; */
+"hKN-8Q-RUd.segmentTitles[1]" = "-3";
+
+/* Class = "UISegmentedControl"; hKN-8Q-RUd.segmentTitles[2] = "-2"; ObjectID = "hKN-8Q-RUd"; */
+"hKN-8Q-RUd.segmentTitles[2]" = "-2";
+
+/* Class = "UISegmentedControl"; hKN-8Q-RUd.segmentTitles[3] = "-1"; ObjectID = "hKN-8Q-RUd"; */
+"hKN-8Q-RUd.segmentTitles[3]" = "-1";
+
+/* Class = "UISegmentedControl"; hKN-8Q-RUd.segmentTitles[4] = "0"; ObjectID = "hKN-8Q-RUd"; */
+"hKN-8Q-RUd.segmentTitles[4]" = "0";
+
+/* Class = "UISegmentedControl"; hKN-8Q-RUd.segmentTitles[5] = "1"; ObjectID = "hKN-8Q-RUd"; */
+"hKN-8Q-RUd.segmentTitles[5]" = "1";
+
+/* Class = "UISegmentedControl"; hKN-8Q-RUd.segmentTitles[6] = "2"; ObjectID = "hKN-8Q-RUd"; */
+"hKN-8Q-RUd.segmentTitles[6]" = "2";
+
+/* Class = "UISegmentedControl"; hKN-8Q-RUd.segmentTitles[7] = "3"; ObjectID = "hKN-8Q-RUd"; */
+"hKN-8Q-RUd.segmentTitles[7]" = "3";
+
+/* Class = "UISegmentedControl"; hKN-8Q-RUd.segmentTitles[8] = "4"; ObjectID = "hKN-8Q-RUd"; */
+"hKN-8Q-RUd.segmentTitles[8]" = "4";
+
+/* Class = "UINavigationItem"; title = "Custom Item List (Static)"; ObjectID = "hQX-FM-A1e"; */
+"hQX-FM-A1e.title" = "Custom Item List (Static)";
+
+/* Class = "UILabel"; text = "Edit Profile"; ObjectID = "iLr-uk-pnR"; */
+"iLr-uk-pnR.text" = "プロフィール編集";
+
+/* Class = "UILabel"; text = "Milk"; ObjectID = "iTy-l1-ey5"; */
+"iTy-l1-ey5.text" = "ミルク";
+
+/* Class = "UIViewController"; title = "Store Map"; ObjectID = "iXQ-70-624"; */
+"iXQ-70-624.title" = "店舗マップ";
+
+/* Class = "UILabel"; text = "Recommendations"; ObjectID = "iai-N1-5d4"; */
+"iai-N1-5d4.text" = "おすすめ";
+
+/* Class = "UILabel"; text = "order ..."; ObjectID = "jBJ-wO-4Xa"; */
+"jBJ-wO-4Xa.text" = "オーダー ...";
+
+/* Class = "UILabel"; text = "News"; ObjectID = "jBd-IY-7B2"; */
+"jBd-IY-7B2.text" = "プレスリリース";
+
+/* Class = "UILabel"; text = "Description"; ObjectID = "jCi-nU-JTD"; */
+"jCi-nU-JTD.text" = "Description";
+
+/* Class = "UIViewController"; title = "CustomizingOrderViewController"; ObjectID = "jI3-Gv-h7X"; */
+"jI3-Gv-h7X.title" = "CustomizingOrderViewController";
+
+/* Class = "UISegmentedControl"; jNp-Xo-sLv.segmentTitles[0] = "Hot"; ObjectID = "jNp-Xo-sLv"; */
+"jNp-Xo-sLv.segmentTitles[0]" = "Hot";
+
+/* Class = "UISegmentedControl"; jNp-Xo-sLv.segmentTitles[1] = "Iced"; ObjectID = "jNp-Xo-sLv"; */
+"jNp-Xo-sLv.segmentTitles[1]" = "Iced";
+
+/* Class = "UILabel"; text = "Ticket"; ObjectID = "jrH-ta-MeC"; */
+"jrH-ta-MeC.text" = "チケット";
+
+/* Class = "UILabel"; text = "Chocolate Chip"; ObjectID = "jsb-Z7-rp7"; */
+"jsb-Z7-rp7.text" = "Chocolate Chip";
+
+/* Class = "UILabel"; text = "¥8888"; ObjectID = "kAp-9e-3oS"; */
+"kAp-9e-3oS.text" = "¥8888";
+
+/* Class = "UIButton"; normalTitle = "Sign in"; ObjectID = "keJ-ux-FEG"; */
+"keJ-ux-FEG.normalTitle" = "ログイン";
+
+/* Class = "UILabel"; text = "(0)"; ObjectID = "l8G-SX-yG4"; */
+"l8G-SX-yG4.text" = "(0)";
+
+/* Class = "UILabel"; text = "Product Name"; ObjectID = "lxo-YE-S4L"; */
+"lxo-YE-S4L.text" = "商品名";
+
+/* Class = "UITableViewController"; title = "Making Coffee"; ObjectID = "mV7-nx-WEo"; */
+"mV7-nx-WEo.title" = "抽出方法";
+
+/* Class = "UILabel"; text = "comment"; ObjectID = "n3I-Vz-2NM"; */
+"n3I-Vz-2NM.text" = "コメント";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "nZa-DN-Dt3"; */
+"nZa-DN-Dt3.text" = "Subtitle";
+
+/* Class = "UILabel"; text = "Parameters"; ObjectID = "ndd-6D-Llp"; */
+"ndd-6D-Llp.text" = "Parameters";
+
+/* Class = "UILabel"; text = "Facebook"; ObjectID = "nrr-hx-KEQ"; */
+"nrr-hx-KEQ.text" = "Facebook";
+
+/* Class = "UIButton"; normalTitle = "Send"; ObjectID = "o2F-Po-436"; */
+"o2F-Po-436.normalTitle" = "送信";
+
+/* Class = "UILabel"; text = "Logs"; ObjectID = "ofj-J5-cTw"; */
+"ofj-J5-cTw.text" = "ログ";
+
+/* Class = "UISegmentedControl"; ooO-Ui-Ien.segmentTitles[0] = "light"; ObjectID = "ooO-Ui-Ien"; */
+"ooO-Ui-Ien.segmentTitles[0]" = "少";
+
+/* Class = "UISegmentedControl"; ooO-Ui-Ien.segmentTitles[1] = "normal"; ObjectID = "ooO-Ui-Ien"; */
+"ooO-Ui-Ien.segmentTitles[1]" = "標準";
+
+/* Class = "UISegmentedControl"; ooO-Ui-Ien.segmentTitles[2] = "extra"; ObjectID = "ooO-Ui-Ien"; */
+"ooO-Ui-Ien.segmentTitles[2]" = "多";
+
+/* Class = "UITextField"; placeholder = "Input your notes"; ObjectID = "p8h-Tb-awr"; */
+"p8h-Tb-awr.placeholder" = "メモを記入";
+
+/* Class = "UINavigationItem"; title = "Tasting Logs"; ObjectID = "pGI-Qm-5FS"; */
+"pGI-Qm-5FS.title" = "テイスティングログ";
+
+/* Class = "UITableViewController"; title = "CustomItemList(Static)"; ObjectID = "pXb-ln-B0B"; */
+"pXb-ln-B0B.title" = "CustomItemList(Static)";
+
+/* Class = "UILabel"; text = "Making Coffee"; ObjectID = "pg1-ZK-Ggh"; */
+"pg1-ZK-Ggh.text" = "抽出方法";
+
+/* Class = "UISegmentedControl"; pq9-To-stN.segmentTitles[0] = "Short"; ObjectID = "pq9-To-stN"; */
+"pq9-To-stN.segmentTitles[0]" = "Short";
+
+/* Class = "UISegmentedControl"; pq9-To-stN.segmentTitles[1] = "Tall"; ObjectID = "pq9-To-stN"; */
+"pq9-To-stN.segmentTitles[1]" = "Tall";
+
+/* Class = "UISegmentedControl"; pq9-To-stN.segmentTitles[2] = "Grande"; ObjectID = "pq9-To-stN"; */
+"pq9-To-stN.segmentTitles[2]" = "Grande";
+
+/* Class = "UISegmentedControl"; pq9-To-stN.segmentTitles[3] = "Venti®"; ObjectID = "pq9-To-stN"; */
+"pq9-To-stN.segmentTitles[3]" = "Venti®";
+
+/* Class = "UILabel"; text = "Add Custom Item "; ObjectID = "pv2-ZX-l7u"; */
+"pv2-ZX-l7u.text" = "カスタマイズ追加";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "qFO-WJ-h0l"; */
+"qFO-WJ-h0l.text" = "Detail";
+
+/* Class = "UILabel"; text = "Syrup Cell"; ObjectID = "qVF-3h-Rot"; */
+"qVF-3h-Rot.text" = "Syrup Cell";
+
+/* Class = "UILabel"; text = "8888 kcal"; ObjectID = "qiF-qd-i9d"; */
+"qiF-qd-i9d.text" = "8888 kcal";
+
+/* Class = "UILabel"; text = "Coffee Roast"; ObjectID = "rfg-aB-MPX"; */
+"rfg-aB-MPX.text" = "Coffee Roast";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "rn1-Os-CBm"; */
+"rn1-Os-CBm.text" = "Subtitle";
+
+/* Class = "UISegmentedControl"; sWL-CT-v7X.segmentTitles[0] = "light"; ObjectID = "sWL-CT-v7X"; */
+"sWL-CT-v7X.segmentTitles[0]" = "少なめ";
+
+/* Class = "UISegmentedControl"; sWL-CT-v7X.segmentTitles[1] = "normal"; ObjectID = "sWL-CT-v7X"; */
+"sWL-CT-v7X.segmentTitles[1]" = "標準";
+
+/* Class = "UISegmentedControl"; sWL-CT-v7X.segmentTitles[2] = "extra"; ObjectID = "sWL-CT-v7X"; */
+"sWL-CT-v7X.segmentTitles[2]" = "多め";
+
+/* Class = "UILabel"; text = "Beans & Goods"; ObjectID = "syF-EW-Yfp"; */
+"syF-EW-Yfp.text" = "コーヒー豆とグッズ";
+
+/* Class = "UILabel"; text = "+888 yen"; ObjectID = "tXj-8X-KPX"; */
+"tXj-8X-KPX.text" = "+888 yen";
+
+/* Class = "UILabel"; text = "Site for playing tunes"; ObjectID = "tdU-lH-oQb"; */
+"tdU-lH-oQb.text" = "楽曲再生するサイト";
+
+/* Class = "UILabel"; text = "Product Name"; ObjectID = "uR7-FN-O7L"; */
+"uR7-FN-O7L.text" = "商品名";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "ubM-Z0-5QU"; */
+"ubM-Z0-5QU.text" = "Title";
+
+/* Class = "UITableViewSection"; headerTitle = "Section-1"; ObjectID = "ugu-uA-2lY"; */
+"ugu-uA-2lY.headerTitle" = "Section-1";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "v7G-Q7-SRA"; */
+"v7G-Q7-SRA.normalTitle" = "キャンセル";
+
+/* Class = "UITableViewController"; title = "My Page"; ObjectID = "vCS-vQ-ykE"; */
+"vCS-vQ-ykE.title" = "マイページ";
+
+/* Class = "UILabel"; text = "¥888"; ObjectID = "vEv-7j-qZu"; */
+"vEv-7j-qZu.text" = "¥888";
+
+/* Class = "UITableViewSection"; headerTitle = "Music"; ObjectID = "w5k-gg-PH8"; */
+"w5k-gg-PH8.headerTitle" = "音楽";
+
+/* Class = "UITableViewController"; title = "Order"; ObjectID = "w8G-V8-6Ch"; */
+"w8G-V8-6Ch.title" = "オーダー";
+
+/* Class = "UISegmentedControl"; wHx-JV-smg.segmentTitles[0] = "Whl"; ObjectID = "wHx-JV-smg"; */
+"wHx-JV-smg.segmentTitles[0]" = "全乳";
+
+/* Class = "UISegmentedControl"; wHx-JV-smg.segmentTitles[1] = "2%"; ObjectID = "wHx-JV-smg"; */
+"wHx-JV-smg.segmentTitles[1]" = "低";
+
+/* Class = "UISegmentedControl"; wHx-JV-smg.segmentTitles[2] = "Non"; ObjectID = "wHx-JV-smg"; */
+"wHx-JV-smg.segmentTitles[2]" = "無";
+
+/* Class = "UISegmentedControl"; wHx-JV-smg.segmentTitles[3] = "Soy"; ObjectID = "wHx-JV-smg"; */
+"wHx-JV-smg.segmentTitles[3]" = "豆乳";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "wK0-Id-Wgh"; */
+"wK0-Id-Wgh.text" = "Subtitle";
+
+/* Class = "UITableViewSection"; headerTitle = "Public"; ObjectID = "wKM-So-LhK"; */
+"wKM-So-LhK.headerTitle" = "公開情報";
+
+/* Class = "UILabel"; text = "Profile"; ObjectID = "xbv-R5-Zlj"; */
+"xbv-R5-Zlj.text" = "プロフィール";
+
+/* Class = "UINavigationItem"; title = "Menu"; ObjectID = "xoO-oz-LXH"; */
+"xoO-oz-LXH.title" = "メニュー";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "y7H-pI-DhQ"; */
+"y7H-pI-DhQ.text" = "Subtitle";

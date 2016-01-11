@@ -164,7 +164,7 @@ class TastingAtTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, Da
     
     func reloadLabel(date: NSDate){
         if date == DateUtility.minimumDate() {
-            self.tasitingDateLabel.text = "tasting date ..."
+            self.tasitingDateLabel.text = "\("TastingDate".localized()) ..."
             self.tasitingDateLabel.textColor = UIColor.lightGrayColor()
         }
         else{
@@ -218,7 +218,7 @@ class StoreTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, Stores
     
     func reloadLabel(text: String){
         if text == "" {
-            self.storeLabel.text = "store ..."
+            self.storeLabel.text = "\("Store".localized()) ..."
             self.storeLabel.textColor = UIColor.lightGrayColor()
         }
         else{
@@ -241,7 +241,7 @@ class DetailTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, TextV
     
     @IBOutlet weak var detailLabel: UILabel!
     
-    var placeHolderText = "detail ..."
+    var placeHolderText = "\("Detail".localized()) ..."
     var detailText = ""
     
     override func configure(tastingLog: TastingLog) {
@@ -328,7 +328,7 @@ class OrderTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, Orders
     
     func reloadLabel(text: String){
         if text == "" {
-            self.orderLabel.text = "order ..."
+            self.orderLabel.text = "\("Order".localized()) ..."
             self.orderLabel.textColor = UIColor.lightGrayColor()
         }
         else{
@@ -407,13 +407,13 @@ class PhotoTastingLogEditorTableViewCell : TastingLogEditorTableViewCell, UIImag
     private func showMultimediaActionSheet() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) {
+        let cancelAction = UIAlertAction(title: "Cancel".localized(), style: .Cancel) {
             action in
         }
-        let photoLibraryAction = UIAlertAction(title: "Photo Library", style: .Default) {
+        let photoLibraryAction = UIAlertAction(title: "PhotoLibrary".localized(), style: .Default) {
             action in self.showImagePickerViewController(.PhotoLibrary)
         }
-        let takePhotoOrVideoAction = UIAlertAction(title: "Take Photo or Video", style: .Default) {
+        let takePhotoOrVideoAction = UIAlertAction(title: "TakePhotoOrVideo".localized(), style: .Default) {
             action in self.showImagePickerViewController(.Camera)
         }
         

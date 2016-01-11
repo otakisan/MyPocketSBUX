@@ -20,6 +20,8 @@ class MyPageTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        self.navigationItem.title = "MyPage".localized()
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,16 +48,16 @@ class MyPageTableViewController: UITableViewController {
     
     private func loginViewOrAnonymous() {
         if !IdentityContext.sharedInstance.signedIn() {
-            let alert = UIAlertController(title: "Please log in or sign up.", message: nil, preferredStyle: .Alert)
-            let yesAction = UIAlertAction(title: "Yes", style: .Default) { (action) -> Void in
+            let alert = UIAlertController(title: "PleaseLogInOrSignUp".localized(), message: nil, preferredStyle: .Alert)
+            let yesAction = UIAlertAction(title: "YesIWillDo".localized(), style: .Default) { (action) -> Void in
                 self.loginView()
             }
-            let noAction = UIAlertAction(title: "No", style: .Default) { (action) -> Void in
+            let noAction = UIAlertAction(title: "NoIWillSkip".localized(), style: .Default) { (action) -> Void in
                 (self.parentViewController?.parentViewController as? UITabBarController)?.selectedIndex = 1
             }
             
-            alert.addAction(yesAction)
             alert.addAction(noAction)
+            alert.addAction(yesAction)
             self.presentViewController(alert, animated: true, completion: nil)
         }
     }
@@ -149,7 +151,7 @@ extension MyPageTableViewController: PFLogInViewControllerDelegate {
             return true // Begin login process
         }
         
-        let alert = UIAlertController(title: "入力不足です", message: "username, passwordの両方を入力してください。", preferredStyle: .Alert)
+        let alert = UIAlertController(title: "InsufficientInput".localized(), message: "PromptInputUsernamePassword".localized(), preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {action in}))
         logInController.presentViewController(alert, animated: true, completion: nil)
         
@@ -164,7 +166,7 @@ extension MyPageTableViewController: PFLogInViewControllerDelegate {
     
     func logInViewController(logInController: PFLogInViewController, didFailToLogInWithError error: NSError?) {
         // アラートを表示。ログイン画面は残す
-        let alert = UIAlertController(title: "", message: "ログインに失敗しました。", preferredStyle: .Alert)
+        let alert = UIAlertController(title: "", message: "FailedToSignIn".localized(), preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {action in}))
         logInController.presentViewController(alert, animated: true, completion: nil)
     }
@@ -189,7 +191,7 @@ extension MyPageTableViewController: PFSignUpViewControllerDelegate {
         
         // Display an alert if a field wasn't completed
         if (!informationComplete) {
-            let alert = UIAlertController(title: "入力不足です", message: "username, passwordの両方を入力してください。", preferredStyle: .Alert)
+            let alert = UIAlertController(title: "InsufficientInput".localized(), message: "PromptInputUsernamePassword".localized(), preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {action in}))
             signUpController.presentViewController(alert, animated: true, completion: nil)
         }
@@ -206,7 +208,7 @@ extension MyPageTableViewController: PFSignUpViewControllerDelegate {
     
     func signUpViewController(signUpController: PFSignUpViewController, didFailToSignUpWithError error: NSError?) {
         // アラートを表示。アカウント登録画面は残す
-        let alert = UIAlertController(title: "", message: "登録に失敗しました。", preferredStyle: .Alert)
+        let alert = UIAlertController(title: "", message: "FailedToRegisterAccount".localized(), preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {action in}))
         signUpController.presentViewController(alert, animated: true, completion: nil)
     }

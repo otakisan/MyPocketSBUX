@@ -30,6 +30,7 @@ class FindFriendsTableViewController: PFQueryTableViewController, FindFriendsCel
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.navigationItem.title = "FindFriends".localized()
         
         // ストーリーボードとは別のxibファイルに存在するから必要だと思われる
         let nib = UINib(nibName: Constants.Nib.name, bundle: nil)

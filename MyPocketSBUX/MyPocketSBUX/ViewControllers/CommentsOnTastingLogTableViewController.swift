@@ -74,7 +74,7 @@ class CommentsOnTastingLogTableViewController: PFQueryTableViewController {
     // スワイプ時に表示する項目
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         
-        let deleteAction = UITableViewRowAction(style: .Default, title: "Delete") {(action, indexPath) in
+        let deleteAction = UITableViewRowAction(style: .Default, title: "Delete".localized()) {(action, indexPath) in
             self.showAlertThenDeleteComment(indexPath)
         }
         deleteAction.backgroundColor = UIColor.redColor()
@@ -83,11 +83,11 @@ class CommentsOnTastingLogTableViewController: PFQueryTableViewController {
     }
 
     func showAlertThenDeleteComment(indexPath : NSIndexPath) {
-        let alertController = UIAlertController(title: "Delete ?", message: "", preferredStyle: .Alert)
+        let alertController = UIAlertController(title: "DeleteConfirmation".localized(), message: "", preferredStyle: .Alert)
         let okAction = UIAlertAction(title: "OK", style: .Default) {
             action in self.deleteComment(indexPath)
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) {
+        let cancelAction = UIAlertAction(title: "Cancel".localized(), style: .Cancel) {
             action in
         }
         

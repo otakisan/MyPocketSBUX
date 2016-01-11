@@ -103,7 +103,7 @@ class CustomizingOrderTableViewController: UITableViewController,
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        self.navigationItem.title = "Customizing Order"
+        self.navigationItem.title = "CustomizingOrder".localized()
     }
 
     override func didReceiveMemoryWarning() {
@@ -151,7 +151,7 @@ class CustomizingOrderTableViewController: UITableViewController,
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.nameMappings[section].section
+        return self.nameMappings[section].section.localized()
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -212,7 +212,7 @@ class CustomizingOrderTableViewController: UITableViewController,
         
         let deleteAction =
         UITableViewRowAction(style: .Default, // 標準のスタイル
-            title: "delete"){(action, indexPath) in
+            title: "Delete".localized()){(action, indexPath) in
                 print("\(indexPath) deleted")
                 // カスタムアイテムを削除
                 self.deleteCustomItem(indexPath)

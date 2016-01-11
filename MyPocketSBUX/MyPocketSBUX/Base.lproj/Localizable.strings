@@ -1,0 +1,49 @@
+/* 
+  Localizable.strings
+  MyPocketSBUX
+
+  Created by takashi on 2016/01/09.
+  Copyright © 2016年 Takashi Ikeda. All rights reserved.
+*/
+"CustomizingOrder" = "Customizing Order";
+"EditProfile" = "Edit Profile";
+"MyPage" = "My Page";
+"Details" = "Details";
+"Copy" = "Copy";
+"Edit" = "Edit";
+"Cancel" = "Cancel";
+"ViewDetails" = "View details";
+"FailedCreateAccount" = "Failed to create the account.";
+"MakeSureYourInput" = "Please make sure your input.";
+"DifferentPasswords" = "Difference between the passwords.";
+"DeleteConfirmation" = "Want to Delete ?";
+"RemoveCurrentPicture" = "Remove current picture";
+"ChooseFromLibrary" = "Choose from Library";
+"TakePicture" = "Take picture";
+"FollowRequests" = "Follow Requests";
+"PleaseLogInOrSignUp" = "Please log in or sign up.";
+"YesIWillDo" = "Yes, I'll do";
+"NoIWillSkip" = "No, I'll skip";
+"InsufficientInput" = "Insufficient input";
+"PromptInputUsernamePassword" = "Please input your username and password";
+"FailedToSignIn" = "Failed to sign in";
+"FailedToRegisterAccount" = "Failed to register your account";
+"PleaseSignIn" = "please sign in.";
+"OrderComplete" = "order completed";
+"CoffeeAndFoodPairings" = "Coffee & Food Pairings";
+"NutritionFactsCalories" = "Nutrition Facts (Calories)";
+"SignedIn" = "signed in";
+"TastingLogs" = "Tasting Logs";
+"Saved" = "saved.";
+"SeatingCapacity" = "Capacity";
+"SeatAvailability" = "Availability";
+"SeatAvailabilityAvailable" = "Available";
+"SeatAvailabilityAlmostFull" = "Almost Full";
+"SeatAvailabilityFull" = "Full";
+"TastingDate" = "tasting date";
+"PhotoLibrary" = "Photo Library";
+"TakePhotoOrVideo" = "Take Photo or Video";
+"ProductDetails" = "Product Details";
+"BeansCard" = "Beans Card";
+"FindFriends" = "Find Friends";
+"PressReleases" = "Press Releases";

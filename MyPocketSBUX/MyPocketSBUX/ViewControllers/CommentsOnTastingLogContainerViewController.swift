@@ -19,7 +19,7 @@ class CommentsOnTastingLogContainerViewController: UIViewController, SendComment
         // Do any additional setup after loading the view.
         self.addCancelButtonIfNeeded()
         
-        self.navigationItem.title = "Comments"
+        self.navigationItem.title = "Comments".localized()
     }
 
     override func didReceiveMemoryWarning() {

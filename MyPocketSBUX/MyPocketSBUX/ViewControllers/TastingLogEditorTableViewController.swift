@@ -114,7 +114,7 @@ class TastingLogEditorTableViewController: UITableViewController, TitleTastingLo
     // スワイプ時に表示する項目
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         
-        let clearAction = UITableViewRowAction(style: .Default, title: "Clear") {(action, indexPath) in
+        let clearAction = UITableViewRowAction(style: .Default, title: "Clear".localized()) {(action, indexPath) in
             if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? TastingLogEditorTableViewCell {
                 cell.clear()
             }

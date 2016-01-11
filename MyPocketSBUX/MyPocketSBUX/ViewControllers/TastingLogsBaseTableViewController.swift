@@ -120,7 +120,7 @@ class TastingLogsBaseTableViewController: UITableViewController, TastingLogEdito
     // スワイプ時に表示する項目
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         
-        let deleteAction = UITableViewRowAction(style: .Default, title: "delete") {
+        let deleteAction = UITableViewRowAction(style: .Default, title: "Delete".localized()) {
             (action, indexPath) in self.deleteAction(indexPath)
         }
         deleteAction.backgroundColor = UIColor.redColor()

@@ -29,7 +29,7 @@ class OrderConfirmationTableViewController: UITableViewController {
         
         // サインイン必須
         if !IdentityContext.sharedInstance.signedIn() {
-            self.showNavigationPrompt("please sign in.", message: "order detail", displayingTime: 2.0)
+            self.showNavigationPrompt("PleaseSignIn".localized(), message: "", displayingTime: 2.0)
             return
         }
         
@@ -38,7 +38,7 @@ class OrderConfirmationTableViewController: UITableViewController {
         
         // 確認の通知を画面上部に
         // TODO: 登録成功時に出力する情報 登録日時、件数、金額、…
-        self.showNavigationPrompt("order complete", message: "order detail", displayingTime: 2.0)
+        self.showNavigationPrompt("OrderComplete".localized(), message: "", displayingTime: 2.0)
         
         // ルートへ戻る
         self.navigationController?.popToRootViewControllerAnimated(true)
@@ -112,14 +112,14 @@ class OrderConfirmationTableViewController: UITableViewController {
             cell.textLabel?.text = "\(name) ¥\(price)"
         } else {
             let price = PriceCalculator.totalPrice(OrderManager.instance.unionOrderListItem(self.orderListItem))
-            cell.textLabel?.text = "¥\(price.taxExcluded) (tax-excluded)  ¥\(price.taxIncluded) (tax-included)"
+            cell.textLabel?.text = "¥\(price.taxExcluded) (\("tax-excluded".localized()))  ¥\(price.taxIncluded) (\("tax-included".localized()))"
         }
 
         return cell
     }
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == OrderHeaderIndex.tableViewSection ? "General" : section < self.tableView.numberOfSections - 1 ? self.orderListItem[section - self.productSectionOffset].category.name() : "Total"
+        return section == OrderHeaderIndex.tableViewSection ? "General".localized() : section < self.tableView.numberOfSections - 1 ? self.orderListItem[section - self.productSectionOffset].category.name().localized() : "Total".localized()
     }
 
     /*

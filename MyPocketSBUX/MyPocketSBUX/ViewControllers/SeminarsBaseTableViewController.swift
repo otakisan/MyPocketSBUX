@@ -24,7 +24,7 @@ class SeminarsBaseTableViewController: UITableViewController {
         }
     }
 
-    let statusMappings = ["1" : "available", "2" : "almost full", "3" : "full"]
+    let statusMappings = ["1" : "SeatAvailabilityAvailable", "2" : "SeatAvailabilityAlmostFull", "3" : "SeatAvailabilityFull"]
     
     var seminars: [[Seminar]] = [[]]
     
@@ -59,11 +59,11 @@ class SeminarsBaseTableViewController: UITableViewController {
             let status = objDic.status
             let startDate = DateUtility.localDateString(objDic.startTime)
             let startTime = DateUtility.localTimeString(objDic.startTime)
-            let capacityLabel = "capacity".localized()
-            let statusLabel = "status".localized()
+            let capacityLabel = "SeatingCapacity".localized()
+            let statusLabel = "SeatAvailability".localized()
             let statusValue = (self.statusMappings[status] == nil ? "" : self.statusMappings[status]!).localized()
             
-            cell.detailTextLabel?.text = "\(startDate) \(startTime)  \(capacityLabel):\(capacity)  \(statusLabel):\(statusValue)"
+            cell.detailTextLabel?.text = "\(startDate) \(startTime)  \(capacityLabel):\(capacity)  \(statusLabel):\(statusValue.localized())"
             cell.textLabel?.text = "\(storeName)"
             
         }

@@ -38,7 +38,7 @@ class FollowingTableViewController: PFQueryTableViewController, BasicProfileTabl
         // Required if our subclasses are to use: dequeueReusableCellWithIdentifier:forIndexPath:
         tableView.registerNib(nib, forCellReuseIdentifier: Constants.TableViewCell.identifier)
         
-        self.navigationItem.title = "Following"
+        self.navigationItem.title = "Following".localized()
         
         // TODO: 一旦、未指定時のデフォルトをログインユーザーとする
         if self.user == nil {

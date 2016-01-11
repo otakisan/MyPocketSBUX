@@ -21,13 +21,15 @@ class ActivitySwipeBetweenViewControllers: SwipeBetweenViewControllers, UIGestur
             storyboard.instantiateViewControllerWithIdentifier("ToYouActivityTableViewController")
         ]
         
-        self.buttonText = ["Following", "You"]
+        self.buttonText = ["Following".localized(), "You".localized()]
                 
         // TODO: 画面を消すための操作として何を提供するのが適切か
         // 暫定的に、スクリーンエッジのスワイプとするが、下記だとナビゲーションバーのところでないと効かない
         let screenEdgeRecognizer = UIScreenEdgePanGestureRecognizer(target: self,  action: "edgePanGesture:")
         screenEdgeRecognizer.edges = .Left
         self.view.addGestureRecognizer(screenEdgeRecognizer)
+        
+        self.navigationItem.title = "Activity".localized()
     }
 
     override func didReceiveMemoryWarning() {

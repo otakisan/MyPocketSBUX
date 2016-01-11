@@ -17,7 +17,7 @@ class ParseNotificationUtility: NotificationUtility {
                 // TODO: カレントユーザーと関係のあるユーザーにのみ通知するようにする
                 query.whereKey("user", notEqualTo: currentUser)
                 push.setQuery(query)
-                push.setMessage("\(IdentityContext.sharedInstance.currentUserID) signed in!")
+                push.setMessage("\(IdentityContext.sharedInstance.currentUserID) \("SignedIn".localized())!")
                 push.sendPushInBackground()
             }
         })

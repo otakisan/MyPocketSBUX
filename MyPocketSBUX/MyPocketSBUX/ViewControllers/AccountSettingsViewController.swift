@@ -26,10 +26,10 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate {
                 self.navigationController?.popViewControllerAnimated(true)
             }
             else{
-                UIAlertView(title: "Failed to create the account.", message: result.reason, delegate: nil, cancelButtonTitle: "Close.").show()
+                UIAlertView(title: "FailedCreateAccount".localized(), message: result.reason, delegate: nil, cancelButtonTitle: "Close.".localized()).show()
             }
         }else{
-            UIAlertView(title: validationResult.reason, message: "Please make sure your input.", delegate: nil, cancelButtonTitle: "Close.").show()
+            UIAlertView(title: validationResult.reason, message: "MakeSureYourInput".localized(), delegate: nil, cancelButtonTitle: "Close.".localized()).show()
         }
     }
     
@@ -40,7 +40,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate {
     func valid() -> (valid: Bool, reason: String) {
         // TODO: 空のパスワードでいいのか、等の細かいチェックは後々に。
         return self.passwordTextField.text == self.reenterPasswordTextField.text ?
-        (valid: true, reason: "") : (valid: false, reason: "Difference between the passwords.")
+        (valid: true, reason: "") : (valid: false, reason: "DifferentPasswords".localized())
     }
     
     override func viewDidLoad() {

@@ -166,7 +166,7 @@ class StoresBaseTableViewController: UITableViewController {
         
         let editAction =
         UITableViewRowAction(style: .Normal, // 削除等の破壊的な操作を示さないスタイル
-            title: "select"){(action, indexPath) in
+            title: "Select".localized()){(action, indexPath) in
                 print("\(indexPath) selected")
                 self.selectAndClose(indexPath)
         }

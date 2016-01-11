@@ -198,7 +198,7 @@ class TastingLogsTableViewController: TastingLogsBaseTableViewController, UISear
     
     @IBAction func tastingLogEditorDidSave(segue : UIStoryboardSegue) {
         if let tastingLogEditorViewController = segue.sourceViewController as? TastingLogEditorTableViewController {
-            self.showNavigationPrompt("saved.", message: "log id: \(tastingLogEditorViewController.tastingLog.id)", displayingTime: 500000)
+            self.showNavigationPrompt("Saved".localized(), message: "log id: \(tastingLogEditorViewController.tastingLog.id)", displayingTime: 500000)
             
             self.refreshDataAndReloadTableView()
         }
@@ -226,7 +226,9 @@ class TastingLogsTableViewController: TastingLogsBaseTableViewController, UISear
             ], orderKeys: [(columnName : "tastingAt", ascending : false)], completionHandler: { fetchResults in
             self.tastingLogs = fetchResults.first?.entities as? [TastingLog] ?? []
             self.reloadData({self.refreshing = false})
-            completionHandler?()
+            self.dispatch_async_main({ () -> () in
+                completionHandler?()
+            })
         })
     }
     
@@ -242,7 +244,7 @@ class TastingLogsTableViewController: TastingLogsBaseTableViewController, UISear
     }
     
     override func didSaveTastingLog(tastingLog: TastingLog) {
-        self.showNavigationPrompt("saved.", message: "log id: \(tastingLog.id)", displayingTime: 500000)
+        self.showNavigationPrompt("Saved".localized(), message: "log id: \(tastingLog.id)", displayingTime: 500000)
         
         self.refreshDataAndReloadTableView()
     }

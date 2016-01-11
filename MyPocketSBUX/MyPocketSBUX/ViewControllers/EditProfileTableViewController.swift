@@ -82,7 +82,7 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
     }
 
     private func initialize() {
-        self.navigationItem.title = "Edit Profile"
+        self.navigationItem.title = "EditProfile".localized()
 
         self.nameTextField.delegate = self
         self.bioTextView.delegate = self
@@ -102,7 +102,7 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
             
             self.nameTextField.text = user["displayName"] as? String
             self.idLabel.text = user.username
-            self.bioTextView.text = user["bio"] as? String ?? EditProfileTableViewController.bioPlaceHolder
+            self.bioTextView.text = user["bio"] as? String ?? EditProfileTableViewController.bioPlaceHolder.localized()
             self.emailTextField.text = user["email"] as? String
         }
     }
@@ -110,18 +110,18 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
     private func showProfilePictureActionSheet() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) {
+        let cancelAction = UIAlertAction(title: "Cancel".localized(), style: .Cancel) {
             action in
         }
-        let deleteAction = UIAlertAction(title: "Remove current picture", style: .Default) {
+        let deleteAction = UIAlertAction(title: "RemoveCurrentPicture".localized(), style: .Default) {
             action in
             self.profilePictureImageView.file = nil
             self.profilePictureImageView.image = nil
         }
-        let photoLibraryAction = UIAlertAction(title: "Choose from Library", style: .Default) {
+        let photoLibraryAction = UIAlertAction(title: "ChooseFromLibrary".localized(), style: .Default) {
             action in self.presentImagePickerController(.PhotoLibrary)
         }
-        let takePhotoOrVideoAction = UIAlertAction(title: "Take picture", style: .Default) {
+        let takePhotoOrVideoAction = UIAlertAction(title: "TakePicture".localized(), style: .Default) {
             action in self.presentImagePickerController(.Camera)
         }
         

@@ -24,6 +24,8 @@ class OrdersTableViewController: OrdersBaseTableViewController, UISearchBarDeleg
         self.intializeSearchController()
         
         self.refreshDataAndReloadTableView()
+        
+        self.navigationItem.title = "Orders".localized()
     }
 
     func intializeSearchController() {

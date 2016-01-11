@@ -236,7 +236,7 @@ class MasterDetailOrdersTableViewControllerHandler: OrdersTableViewControllerHan
     }
     
     override func editActionsForRowAtIndexPath(viewController: OrdersBaseTableViewController, indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let deleteAction = UITableViewRowAction(style: .Default, title: "delete") {
+        let deleteAction = UITableViewRowAction(style: .Default, title: "Delete".localized()) {
             (action, indexPath) in viewController.deleteAction(indexPath)
         }
         deleteAction.backgroundColor = UIColor.redColor()

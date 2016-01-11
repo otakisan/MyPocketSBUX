@@ -131,7 +131,7 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 0 ? " " : "Products"
+        return section == 0 ? " " : "Products".localized()
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -165,7 +165,7 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
         
         switch(section) {
         case headerSection:
-            let clearAction = UITableViewRowAction(style: .Default, title: "Clear") {(action, indexPath) in
+            let clearAction = UITableViewRowAction(style: .Default, title: "Clear".localized()) {(action, indexPath) in
                 if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? OrderHeaderTableViewCell {
                     cell.clear()
                 }
@@ -176,15 +176,15 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
             rowActions = [clearAction]
             break
         case productSection:
-            let detailAction = UITableViewRowAction(style: .Default, title: "Details") {(action, indexPath) in
+            let detailAction = UITableViewRowAction(style: .Default, title: "Details".localized()) {(action, indexPath) in
                 self.showProductDetail(self.orderItems[indexPath.row].productEntity as? NSObject)
                 self.tableView.setEditing(false, animated: true)
             }
-            let copyAction = UITableViewRowAction(style: .Default, title: "Copy") {(action, indexPath) in
+            let copyAction = UITableViewRowAction(style: .Default, title: "Copy".localized()) {(action, indexPath) in
                 self.copyProductCell(indexPath)
                 self.tableView.setEditing(false, animated: true)
             }
-            let editAction = UITableViewRowAction(style: .Default, title: "Edit") {(action, indexPath) in
+            let editAction = UITableViewRowAction(style: .Default, title: "Edit".localized()) {(action, indexPath) in
                 if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? OrderTableViewCell {
                     self.touchUpInsideOrderEdit(cell)
                 }
@@ -297,13 +297,13 @@ class OrderTableViewController: UITableViewController, OrderTableViewCellDelegat
     private func showOrderProductActionSheet(indexPath : NSIndexPath) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) {
+        let cancelAction = UIAlertAction(title: "Cancel".localized(), style: .Cancel) {
             action in
         }
-        let copyAction = UIAlertAction(title: "Copy", style: .Default) {
+        let copyAction = UIAlertAction(title: "Copy".localized(), style: .Default) {
             action in self.copyProductCell(indexPath)
         }
-        let detailAction = UIAlertAction(title: "View details", style: .Default) {
+        let detailAction = UIAlertAction(title: "ViewDetails".localized(), style: .Default) {
             action in self.showProductDetail(self.orderItems[indexPath.row].productEntity as? NSObject)
         }
         

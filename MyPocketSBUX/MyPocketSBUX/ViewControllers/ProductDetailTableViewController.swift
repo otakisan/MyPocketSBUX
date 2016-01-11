@@ -54,6 +54,7 @@ class ProductDetailTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.navigationItem.title = "ProductDetails".localized()
         
         self.initialize()
     }
@@ -115,7 +116,7 @@ class ProductDetailTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 0 ? "Product" : "Nutrition Facts (Calories)"
+        return section == 0 ? ""/*"Product".localized()*/ : "NutritionFactsCalories".localized()
     }
 
     /*

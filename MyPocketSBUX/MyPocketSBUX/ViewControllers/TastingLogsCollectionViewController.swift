@@ -46,7 +46,7 @@ class TastingLogsCollectionViewController: PFQueryCollectionViewController, Tast
         //self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
-        self.navigationItem.title = "Tasting Logs"
+        self.navigationItem.title = "TastingLogs".localized()
     }
 
     override func didReceiveMemoryWarning() {
