@@ -462,7 +462,7 @@
 "iXQ-70-624.title" = "店舗マップ";
 
 /* Class = "UILabel"; text = "Recommendations"; ObjectID = "iai-N1-5d4"; */
-"iai-N1-5d4.text" = "おすすめ";
+"iai-N1-5d4.text" = "";
 
 /* Class = "UILabel"; text = "order ..."; ObjectID = "jBJ-wO-4Xa"; */
 "jBJ-wO-4Xa.text" = "オーダー ...";
